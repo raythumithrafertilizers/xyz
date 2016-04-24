@@ -44,7 +44,6 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'Admin',
     'django_cron'
-
 )
 
 MIDDLEWARE_CLASSES = (
