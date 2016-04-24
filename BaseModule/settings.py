@@ -161,6 +161,6 @@ CRON_CLASSES = [
     "Admin.views.MyCronJob"
 ]
 
-import django
-django.setup()
+#import django
+#django.setup()
 
