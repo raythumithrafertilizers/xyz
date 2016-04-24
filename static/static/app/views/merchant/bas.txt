@@ -1,0 +1,56 @@
+<div class="content-wrapper" style="min-height: 916px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Create Loyality
+        <small>Marchant panel</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Create loyality</li>
+      </ol>
+    </section>
+
+ 
+    <section class="content">
+      <!-- info boxes (Stat box) -->
+    <div class="row">
+    
+    </div>      
+  </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper
+
+
+
+
+
+
+
+
+
+
+
+
+
+$http({
+        method: 'post',
+        url: '/user/register',
+        data: {
+                    'firstname': $scope.user.firstname,
+                    "lastname": $scope.user.lastname,
+                    "email" : $scope.user.email,
+                    "phone" : $scope.user.phone,
+                    "password" : $scope.user.password,
+                },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'}
+          }).then(function (response) 
+            {
+               
+
+            }, function errorCallback(response) 
+            {
+                
+          });

@@ -1,0 +1,88 @@
+  <div class="content-wrapper" style="min-height: 946px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Create New Company Bill
+      </h1>
+      <!-- <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Forms</a></li>
+        <li class="active">General Elements</li>
+      </ol> -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box box-danger box-top-border">
+            <div class="box-body">
+            <form ng-submit="uploadPic(picFile)" name="userForm">
+              <div class="row row-sides"> <!-- row start -->
+                <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Company Name(required)</label>
+                    <input type="text" class="form-control"
+                           placeholder="Company Name"
+                           ng-model="company.company_name"
+                           name="company_name"
+                           ng-class="{ 'has-error' : userForm.company_name.$invalid && !userForm.company_name.$pristine }"
+                           required>
+                    <p ng-show="userForm.company_name.$invalid && !userForm.company_name.$pristine"
+                       class="help-block">Company name is required.</p>
+                  </div>
+                </div>
+
+
+              </div> <!-- row end -->
+
+              <div class="row row-sides"> <!-- row start -->
+
+                <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Batch Number</label>
+                    <input type="text" class="form-control" placeholder="Enter Invoice Number" ng-model="company.invoice_number"
+                           name="invoice_number" ng-class="{ 'has-error' : userForm.invoice_number.$invalid }">
+                    <p ng-show="userForm.invoice_number.$invalid" class="help-block">Enter Batch Number.</p>
+                  </div>
+                </div>
+
+
+
+
+              </div> <!-- row end -->
+              <div class="row row-sides"> <!-- row start -->
+
+                <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Select Invoice Image</label>
+                     <input type="file" ngf-select ng-model="picFile"
+                            name="file" accept="image/*"
+                             ngf-model-invalid="errorFile">
+                  </div>
+                </div>
+
+              </div> <!-- row end -->
+
+
+
+              <div class="row row-sides"> <!-- row start -->
+                <button type="submit" class="btn btn-primary btn-flat btn-on-app" ng-disabled="userForm.$invalid">Submit</button>
+              </div> <!-- row end -->
+            </form>
+            <!-- form end -->
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+    

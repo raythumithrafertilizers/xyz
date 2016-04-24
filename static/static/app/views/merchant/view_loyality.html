@@ -1,0 +1,121 @@
+
+<title>View Loyality</title>
+<input type="hidden" id="store_id" ng-model="st_id">
+<div class="content-wrapper" style="min-height: 916px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        View Loyality
+        <small>Marchant panel</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">View loyality</li>
+      </ol>
+    </section>
+
+
+    <section class="content">
+      <!-- info boxes (Stat box) -->
+
+        <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Card Id</th>
+                        <th>Card Name</th>
+                        <th>Max Stamps</th>
+                        
+                        <th>Is Acitve</th>
+                        <th>Approved</th>
+                        <th text-align="center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="card in card_list">
+                        <td align="center">{{card.pk}}</td>
+                        <td> {{card.fields.loyality_card_no}}</td>
+                        <td> {{card.fields.max_stamp}}</td>
+                        <td ng-if="card.fields.is_active==false"> <span style="color:red">Inactive</td>
+                        <td ng-if="card.fields.is_active==true"> <span style="color:green">Active</span></td>
+
+                        <td ng-if="card.fields.is_approved==false"> <span style="color:red">Pending</span></td>
+                        <td ng-if="card.fields.is_approved==true"> <span style="color:green">Approved</span></td>
+                        
+
+                        <td>
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <button class="btn btn-block btn-primary btn-flat" ng-click="show_stamps(card.pk)">View Stamps</button>
+                            </div>
+
+                            <div class="col-lg-6">
+                              <button class="btn btn-block btn-primary btn-flat" ng-click="active_loyality(card.pk)" ng-if="card.fields.is_active==false">Active</button>
+
+                              <button class="btn btn-block btn-primary btn-flat" ng-click="active_loyality(card.pk)" ng-if="card.fields.is_active==true">Inactive</button>
+                            </div>
+                            
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+       
+  </section>
+    <!-- /.content -->
+</div>
+
+<div class="modal fade" id="stamps_detail_modal" role="dialog" >
+    <div class="modal-dialog" style="margin-top:200px;">
+
+<div class="modal-content" style="width:700px;height:auto; " >
+        <div class="modal-header" style="background-color:#EF6262;height:60px;margin-top:-10px">
+          <button type="button" class="close" data-dismiss="modal" style="color:white">x</button>
+          <h3 class="text-center" >Stamps Details</h3>
+        </div>
+        <div class="modal-body">
+      <center>
+      <div id="loca">
+      
+          <table id="example1" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Loyalty id</th>
+                  <th>Offer Id</th>
+                  <th>No of Stamp</th>
+                  <th>Stamp Description</th>
+                  <!-- <th>Action</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="stamps in stamp_list">
+                  <td >{{stamps.fields.stamp_offer_id}}</td>
+                  <td align="center"> {{stamps.fields.no_of_stamp}}</td>
+                  <td> {{stamps.fields.stamp_description}}</td>
+                  <!-- <td ><button>Reedeem</button>  -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </center>
+      </div>
+
+
+        </div>
+        <!-- <div class="modal-footer">
+    <div class="form-group floating-label">
+      <center><button class="btn btn-primary">Add my choice</button></center>
+    </div> -->
+  </div>
+      </div>
+      
+    </div>
+  </div><!-- Modal -->
+<!-- /.content-wrapper

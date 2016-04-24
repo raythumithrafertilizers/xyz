@@ -1,0 +1,67 @@
+  <div class="content-wrapper" style="min-height: 946px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Select Products
+      </h1>
+      <!-- <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Forms</a></li>
+        <li class="active">General Elements</li>
+      </ol> -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box box-danger box-top-border">
+            <div class="box-body">
+            <form ng-submit="processed()" name="userForm">
+              <div class="row row-sides"> <!-- row start -->
+
+
+                <div class="col-xs-12 col-lg-12">
+                   <div class="form-group text-center">
+                    <label >Select Products</label>
+
+
+                    <div isteven-multi-select
+                        input-model="input_temp_array"
+                        output-model="output_temp_array"
+                        button-label="name"
+                        item-label="name type"
+                        tick-property="ticked" class="input-drop">
+                    </div>
+                  </div>
+                </div>
+
+                <!--<div class="col-xs-4">
+                   <div class="form-group">
+
+                  </div>
+                </div>-->
+                <div class="col-xs-12 col-lg-12">
+                    <button style="margin: 0px;" type="submit" class="btn btn-primary btn-flat btn-on-app pull-right"
+                        ng-disabled="userForm.$invalid">Proceed</button></div>
+
+              </div><!-- row end -->
+
+            </form>
+            <!-- form end -->
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+    

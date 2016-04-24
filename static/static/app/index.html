@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="/static/css/dataTables.bootstrap.css">
+     <!-- datatables css -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/bower_components/ngGallery/src/css/ngGallery.css">
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/static/css/ionicons.min.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/static/js/cgbusy/cgbusy.css" type="text/css">
+     <!--<link rel="stylesheet" href="/static/js/select2/select2.min.css" type="text/css">-->
+    <!-- Toastr css  -->
+    <link rel="stylesheet" type="text/css" href="/static/css/toaster.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/static/js/cgbusy/cgbusy.css" type="text/css">
+    <link href="/static/js/toaster/toaster.css" rel="stylesheet" />
+    <!-- app css start -->
+    <link rel="stylesheet" href="static/css/app.css" type="text/css">
+    <link rel="stylesheet" href="static/bower_components/datepicker/bootstrap-datetimepicker.css" type="text/css">
+    <link rel="stylesheet" href="static/bower_components/datepicker/bootstrap-datetimepickersecond.css" type="text/css">
+    <link rel="stylesheet" href="static/bower_components/multiSelect/isteven-multi-select.css" type="text/css">
+
+     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+
+	<style type="text/css">
+		.no-js #loader { display: none;  }
+		.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+		.se-pre-con {
+			position: fixed;
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			height: 100%;
+			z-index: 9999;
+			background: url('/static/images/load.gif') center no-repeat #fff;
+		}
+	</style>
+</head>
+<div class="se-pre-con"></div>
+<body ng-app="App" ng-controller="authCtrl">
+
+	<header class="main-header" ng-show="role=='admin'">
+        <!-- Logo -->
+        <a class="logo">
+          <!-- logo for regular state and mobile devices -->
+          <img src="/static/images/logo-admin.png" style="width: 150px;"/>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+
+              <li class="dropdown user user-menu">
+                <a class="dropdown-toggle" data-toggle="dropdown" ng-click="get_detailed_notifications()">
+                  <div class="notification-div" style="color:red">
+                    [[ notification_ids.length ]]
+                  </div>
+                  <img src="/static/images/notification.png"
+                       class="user-image" alt="User Image">
+                </a>
+
+                <ul class="dropdown-menu profile-pic-bg bg-not">
+                  <!-- User image -->
+                  Days Left On Each Stock
+                  <li style="height: 16%;" class="user-header user-p" ng-repeat="tmp in data.server_data" >
+
+                    <a href="#/edit-stock-details/[[ tmp.stock_id ]]">
+                      <small class="small-tag">
+                        [[ tmp.days_left ]]
+                      </small>
+                      [[ tmp.stock_name ]]
+                    </a>
+
+                  </li>
+
+                </ul>
+              </li>
+
+              <li class="dropdown user user-menu">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                  <img src="/static/images/avatar.jpg" class="user-image" alt="User Image">
+                  <span class="hidden-xs">Administrator </span>
+                </a>
+                <ul class="dropdown-menu profile-pic-bg">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src="/static/images/avatar.jpg" class="img-circle" alt="User Image">
+                    <p>
+                      Admin Stampitgo                    
+                    </p>
+                  </li>
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="/" class="btn bg-purple margin">Profile</a>
+                    </div>
+                    <div class="pull-right">
+                      <a ng-click="logout()" class="btn bg-maroon margin">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+<!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar"  ng-show="role=='admin'">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+            <li>
+              <a href="/#/dashboard" class="col-f">
+                <i class="fa fa-book"></i> 
+                <span>Dashboard</span></a>
+              </li>
+            <li class="treeview">
+              <a class="col-f">
+                <i class="fa fa-dashboard"></i> 
+                <span>Manage Stock</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="col-f">
+                	<a href="/#/add-stock" class="col-f"><i class="fa fa-circle-o">
+
+                    </i> Add Stock
+                	</a>
+                </li>
+                <li class="col-f">
+                	<a href="/#/modify-stock" class="col-f"><i class="fa fa-circle-o"></i> Modify Stock
+                	</a>
+                </li>
+
+              </ul>
+            </li>
+            <li class="treeview">
+
+              <ul class="treeview-menu">
+                <li class="col-f">
+                  <a href="/#/create-loyalty-offer" class="col-f"><i class="fa fa-circle-o"></i> Create loyalty offer
+                  </a>
+                </li>
+                <li class="col-f">
+                  <a href="/#/view-deactivate-offer" class="col-f"><i class="fa fa-circle-o"></i> View or deactivate offers
+                  </a>
+                </li>
+                <li class="col-f">
+                  <a href="/#/approve-loyalty-cards" class="col-f"><i class="fa fa-circle-o"></i> loyalty approvals
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a class="col-f">
+                <i class="fa fa-dashboard"></i> 
+                <span>Manage Customers</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="col-f">
+                  <a href="/#/view-modify-users" class="col-f">
+                    <i class="fa fa-circle-o"></i> View Customers Details
+                  </a>
+                  <a href="/#/create-customer" class="col-f">
+                    <i class="fa fa-circle-o"></i> create a new Customer
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a class="col-f">
+                <i class="fa fa-dashboard"></i>
+                <span>Manage Sub Admins</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="col-f">
+                  <a href="/#/view-modify-users" class="col-f">
+                    <i class="fa fa-circle-o"></i> View Admins details
+                  </a>
+                  <a href="/#/create-user" class="col-f">
+                    <i class="fa fa-circle-o"></i> create a new Sub Admin
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a class="col-f">
+                <i class="fa fa-dashboard"></i>
+                <span>Billing Management</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="col-f">
+                  <a href="/#/billing-customers" class="col-f">
+                    <i class="fa fa-circle-o"></i> Sale Product
+                  </a>
+
+                </li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a class="col-f">
+                <i class="fa fa-dashboard"></i>
+                <span>Company Bills</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="col-f">
+                  <a href="/#/company-bills" class="col-f">
+                    <i class="fa fa-circle-o"></i> Show All Bills
+                  </a>
+
+                </li>
+              </ul>
+               <ul class="treeview-menu">
+                <li class="col-f">
+                  <a href="/#/create-company-bill" class="col-f">
+                    <i class="fa fa-circle-o"></i> Upload New Bill
+                  </a>
+
+                </li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a class="col-f">
+                <i class="fa fa-dashboard"></i>
+                <span>Manage Gallery</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="col-f">
+                  <a href="/#/gallery-images" class="col-f">
+                    <i class="fa fa-circle-o"></i> Show All Gallery Images
+                  </a>
+
+                </li>
+              </ul>
+               <ul class="treeview-menu">
+                <li class="col-f">
+                  <a href="/#/uplpad-gallery-image" class="col-f">
+                    <i class="fa fa-circle-o"></i> Upload New Gallery Image
+                  </a>
+
+                </li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a class="col-f">
+                <i class="fa fa-dashboard"></i>
+                <span>Customer Gallery</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="col-f">
+                  <a href="/#/gallery" class="col-f">
+                    <i class="fa fa-circle-o"></i> Show All Gallery Images
+                  </a>
+
+                </li>
+              </ul>
+
+            </li>
+
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+<div ng-view>
+	{% csrf_token %}
+
+</div>
+<footer class="main-footer">
+<div class="pull-right hidden-xs">
+</div>
+<strong>Copyright &copy; 2014-2015 <a href="http://anipr.com">Man</a>.</strong> All rights reserved.
+</footer>
+<!-- jQuery 2.1.4 -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<!-- Bootstrap 3.3.5 -->
+<script src="static/js/bootstrap-app/bootstrap.min.js"></script>
+<!-- jQuery data tables -->
+<script src="static/js/jquery-app/jquery.dataTables.min.js"></script>
+<!-- bootsrap data tables -->
+<script src="static/js/jquery-app/dataTables.bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script type="text/javascript" src="/static/js/charts/Chart.min.js"></script>
+<script type="text/javascript" src="/static/js/charts/fastclick.min.js"></script>
+
+<script src="static/js/app/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="static/js/app/demo.js"></script>
+
+
+
+<script src="/static/bower_components/angular/angular.min.js"></script>
+<script src="/static/bower_components/angular-animate/angular-animate.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script src="/static/js/angular-material/angular-material.min.js"></script>
+
+<script src="https://code.angularjs.org/1.2.16/angular-route.min.js"></script>
+
+<script src="/static/js/satellizer.min.js"></script>
+
+<script type="text/javascript" src="/static/js/cgbusy/cgbusy.js"></script>
+
+<link rel="stylesheet" href="/static/bower_components/angular-toastr/dist/angular-toastr.css" />
+
+<script type="text/javascript" src="/static/bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+<script type="text/javascript" src="/static/bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+<!--<script type="text/javascript" src="/static/js/toaster.js"></script>
+<script type="text/javascript" src="/static/js/toaster-tpl.js"></script>-->
+<script src="/static/js/angular-strap.min.js"></script>
+<script src="/static/js/ngStorage.js"></script>
+<!--<script src="/static/js/toaster/toaster.js"></script>
+<script src="/static/js/toaster/toaster-tpl.js"></script>-->
+<script src="/static/js/angular-strap.tpl.min.js"></script>
+<!-- date picker files -->
+<script type="text/javascript" src="/static/bower_components/datepicker/bootstrap-datetimepicker.js"></script>
+<!-- ngGallery start here -->
+<script type="text/javascript" src="/static/bower_components/ngGallery/src/js/ngGallery.js"></script>
+<!-- ngGallery end here -->
+<!-- end of date picker files -->
+<script type="text/javascript" src="/static/bower_components/multiSelect/isteven-multi-select.js"></script>
+<!--<script type="text/javascript" src="/static/js/select2/select2.full.min.js"></script>-->
+
+<script type="text/javascript" src="/static/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+<script type="text/javascript" src="/static/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+
+<script type="text/javascript" src="/static/app/scripts/app.js"></script>
+<script type="text/javascript" src="/static/app/scripts/controllers/login.js"></script>
+
+<script type="text/javascript" src="/static/app/scripts/controllers/register.js"></script>
+<script type="text/javascript" src="/static/app/scripts/controllers/addstore.js"></script>
+<script type="text/javascript" src="/static/app/scripts/controllers/create-loyalty.js"></script>
+
+<script type="text/javascript" src="/static/app/scripts/controllers/merchant_controllers/view.js"></script>
+
+<script type="text/javascript" src="/static/app/scripts/controllers/stockmanage.js"></script>
+
+<script type="text/javascript" src="/static/app/scripts/controllers/editstore.js"></script>
+
+<script type="text/javascript" src="/static/app/scripts/controllers/notification.js"></script>
+
+<script type="text/javascript" src="/static/app/scripts/services/address.js"></script>
+
+<script type="text/javascript" src="/static/app/scripts/controllers/viewoffer.js"></script>
+
+<script type="text/javascript" src="/static/app/scripts/controllers/approvecards.js"></script>
+<script type="text/javascript" src="/static/app/scripts/controllers/usersdata.js"></script>
+<script type="text/javascript" src="/static/app/scripts/controllers/customer/customer_home.js"></script>
+
+<script type="text/javascript" src="/static/app/scripts/controllers/admin/userscontroller.js"></script>
+<script type="text/javascript" src="/static/app/scripts/controllers/admin/customersController.js"></script>
+<script type="text/javascript" src="/static/app/scripts/controllers/admin/billingCtrl.js"></script>
+<script type="text/javascript" src="/static/app/scripts/controllers/companyBills.js"></script>
+<script type="text/javascript" src="/static/app/scripts/controllers/gallery.js"></script>
+
+<script type="text/javascript">
+    $(window).load(function() {
+        // Animate loader off screen
+        $(".se-pre-con").fadeOut("slow");
+        //$('#username').html('surya')
+    });
+</script>
+
+<!-- END JAVASCRIPT -->
+</body>
+</html>

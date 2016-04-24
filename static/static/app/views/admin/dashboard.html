@@ -1,0 +1,313 @@
+<style>
+    .das-number{
+    position: absolute;
+    top: 20px;
+    left: 30%;
+    right: 0px;
+    font-size: 40px;
+    color: #666 !important;
+    font-weight: bold;
+    }
+    .p-div-leg{
+        color: green;
+        width: 10px;
+        height: 10px;
+        background: green;
+        margin: auto;
+    }
+    .p-leg{
+        margin: 0px !important;
+        position: relative;
+        bottom: 6px;
+        left: 17px;
+    }
+    .p-div-ileg{
+        color: red;
+        width: 10px;
+        height: 10px;
+        background: red;
+        margin: auto;
+    }
+    .p-ileg{
+        margin: 0px !important;
+        position: relative;
+        bottom: 6px;
+        left: 17px;
+    }
+    img.ng-thumb{
+        margin: 0px;
+        width: 20%;
+        padding: 5px;
+        height: 200px;
+        position:relative;
+    }
+</style>
+<div class="content-wrapper" style="min-height: 916px;">
+
+    <!-- Main content -->
+    <section class="content" style="min-height:0px;">
+      <!-- info boxes (Stat box) -->
+		<div class="row">
+	        <div class="col-md-3 col-sm-6 col-xs-12">
+	          <div class="info-box text-center">Total Products Sold
+                  <b class="das-number">123</b>
+	            <span class="info-box-icon bg-yellow">
+                    <img src="static/images/das-sold.png" width="60" height="60"/>
+                </span>
+
+	            <div class="info-box-content">
+	              <span class="info-box-text"></span>
+	              <span class="info-box-number"><small></small></span>
+	            </div>
+	            <!-- /.info-box-content -->
+	          </div>
+	          <!-- /.info-box -->
+	        </div>
+	        <!-- /.col -->
+	        <div class="col-md-3 col-sm-6 col-xs-12">
+	          <div class="info-box text-center">Total Cost of Sold
+                  <b class="das-number">123</b>
+	            <span class="info-box-icon bg-aqua">
+                    <img src="static/images/das-cost.png" width="60" height="60"/>
+                </span>
+
+	            <div class="info-box-content">
+	              <span class="info-box-text"></span>
+	              <span class="info-box-number"></span>
+	            </div>
+	            <!-- /.info-box-content -->
+	          </div>
+	          <!-- /.info-box -->
+	        </div>
+	        <!-- /.col -->
+
+	        <!-- fix for small devices only -->
+	        <div class="clearfix visible-sm-block"></div>
+
+	        <div class="col-md-3 col-sm-6 col-xs-12">
+	          <div class="info-box text-center">Credits
+                  <b class="das-number">123</b>
+	            <span class="info-box-icon bg-green">
+                    <img src="static/images/das-credit.png" width="60" height="60"/>
+                </span>
+
+	            <div class="info-box-content">
+	              <span class="info-box-text"></span>
+	              <span class="info-box-number"></span>
+	            </div>
+	            <!-- /.info-box-content -->
+	          </div>
+	          <!-- /.info-box -->
+	        </div>
+	        <!-- /.col -->
+	        <div class="col-md-3 col-sm-6 col-xs-12">
+	          <div class="info-box text-center">Debits
+                  <b class="das-number">123</b>
+	            <span class="info-box-icon bg-red">
+                    <img src="static/images/das-debit.png" width="60" height="60"/>
+                </span>
+
+	            <div class="info-box-content">
+	              <span class="info-box-text"></span>
+	              <span class="info-box-number"></span>
+	            </div>
+	            <!-- /.info-box-content -->
+	          </div>
+	          <!-- /.info-box -->
+	        </div>
+	        <!-- /.col -->
+      </div>
+      <!-- row end -->
+
+	</section>
+    <!-- /.content -->
+
+
+
+    <div class="wrapper">
+
+      <!-- Left side column. contains the logo and sidebar -->
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper" style="padding:0px;margin:0px;">
+
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-md-6">
+              <!-- AREA CHART -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Product Sales</h3>
+                  <div class="box-tools pull-right">
+
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <div class="chart">
+                    <canvas id="areaChart" style="height:250px"></canvas>
+                      <div class="text-center p-div-leg"><p class="p-leg">Legal</p></div><br>
+                      <div class="text-center p-div-ileg"><p class="p-ileg">Ilegal</p></div><br>
+                  </div>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div>
+            <div class="col-md-6">
+              <!-- DONUT CHART -->
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Stock Type Count Graph</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body">
+                    <canvas id="pieChart" style="height:250px"></canvas>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="text-center p-div-leg"><p class="p-leg">Legal</p></div><br>
+                            <div class="text-center p-div-ileg"><p class="p-ileg">Ilegal</p></div><br>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="text-center p-div-leg"><p class="p-leg">Legal</p></div><br>
+                            <div class="text-center p-div-ileg"><p class="p-ileg">Ilegal</p></div><br>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="text-center p-div-leg"><p class="p-leg">Legal</p></div><br>
+                            <!--<div class="text-center p-div-ileg"><p class="p-ileg">Ilegal</p></div><br>-->
+                        </div>
+
+                    </div>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+
+            </div><!-- /.col (LEFT) -->
+
+          </div><!-- /.row -->
+
+        </section><!-- /.content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                    <div class="table-responsive-own">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Customer Name</th>
+                        <th>Total Price</th>
+                        <th>Paid Amount</th>
+
+                        <th>Due</th>
+
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "item in customer_pay_info">
+
+                        <td>[[item.customer_name ]]</td>
+
+                        <td>[[item.total_price]]</td>
+                        <td>[[item.paid]]</td>
+                        <td>[[item.due]]</td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+                        </div>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                    <div class="table-responsive-own">
+                  <table id="example2" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Product Name</th>
+                        <th>Quantity Type</th>
+                        <th>Total Quantity</th>
+                        <th>Expired Date</th>
+                        <th>Days Left</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "item in product_expired_data">
+
+                        <td>[[item.stock_name ]]</td>
+                        <td>[[item.quantity_type]]</td>
+                        <td>[[item.quantity]]</td>
+                        <td>[[item.expired_date | date ]]</td>
+                        <td>[[item.days_left]]</td>
+                        <td>[[item.status]]</td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+                        </div>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                    <div class="table-responsive-own">
+                  <table id="example3" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Product Name</th>
+                        <th>Quantity Left</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "item in low_product_data">
+
+                        <td>[[item.stock_name ]]</td>
+                        <td>[[item.available_stock]]</td>
+
+
+                      </tr>
+                    </tbody>
+                  </table>
+                        </div>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+        <section class="content">
+          <!-- gallery start here -->
+          <div class="row" style="margin-bottom:10px;">
+            <div class="col-lg-12">
+
+                <ng-gallery images="images" thumbs-num="11">
+
+              </ng-gallery>
+            </div>
+          </div>
+            <!-- gallery end here -->
+        </section>
+
+    </div><!-- ./wrapper -->
+
+
+</div>
+<!-- /.content-wrapper-->

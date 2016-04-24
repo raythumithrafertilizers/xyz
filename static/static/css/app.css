@@ -1,0 +1,233 @@
+.check-remember{
+	margin: 0px !important;
+	margin-right: 10px !important;
+}
+.check-span{
+    padding-left: 20px;
+    position: relative;
+    bottom: 4px;
+}
+.login-box, .register-box{
+	margin: 3% auto !important;
+}
+.error-show{
+	color: #dd4b39;
+}
+/*dashboard admin css start*/
+.main-header{
+	background: #ef6262;
+}
+.sidebar-toggle{
+	color: #fff;
+}
+.sidebar-toggle:hover, .sidebar-toggle:active, .sidebar-toggle:focus {
+ 	outline: none; 
+ 	text-decoration: none; 
+ 	color: #fff; 
+}
+.navbar-nav>li>a{
+	color: #fff;
+}
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover{
+	background: #ef6262 !important
+}
+.nav>li>a:hover, .nav>li>a:active, .nav>li>a:focus{
+	background: #ef6262 !important;
+	color: #fff;
+}
+.navbar-custom-menu{
+	cursor: pointer;
+}
+.profile-pic-bg{
+	background: #ef6262 !important;
+}
+.main-sidebar{
+	background-color: #222d32;
+}
+.main-sidebar, .left-side{
+	padding-top: 60px !important;
+}
+.col-f{
+	color: #fff;
+}
+.col-f:hover, .col-f:active, .col-f:focus{
+	color: #ef6262;
+}
+
+.form-width{
+	width:  30% !important;
+}
+.row-sides{
+	margin: 20px;
+}
+.btn-on-app{
+	margin-left: 17px;
+}
+.has-error{
+	border: 1px solid #dd4b39 !important;
+}
+.help-block{
+	color: #dd4b39;
+}
+.box-top-border{
+	border-top-color: #ef6262 !important;
+}
+.main-sidebar{
+	position: fixed;
+}
+.content-wrapper{
+	padding-top: 50px;
+}
+.main-header{
+	position: fixed;
+	width: 100%;
+}
+.dynamic-fm{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.btn-botm-text{
+	position: absolute;
+    top: 70px;
+    width: 47%;
+    margin-left: 1%;
+}
+/*dashboard admin css end*/
+@media only screen and (max-width: 300px), only screen and (max-device-width: 768px) {
+    .main-sidebar, .left-side{
+        padding-top:100px !important;
+    }
+    .content-wrapper{
+        padding-top:100px !important;
+    }
+    .table-responsive-own{
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: 1px solid #ddd;
+        min-height: .01%;
+        overflow-x: auto;
+    }
+    .row-sides{
+        margin:0px !important;
+    }
+    .btn.btn-flat{
+        margin: auto;
+        display: table;
+        width: 89%;
+    }
+    .multiSelect .show{
+        right:-12px;
+    }
+}
+.btn-bill{
+	border-radius: 50px;
+    color: #fff;
+    background: #ef6262;
+    border: 1px solid #ef6262 !important
+}
+.btn-bill:hover{
+	border-radius: 50px;
+    color: #fff;
+    background: #ef6262;
+    border: 1px solid #ef6262 !important
+}
+.no{
+	float: left;
+}
+.no-h3{
+	margin: 5px 0px 5px 10px;
+}
+.date-item{
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    border-bottom: 1px dotted #ddd;
+    padding-left: 5px;
+    margin-left: 10px;
+}
+.name-item{
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    border-bottom: 1px dotted #ddd;
+    padding-left: 5px;
+    margin-left: 10px;
+    width: 97%
+}
+.enter-text{
+	border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    padding-left: 5px;
+    width: 100%;
+}
+.Signature{
+	border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    padding-left: 5px;
+    width: 100%;
+}
+.notification-div{
+    position: absolute;
+    left: 30px;
+    right: 0;
+    top: 0;
+    background: #fff;
+    width: 20px;
+    height: 20px;
+    color: #333;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+.upload-pic{
+    width:30%;
+    margin:auto;
+    display:table;
+    margin-bottom:20px;
+    display:none !important;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    width:30%;
+    margin:auto;
+    display:table;
+    margin-bottom:20px;
+}
+.input-drop{
+    margin:auto;
+    display:table;
+}
+.bg-not{
+    background: rgb(0, 165, 89) !important;
+    margin-top: 18% !important;
+    height:250px;
+    overflow-y:auto;
+    overflow-x:auto;
+}
+.small-tag{
+    float: left;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    font-weight: bold;
+    text-align: center;
+    color: red;
+    margin-top: 3px;
+    margin-right: 5px;
+}
+.user-p p{
+    text-align:left;
+}

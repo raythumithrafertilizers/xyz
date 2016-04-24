@@ -1,0 +1,91 @@
+<!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            View or Delete Users 
+          </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <div>Customer Name: [[ user.first_name ]] [[ user.last_name ]]</div>
+                  <div>Customer phone: [[ user.phone ]]</div>
+                  <div>Customer address: [[ user.address ]]</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Product Name</th>
+                        <th>Product Type</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "item in selectedProductsList">
+                        <td>[[item.name]]</td>
+                        <td>[[item.type]]</td>
+                        <td>[[item.quantity]]</td>
+                        <td>[[item.price]]</td>
+
+                      </tr>
+                      <tr>
+                        <td>Total</td>
+                        <td></td>
+                        <td>Quantity: [[ total_quantity ]]</td>
+                        <td>Price <b>[[total_price ]]</b></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+           <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <div>Total Quan: [[ total_price ]]</div>
+                  <div>Total Price: [[ total_price ]]</div>
+                  <div>Amount Paid: [[ amount_paid ]]</div>
+                  <div>Due: [[ due ]]</div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+           <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                   <center>
+                      <button type="button" ng-click="goto('/enter-quantity-price')" class="btn btn-primary btn-flat btn-on-app">
+                        Go Back
+                      </button>
+                     <button ng-click="saveBill()" type="button" class="btn btn-primary btn-flat btn-on-app">
+                       Save And Generate Recept
+                     </button>
+                   </center>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+    <script>
+      
+    </script>      

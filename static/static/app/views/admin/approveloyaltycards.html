@@ -1,0 +1,103 @@
+<!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Approve Loyalty Cards
+          </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <div class="table-responsive-own">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th >Store name</th>
+                        <th>Loyalty Card Number</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="data in details">
+                        <td>{{data.storename}}</td>
+                        <td>{{data.cardno}}</td>
+                        <td>
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <button class="btn btn-block btn-primary btn-flat" ng-click="viewCardOffers(data.cid)">View</button>
+                            </div>
+                            <!-- Modal start-->
+                            <div id="myModal" class="modal fade" role="dialog">
+                              <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Loyalty Card Details</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <h4 class="box-title">Loyalty card name :</h4>
+
+                                    <div class="row">
+                                      <!-- first row start -->
+                                      <div class="col-lg-6">
+                                        <p> {{loyalty_card_number}}</p>
+                                        <p>Max stamp: {{max_stamp}}</p>
+                                      </div>
+                                      <div class="col-lg-3">
+                                        <button class="btn btn-block btn-primary btn-flat" id="id_active_{{loyalty_card_number}}" ng-click="Approve(cardid, '1')">Approve</button>
+                                      </div>
+                                      <div class="col-lg-3">
+                                        <button class="btn btn-block btn-danger btn-flat" id="id_deactive_{{loyalty_card_number}}" ng-click="Approve(cardid, '0')">Disapprove</button>
+                                      </div>
+                                    </div><!-- row end -->
+                                    <h4 class="box-title">Stamp offers :</h4>
+                                    <div class="row">
+                                      <!-- second row start -->
+                                      <div class="col-lg-12">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                            <tr>
+                                              <th>Stamp count</th>
+                                              <th>Offer description</th>
+                                            </tr>
+                                            <tr ng-repeat="stamp in stampslist">
+                                              <td>{{stamp.stampcount}}</td>
+                                              <td>{{stamp.desc}}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div><!-- second row end -->
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Modal end-->           
+                            <div class="col-lg-6">
+                              <!-- <button class="btn btn-block btn-danger btn-flat" ng-click="deActivateCard(loyaltycard.lid)">De-Activate</button> -->
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                    </div>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+    <script>
+      
+    </script>      

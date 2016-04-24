@@ -1,0 +1,76 @@
+<style type="text/css">
+body{
+  background: #E44C3B;
+}
+.main-header{
+  display: none;
+}
+.main-sidebar{
+  display: none;
+}
+.main-footer{
+  display: none;
+}
+</style>
+<div class="register-box">
+      <div class="register-logo">
+        <img src="static/images/logo.png"/>
+      </div>
+      <div class="register-box-body">
+        <p class="login-box-msg">Register a new membership</p>
+        <form ng-submit="signup()" name="userForm" method="post" cg-busy="load">
+          <div class="form-group has-feedback">
+            <input type="text" class="form-control" ng-model="user.firstname" placeholder="First name" required name="firstname">
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            <span class="error-show" ng-show="userForm.firstname.$error.required && userForm.firstname.$dirty">required</span>
+          </div>
+          <div class="form-group has-feedback">
+            <input type="text" class="form-control" ng-model="user.lastname" placeholder="Last name" required name="lastname">
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            <span class="error-show" ng-show="userForm.lastname.$error.required && userForm.lastname.$dirty">required</span>
+          </div>
+          <div class="form-group has-feedback">
+            <input type="email" class="form-control" placeholder="Email" ng-model="user.email" required name="email">
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            <span class="error-show" ng-show="userForm.email.$error.required && userForm.email.$dirty">required</span>
+            <span class="error-show" ng-show="!userForm.email.$error.required && userForm.email.$error.email && userForm.email.$dirty">invalid email</span>
+          </div>
+          <div class="form-group has-feedback">
+            <input type="password" class="form-control" placeholder="Password" ng-model="user.password" required ng-minlength="8" ng-maxlength="20" name="password">
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            <span class="error-show" ng-show="userForm.password.$error.required && userForm.password.$dirty">required</span>
+            <span class="error-show" ng-show="!userForm.password.$error.required && (userForm.password.$error.minlength || userForm.password.$error.maxlength) && userForm.password.$dirty">Passwords must be between 8 and 20 characters.</span>
+          </div>
+          <div class="form-group has-feedback">
+            <input type="password" class="form-control" placeholder="Retype password" ng-model="user.password_c" required ng-minlength="8" ng-maxlength="20" name="password_c" valid-password-c required>
+            <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+            <span class="error-show" ng-show="userForm.password_c.$error.required && userForm.password_c.$dirty">Please confirm your password.</span>
+            <span class="error-show" ng-show="!userForm.password_c.$error.required && userForm.password_c.$error.noMatch && userForm.password.$dirty">Passwords do not match.</span>
+          </div>
+          <div class="form-group has-feedback">
+            <span class="error-show" ng-show="userForm.phone.$error.required && userForm.phone.$dirty">required</span>
+            <input type="number" class="form-control" placeholder="Phone Number" ng-model="user.phone" required name="phone" ng-minlength="10" ng-maxlength="12">
+            <span  class="glyphicon glyphicon-log-in form-control-feedback"></span>
+            <span class="error-show" ng-show="!userForm.phone.$error.required && (userForm.phone.$error.minlength || userForm.phone.$error.maxlength) && userForm.phone.$dirty">Phone number must be 10 characters.</span>
+          </div>
+          <div class="row">
+            <div class="col-xs-8">
+              <div class="checkbox icheck">
+                <label>
+                  <input type="checkbox" class="check-remember"> <span class="check-span">I agree to the <a href="#">terms</a></span>
+                </label>
+              </div>
+            </div><!-- /.col -->
+            <div class="col-xs-4">
+              <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+            </div><!-- /.col -->
+          </div>
+        </form>
+
+        <div class="social-auth-links text-center">
+          <p>- OR -</p>
+        </div>
+
+        <a href="/" class="text-center">I already have a membership</a>
+      </div><!-- /.form-box -->
+    </div><!-- /.register-box -->
