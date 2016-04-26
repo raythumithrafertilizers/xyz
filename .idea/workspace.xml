@@ -2,49 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1fe5506-f1c1-4d33-bf3c-f0ec8571d8ca" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/views1.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/admin_index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/addrow.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/approvecards.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/editstore.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/notification.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/scripts/services/address.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/scripts/services/stores.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/4042.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/admin/approveloyaltycards.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/admin/cardoffers.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/admin/countries.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/admin/create-loyalty-offer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/admin/create_loyality.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/admin/view-deactivate-offer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/customer/home.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/merchant/add_bill_vs_stamps.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/merchant/add_customer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/merchant/add_stamps_to_customer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/merchant/bas.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/merchant/create_loyality.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/merchant/main.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/merchant/user_history.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/merchant/view_bill_vs_stamps.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/merchant/view_customer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/merchant/view_customer_detail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/merchant/view_loyality.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/user/main.html" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backup_scripts/backup_bills/bill_images.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backup_scripts/configs.examples/74214843aee8aba9f11b7825e0a22ef1f06533b7-privatekey.p12" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backup_scripts/raythumithra.p12" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backup_scripts/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backup_scripts/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backup_scripts/backup.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backup_scripts/backup.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backup_scripts/config_file.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backup_scripts/config_file2.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backup_scripts/configs.examples/your_config.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backup_scripts/database_backup/raythumithra.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backup_scripts/helper.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backup_scripts/restore.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backup_scripts/scripts/backup_mysql.example.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backup_scripts/scripts/backup_wp_site.sh" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Backup-To-Google-Drive" afterPath="$PROJECT_DIR$/Backup-To-Google-Drive" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Untitled0-checkpoint.ipynb" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/Untitled0-checkpoint.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/urls.py" afterPath="$PROJECT_DIR$/Admin/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/views.py" afterPath="$PROJECT_DIR$/Admin/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/installations_r.sh" afterPath="$PROJECT_DIR$/installations_r.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/index.html" afterPath="$PROJECT_DIR$/static/static/app/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/app.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/login.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/404.html" afterPath="$PROJECT_DIR$/static/static/app/views/404.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/dashboard.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/print-bill.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/print-bill.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/login.html" afterPath="$PROJECT_DIR$/static/static/app/views/login.html" />
     </list>
     <ignored path="BaseModule.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -65,30 +39,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="billingCtrl.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="248" column="73" selection-start-line="248" selection-start-column="73" selection-end-line="248" selection-end-column="73" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dashboard.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/dashboard.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="149" column="41" selection-start-line="149" selection-start-column="32" selection-end-line="149" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="print-bill.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="print-bill.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/print-bill.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
+            <state relative-caret-position="354">
               <caret line="68" column="88" selection-start-line="68" selection-start-column="88" selection-end-line="68" selection-end-column="88" />
               <folding />
             </state>
@@ -272,138 +226,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope">
@@ -421,18 +243,18 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/backup_scripts" />
+      <recent name="$PROJECT_DIR$/Backup-To-Google-Drive" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/static/static/app/views/admin" />
+      <recent name="$PROJECT_DIR$/Admin" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Backup-To-Google-Drive" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/static/static/app/views/admin" />
       <recent name="$PROJECT_DIR$/static/static" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Backup-To-Google-Drive" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/static/static/app/views/admin" />
-      <recent name="$PROJECT_DIR$/Admin" />
-      <recent name="$PROJECT_DIR$/static/static/js/charts" />
     </key>
   </component>
   <component name="RunManager" selected="Python.models">
@@ -614,9 +436,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2936203" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2936203" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934132" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -717,10 +539,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/print-bill.html">
+    <entry file="file://$PROJECT_DIR$/Backup-To-Google-Drive/backup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="68" column="88" selection-start-line="68" selection-start-column="88" selection-end-line="68" selection-end-column="88" />
+        <state relative-caret-position="-1345">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Backup-To-Google-Drive/backup.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="248" column="73" selection-start-line="248" selection-start-column="73" selection-end-line="248" selection-end-column="73" />
           <folding />
         </state>
       </provider>
@@ -733,10 +571,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js">
+    <entry file="file://$PROJECT_DIR$/Backup-To-Google-Drive/_gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="248" column="73" selection-start-line="248" selection-start-column="73" selection-end-line="248" selection-end-column="73" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/print-bill.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="68" column="88" selection-start-line="68" selection-start-column="88" selection-end-line="68" selection-end-column="88" />
           <folding />
         </state>
       </provider>
