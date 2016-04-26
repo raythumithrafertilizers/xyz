@@ -7,7 +7,7 @@
 
 
 # Other options
- backup_path="/home/satya/Desktop/BaseModule/Backup-To-Google-Drive/database_backup"
+ backup_path="/home/ubuntu/raythumithra/backup_scripts/database_backup"
  date=$(date +"%d-%b-%Y")
 
 # Set default file permissions
@@ -20,7 +20,13 @@
 # Delete files older than 30 days
  find $backup_path/* -mtime +30 -exec rm {} \;
 
-python backup.py config_file.json database_backup/$db_name.sql
-zip -r backup_bills/bill_images.zip /home/satya/Desktop/BaseModule/static/static/uploads
+python /home/ubuntu/raythumithra/backup_scripts/backup.py config_file.json database_backup/$db_name.sql
 
-python backup.py config_file2.json backup_bills/bill_images.zip
+zip -r /home/ubuntu/raythumithra/backup_scripts/backup_bills/bill_images.zip /home/ubuntu/raythumithra/static/static/uploads
+
+python /home/ubuntu/raythumithra/backup_scripts/backup.py config_file2.json backup_bills/bill_images.zip
+
+
+rm -rf /home/ubuntu/raythumithra/backup_scripts/backup_bills/*
+
+rm -rf /home/ubuntu/raythumithra/backup_scripts//database_backup/*

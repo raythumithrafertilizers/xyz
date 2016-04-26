@@ -1,0 +1,40 @@
+['/home/ubuntu/raythumithra/backup_scripts/backup.py', 'config_file.json', 'database_backup/raythumithra.sql']
+[1;32m--> Authentication is sucessful[1;m
+Current user name: raythumithra-service-account@artful-mystery-129107.iam.gserviceaccount.com
+Root folder ID: 0AOyp8n_dcqOwUk9PVA
+Total quota (bytes): 16106127360
+Used quota (bytes): 10146592
+None
+[1;33m--> Uploading file to your google drive[1;m
+[1;32m--> Uploaded new file done[1;m
+[1;33m--> Getting list of children files[1;m
+q '0B0BZOnZkuhDxT2NDVU5CUW50dWM' in parents and trashed = false 
+{'q': u"'0B0BZOnZkuhDxT2NDVU5CUW50dWM' in parents and trashed = false "}
+This folder have 3 files
+[1;32m--> Done backup file to google drive ![1;m
+  adding: home/ubuntu/raythumithra/static/static/uploads/ (stored 0%)
+  adding: home/ubuntu/raythumithra/static/static/uploads/creditcard_BHLEmsZ.png (deflated 13%)
+  adding: home/ubuntu/raythumithra/static/static/uploads/download.jpg (deflated 1%)
+  adding: home/ubuntu/raythumithra/static/static/uploads/playstorescreen_YVIZIKT.png (deflated 2%)
+  adding: home/ubuntu/raythumithra/static/static/uploads/playstorescreen.png (deflated 2%)
+  adding: home/ubuntu/raythumithra/static/static/uploads/creditcard_TCQv6mM.png (deflated 13%)
+  adding: home/ubuntu/raythumithra/static/static/uploads/download_W7N08Ls.jpg (deflated 1%)
+  adding: home/ubuntu/raythumithra/static/static/uploads/download_GWhyzHi.jpg (deflated 1%)
+  adding: home/ubuntu/raythumithra/static/static/uploads/creditcard.png (deflated 13%)
+  adding: home/ubuntu/raythumithra/static/static/uploads/download_DzOoRKu.jpg (deflated 1%)
+  adding: home/ubuntu/raythumithra/static/static/uploads/download_MBGH4IY.jpg (deflated 1%)
+  adding: home/ubuntu/raythumithra/static/static/uploads/creditcard_gC25MR8.png (deflated 13%)
+['/home/ubuntu/raythumithra/backup_scripts/backup.py', 'config_file2.json', 'backup_bills/bill_images.zip']
+[1;32m--> Authentication is sucessful[1;m
+Current user name: raythumithra-service-account@artful-mystery-129107.iam.gserviceaccount.com
+Root folder ID: 0AOyp8n_dcqOwUk9PVA
+Total quota (bytes): 16106127360
+Used quota (bytes): 10178495
+None
+[1;33m--> Uploading file to your google drive[1;m
+[1;32m--> Uploaded new file done[1;m
+[1;33m--> Getting list of children files[1;m
+q '0B0BZOnZkuhDxRlZ5ZXlqbC1ydU0' in parents and trashed = false 
+{'q': u"'0B0BZOnZkuhDxRlZ5ZXlqbC1ydU0' in parents and trashed = false "}
+This folder have 3 files
+[1;32m--> Done backup file to google drive ![1;m

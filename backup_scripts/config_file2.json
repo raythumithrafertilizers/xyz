@@ -3,5 +3,5 @@
     "private_key12_path":"raythumithra.p12",
     "backup_folder_id":"0B0BZOnZkuhDxRlZ5ZXlqbC1ydU0",
     "description" : "bills backup of raythumithra data",
-    "max_file_in_folder": 5
+    "max_file_in_folder": 100
 }
