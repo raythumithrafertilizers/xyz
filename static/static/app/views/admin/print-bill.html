@@ -16,12 +16,18 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Print Bill
+        <div class="row row-sides"> <!-- row start -->
+                <button type="button" ng-click="print_bill_info()"
+                        class="btn btn-primary btn-flat btn-on-app">
+                  Print Bill
+                </button>
+        </div> <!-- row end -->
+
       </h1>
     </section>
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content" id="printing_space">
       <div class="row">
         <!-- left column -->
         <div class="col-md-12">
@@ -56,17 +62,17 @@
 
               <div class="row">
                 <div class="col-lg-6 text-left">
-                  <h5 class="no">No.</h5><h3 class="no no-h3"><b>798</b></h3>
+                  <h5 class="no">No.</h5><h3 class="no no-h3"><b>[[ bill_info.bill_id ]]</b></h3>
                 </div>
 
                 <div class="col-lg-6 text-right">
-                  Date : <input type="text" class="date-item" />
+                  Date : <input type="text" class="date-item" value="bill_info.bill_date" ng-model="bill_info.bill_date"/>
                 </div>
               </div>
 
               <div class="row" style="margin-bottom:10px;">
                 <div class="col-lg-12">
-                  Sri <input type="text" class="name-item" />
+                  Sri <input type="text" value="[[ bill_info.customer_name ]]" ng-model="bill_info.customer_name" class="name-item" />
                 </div>
               </div>
 
@@ -82,31 +88,15 @@
                   <th class="text-center">Rate.</th>
                   <th><span>Rs.</span>  <span class="pull-right">Ps.</span></th>
                 </tr>
-                <tr>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                </tr>
 
-                <tr>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                </tr>
 
-                <tr>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
+                <tr ng-repeat="product in bill_info.p_details">
+                  <td><input type="text" value="[[ $index+1 ]]" class="enter-text" /></td>
+                  <td><input type="text" value="[[ product.product_name ]]" ng-model="product.product_name" class="enter-text" /></td>
+                  <td><input type="text" value="[[ product.bt_no ]]" ng-model="product.bt_no" class="enter-text" /></td>
+                  <td><input type="text" value="[[ product.total_quantity ]]" ng-model="product.total_quantity" class="enter-text" /></td>
+                  <td><input type="text" value="[[ product.single_price ]]" ng-model="product.single_price" class="enter-text" /></td>
+                  <td><input type="text" value="[[ product.total_price ]]" ng-model="product.total_price"  class="enter-text" /></td>
                 </tr>
 
                 <tr>
@@ -115,10 +105,10 @@
                   <img width="50" height="50" src="/static/images/poison.jpg" alt="">
                     <span>రైతు సంతకం </span>
                   </td>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
-                  <td><input type="text" class="enter-text" /></td>
+                  <td></td>
+                  <td><input type="text" value="[[ bill_info.total_quantity ]]" ng-model="bill_info.total_quantity" class="enter-text" /></td>
+                  <td></td>
+                  <td><input type="text" value="[[ bill_info.total_price ]]" ng-model="bill_info.total_price" class="enter-text" /></td>
                 </tr>
 
 

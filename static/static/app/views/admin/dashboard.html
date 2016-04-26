@@ -50,7 +50,7 @@
 		<div class="row">
 	        <div class="col-md-3 col-sm-6 col-xs-12">
 	          <div class="info-box text-center">Total Products Sold
-                  <b class="das-number">123</b>
+                  <b class="das-number">[[ counts.total_sold_quantity ]]</b>
 	            <span class="info-box-icon bg-yellow">
                     <img src="static/images/das-sold.png" width="60" height="60"/>
                 </span>
@@ -66,7 +66,7 @@
 	        <!-- /.col -->
 	        <div class="col-md-3 col-sm-6 col-xs-12">
 	          <div class="info-box text-center">Total Cost of Sold
-                  <b class="das-number">123</b>
+                  <b class="das-number">[[ counts.total_sold_price ]]</b>
 	            <span class="info-box-icon bg-aqua">
                     <img src="static/images/das-cost.png" width="60" height="60"/>
                 </span>
@@ -86,7 +86,7 @@
 
 	        <div class="col-md-3 col-sm-6 col-xs-12">
 	          <div class="info-box text-center">Credits
-                  <b class="das-number">123</b>
+                  <b class="das-number">[[ counts.due ]]</b>
 	            <span class="info-box-icon bg-green">
                     <img src="static/images/das-credit.png" width="60" height="60"/>
                 </span>
@@ -102,7 +102,7 @@
 	        <!-- /.col -->
 	        <div class="col-md-3 col-sm-6 col-xs-12">
 	          <div class="info-box text-center">Debits
-                  <b class="das-number">123</b>
+                  <b class="das-number">[[ counts.paid ]]</b>
 	            <span class="info-box-icon bg-red">
                     <img src="static/images/das-debit.png" width="60" height="60"/>
                 </span>
@@ -148,9 +148,9 @@
                 <div class="box-body">
                   <div class="chart">
                     <canvas id="areaChart" style="height:250px"></canvas>
-                      <div class="text-center p-div-leg"><p class="p-leg">Legal</p></div><br>
+                      <!--<div class="text-center p-div-leg"><p class="p-leg">Legal</p></div><br>
                       <div class="text-center p-div-ileg"><p class="p-ileg">Ilegal</p></div><br>
-                  </div>
+                  --></div>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div>
@@ -166,7 +166,7 @@
                 </div>
                 <div class="box-body">
                     <canvas id="pieChart" style="height:250px"></canvas>
-                    <div class="row">
+                    <!--<div class="row">
                         <div class="col-lg-4">
                             <div class="text-center p-div-leg"><p class="p-leg">Legal</p></div><br>
                             <div class="text-center p-div-ileg"><p class="p-ileg">Ilegal</p></div><br>
@@ -177,10 +177,10 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="text-center p-div-leg"><p class="p-leg">Legal</p></div><br>
-                            <!--<div class="text-center p-div-ileg"><p class="p-ileg">Ilegal</p></div><br>-->
+                            &lt;!&ndash;<div class="text-center p-div-ileg"><p class="p-ileg">Ilegal</p></div><br>&ndash;&gt;
                         </div>
 
-                    </div>
+                    </div>-->
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
 

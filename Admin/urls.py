@@ -27,6 +27,7 @@ urlpatterns = patterns('Admin.views',
     url(r'^delete-bill', deleteBill),
     url(r'^company-bill', CompanyBillsManagement.as_view()),
     url(r'^delete-company-bill', deleteCompanyBill),
+    url(r'^print-bill', printBill),
 
     url(r'^gallery-image', GalleryManagement.as_view()),
     url(r'^delete-gallery-image', deleteGalleryImage),
