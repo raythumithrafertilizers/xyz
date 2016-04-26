@@ -11,3 +11,6 @@ sudo pip install PyJwt
 sudo pip install --upgrade google-api-python-client
 
 sudo apt-get install nginx
+
+echo "create database raythumithra" | mysql -u root -p
+

@@ -53,71 +53,6 @@ App.config(function(toastrConfig) {
   });
 });
 
-App.config(function($authProvider) {
-    $authProvider.facebook({
-        clientId: '1566678290273052'
-    });
-
-    $authProvider.google({
-        clientId: '787091751000-iat8i189qa2qgkn4vor0ae1u2vaf10tl.apps.googleusercontent.com'
-    });
-
-    $authProvider.linkedin({
-        clientId: '75qhzn82g3tfk2'
-    });
-
-    // Facebook
-    $authProvider.facebook({
-        name: 'facebook',
-        url: '/auth/facebook',
-        authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',
-        redirectUri: window.location.origin + '/',
-        requiredUrlParams: ['display', 'scope'],
-        scope: ['email'],
-        scopeDelimiter: ',',
-        display: 'popup',
-        type: '2.0',
-        popupOptions: { width: 580, height: 400 }
-    });
-
-    // Google
-    $authProvider.google({
-        url: '/auth/google',
-        authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
-        redirectUri: window.location.origin,
-        requiredUrlParams: ['scope'],
-        optionalUrlParams: ['display'],
-        scope: ['profile', 'email'],
-        scopePrefix: 'openid',
-        scopeDelimiter: ' ',
-        display: 'popup',
-        type: '2.0',
-        popupOptions: { width: 452, height: 633 }
-    });
-
-    // Twitter
-    $authProvider.twitter({
-        url: '/auth/twitter',
-        authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
-        redirectUri: window.location.origin,
-        type: '1.0',
-        popupOptions: { width: 495, height: 645 }
-    });
-
-    // LinkedIn
-    $authProvider.linkedin({
-      url: '/auth/linkedin',
-      authorizationEndpoint: 'https://www.linkedin.com/uas/oauth2/authorization',
-      redirectUri: window.location.origin,
-      requiredUrlParams: ['state'],
-      scope: ['r_emailaddress'],
-      scopeDelimiter: ' ',
-      state: 'STATE',
-      type: '2.0',
-      popupOptions: { width: 527, height: 582 }
-    });
-});
-
 App.config(function($routeProvider, $authProvider) {
     $routeProvider
         .when('/', {
@@ -237,17 +172,7 @@ App.config(function($routeProvider, $authProvider) {
             }
         })
 
-       .when('/create-notification', {
-            templateUrl: '/static/app/views/admin/create-notification.html',
-            controller : "notificationController",
-            resolve: {
-                authenticated: function($location, $auth) {
-                    if (!$auth.isAuthenticated()) {
-                        return $location.path('/');
-                    }
-                }
-            }
-        })
+
         .when('/view-modify-users', {
             templateUrl: '/static/app/views/admin/modifyUsers.html',
             controller : "editUsersController",
@@ -345,9 +270,9 @@ App.config(function($routeProvider, $authProvider) {
             }
         })
 
-        .when('/print-bill', {
+        .when('/print-bill/:bill_id', {
             templateUrl: '/static/app/views/admin/print-bill.html',
-            /*controller : "finishCreateSaleCtrl",*/
+            controller : "printBillCtrl",
             resolve: {
                 authenticated: function($location, $auth) {
                     if (!$auth.isAuthenticated()) {
@@ -408,8 +333,6 @@ App.config(function($routeProvider, $authProvider) {
         .when('/404', {
             templateUrl: '/static/app/views/404.html'
         })
-
-
         .otherwise({
             redirectTo: '/404'
         });

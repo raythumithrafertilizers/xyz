@@ -358,7 +358,7 @@ class BillManagement(View):
             billingObject.save()
 
             print listOfProducts
-            return HttpResponse('hellow')
+            return json_response({"bill_pk":billingObject.id}, status=200)
         except Exception, e:
             print e
             return json_response({"response":"failed"}, status=401)
@@ -382,6 +382,49 @@ def deleteBill(request):
     except Exception as e:
         print e
         return json_response({"err" : "No Stock Found"}, status=401)
+
+def printBill(request):
+    try:
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        if 'bill_id' in body:
+            bill = Billing.objects.get(id = str(body['bill_id']))
+            bill_details = {}
+            bill_details['customer_name'] = bill.customer.first_name +" "+ bill.customer.last_name
+            bill_details['total_price'] = bill.total_price
+            bill_details['total_quantity'] = bill.total_quantity
+            bill_details['bill_id'] = bill.id
+
+
+            products_all_list = bill.products_list.all()
+
+            temp_product_details = []
+            for t_product in products_all_list:
+
+                product_details = {}
+                product_details['product_name'] = t_product.product.item_name
+
+                if hasattr(t_product,'item_batch_number'):
+                    product_details['bt_no'] = t_product.item_batch_number
+                elif hasattr(t_product, 'item_lot_number'):
+                    product_details['bt_no'] = t_product.item_lot_number
+
+                product_details['total_quantity'] = t_product.quantity
+                product_details['total_price'] = t_product.price
+
+
+                product_details['single_price'] = round(float(t_product.price)/float(t_product.quantity),3)
+                temp_product_details.append(product_details)
+            bill_details['p_details'] = temp_product_details
+
+            return json_response({"data" : bill_details}, status=200)
+
+        return json_response({"error" : "no bill id found"}, status=400)
+
+
+    except Exception as e:
+        print e
+        return json_response({"error" : "No Stock Found"}, status=400)
 
 def deleteCompanyBill(request):
     try:
@@ -712,11 +755,28 @@ class GraphData(View):
                         total_sold_price += sold_stock * temp.item_cost
 
                     obj = {}
-                    obj['total_sold_quantity'] = total_sold_quantity
-                    obj['total_sold_price'] = total_sold_price
-                    print 'due ------------------', paid_due
-                    obj['paid'] = paid_due['total_paid']
-                    obj['due'] = paid_due['due']
+
+                    if total_sold_quantity:
+                        obj['total_sold_quantity'] = total_sold_quantity
+                    else:
+                        obj['total_sold_quantity'] = 0.0
+
+
+                    if total_sold_price:
+                        obj['total_sold_price'] = total_sold_price
+                    else:
+                       obj['total_sold_price'] = 0.0
+
+                    if paid_due['total_paid']:
+                        obj['paid'] = paid_due['total_paid']
+                    else:
+                        obj['paid'] = 0.0
+
+                    if paid_due['due']:
+                        obj['due'] = paid_due['due']
+                    else:
+                        obj['due'] = 0.0
+
                     return json_response({'counts': obj}, status=200)
                 except Exception as e:
                     print e

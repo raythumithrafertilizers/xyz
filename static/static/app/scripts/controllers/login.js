@@ -25,32 +25,16 @@ var App = angular.module('App')
             //console.log(response.data.role, response.data.token)
                 
                 $auth.setToken(response.data.token);
-                //console.log($auth.getToken(), '---------------')
-                
+
                 localStorage.setItem('role',response.data.role);
                 
 
                 if (response.data.role == "admin"){
-                    console.log('going to dashboard', $auth.isAuthenticated())
-
-                    $location.path('/dashboard')
-                    //window.location.reload();
+                    //$location.path('/dashboard')
+                    window.location.reload();
                 }else{
                     console.log('invalid role')
                 }
-
-               /* else if(response.data.role == "merchant"){
-                    localStorage.setItem('store_id', response.data.store_id);
-                    $location.path('/merchant-home')
-                    window.location.reload();       
-                }
-
-                else if(response.data.role == "customer"){
-                    localStorage.setItem('enduser_id', response.data.store_id);
-                    $location.path('/customer/dashboard')
-                    window.location.reload();       
-                }*/
-        
             })
             .catch(function(response) {
                 $alert({

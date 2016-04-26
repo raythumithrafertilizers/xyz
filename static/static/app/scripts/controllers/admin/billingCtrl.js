@@ -6,11 +6,11 @@ function process_image_path(path){
 }
 angular.module("App")
 .controller("dashBoardCtrl", function($http,$location,$localStorage, $q, $timeout,toastr,$route, $scope){
-console.log('dashboar controller called')
+
+
 // gallery start here
 function process_gallery_image_path(path){
     var image_path = path.split('/')
-    console.log('path is ', image_path[image_path.length-1])
     return 'static/upload_gallary_images/'+image_path[image_path.length-1]
 
 }
@@ -246,7 +246,7 @@ var pieChart = new Chart(pieChartCanvas);
                         }
                 })
             }
-            console.log(areaChartData)
+            console.log(areaChartData,'==================================')
             areaChart.Line(areaChartData, areaChartOptions);
 
          }, function(error){
@@ -324,12 +324,49 @@ $scope.load =
          }).then(function (response){
             console.log(' product_expired_data', response)
 
-            $scope.counts = response.data.counts
+            $scope.counts = response.data.counts;
+
          }, function(error){
             console.log('hellow')
          })
 })
 
+.controller("printBillCtrl", function($http, $q,$location,$routeParams,
+                                             $timeout,toastr,$route, $scope){
+            console.log($routeParams.bill_id)
+            $scope.load =
+            $http({
+                method: 'post',
+                url: '/superuser/print-bill',
+                data: {'bill_id':$routeParams.bill_id},
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback(response){
+                        toastr.success('successfully created....')
+
+                        $scope.bill_info = response.data.data;
+                        $scope.bill_info['bill_date'] = new Date()
+                        console.log(response)
+            }, function errorCallback(response)
+            {
+                toastr.error('unable to create bill')
+                // console.log("not sent");
+            });
+
+
+            $scope.print_bill_info = function() {
+                  var printContents = document.getElementById("printing_space").innerHTML;
+                  var popupWin = window.open('', '_blank', 'width=300,height=300');
+                  popupWin.document.open();
+                  popupWin.document.write('<html><head><style>.table-bordered>tbody>tr>td,.table-bordered>tbody>tr>th,.table-bordered>tfoot>tr>td,.table-bordered>tfoot>tr>th,.table-bordered>thead>tr>td,.table-bordered>thead>tr>th,.table>tbody>tr>td,.table>tbody>tr>th,.table>tfoot>tr>td,.table>tfoot>tr>th,.table>thead>tr>td,.table>thead>tr>th{border:none}.table>tbody>tr>td,.table>tbody>tr>th,.table>tfoot>tr>td,.table>tfoot>tr>th,.table>thead>tr>td,.table>thead>tr>th{border:none;border-left:1px solid #ddd}</style><link rel="stylesheet" href="/static/css/bootstrap.min.css"><link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css"></head><body onload="window.print()">' + printContents + '</body></html>');
+                  popupWin.document.close();
+            }
+
+
+
+
+})
 
 
 
@@ -612,7 +649,7 @@ $scope.load =
             }).then(function successCallback(response){
                         $localStorage.$reset();
                         toastr.success('successfully created....')
-                        $location.path('/billing-customers')
+                        $location.path('/print-bill/'+response.data.bill_pk)
             }, function errorCallback(response)
             {
                 toastr.error('unable to create bill')
