@@ -1,3 +1,18 @@
+.days-left{
+    text-align: center;
+    color: white;
+    font-size: 20px;
+}
+.no-noti{
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    font-size: 16px;
+    color:#fff;
+    text-align:center;
+}
 .check-remember{
 	margin: 0px !important;
 	margin-right: 10px !important;
@@ -230,4 +245,25 @@
 }
 .user-p p{
     text-align:left;
+}
+.table-space td{
+    border: none !important;
+}
+.table-space-first td{
+    border-bottom: none !important;
+    border-right: none !important;
+    border-left: none !important;
+}
+ .table-td td{
+  border: none !important;
+}
+.table-td td{
+  border: none !important;
+}
+.table-td td{
+  border: none !important;
+    border-left: 1px solid #ddd !important;
+}
+.box-body-print{
+    padding:40px;
 }

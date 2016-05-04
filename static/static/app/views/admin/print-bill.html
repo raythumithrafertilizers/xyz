@@ -1,17 +1,4 @@
-  <style type="text/css">
-.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td{
-  border: none;
-
-}
-.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
-  border: none;
-
-}
-.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
-  border: none;
-    border-left: 1px solid #ddd;
-}
-  </style>
+<link rel="stylesheet" href="/static/css/print-bill.css">
   <div class="content-wrapper" style="min-height: 946px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -33,7 +20,7 @@
         <div class="col-md-12">
           <!-- general form elements -->
           <div class="box box-danger box-top-border">
-            <div class="box-body">
+            <div class="box-body box-body-print">
               <!-- start print bill start -->
               <div class="row">
                 <div class="col-lg-4 text-left">
@@ -80,7 +67,8 @@
                 <div class="col-lg-12">
                   <div class="table-responsive-own">
                   <table class="table table-bordered table-responsive-own">
-                <tbody><tr>
+                <tbody>
+                <tr>
                   <th class="text-center" style="width: 60px;">S No.</th>
                   <th class="text-center" style="width: 450px;">PARTICULARS</th>
                   <th class="text-center">Bt. No.</th>
@@ -89,8 +77,7 @@
                   <th><span>Rs.</span>  <span class="pull-right">Ps.</span></th>
                 </tr>
 
-
-                <tr ng-repeat="product in bill_info.p_details">
+                <tr ng-repeat="product in bill_info.p_details" class="table-td">
                   <td><input type="text" value="[[ $index+1 ]]" class="enter-text" /></td>
                   <td><input type="text" value="[[ product.product_name ]]" ng-model="product.product_name" class="enter-text" /></td>
                   <td><input type="text" value="[[ product.bt_no ]]" ng-model="product.bt_no" class="enter-text" /></td>
@@ -98,7 +85,30 @@
                   <td><input type="text" value="[[ product.single_price ]]" ng-model="product.single_price" class="enter-text" /></td>
                   <td><input type="text" value="[[ product.total_price ]]" ng-model="product.total_price"  class="enter-text" /></td>
                 </tr>
-
+                <tr class="table-space-first">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="table-space">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="table-space">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
                 <tr>
                   <td><input type="text" class="enter-text" /></td>
                   <td>
@@ -125,8 +135,8 @@
                   <h5>Goods once sold will not be taken back.</h5>
                 </div>
                 <div class="col-lg-2 text-right">
-                  <input type="text" class="Signature text-right"/>
-                  <h5>Signature</h5>
+                  <input type="text" class="Signature text-left"/>
+                  <h5 class="pull-left"><b>Signature</b></h5>
                 </div>
               </div>
 

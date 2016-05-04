@@ -128,132 +128,80 @@ var pieChart = new Chart(pieChartCanvas);
  //------------end of donout graph ---------------------
 
 
+//------------paid and unpaid amount in graphs
+// pie chart data initlizations and ajax data access
 
- // Get context with jQuery - using jQuery's .get() method.
-        var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
-        // This will get the first returned node in the jQuery collection.
-        var areaChart = new Chart(areaChartCanvas);
-        var areaChartOptions = {
-          //Boolean - If we should show the scale at all
-          showScale: true,
-          //Boolean - Whether grid lines are shown across the chart
-          scaleShowGridLines: true,
-          //String - Colour of the grid lines
-          scaleGridLineColor: "rgba(0,0,0,.05)",
-          //Number - Width of the grid lines
-          scaleGridLineWidth: 1,
-          //Boolean - Whether to show horizontal lines (except X axis)
-          scaleShowHorizontalLines: true,
-          //Boolean - Whether to show vertical lines (except Y axis)
-          scaleShowVerticalLines: true,
-          //Boolean - Whether the line is curved between points
-          bezierCurve: true,
-          //Number - Tension of the bezier curve between points
-          bezierCurveTension: 0.3,
-          //Boolean - Whether to show a dot for each point
-          pointDot: false,
-          //Number - Radius of each point dot in pixels
-          pointDotRadius: 4,
-          //Number - Pixel width of point dot stroke
-          pointDotStrokeWidth: 1,
-          //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-          pointHitDetectionRadius: 20,
-          //Boolean - Whether to show a stroke for datasets
-          datasetStroke: true,
-          //Number - Pixel width of dataset stroke
-          datasetStrokeWidth: 2,
-          //Boolean - Whether to fill the dataset with a color
-          datasetFill: true,
-          //String - A legend template
-          legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
-          //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-          maintainAspectRatio: true,
-          //Boolean - whether to make the chart responsive to window resizing
-          responsive: true
-        };
+  var PieData1 = [
+  {
+    value: 0,
+    color: "#f56954",
+    highlight: "#f56954",
+    label: "Paid Amount"
+  },
+  {
+    value: 0,
+    color: "#00a65a",
+    highlight: "#00a65a",
+    label: "Due Amount"
+  },
 
-        var areaChartData = {
-          labels: [],
-          datasets: [
-            {
-              label: "Total Sales",
-              fillColor: "rgba(210, 214, 222, 1)",
-              strokeColor: "rgba(210, 214, 222, 1)",
-              pointColor: "rgba(210, 214, 222, 1)",
-              pointStrokeColor: "#c1c7d1",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(220,220,220,1)",
-              data: []
-            },
-            {
-              label: "Paid Amounts",
-              fillColor: "rgba(60,141,188,0.9)",
-              strokeColor: "rgba(60,141,188,0.8)",
-              pointColor: "#3b8bba",
-              pointStrokeColor: "rgba(60,141,188,1)",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(60,141,188,1)",
-              data: []
-            },
-            {
-              label: "Due Amounts",
-              fillColor: "rgba(60,121,170,0.9)",
-              strokeColor: "rgba(60,108,188,0.8)",
-              pointColor: "#3b8bba",
-              pointStrokeColor: "rgba(60,141,188,1)",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(60,141,188,1)",
-              data: []
-            }
-          ]
-        };
+];
 
+var pieOptions1 = {
+  //Boolean - Whether we should show a stroke on each segment
+  segmentShowStroke: true,
+  //String - The colour of each segment stroke
+  segmentStrokeColor: "#fff",
+  //Number - The width of each segment stroke
+  segmentStrokeWidth: 2,
+  //Number - The percentage of the chart that we cut out of the middle
+  percentageInnerCutout: 50, // This is 0 for Pie charts
+  //Number - Amount of animation steps
+  animationSteps: 100,
+  //String - Animation easing effect
+  animationEasing: "easeOutBounce",
+  //Boolean - Whether we animate the rotation of the Doughnut
+  animateRotate: true,
+  //Boolean - Whether we animate scaling the Doughnut from the centre
+  animateScale: false,
+  //Boolean - whether to make the chart responsive to window resizing
+  responsive: true,
+  // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+  maintainAspectRatio: true,
+  //String - A legend template
+  legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+};
+// Get context with jQuery - using jQuery's .get() method.
+var pieChartCanvas1 = $("#pieChart1").get(0).getContext("2d");
+var pieChart1 = new Chart(pieChartCanvas1);
+//Create pie or douhnut chart
 
-         $scope.load =
-         $http({
-              method: 'post',
-              url: '/superuser/get-graph-data',
-              data: {
-                    'paid_unpaid_month_wise': true
-              },
-              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-         }).then(function (response){
-            var data = response.data.stockslist
-            var months = [
-                'January',
-                'February',
-                'March',
-                'April',
-                'May',
-                'June',
-                'July',
-                'August',
-                'September',
-                'October',
-                'November',
-                'December'
-            ]
-            for(var j in months){
-                $.each(data, function(i){
-                        //console.log(data[i], months[j])
-                        if(data[i].month == months[j]){
-                            console.log('yes', data[i].month)
-                            areaChartData.labels.push(data[i].month)
-                            areaChartData.datasets[0].data.push(data[i].total_price)
-                            areaChartData.datasets[1].data.push(data[i].paid)
-                            areaChartData.datasets[2].data.push(data[i].due)
+ /*$scope.load =
+ $http({
+      method: 'post',
+      url: '/superuser/get-graph-data',
+      data: {
+            'get_products_quantity': true
+      },
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+ }).then(function (response){
+    var data = JSON.parse(response.data.stockslist)
+    //console.log(data)
+    $.each(data, function(i){
 
-                        }
-                })
-            }
-            console.log(areaChartData,'==================================')
-            areaChart.Line(areaChartData, areaChartOptions);
+        for(temp in PieData){
+             if(data[i].fields.item_type == PieData[temp].label){
+                PieData[temp].value += data[i].fields.quantity_weight
+             }
+        }
+    })
+    console.log(PieData)
+    pieChart1.Doughnut(PieData1, pieOptions1);
+ }, function(error){
+    console.log('error', error)
 
-         }, function(error){
-            console.log('error', error)
-
-         })
-// -------------end of area chat ---------------
+ })*/
+ // --------------------end of paid and unpaid amount in graphs-------------------
 
 //---getting customers credit and debit------------
 $scope.load =
@@ -325,6 +273,10 @@ $scope.load =
             console.log(' product_expired_data', response)
 
             $scope.counts = response.data.counts;
+            PieData1[0]['value'] = $scope.counts.paid;
+            PieData1[1]['value'] = $scope.counts.due;
+
+            pieChart1.Doughnut(PieData1, pieOptions1);
 
          }, function(error){
             console.log('hellow')
@@ -359,7 +311,7 @@ $scope.load =
                   var printContents = document.getElementById("printing_space").innerHTML;
                   var popupWin = window.open('', '_blank', 'width=300,height=300');
                   popupWin.document.open();
-                  popupWin.document.write('<html><head><style>.table-bordered>tbody>tr>td,.table-bordered>tbody>tr>th,.table-bordered>tfoot>tr>td,.table-bordered>tfoot>tr>th,.table-bordered>thead>tr>td,.table-bordered>thead>tr>th,.table>tbody>tr>td,.table>tbody>tr>th,.table>tfoot>tr>td,.table>tfoot>tr>th,.table>thead>tr>td,.table>thead>tr>th{border:none}.table>tbody>tr>td,.table>tbody>tr>th,.table>tfoot>tr>td,.table>tfoot>tr>th,.table>thead>tr>td,.table>thead>tr>th{border:none;border-left:1px solid #ddd}</style><link rel="stylesheet" href="/static/css/bootstrap.min.css"><link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css"></head><body onload="window.print()">' + printContents + '</body></html>');
+                  popupWin.document.write('<html><head><link rel="stylesheet" href="/static/css/app.css"><link rel="stylesheet" href="/static/css/bootstrap.min.css"><link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css"></head><body onload="window.print()">' + printContents + '</body></html>');
                   popupWin.document.close();
             }
 
@@ -929,3 +881,137 @@ $scope.load =
 
 })
 
+
+
+
+
+
+
+
+
+// ------------backup graph data --------------------
+// Get context with jQuery - using jQuery's .get() method.
+/*
+        var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
+        // This will get the first returned node in the jQuery collection.
+        var areaChart = new Chart(areaChartCanvas);
+        var areaChartOptions = {
+          //Boolean - If we should show the scale at all
+          showScale: true,
+          //Boolean - Whether grid lines are shown across the chart
+          scaleShowGridLines: true,
+          //String - Colour of the grid lines
+          scaleGridLineColor: "rgba(0,0,0,.05)",
+          //Number - Width of the grid lines
+          scaleGridLineWidth: 1,
+          //Boolean - Whether to show horizontal lines (except X axis)
+          scaleShowHorizontalLines: true,
+          //Boolean - Whether to show vertical lines (except Y axis)
+          scaleShowVerticalLines: true,
+          //Boolean - Whether the line is curved between points
+          bezierCurve: true,
+          //Number - Tension of the bezier curve between points
+          bezierCurveTension: 0.3,
+          //Boolean - Whether to show a dot for each point
+          pointDot: false,
+          //Number - Radius of each point dot in pixels
+          pointDotRadius: 4,
+          //Number - Pixel width of point dot stroke
+          pointDotStrokeWidth: 1,
+          //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+          pointHitDetectionRadius: 20,
+          //Boolean - Whether to show a stroke for datasets
+          datasetStroke: true,
+          //Number - Pixel width of dataset stroke
+          datasetStrokeWidth: 2,
+          //Boolean - Whether to fill the dataset with a color
+          datasetFill: true,
+          //String - A legend template
+          legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
+          //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+          maintainAspectRatio: true,
+          //Boolean - whether to make the chart responsive to window resizing
+          responsive: true
+        };
+
+        var areaChartData = {
+          labels: [],
+          datasets: [
+            {
+              label: "Total Sales",
+              fillColor: "rgba(210, 214, 222, 1)",
+              strokeColor: "rgba(210, 214, 222, 1)",
+              pointColor: "rgba(210, 214, 222, 1)",
+              pointStrokeColor: "#c1c7d1",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(220,220,220,1)",
+              data: []
+            },
+            {
+              label: "Paid Amounts",
+              fillColor: "rgba(60,141,188,0.9)",
+              strokeColor: "rgba(60,141,188,0.8)",
+              pointColor: "#3b8bba",
+              pointStrokeColor: "rgba(60,141,188,1)",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(60,141,188,1)",
+              data: []
+            },
+            {
+              label: "Due Amounts",
+              fillColor: "rgba(60,121,170,0.9)",
+              strokeColor: "rgba(60,108,188,0.8)",
+              pointColor: "#3b8bba",
+              pointStrokeColor: "rgba(60,141,188,1)",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(60,141,188,1)",
+              data: []
+            }
+          ]
+        };
+
+
+         $scope.load =
+         $http({
+              method: 'post',
+              url: '/superuser/get-graph-data',
+              data: {
+                    'paid_unpaid_month_wise': true
+              },
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+         }).then(function (response){
+            var data = response.data.stockslist
+            var months = [
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+                'July',
+                'August',
+                'September',
+                'October',
+                'November',
+                'December'
+            ]
+            for(var j in months){
+                $.each(data, function(i){
+                        //console.log(data[i], months[j])
+                        if(data[i].month == months[j]){
+                            console.log('yes', data[i].month)
+                            areaChartData.labels.push(data[i].month)
+                            areaChartData.datasets[0].data.push(data[i].total_price)
+                            areaChartData.datasets[1].data.push(data[i].paid)
+                            areaChartData.datasets[2].data.push(data[i].due)
+
+                        }
+                })
+            }
+            console.log(areaChartData,'==================================')
+            areaChart.Line(areaChartData, areaChartOptions);
+
+         }, function(error){
+            console.log('error', error)
+
+         })*/
