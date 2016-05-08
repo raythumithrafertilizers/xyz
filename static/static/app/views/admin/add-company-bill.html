@@ -53,6 +53,20 @@
 
 
               </div> <!-- row end -->
+
+              <div class="row row-sides"> <!-- row start -->
+                <div class="col-xs-12 col-lg-4">
+                    <div class="form-group">
+                      <label>Invoice Date</label><br/>
+                      <input type="text" id="datepicker_invoice_date" class="form-control"
+                             placeholder="Invoice Bill Date "
+                             ng-model="company.invoice_date" name="mfg_date"
+                             ng-class="{ 'has-error' : userForm.mfg_date.$invalid && !userForm.mfg_date.$pristine }">
+
+                    </div>
+                </div>
+              </div>
+
               <div class="row row-sides"> <!-- row start -->
 
                 <div class="col-xs-12 col-lg-4">
@@ -65,6 +79,7 @@
                 </div>
 
               </div> <!-- row end -->
+
 
 
 

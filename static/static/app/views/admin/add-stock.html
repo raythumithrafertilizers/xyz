@@ -20,6 +20,29 @@
           <div class="box box-danger box-top-border">
             <div class="box-body">
             <form ng-submit="createStock()" name="userForm">
+
+
+              <div class="row row-sides"> <!-- row start -->
+                <div class="col-xs-12 col-lg-4">
+
+                  <div class="form-group">
+                    <label>Select Invoice Bill</label>
+
+
+                        <select class="form-control" name="invoice_bill" ng-model="stock.invoice_bill"
+                                ng-options="temp.bill_id as temp.bill_number for temp in billsList">
+                        </select>
+
+                    <!--<input type="text" class="form-control" placeholder="Store Id" ng-model="store.storeid" ng-class="{ 'has-error' : userForm.storeid.$invalid && !userForm.storeid.$pristine }" name="storeid" required>
+                    <p ng-show="userForm.storeid.$invalid && !userForm.storeid.$pristine" class="help-block">Store id is required.</p>-->
+                  </div>
+                </div>
+
+
+
+              </div> <!-- row end -->
+
+
               <div class="row row-sides"> <!-- row start -->
                 <div class="col-xs-12 col-lg-4">
                   <div class="form-group">

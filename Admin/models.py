@@ -11,7 +11,19 @@ class Quantity(models.Model):
 class RatePerType(models.Model):
 	rate_per_type_name = models.CharField(max_length=500)
 
+class CompanyBills(models.Model):
+	company_name = models.CharField(max_length=300)
+	company_invoice_number = models.CharField(max_length=300)
+	bill_image = models.FileField(upload_to='static/static/uploads/')
+	invoice_date = models.DateField(datetime.now().date())
+	uploaded_at = models.DateTimeField(default=datetime.now())
+
 class StockDetails(models.Model):
+
+	invoice_bill = models.ForeignKey(CompanyBills,
+									 blank=True,
+									 null=True,)
+
 	item_name = models.CharField(max_length=500)
 	item_type = models.CharField(max_length=100)
 
@@ -66,11 +78,7 @@ class Billing(models.Model):
 
 
 
-class CompanyBills(models.Model):
-	company_name = models.CharField(max_length=300)
-	company_invoice_number = models.CharField(max_length=300)
-	bill_image = models.FileField(upload_to='static/static/uploads/')
-	uploaded_at = models.DateTimeField(default=datetime.now())
+
 
 class GalleryImages(models.Model):
 	gallery_image = models.FileField(upload_to='static/static/upload_gallary_images/')

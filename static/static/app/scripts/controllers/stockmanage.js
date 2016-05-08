@@ -3,6 +3,34 @@ angular.module("App")
 
 .controller("editStockController", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
+
+    $scope.load = $http({
+	  		method: 'GET',
+			  url: '/superuser/company-bill',
+			}).then(function (response){
+		    		$scope.billsList = [];
+		    		console.log(response, '0000000')
+		    		var blist = JSON.parse(response.data.bills_list);
+
+		    		$.each(blist, function(i){
+                        var obj = {};
+                        obj.bill_id = blist[i].pk;
+                        obj.company_name = blist[i].fields.company_name;
+                        obj.bill_number = blist[i].fields.company_invoice_number;
+                        obj.invoice_date = blist[i].fields.invoice_date;
+                        obj.bill_image = process_image_path(blist[i].fields.bill_image);
+
+                        $scope.billsList.push(obj);
+                        $timeout(function(){
+                            $("#example1").DataTable();
+                        },500)
+                    })
+			}, function errorCallback(response){
+		    		console.log(response);
+			});
+
+
+
     $timeout(function(){
         $('#datepicker') .datepicker({
             format: 'dd/mm/yyyy',
@@ -38,13 +66,15 @@ angular.module("App")
     $scope.quantityList = [
         {'name': 'kgs', 'id': 'kgs'},
         {'name': 'liters', 'id': 'liters'},
-        {'name': 'units', 'id': 'units'}
+        {'name': 'units', 'id': 'units'},
+        {'name': 'grams', 'id': 'grams'}
     ]
 
     $scope.quantityRateList = [
         {'name': 'kgs', 'id': 'kgs'},
         {'name': 'liters', 'id': 'liters'},
-        {'name': 'units', 'id': 'units'}
+        {'name': 'units', 'id': 'units'},
+        {'name': 'grams', 'id': 'grams'}
     ]
 
      $scope.isLegalProduct = [
@@ -130,6 +160,8 @@ angular.module("App")
 
         $scope.stock.isLegal = stockdata[0].fields.isLegal
 
+        $scope.stock.invoice_bill = stockdata[0].fields.invoice_bill
+
         $scope.stock.batch_number = stockdata[0].fields.item_batch_number;
         $scope.stock.mfg_date = dateString(stockdata[0].fields.mfg_date)
         $scope.stock.lot_number = stockdata[0].fields.item_lot_number;
@@ -151,6 +183,33 @@ angular.module("App")
 
 .controller("addStockController", function ($scope,$timeout, $q, $http, $alert, toastr){
     $scope.stockType = 'Select Stock Type'
+
+    $scope.load = $http({
+	  		method: 'GET',
+			  url: '/superuser/company-bill',
+			}).then(function (response){
+		    		$scope.billsList = [];
+		    		console.log(response, '0000000')
+		    		var blist = JSON.parse(response.data.bills_list);
+
+		    		$.each(blist, function(i){
+                        var obj = {};
+                        obj.bill_id = blist[i].pk;
+                        obj.company_name = blist[i].fields.company_name;
+                        obj.bill_number = blist[i].fields.company_invoice_number;
+                        obj.invoice_date = blist[i].fields.invoice_date;
+                        obj.bill_image = process_image_path(blist[i].fields.bill_image);
+
+                        $scope.billsList.push(obj);
+                        $timeout(function(){
+                            $("#example1").DataTable();
+                        },500)
+                    })
+			}, function errorCallback(response){
+		    		console.log(response);
+			});
+
+
 
      $timeout(function(){
         $('#datepicker') .datepicker({
@@ -176,6 +235,7 @@ angular.module("App")
         {'name': 'Seeds', 'id': 'Seeds'},
         {'name': 'Bio Pesticides', 'id': 'Bio Pesticides'},
         {'name': 'Bio Chemicals', 'id': 'Bio Chemicals'}
+
     ]
 
     $scope.isLegalProduct = [
@@ -186,13 +246,18 @@ angular.module("App")
     $scope.quantityList = [
         {'name': 'kgs', 'id': 'kgs'},
         {'name': 'liters', 'id': 'liters'},
-        {'name': 'units', 'id': 'units'}
+        {'name': 'units', 'id': 'units'},
+        {'name': 'grams', 'id': 'grams'},
+        {'name': 'milli liters', 'id': 'milli liters'}
     ]
 
     $scope.quantityRateList = [
         {'name': 'kgs', 'id': 'kgs'},
         {'name': 'liters', 'id': 'liters'},
-        {'name': 'units', 'id': 'units'}
+        {'name': 'units', 'id': 'units'},
+        {'name': 'grams', 'id': 'grams'},
+        {'name': 'milli liters', 'id': 'milli liters'}
+
     ]
 
     $scope.setType = function(type){
@@ -202,6 +267,8 @@ angular.module("App")
 
 
 		$scope.createStock = function (){
+
+
                 $scope.load = $http({
 					  method: 'post',
 					  url: '/superuser/add-stock',
@@ -222,88 +289,6 @@ angular.module("App")
 						    		toastr.error('failed  to add new stock...')
 								});
 			}
-
-
-
-			$scope.getState =  function(){
-
-			$scope.load = $http({
-			  		method: 'GET',
-					  url: '/superuser/getstates',
-					  params:{
-					  	"countryid" : $scope.stock.country.cid,
-					  }
-					}).then(function (response)
-						{
-				    		$scope.statelist = [];
-				    		var statesdata = JSON.parse(response.data.stateslist);
-
-				    		$.each(statesdata, function(i){
-				    			var obj = {};
-				    			obj.sid = statesdata[i].pk;
-				    			obj.sname = statesdata[i].fields.stateName;
-				    			$scope.statelist.push(obj);
-				    		})
-
-
-						}, function errorCallback(response)
-						{
-				    		console.log(response);
-						});
-
-			}
-
-			$scope.getCities =  function(){
-
-			$scope.load = $http({
-			  		method: 'GET',
-					  url: '/superuser/getcities',
-					  params:{
-					  	"stateid" : $scope.stock.states.sid,
-					  }
-					}).then(function (response)
-						{
-				    		$scope.citieslist = [];
-				    		var citiesdata = JSON.parse(response.data.citieslist);
-				    		$.each(citiesdata, function(i){
-				    			var obj = {};
-				    			obj.cityid = citiesdata[i].pk;
-				    			obj.cityname = citiesdata[i].fields.cityName;
-				    			$scope.citieslist.push(obj);
-				    		})
-						}, function errorCallback(response)
-						{
-				    		console.log(response);
-						});
-
-			}
-
-
-		$scope.getAreas =  function(){
-
-			$scope.load = $http({
-			  		method: 'GET',
-					  url: '/superuser/getareas',
-					  params:{
-					  	"cityid" : $scope.stock.cities.cityid,
-					  }
-					}).then(function (response)
-						{
-				    		$scope.areaslist = [];
-				    		var areasdata = JSON.parse(response.data.arealist);
-				    		$.each(areasdata, function(i){
-				    			var obj = {};
-				    			obj.areaid = areasdata[i].pk;
-				    			obj.areaname = areasdata[i].fields.localityName;
-				    			$scope.areaslist.push(obj);
-				    		})
-						}, function errorCallback(response)
-						{
-				    		console.log(response);
-						});
-
-			}
-
 })
 
 

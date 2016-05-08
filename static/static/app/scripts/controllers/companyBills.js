@@ -4,14 +4,24 @@ angular.module("App")
 .controller("addCompanyBillCtrl", function ($scope,$location,$timeout,Upload, $q, $http, $alert, toastr){
 
 
+    $timeout(function(){
+        $('#datepicker_invoice_date') .datepicker({
+            format: 'dd/mm/yyyy',
+            startDate: new Date(),
+            endDate: '01/12/2020'
+        })
+    },500)
 
      $scope.uploadPic = function(file) {
 
             file.upload = Upload.upload({
               url: '/superuser/company-bill',
-              data: {company_name: $scope.company.company_name,
-                     company_invoice: $scope.company.invoice_number,
-                     file: file},
+              data: {
+                company_name: $scope.company.company_name,
+                company_invoice: $scope.company.invoice_number,
+                file: file,
+                invoice_date: $scope.company.invoice_date
+                },
             });
 
             file.upload.then(function (response) {
@@ -75,7 +85,13 @@ angular.module("App")
         $("#myModal3").modal("show");
     }
 
-
+    $timeout(function(){
+        $('#datepicker_invoice_date') .datepicker({
+            format: 'dd/mm/yyyy',
+            startDate: new Date(),
+            endDate: '01/12/2020'
+        })
+    })
 
     $scope.viewBill = function(){
         $("#myModal2").modal("show");
@@ -86,7 +102,8 @@ angular.module("App")
          var data = {
                    company_name: $scope.model_bill_data.company_name,
                    company_invoice: $scope.model_bill_data.bill_number,
-                   bill_id: $scope.model_bill_data.bill_id
+                   bill_id: $scope.model_bill_data.bill_id,
+                   invoice_date: $scope.model_bill_data.invoice_date
               }
          if(changedPic){
             data.file = changedPic
@@ -153,6 +170,7 @@ angular.module("App")
                         obj.bill_id = blist[i].pk;
                         obj.company_name = blist[i].fields.company_name;
                         obj.bill_number = blist[i].fields.company_invoice_number;
+                        obj.invoice_date = blist[i].fields.invoice_date;
                         obj.bill_image = process_image_path(blist[i].fields.bill_image);
 
                         $scope.billsList.push(obj);

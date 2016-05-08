@@ -79,6 +79,15 @@ class EditStock(APIView):
                 print 'yes isLeagal',
                 stock.isLegal = body['stockdata']['isLegal']
 
+            if 'invoice_bill' in body['stockdata']:
+                try:
+                    print body['stockdata']['invoice_bill'], '-------------------'
+                    temp_invoice_bill = CompanyBills.objects.get(id=body['stockdata']['invoice_bill'])
+                    stock.invoice_bill = temp_invoice_bill
+                except Exception as e:
+                    print e
+                    return json_response({"err": "no invoice bill found ..."}, status=200)
+
             if 'batch_number' in body['stockdata']:
                 stock.item_batch_number = body['stockdata']['batch_number']
             if 'lot_number' in body['stockdata']:
@@ -467,6 +476,8 @@ class CompanyBillsManagement(View):
                     companyBill = CompanyBills.objects.get(id = data['bill_id'])
                     companyBill.company_name = data['company_name']
                     companyBill.company_invoice_number = data['company_invoice']
+                    companyBill.invoice_date = data['invoice_date']
+
                     if file_name:
                         print 'yes pic'
                         companyBill.bill_image = file_name
@@ -475,6 +486,9 @@ class CompanyBillsManagement(View):
                 else:
                     companyBill = CompanyBills(company_name = data['company_name'])
                     companyBill.company_invoice_number = data['company_invoice']
+                    temp_invoice_date = datetime.datetime.strptime(str(data['invoice_date']),
+                                                                        "%d/%m/%Y").date()
+                    companyBill.invoice_date = temp_invoice_date
                     companyBill.bill_image = file_name
                     companyBill.save()
                     return json_response({"response" : "data saved successfully"}, status=200)
@@ -558,6 +572,15 @@ class AddStock(View):
             stock = StockDetails(item_name = body['stockdata']['stock_name'],
                                  item_type= body['stockdata']['stock_type']['name'],
                                  expire_date = expired_converted_date)
+
+            if 'invoice_bill' in body['stockdata']:
+                try:
+                    print body['stockdata']['invoice_bill'], '-------------------'
+                    temp_invoice_bill = CompanyBills.objects.get(id = body['stockdata']['invoice_bill'])
+                    stock.invoice_bill = temp_invoice_bill
+                except Exception as e:
+                    print e
+                    return json_response({"err": "no invoice bill found ..."}, status=200)
 
             if 'isLegal' in body['stockdata']:
                 stock.isLegal = body['stockdata']['isLegal']['name']

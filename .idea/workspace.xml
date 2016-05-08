@@ -2,16 +2,53 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1fe5506-f1c1-4d33-bf3c-f0ec8571d8ca" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/css/print-bill.css" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0001_initial.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0002_auto_20160222_1726.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0003_auto_20160222_1732.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0004_auto_20160222_1735.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0005_store_wise_stamp_offers_store_id.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0006_auto_20160229_1741.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0007_auto_20160320_1202.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0008_auto_20160320_1230.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0009_auto_20160320_1253.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0010_auto_20160320_1453.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0011_auto_20160320_1605.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0012_auto_20160320_1606.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0013_stockdetails_quantity_weight.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0014_stockdetails_available_stock.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0015_customers.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0016_auto_20160323_1004.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0017_billing_bill_date.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0018_auto_20160323_1532.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0019_auto_20160323_1533.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0020_auto_20160323_1535.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0021_auto_20160323_1720.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0022_auto_20160323_1720.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0023_auto_20160323_1720.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0024_auto_20160326_2014.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0025_auto_20160402_1638.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0026_auto_20160404_1159.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0027_auto_20160404_1352.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0028_auto_20160404_1503.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0029_auto_20160406_1635.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0030_auto_20160407_1201.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0031_auto_20160407_1202.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0032_auto_20160407_1337.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0033_auto_20160424_0930.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0034_auto_20160424_1457.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0035_auto_20160424_1621.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Backup-To-Google-Drive" afterPath="$PROJECT_DIR$/Backup-To-Google-Drive" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/models.py" afterPath="$PROJECT_DIR$/Admin/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/views.py" afterPath="$PROJECT_DIR$/Admin/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/index.html" afterPath="$PROJECT_DIR$/static/static/app/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/404.html" afterPath="$PROJECT_DIR$/static/static/app/views/404.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/dashboard.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/print-bill.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/print-bill.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/css/app.css" afterPath="$PROJECT_DIR$/static/static/css/app.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/static/static/css/bootstrap.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/css/main.css" afterPath="$PROJECT_DIR$/static/static/css/main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/companyBills.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/companyBills.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/stockmanage.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/stockmanage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/add-company-bill.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/add-company-bill.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/add-stock.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/add-stock.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/companyBills.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/companyBills.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/editStock.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/editStock.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/modifyStock.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/modifyStock.html" />
     </list>
     <ignored path="BaseModule.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,25 +69,64 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="billingCtrl.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Admin/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="278" column="54" selection-start-line="278" selection-start-column="54" selection-end-line="278" selection-end-column="54" />
+            <state relative-caret-position="148">
+              <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dashboard.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/dashboard.html">
+      <file leaf-file-name="editStock.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/editStock.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="140" column="73" selection-start-line="140" selection-start-column="73" selection-end-line="140" selection-end-column="73" />
+            <state relative-caret-position="396">
+              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding>
-                <element signature="n#style#0;n#canvas#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#section#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#canvas#0;n#div#1;n#div#0;n#div#1;n#div#0;n#section#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/static/app/scripts/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="203">
+              <caret line="91" column="22" selection-start-line="91" selection-start-column="16" selection-end-line="91" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Admin/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="22" column="50" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stockmanage.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/stockmanage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1524">
+              <caret line="162" column="33" selection-start-line="162" selection-start-column="21" selection-end-line="162" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Admin/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="15" column="33" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="33" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -73,29 +149,21 @@
       <list>
         <option value="$PROJECT_DIR$/Admin/views1.py" />
         <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/userscontroller.js" />
-        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/stockmanage.js" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/add-stock.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/create-customer.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/create-user.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/add-company-bill.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/approveloyaltycards.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/editStock.html" />
         <option value="$PROJECT_DIR$/static/static/app/gallery.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/select-items.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/profile.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/add-gallery-image.html" />
-        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/companyBills.js" />
         <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/gallery.js" />
-        <option value="$PROJECT_DIR$/Admin/models.py" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/BillingCustomers.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/companyBills.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/edit-bill-products.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/enter-quantity-price.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/finish-create-sale.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/galleryImages.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/modifyBilling.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/modifyCustomers.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/modifyStock.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/modifyUsers.html" />
         <option value="$PROJECT_DIR$/backup.py" />
         <option value="$PROJECT_DIR$/Backup-To-Google-Drive/helper.py" />
@@ -112,9 +180,7 @@
         <option value="$PROJECT_DIR$/static/static/app/scripts/app.js" />
         <option value="$PROJECT_DIR$/Admin/urls.py" />
         <option value="$PROJECT_DIR$/installations_r.sh" />
-        <option value="$PROJECT_DIR$/Admin/views.py" />
         <option value="$PROJECT_DIR$/static/static/css/main.css" />
-        <option value="$PROJECT_DIR$/static/static/app/index.html" />
         <option value="$PROJECT_DIR$/static/static/css/print-bill.css" />
         <option value="$PROJECT_DIR$/static/static/css/bootstrap.min.css" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/print-bill.html" />
@@ -122,6 +188,16 @@
         <option value="$PROJECT_DIR$/static/static/app/views/404.html" />
         <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/dashboard.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/modifyStock.html" />
+        <option value="$PROJECT_DIR$/static/static/app/index.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/add-company-bill.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/companyBills.html" />
+        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/companyBills.js" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/add-stock.html" />
+        <option value="$PROJECT_DIR$/Admin/models.py" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/editStock.html" />
+        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/stockmanage.js" />
+        <option value="$PROJECT_DIR$/Admin/views.py" />
       </list>
     </option>
   </component>
@@ -161,10 +237,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope">
         <subPane subId="Project Files" />
       </pane>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -286,96 +362,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -623,10 +609,98 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11305">
+          <caret line="595" column="31" selection-start-line="595" selection-start-column="31" selection-end-line="595" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Admin/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6574">
+          <caret line="353" column="20" selection-start-line="256" selection-start-column="6" selection-end-line="256" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Admin/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#28#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Admin/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#51#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11324">
+          <caret line="596" column="48" selection-start-line="596" selection-start-column="33" selection-end-line="596" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Admin/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#28#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Admin/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#51#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/modifyStock.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1197">
+          <caret line="63" column="22" selection-start-line="63" selection-start-column="22" selection-end-line="63" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2660">
+          <caret line="140" column="73" selection-start-line="140" selection-start-column="73" selection-end-line="140" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -637,19 +711,114 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/dashboard.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
+        <state relative-caret-position="2660">
           <caret line="140" column="73" selection-start-line="140" selection-start-column="73" selection-end-line="140" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/modifyStock.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="63" column="22" selection-start-line="63" selection-start-column="22" selection-end-line="63" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="173" column="42" selection-start-line="173" selection-start-column="42" selection-end-line="173" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="91" column="22" selection-start-line="91" selection-start-column="16" selection-end-line="91" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/add-company-bill.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="65" column="26" selection-start-line="59" selection-start-column="22" selection-end-line="65" selection-end-column="26" />
           <folding>
-            <element signature="n#style#0;n#canvas#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#section#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#canvas#0;n#div#1;n#div#0;n#div#1;n#div#0;n#section#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/companyBills.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="155" column="46" selection-start-line="155" selection-start-column="46" selection-end-line="155" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="278" column="54" selection-start-line="278" selection-start-column="54" selection-end-line="278" selection-end-column="54" />
+        <state relative-caret-position="-7491">
+          <caret line="595" column="31" selection-start-line="595" selection-start-column="31" selection-end-line="595" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/companyBills.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2553">
+          <caret line="184" column="0" selection-start-line="159" selection-start-column="4" selection-end-line="184" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Admin/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="22" column="50" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/add-stock.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="488">
+          <caret line="42" column="37" selection-start-line="24" selection-start-column="14" selection-end-line="42" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/editStock.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/stockmanage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1524">
+          <caret line="162" column="33" selection-start-line="162" selection-start-column="21" selection-end-line="162" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Admin/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="15" column="33" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Admin/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
           <folding />
         </state>
       </provider>

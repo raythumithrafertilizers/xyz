@@ -8,33 +8,33 @@ import datetime
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Admin', '0026_auto_20160404_1159'),
+        ('Admin', '0001_initial'),
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='stockdetails',
-            name='isLegal',
-            field=models.CharField(default=b'legal', max_length=100),
-        ),
         migrations.AlterField(
             model_name='billing',
             name='bill_date',
-            field=models.DateTimeField(default=datetime.datetime(2016, 4, 4, 13, 52, 14, 912133)),
+            field=models.DateTimeField(default=datetime.datetime(2016, 5, 8, 10, 54, 20, 165369)),
         ),
         migrations.AlterField(
             model_name='companybills',
             name='uploaded_at',
-            field=models.DateTimeField(default=datetime.datetime(2016, 4, 4, 13, 52, 14, 913617)),
+            field=models.DateTimeField(default=datetime.datetime(2016, 5, 8, 10, 54, 20, 161241)),
         ),
         migrations.AlterField(
             model_name='customers',
             name='create_date',
-            field=models.DateTimeField(default=datetime.datetime(2016, 4, 4, 13, 52, 14, 910977)),
+            field=models.DateTimeField(default=datetime.datetime(2016, 5, 8, 10, 54, 20, 163627)),
+        ),
+        migrations.AlterField(
+            model_name='galleryimages',
+            name='uploaded_at',
+            field=models.DateTimeField(default=datetime.datetime(2016, 5, 8, 10, 54, 20, 167206)),
         ),
         migrations.AlterField(
             model_name='stockdetails',
             name='create_date',
-            field=models.DateTimeField(default=datetime.datetime(2016, 4, 4, 13, 52, 14, 910205)),
+            field=models.DateTimeField(default=datetime.datetime(2016, 5, 8, 10, 54, 20, 162266)),
         ),
     ]
