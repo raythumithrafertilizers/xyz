@@ -28,12 +28,18 @@ urlpatterns = patterns('Admin.views',
     url(r'^company-bill', CompanyBillsManagement.as_view()),
     url(r'^delete-company-bill', deleteCompanyBill),
     url(r'^print-bill', printBill),
-
+    url(r'^get-bill-by-number', GetBillById),
     url(r'^gallery-image', GalleryManagement.as_view()),
     url(r'^delete-gallery-image', deleteGalleryImage),
 
+    # reports
+    url(r'^products-sale-report', Reports.as_view()),
+    url(r'^invoice-bill-reports', InvoiceReports.as_view()),
+    url(r'^legal-category-report', DailyLegalProudctCategoryReport.as_view()),
 
-
+    #update payments of customers
+    url(r'^add-payment', AddPayment.as_view()),
+    url(r'^get-specific-customer-payments', SpecificCustomerPayments.as_view())
 
 
 )

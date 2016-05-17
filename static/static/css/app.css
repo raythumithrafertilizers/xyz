@@ -171,7 +171,7 @@
     border-bottom: 1px dotted #ddd;
     padding-left: 5px;
     margin-left: 10px;
-    width: 97%
+    width: 95%
 }
 .enter-text{
 	border-radius: 0;
@@ -266,4 +266,7 @@
 }
 .box-body-print{
     padding:40px;
+}
+.box-body-print{
+    padding:0px 40px;
 }

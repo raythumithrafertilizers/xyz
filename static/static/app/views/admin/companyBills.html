@@ -1,4 +1,5 @@
 <!-- Content Wrapper. Contains page content -->
+      <div cg-busy="load"></div>
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -47,7 +48,7 @@
                                 <div class="modal-content">
                                   <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Bill Details</h4>
+                                    <h4 class="modal-title">Invoice Details</h4>
                                   </div>
                                   <div class="modal-body">
                                     <div class="row">
@@ -66,6 +67,10 @@
                                             <tr>
                                               <td>Invoice Date: </td>
                                               <td>[[model_bill_data.invoice_date]]</td>
+                                            </tr>
+                                             <tr>
+                                              <td>Tin Number: </td>
+                                              <td>[[model_bill_data.tin_number]]</td>
                                             </tr>
                                             <tr>
                                               <td>Image </td>
@@ -167,6 +172,22 @@
                                                 </div>
                                               </div>
                                             </div>
+
+                                            <div class="row row-sides"> <!-- row start -->
+                                                <div class="col-xs-4">
+                                                  <div class="form-group">
+                                                    <label>Tin Number</label>
+                                                    <input type="text" class="form-control"
+                                                           placeholder="Tin Number"
+                                                           ng-model="model_bill_data.tin_number" name="tin_number"
+                                                           ng-class="{ 'has-error' : userForm.tin_number.$invalid && !userForm.tin_number.$pristine }"
+                                                           >
+                                                   <!-- <p ng-show="userForm.tin_number.$invalid && !userForm.tin_number.$pristine" class="help-block">
+                                                      Tin Number is required.
+                                                    </p>-->
+                                                  </div>
+                                                </div>
+                                              </div>
 
 
                                             <div class="row row-sides"> <!-- row start -->

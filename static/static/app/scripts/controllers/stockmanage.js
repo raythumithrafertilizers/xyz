@@ -22,7 +22,7 @@ angular.module("App")
 
                         $scope.billsList.push(obj);
                         $timeout(function(){
-                            $("#example1").DataTable();
+                            $("#example1_modify_stock").DataTable();
                         },500)
                     })
 			}, function errorCallback(response){
@@ -33,17 +33,15 @@ angular.module("App")
 
     $timeout(function(){
         $('#datepicker') .datepicker({
-            format: 'dd/mm/yyyy',
-            startDate: '01/03/2016',
-            endDate: '01/12/2020'
+            format: 'dd/mm/yyyy'
+
         })
     },500)
 
     $timeout(function(){
         $('#datepicker1') .datepicker({
-            format: 'dd/mm/yyyy',
-            startDate: '01/03/2016',
-            endDate: '01/12/2020'
+            format: 'dd/mm/yyyy'
+
         })
     },500)
 
@@ -59,7 +57,7 @@ angular.module("App")
         {'name': 'Pesticides', 'id': 'Pesticides'},
         {'name': 'Seeds', 'id': 'Seeds'},
         {'name': 'Bio Pesticides', 'id': 'Bio Pesticides'},
-        {'name': 'Bio Chemicals', 'id': 'Bio Chemicals'}
+        {'name': 'Bio Fertilizers', 'id': 'Bio Fertilizers'}
     ]
 
 
@@ -78,8 +76,8 @@ angular.module("App")
     ]
 
      $scope.isLegalProduct = [
-        {'name': 'legal', 'id': 'legal'},
-        {'name': 'illegal', 'id': 'illegal'},
+        {'name': 'legal', 'id': 'legal', 'display_name': 'invoice stock'},
+        {'name': 'illegal', 'id': 'illegal', 'display_name': 'Quotation stock'},
     ]
 
     $scope.updateStock = function(){
@@ -114,9 +112,7 @@ angular.module("App")
         }
     }
 	$scope.editstock = function () {
-
-
-		$scope.load = $http({
+    	$scope.load = $http({
 			  method: 'post',
 			  url: '/superuser/editstock',
 			  data: {
@@ -158,6 +154,8 @@ angular.module("App")
 
         $scope.stock.stockType = stockdata[0].fields.item_type
 
+        $scope.stock.available_stock = stockdata[0].fields.available_stock
+
         $scope.stock.isLegal = stockdata[0].fields.isLegal
 
         $scope.stock.invoice_bill = stockdata[0].fields.invoice_bill
@@ -172,6 +170,7 @@ angular.module("App")
 
         $scope.stock.quantity_rate = stockdata[0].fields.rate_per_type;
         $scope.stock.rate = stockdata[0].fields.item_cost;
+        $scope.stock.invoice_price = stockdata[0].fields.invoice_cost;
 
 	}, function errorCallBack(error){
 		console.log(error);
@@ -183,6 +182,21 @@ angular.module("App")
 
 .controller("addStockController", function ($scope,$timeout, $q, $http, $alert, toastr){
     $scope.stockType = 'Select Stock Type'
+
+    $scope.disable_batch_number = false;
+    $scope.disable_lot_number = false;
+
+    $scope.changed_stock_type = function(){
+        if($scope.stock.stock_type.name == 'Seeds'){
+            $scope.disable_batch_number = true;
+            $scope.disable_lot_number = false;
+
+        }else{
+            $scope.disable_batch_number = false;
+            $scope.disable_lot_number = true;
+
+        }
+    }
 
     $scope.load = $http({
 	  		method: 'GET',
@@ -202,7 +216,7 @@ angular.module("App")
 
                         $scope.billsList.push(obj);
                         $timeout(function(){
-                            $("#example1").DataTable();
+                            $("#example1_modify_stock").DataTable();
                         },500)
                     })
 			}, function errorCallback(response){
@@ -214,16 +228,12 @@ angular.module("App")
      $timeout(function(){
         $('#datepicker') .datepicker({
             format: 'dd/mm/yyyy',
-            startDate: '01/03/2016',
-            endDate: '01/12/2020'
         })
     },500)
 
     $timeout(function(){
         $('#datepicker1') .datepicker({
             format: 'dd/mm/yyyy',
-            startDate: '01/03/2016',
-            endDate: '01/12/2020'
         })
     },500)
 
@@ -234,13 +244,13 @@ angular.module("App")
         {'name': 'Pesticides', 'id': 'Pesticides'},
         {'name': 'Seeds', 'id': 'Seeds'},
         {'name': 'Bio Pesticides', 'id': 'Bio Pesticides'},
-        {'name': 'Bio Chemicals', 'id': 'Bio Chemicals'}
+        {'name': 'Bio Fertilizers', 'id': 'Bio Fertilizers'}
 
     ]
 
     $scope.isLegalProduct = [
-        {'name': 'legal', 'id': 'legal'},
-        {'name': 'illegal', 'id': 'illegal'},
+        {'name': 'legal', 'id': 'legal', 'display_name': 'invoice stock'},
+        {'name': 'illegal', 'id': 'illegal', 'display_name': 'Quotation stock'},
     ]
 
     $scope.quantityList = [
@@ -283,10 +293,10 @@ angular.module("App")
 						    		$scope.master = {};
 						    		$scope.formData = angular.copy($scope.master);
 						    		toastr.success('successfully added new stock...')
+
 								}, function errorCallback(response)
 								{
-						    		// console.log("not sent");
-						    		toastr.error('failed  to add new stock...')
+						    		toastr.error(response.data.response)
 								});
 			}
 })
@@ -300,6 +310,8 @@ angular.module("App")
 			  url: '/superuser/stock-list',
 			}).then(function (response) 
 				{
+
+				    console.log(response)
 		    		$scope.stockslist = [];
 		    		var stockdata = JSON.parse(response.data.stockslist);
 		    		$.each(stockdata, function(i){
@@ -309,9 +321,15 @@ angular.module("App")
 				    			obj.expired_date =  stockdata[i].fields.expire_date;
 				    			obj.stock_type = stockdata[i].fields.item_type;
 				    			obj.quantity_weight = stockdata[i].fields.quantity_weight;
+				    			obj.available_stock = stockdata[i].fields.available_stock;
+				    			obj.company_invoice_number = stockdata[i].fields.company_invoice_number;
+
+
+				    			console.log(stockdata[i].fields,'------------')
+				    			//obj.invoice_number = stockdata[i].fields.invoice_bill.company_invoice_number
 				    			$scope.stockslist.push(obj);
 				    			$timeout(function(){
-								    $("#example1").DataTable();
+								    $("#example1_modify_stock").DataTable();
 								},500)
 				    		})
 				}, function errorCallback(response) 

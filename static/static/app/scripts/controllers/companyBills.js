@@ -6,9 +6,7 @@ angular.module("App")
 
     $timeout(function(){
         $('#datepicker_invoice_date') .datepicker({
-            format: 'dd/mm/yyyy',
-            startDate: new Date(),
-            endDate: '01/12/2020'
+            format: 'dd/mm/yyyy'
         })
     },500)
 
@@ -20,16 +18,17 @@ angular.module("App")
                 company_name: $scope.company.company_name,
                 company_invoice: $scope.company.invoice_number,
                 file: file,
-                invoice_date: $scope.company.invoice_date
+                invoice_date: $scope.company.invoice_date,
+                tin_number: $scope.company.tin_number
                 },
             });
 
-            file.upload.then(function (response) {
-                $timeout(function(){
+            $scope.load = file.upload.then(function (response) {
+                //$timeout(function(){
                     toastr.success('successfully created...')
                     $location.path('/company-bills')
 
-                },1000)
+                //},1000)
             }, function (response) {
                console.log(response)
                toastr.error('failed to created...')
@@ -103,7 +102,8 @@ angular.module("App")
                    company_name: $scope.model_bill_data.company_name,
                    company_invoice: $scope.model_bill_data.bill_number,
                    bill_id: $scope.model_bill_data.bill_id,
-                   invoice_date: $scope.model_bill_data.invoice_date
+                   invoice_date: $scope.model_bill_data.invoice_date,
+                   tin_number: $scope.model_bill_data.tin_number
               }
          if(changedPic){
             data.file = changedPic
@@ -135,8 +135,8 @@ angular.module("App")
 
     $scope.confirmDeleteCompanyBills = function(){
 
-        $scope.load =
-        $http({
+
+            $scope.load = $http({
                 method: 'post',
             url: '/superuser/delete-company-bill',
             data: {'bill_id': $scope.deleteCompanyBillId },
@@ -171,6 +171,7 @@ angular.module("App")
                         obj.company_name = blist[i].fields.company_name;
                         obj.bill_number = blist[i].fields.company_invoice_number;
                         obj.invoice_date = blist[i].fields.invoice_date;
+                        obj.tin_number = blist[i].fields.company_tin_number;
                         obj.bill_image = process_image_path(blist[i].fields.bill_image);
 
                         $scope.billsList.push(obj);
@@ -365,12 +366,6 @@ angular.module("App")
 			}, function errorCallback(response){
 		    		console.log(response);
 			});
-
-
-
-
-
-
 
 })
 

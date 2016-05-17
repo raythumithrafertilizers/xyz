@@ -14,12 +14,14 @@
               <div class="box">
                 <div class="box-body">
                   <div class="table-responsive-own">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="example1_modify_stock" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th>Stock name</th>
                         <th>Stock Type</th>
                         <th>Quantity</th>
+                        <th>Available Stock</th>
+                        <th>Invoice Number</th>
                         <th>Expired On</th>
                         <th>Edit</th>
                         <th>Delete</th>
@@ -32,11 +34,13 @@
                         <td>[[stock.stock_name]] </td>
                         <td>[[stock.stock_type]]</td>
                         <td> [[stock.quantity_weight]]</td>
+                        <td>[[stock.available_stock]]</td>
+                        <td>[[ stock.company_invoice_number ]]</td>
                         <td> [[stock.expired_date]]</td>
 
                         <td>
                           <div class="row">
-                            <div class="col-lg-10">
+                            <div class="col-lg-12">
                               <button class="btn btn-block btn-primary btn-flat" 
                               ng-click="EditStock(stock.stockId)">Edit</button>
                             </div>
@@ -45,7 +49,7 @@
                         </td>
                         <td>
                           <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                               <button class="btn btn-block btn-primary btn-flat"
                                        ng-click="confirmDelete(stock.stockId)">Delete</button>
                             </div>
@@ -106,7 +110,7 @@
 
     <script>
       $(function () {
-        $('#example2').DataTable({
+        $('#example2_modify_stock').DataTable({
           "paging": true,
           "lengthChange": false,
           "searching": false,

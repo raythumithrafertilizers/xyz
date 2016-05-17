@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 from django.conf import settings
 
 
@@ -29,9 +29,6 @@ class Migration(migrations.Migration):
                 ('phone', models.CharField(max_length=25)),
                 ('activationCode', models.CharField(max_length=50)),
                 ('role', models.CharField(max_length=15)),
-                ('membershipType', models.CharField(max_length=10)),
-                ('totalStamps', models.IntegerField(default=0)),
-                ('currentStamps', models.IntegerField(default=0)),
                 ('userKey', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),

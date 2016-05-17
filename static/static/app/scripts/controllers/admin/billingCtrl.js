@@ -5,6 +5,26 @@ function process_image_path(path){
 
 }
 angular.module("App")
+.controller("getBillCtrl", function($http,$location,$localStorage, $q, $timeout,toastr,$route, $scope){
+    console.log('get bill controller')
+
+    $scope.getting_bill = function(){
+        $scope.load =
+        $http({
+                method: 'POST',
+                url: '/superuser/get-bill-by-number',
+                data: {'bill_id': $scope.bill_number}
+        }).then(function (response){
+                    $location.path("/print-bill/"+$scope.bill_number)
+        }, function errorCallback(response){
+                    toastr.error('bill not found')
+        });
+
+
+    }
+
+})
+
 .controller("dashBoardCtrl", function($http,$location,$localStorage, $q, $timeout,toastr,$route, $scope){
 
 
@@ -66,7 +86,7 @@ $http({
     value: 0,
     color: "#3c8dbc",
     highlight: "#3c8dbc",
-    label: "Bio Chemicals"
+    label: "Bio Fertilizers"
   }
 
 ];
@@ -115,7 +135,7 @@ var pieChart = new Chart(pieChartCanvas);
 
         for(temp in PieData){
              if(data[i].fields.item_type == PieData[temp].label){
-                PieData[temp].value += data[i].fields.quantity_weight
+                PieData[temp].value += data[i].fields.available_stock
              }
         }
     })
@@ -295,11 +315,17 @@ $scope.load =
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             }).then(function successCallback(response){
-                        toastr.success('successfully created....')
 
                         $scope.bill_info = response.data.data;
+
+                        if(response.data.data['due']){
+                            $scope.bill_type_display = "CREDIT"
+                        }else{
+                            $scope.bill_type_display = "CASH"
+                        }
+
                         $scope.bill_info['bill_date'] = new Date()
-                        console.log(response)
+                        console.log(response, '============')
             }, function errorCallback(response)
             {
                 toastr.error('unable to create bill')
@@ -573,13 +599,12 @@ $scope.load =
 .controller("finishCreateSaleCtrl", function($http,$localStorage, $q,$location,
                                              $timeout,toastr,$route, $scope){
         $scope.user = $localStorage.customer;
-        console.log($scope.user, 'finsih')
         $scope.selectedProductsList = $localStorage.selectedItems
         $scope.total_price = $localStorage.total_price;
         $scope.total_quantity = $localStorage.total_quantity;
         $scope.amount_paid = $localStorage.amount_paid;
         $scope.due = $scope.total_price - $scope.amount_paid;
-        console.log($scope.user)
+
         $scope.saveBill = function(){
 
             var data = {
@@ -842,8 +867,7 @@ $scope.load =
     $location.path("/enter-quantity-price")
  }
 
- $scope.load =
-               $http({
+ $scope.load = $http({
                       method: 'get',
                       url: '/superuser/stock-list',
                       headers: {
@@ -855,7 +879,7 @@ $scope.load =
                     for(var i in data){
                         var obj = {}
                         obj.name = data[i].fields.item_name
-                        obj.type = data[i].fields.item_type
+                        obj.type = "--"+data[i].fields.item_type+"--"+data[i].fields.company_invoice_number
 
                         obj.quantity_weight = data[i].fields.quantity_weight
                         obj.quantity_weight_type = data[i].fields.quantity_type

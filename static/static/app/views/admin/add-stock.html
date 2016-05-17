@@ -1,4 +1,4 @@
-  <div class="content-wrapper" style="min-height: 946px;">
+  <div class="content-wrapper" style="min-height: 946px;" cg-busy="load">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -38,6 +38,16 @@
                   </div>
                 </div>
 
+                <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Available Stock(required)</label>
+                    <input type="text" class="form-control" placeholder="Available Stock" ng-model="stock.available_stock" required name="available_stock"
+                           ng-class="{ 'has-error' : userForm.available_stock.$invalid && !userForm.available_stock.$pristine }">
+
+                  </div>
+                </div>
+
+
 
 
               </div> <!-- row end -->
@@ -59,7 +69,7 @@
 
 
                         <select class="form-control" name="stock_type" ng-model="stock.stock_type"
-                                ng-options="temp.name for temp in stockType"
+                                ng-options="temp.name for temp in stockType" ng-change="changed_stock_type()"
                                 ng-class="{ 'has-error' : userForm.stock_type.$invalid && !userForm.stock_type.$pristine }"  required>
                         </select>
 
@@ -75,7 +85,7 @@
                  <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
                     <label>Batch Number</label>
-                    <input type="text" class="form-control" placeholder="Enter Batch Number" ng-model="stock.batch_number"
+                    <input type="text" ng-disabled="disable_batch_number" class="form-control" placeholder="Enter Batch Number" ng-model="stock.batch_number"
                            name="batch_number" ng-class="{ 'has-error' : userForm.batch_number.$invalid }">
                     <p ng-show="userForm.batch_number.$invalid" class="help-block">Enter Batch Number.</p>
                   </div>
@@ -85,7 +95,7 @@
                 <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
                     <label>Lot Number</label>
-                    <input type="text" class="form-control" placeholder="LoT Number" ng-model="stock.lot_number" name="lot_number"
+                    <input type="text" ng-disabled="disable_lot_number" class="form-control" placeholder="LoT Number" ng-model="stock.lot_number" name="lot_number"
                            ng-class="{ 'has-error' : userForm.lot_number.$invalid && !userForm.lot_number.$pristine }">
 
                   </div>
@@ -93,43 +103,35 @@
 
               </div> <!-- row end -->
               <div class="row row-sides"> <!-- row start -->
-                <div class="col-xs-12 col-lg-4">
+                <!--<div class="col-xs-12 col-lg-4">
                   <div class="form-group">
                     <label>Select Quantity Type</label>
                     <select class="form-control" name="quantity" ng-model="stock.quantity" ng-options="quantity.name for quantity in quantityList"
                             ng-class="{ 'has-error' : userForm.quantity.$invalid && !userForm.quantity.$pristine }">
                     </select>
                   </div>
-                </div>
+                </div>-->
+
                 <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
-                    <label>Enter Quantity Count</label>
-                    <input type="text" class="form-control" placeholder="Quantity Count" ng-model="stock.quantity_count" name="quantity_count"
+                    <label>Total  Items Count(required)</label>
+                    <input type="text" class="form-control" required placeholder="Quantity Count" ng-model="stock.quantity_count" name="quantity_count"
                            ng-class="{ 'has-error' : userForm.quantity_count.$invalid && !userForm.quantity_count.$pristine }">
 
                   </div>
                 </div>
 
-              </div> <!-- row end -->
-              <div class="row row-sides"> <!-- row start -->
-                <div class="col-xs-12 col-lg-4">
+                 <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
-                    <label>Select Rate Type</label>
-                    <select class="form-control" name="quantity_rate" ng-model="stock.quantity_rate" ng-options="quantity.name for quantity in quantityRateList"
-                            ng-class="{ 'has-error' : userForm.quantity_rate.$invalid && !userForm.quantity_rate.$pristine }">
-                    </select>
-                  </div>
-                </div>
-                <div class="col-xs-12 col-lg-4">
-                  <div class="form-group">
-                    <label>Rate</label>
-                    <input type="text" class="form-control" placeholder="Rate " ng-model="stock.rate" name="rate"
+                    <label>Rate of each Item(required)</label>
+                    <input type="text" class="form-control" placeholder="Rate " required ng-model="stock.rate" name="rate"
                            ng-class="{ 'has-error' : userForm.rate.$invalid && !userForm.rate.$pristine }">
 
                   </div>
                 </div>
 
               </div> <!-- row end -->
+
               <div class="row row-sides"> <!-- row start -->
 
                 <div class="col-xs-12 col-lg-4">
@@ -149,20 +151,24 @@
                   </div>
                 </div>
               </div> <!-- row end -->
+
+
+
+
               <div class="row row-sides"> <!-- row start -->
 
                 <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
-                    <label>Purchase From</label><br/>
-                    <input type="text"  class="form-control" placeholder="Purchase From" ng-model="stock.purchase_from" name="purchase_from"
+                    <label>Remarks </label><br/>
+                    <input type="text"  class="form-control" placeholder="Remarks" ng-model="stock.purchase_from" name="purchase_from"
                            ng-class="{ 'has-error' : userForm.purchase_from.$invalid && !userForm.purchase_from.$pristine }">
                   </div>
                 </div>
                 <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
-                      <label>isLegal(required)</label>
+                      <label>Stock-Bill-Type(required)</label>
                           <select class="form-control" name="isLegal" ng-model="stock.isLegal"
-                                  ng-options="temp.name for temp in isLegalProduct"
+                                  ng-options="temp.display_name for temp in isLegalProduct"
                                   ng-class="{ 'has-error' : userForm.isLegal.$invalid && !userForm.isLegal.$pristine }"
                                   required>
                           </select>
@@ -170,6 +176,20 @@
                 </div>
 
               </div> <!-- row end -->
+
+              <!-- row start -->
+              <div class="row row-sides">
+                <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Invoice Price(required) </label><br/>
+                    <input type="text"  class="form-control"
+                           placeholder="invoice price" ng-model="stock.invoice_price"
+                           name="invoice_price" required
+                           ng-class="{ 'has-error' : userForm.invoice_price.$invalid && !userForm.invoice_price.$pristine }">
+                  </div>
+                </div>
+              </div>
+              <!-- row end -->
 
               <div class="row row-sides"> <!-- row start -->
                 <button type="submit" class="btn btn-primary btn-flat btn-on-app" ng-disabled="userForm.$invalid">Submit</button>

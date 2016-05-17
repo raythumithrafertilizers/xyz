@@ -1,0 +1,149 @@
+<!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="row row-sides"> <!-- row start -->
+
+            <div class="col-xs-12 col-lg-4">
+              <div class="form-group">
+                <label>start Date</label><br/>
+                <input type="text" id="datepicker_sale_products_reports_1" ng-change="call_date_change()" class="form-control" placeholder="Start Date " ng-model="start_date" name="start_date">
+
+              </div>
+            </div>
+            <div class="col-xs-12 col-lg-4">
+              <div class="form-group">
+                <label>End Date</label><br/>
+                <input type="text" id="datepicker_sale_products_reports_2" ng-change="call_date_change()" class="form-control" placeholder="End Date " ng-model="end_date" name="end_date">
+
+              </div>
+            </div>
+        </div> <!-- row end -->
+        <section class="content-header">
+          <h1>
+            Each Product Sale Report
+          </h1>
+        </section>
+
+
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <div class="table-responsive-own">
+                  <table id="example1_modify_stock" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Stock name</th>
+                        <th>Stock Type</th>
+                        <th>Sold Quantity</th>
+                        <th>Sold Price</th>
+
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "stock in stock_data">
+
+                        <td>[[stock.fields.specific_product_data[0].fields.item_name]] </td>
+                        <td>[[stock.fields.specific_product_data[0].fields.item_type]]</td>
+                        <td> [[stock.fields.quantity]]</td>
+                        <td>[[stock.fields.price]]</td>
+
+
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+
+                  </div>
+
+
+
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+
+
+        <section class="content-header">
+          <h1>
+            Customers Purchase Amount Details
+          </h1>
+        </section>
+
+
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <div class="table-responsive-own">
+                  <table id="example1_modify_stock1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Customer Name</th>
+                        <th>Total Pay Amount</th>
+                        <th>Paid Amount</th>
+                        <th>Due</th>
+
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "customer in customer_data">
+
+                        <td>[[customer.customer_name]] </td>
+                        <td>[[customer.total_price]]</td>
+                        <td> [[customer.total_paid]]</td>
+                        <td>[[customer.due]]</td>
+
+
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+
+                  </div>
+                  <!-- /.box-body -->
+
+
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                    <center><b><div>Sold Price of Each Category</div></b></center>
+                    <div class="chart">
+                      <canvas id="pieChart" style="height:250px"></canvas>
+                    </div>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+
+      </div><!-- /.content-wrapper -->
+    <script>
+      $(function () {
+        $('#example2_modify_stock').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false
+        });
+      });
+    </script>

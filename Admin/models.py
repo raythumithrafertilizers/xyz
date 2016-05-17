@@ -14,6 +14,7 @@ class RatePerType(models.Model):
 class CompanyBills(models.Model):
 	company_name = models.CharField(max_length=300)
 	company_invoice_number = models.CharField(max_length=300)
+	company_tin_number = models.CharField(max_length=300, default="")
 	bill_image = models.FileField(upload_to='static/static/uploads/')
 	invoice_date = models.DateField(datetime.now().date())
 	uploaded_at = models.DateTimeField(default=datetime.now())
@@ -38,6 +39,10 @@ class StockDetails(models.Model):
 	quantity_type = models.CharField(max_length=100)
 	rate_per_type = models.CharField(max_length=100)
 
+	#invoice price
+	invoice_cost = models.FloatField(null=True)
+
+	# sale price
 	item_cost = models.FloatField(null=True)
 	quantity_weight = models.FloatField(null=True)
 
@@ -48,6 +53,10 @@ class StockDetails(models.Model):
 	month = models.CharField( max_length=100, default=calendar.month_name[int(datetime.now().month)])
 	seen = models.BooleanField(default=False)
 
+class CustomerPayments(models.Model):
+	paid_amount = models.FloatField(default=0.0)
+	paid_date = models.DateField(default=datetime.now().date())
+
 class Customers(models.Model):
 
 	first_name = models.CharField(max_length=500)
@@ -55,6 +64,7 @@ class Customers(models.Model):
 
 	phone = models.CharField(max_length=30)
 	address = models.TextField()
+	customer_payments = models.ManyToManyField(CustomerPayments)
 	create_date = models.DateTimeField(default= datetime.now())
 
 class ProductsList(models.Model):

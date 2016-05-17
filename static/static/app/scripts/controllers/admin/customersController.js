@@ -1,5 +1,118 @@
 angular.module("App")
+.controller("specificCustomerPaymentsCtrl", function($http, $q,$location, $timeout,toastr,$route,$routeParams, $scope){
+    console.log('specificCustomerPaymentsCtrl')
+    $scope.amount = {}
+    $scope.amount.details = ""
+    $scope.load =
+         $http({
+              method: 'post',
+              url: '/superuser/get-specific-customer-payments',
+              data: {
+                    'customer_id': $routeParams.customer_id,
+                    'get_data': true
+                    },
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+         }).then(function (response){
+            $scope.payments =  response.data.response
+            $timeout(function(){
+                $("#example1").DataTable();
+            },500)
 
+         }, function(error){
+            console.log('hellow')
+         })
+
+    $scope.showPopUp = function(amount){
+
+        $scope.amount.details = amount
+        $("#amountEditPopUp").modal("show");
+    }
+
+    $scope.updatePayment = function(){
+        $scope.load = $http({
+            method: 'post',
+            url: '/superuser/get-specific-customer-payments',
+            data: {
+                    'get_data': false,
+                    'id': $scope.amount.details.pk,
+                    'paid_amount':$scope.amount.details.fields.paid_amount
+                  },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function successCallback(response){
+                    toastr.success('successfully saved')
+                    $("#amountEditPopUp").modal("hide");
+
+        }, function errorCallback(response)
+        {
+            toastr.success('unable to  save....')
+            // console.log("not sent");
+        });
+    }
+
+    $scope.editPayment = function(customer){
+        $location.path("/customer-payments/"+customer.customer_id)
+    }
+})
+.controller("customerPaymentsCtrl", function($http, $q,$location, $timeout,toastr,$route, $scope){
+    console.log('customerPaymentsCtrl')
+    $scope.amount = {}
+    $scope.amount.enter_amount = 0
+
+    $scope.load =
+         $http({
+              method: 'post',
+              url: '/superuser/get-graph-data',
+              data: {
+                    'customers_credit_debit': true
+              },
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+         }).then(function (response){
+            console.log('bills information', response)
+            $timeout(function(){
+                $("#example1").DataTable();
+            },500)
+            $scope.customer_pay_info = response.data.bills
+            console.log($scope.customer_pay_info)
+         }, function(error){
+            console.log('hellow')
+         })
+
+    $scope.showPopUp = function(customer){
+        console.log(customer, '-------------')
+        $scope.amount.enter_amount = 0
+        $scope.current_customer = customer
+        $("#amountEditPopUp").modal("show");
+    }
+
+    $scope.addPayment = function(){
+        console.log($scope.amount.enter_amount, $scope.current_customer.customer_id)
+        $scope.load = $http({
+            method: 'post',
+            url: '/superuser/add-payment',
+            data: {
+                    'customer_id': $scope.current_customer.customer_id,
+                    'paid_amount':$scope.amount.enter_amount,
+                    'status':'all_customers',
+                  },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function successCallback(response){
+                    toastr.success('successfully saved')
+                    $("#amountEditPopUp").modal("hide");
+
+        }, function errorCallback(response)
+        {
+            toastr.success('unable to  save....')
+            // console.log("not sent");
+        });
+    }
+
+    $scope.editPayment = function(customer){
+        $location.path("/customer-payments/"+customer.customer_id)
+    }
+
+})
 .controller("editCustomerController", function($http, $q, $timeout,toastr,$route, $scope){
 	$scope.load = $http({
 	  		method: 'GET',

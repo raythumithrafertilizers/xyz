@@ -55,6 +55,103 @@ App.config(function(toastrConfig) {
 
 App.config(function($routeProvider, $authProvider) {
     $routeProvider
+
+          .when('/customer-payments/:customer_id', {
+            templateUrl: '/static/app/views/admin/specific-customer-payments.html',
+            controller: "specificCustomerPaymentsCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+          })
+
+
+          .when('/customer-payments', {
+            templateUrl: '/static/app/views/admin/customer-payments.html',
+            controller: "customerPaymentsCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+          })
+         .when('/get-bill', {
+            templateUrl: '/static/app/views/admin/get-bill.html',
+            controller: "getBillCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+        })
+        .when('/product-sale-report', {
+            templateUrl: '/static/app/views/admin/product_sale_report.html',
+            controller: "productSaleCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+        })
+
+        .when('/invoice-bill-report', {
+            templateUrl: '/static/app/views/admin/invoice_bill_report.html',
+            controller: "invoiceBillReportsCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+        })
+
+       .when('/legal-category-sold-reports', {
+            templateUrl: '/static/app/views/admin/legal_category_reports.html',
+            controller: "legalCategoryProductCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+        })
+
+
+        .when('/download-invoice-file', {
+            templateUrl: '/static/app/views/admin/donwload_invoice_bill.html',
+            controller: "downLoadInvoiceBillReportsCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+        })
+        .when('/download-legal-category-data', {
+            templateUrl: '/static/app/views/admin/donwload_invoice_bill.html',
+            controller: "legalCategoryReportsCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+        })
+
+
         .when('/', {
             templateUrl: '/static/app/views/login.html',
             controller: 'loginController',
@@ -101,7 +198,7 @@ App.config(function($routeProvider, $authProvider) {
             }
         })
 
-         .when('/uplpad-gallery-image', {
+        .when('/uplpad-gallery-image', {
             templateUrl: '/static/app/views/admin/add-gallery-image.html',
             controller : "addGalleryImageCtrl",
             resolve: {
@@ -233,6 +330,18 @@ App.config(function($routeProvider, $authProvider) {
             }
         })
 
+
+        .when('/select-items', {
+            templateUrl: '/static/app/views/admin/select-items.html',
+            controller : "selectItemsController",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+        })
 
         .when('/select-items', {
             templateUrl: '/static/app/views/admin/select-items.html',
