@@ -1,3 +1,19 @@
+# creating user through command line
+--------------------------------------------------
+python manage.py createadmins email password role
+
+#mysql version
+mysql  Ver 14.14 Distrib 5.5.49, for debian-linux-gnu (x86_64)
+
+# django version 1.8.5
+
+
+# nginx version: nginx/1.4.6 (Ubuntu)
+# built by gcc 4.8.2 (Ubuntu 4.8.2-19ubuntu1)
+# TLS SNI support enabled
+
+#python is 2.7
+
 sudo pip install django==1.8.5
 sudo pip install django-crontab
 

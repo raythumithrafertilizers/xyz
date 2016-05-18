@@ -39,7 +39,10 @@ urlpatterns = patterns('Admin.views',
 
     #update payments of customers
     url(r'^add-payment', AddPayment.as_view()),
-    url(r'^get-specific-customer-payments', SpecificCustomerPayments.as_view())
+    url(r'^get-specific-customer-payments', SpecificCustomerPayments.as_view()),
+
+    #logout
+
 
 
 )

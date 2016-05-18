@@ -1,5 +1,20 @@
 var App = angular.module('App')
-
+.controller('changePasswordCtrl', function($scope, $auth,$http,toastr,  $location,$rootScope) {
+     $scope.change_password = function() {
+            $scope.load = $http({
+                  method: 'post',
+                  url: '/auth/change-password',
+                  data: {'new_password': $scope.new_password},
+                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (response){
+                toastr.success('successfully changed')
+                $location.path("/")
+            }, function(error){
+                console.log('hellow')
+                toastr.error('failed to change')
+            })
+     }
+})
 .controller('loginController', function ($localStorage,$scope, $auth, $location, $alert,$rootScope) {
 
     // login with facebook or google
@@ -29,7 +44,7 @@ var App = angular.module('App')
                 localStorage.setItem('role',response.data.role);
                 
 
-                if (response.data.role == "admin"){
+                if (response.data.role == "admin" || response.data.role == "subadmin"){
                     //$location.path('/dashboard')
                     window.location.reload();
                 }else{
@@ -137,12 +152,23 @@ var App = angular.module('App')
         $scope.role=localStorage.getItem("role")
 
         $scope.logout = function() {
-            localStorage.removeItem("role")
-            localStorage.removeItem("store_id")
-            localStorage.removeItem("customer_id")
-            $auth.logout();
-            $location.path('/')
+            $scope.load =
+            $http({
+                  method: 'post',
+                  url: '/auth/logout',
+                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (response){
+                localStorage.removeItem("role")
+                localStorage.removeItem("store_id")
+                localStorage.removeItem("customer_id")
+                $auth.logout();
+                $location.path('/')
+            }, function(error){
+                console.log('hellow')
+            })
         }
+
+
 
         $scope.goto = function(path){
             $location.path(path)

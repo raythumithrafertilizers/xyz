@@ -15,8 +15,48 @@ from django.contrib.auth import authenticate
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template import Context, RequestContext
 from django.template.loader import get_template
+from functools import wraps
+
+from rest_framework.response import Response
+
 #from push_notifications.models import APNSDevice, GCMDevice
 # Create your views here.
+import jwt
+
+def admin_login_required(f):
+	@wraps(f)
+	def decorated_function(*args, **kwargs):
+		request = args[0]
+		if 'role' not in request.session:
+			return json_response({'error': 'please login first'}, status=401)
+
+
+		if request.session['role'] != 'admin':
+			return json_response({'error': 'logged person role is not admin'}, status=401)
+
+
+		return f(*args, **kwargs)
+	return decorated_function
+
+	def subadmin_login_required(f):
+		@wraps(f)
+		def decorated_function(*args, **kwargs):
+			request = args[0]
+			if 'role' not in request.session:
+				return json_response({'error': 'please login first'}, status=401)
+
+			if request.session['role'] != 'subadmin':
+				return json_response({'error': 'logged person role is not admin'}, status=401)
+
+
+			return f(*args, **kwargs)
+		return decorated_function
+
+
+
+
+
+
 
 def random_key(length):
 	key = ''
@@ -42,7 +82,8 @@ class UserRegistration(View):
 		return HttpResponse("method not allowed")
 
 	def post(self, request):
-		body_unicode = request.body.decode('utf-8')
+		return HttpResponse("method not allowed")
+		"""body_unicode = request.body.decode('utf-8')
 		body = json.loads(body_unicode)
 		try:
 			user = User.objects.get(email = str(body['email']))
@@ -69,8 +110,17 @@ class UserRegistration(View):
 			msg = EmailMultiAlternatives(subject, "", by, to)
 			msg.attach_alternative(htmlt, "text/html")
 			msg.send()
-			return json_response({"response":"success"}, status=200)
+			return json_response({"response":"success"}, status=200)"""
 
+
+def create_token(userid):
+    payload = {
+    'sub': str(userid),
+        'iat': datetime.now(),
+        'exp': datetime.now() + timedelta(days=3000)
+    }
+    token = jwt.encode(payload, SECRET_KEY)
+    return token.decode('unicode_escape')
 
 class UserLogin(View):
 	"""User login class"""
@@ -92,8 +142,10 @@ class UserLogin(View):
 				if user.is_active:
 					userobj = UserDetails.objects.get(userKey = user)
 
-					token, created  =  Token.objects.get_or_create(user = user)
-					return json_response({"token":token.token, "role":userobj.role,"store_id":user.id}, status=200)
+					token = create_token(user.id)
+					request.session['role'] = userobj.role
+					request.session['user_id'] = user.id
+					return json_response({"token":token, "role":userobj.role,"store_id":user.id}, status=200)
 				else:
 					return json_response({"response":"User is not active"}, status=401)
 			else:
@@ -104,3 +156,34 @@ class UserLogin(View):
 		
 
 
+
+class Logout(View):
+	"""User login class"""
+	def get(self, request):
+		print "fbsdbgbfj"
+		return HttpResponse("method not allowed")
+
+	def post(self, request):
+		print "in login post"
+		try:
+			request.session.clear()
+			return HttpResponse('session cleared')
+		except Exception as e:
+			print e
+			return HttpResponse('something went wrong..')
+
+
+class ChangePassword(View):
+
+	def post(self, request):
+		try:
+			body_unicode = request.body.decode('utf-8')
+			body = json.loads(body_unicode)
+			print body
+			user = User.objects.get(id = request.session['user_id'])
+			user.set_password(str(body['new_password']))
+			user.save()
+			return HttpResponse('password changed...')
+		except Exception as e:
+			print e
+			return HttpResponse('something went wrong..')

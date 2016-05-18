@@ -10,6 +10,7 @@ import os
 import json, csv
 from django.core.files import File
 
+from django.utils.decorators import method_decorator
 
 item_types = ["Seeds", "Pesticides", "Fertilizers", "Bio_Pesticides", "Bio_Fertilizers"]
 
@@ -17,18 +18,7 @@ item_types = ["Seeds", "Pesticides", "Fertilizers", "Bio_Pesticides", "Bio_Ferti
 class SpecificCustomerPayments(APIView):
     """docstring for ClassName"""
 
-    """def get(self, request):
-        try:
-            name = "legaltest.csv"
-            f = open(name, 'r')
-            myfile = File(f)
-            response = HttpResponse(myfile, content_type='application/csv')
-            response['Content-Disposition'] = 'attachment; filename=' + name
-            return response
-        except Exception as e:
-            print e
-            return HttpResponse('error') """
-
+    @method_decorator(admin_login_required)
     def post(self, request):
         try:
             body = request.body.decode("utf-8")
@@ -56,18 +46,7 @@ class SpecificCustomerPayments(APIView):
 class AddPayment(APIView):
     """docstring for ClassName"""
 
-    """def get(self, request):
-        try:
-            name = "legaltest.csv"
-            f = open(name, 'r')
-            myfile = File(f)
-            response = HttpResponse(myfile, content_type='application/csv')
-            response['Content-Disposition'] = 'attachment; filename=' + name
-            return response
-        except Exception as e:
-            print e
-            return HttpResponse('error')"""
-
+    @method_decorator(admin_login_required)
     def post(self, request):
         try:
             body = request.body.decode("utf-8")
@@ -83,8 +62,8 @@ class AddPayment(APIView):
 
 
         except Exception as e:
-            print e
-            return Response({"stockslist": e}, status=200)
+            print e,'============'
+            return Response({"stockslist": e}, status=405)
 
 
 

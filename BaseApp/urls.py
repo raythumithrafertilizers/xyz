@@ -7,5 +7,8 @@ urlpatterns = patterns('BaseApp.views',
 
     url(r'^signup', UserRegistration.as_view()),
     url(r'^login', UserLogin.as_view()),
+    url(r'^logout', Logout.as_view()),
+
+    url(r'^change-password', ChangePassword.as_view())
 
     )

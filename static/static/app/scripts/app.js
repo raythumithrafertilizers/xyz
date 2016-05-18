@@ -68,6 +68,18 @@ App.config(function($routeProvider, $authProvider) {
             }
           })
 
+          .when('/change-password', {
+            templateUrl: '/static/app/views/admin/change_password.html',
+            controller: "changePasswordCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+          })
+
 
           .when('/customer-payments', {
             templateUrl: '/static/app/views/admin/customer-payments.html',
