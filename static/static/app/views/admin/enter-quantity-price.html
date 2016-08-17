@@ -3,7 +3,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            View or Delete Users 
+            Create Bill
           </h1>
         </section>
 
@@ -20,8 +20,9 @@
                         <tr>
                           <th>Product Name</th>
                           <th>Quantity</th>
-                          <th>Price</th>
-                          <th>Measure Units</th>
+                          <th>Price Per Kg</th>
+                          <th>Total Value</th>
+
                         </tr>
                       </thead>
                       <tbody>
@@ -32,19 +33,33 @@
                                      ng-class="{ 'has-error' : userForm.quantity_[[item.id]].$invalid && !userForm.quantity_[[item.id]].$pristine }"
                                    ng-model="item.quantity" ng-change="calculateQuantity()">
                           </td>
+
+                          <td>
+                            <input type="number" class="form-control" required
+                                   name="kgrate_[[ item.id]]"
+                                   ng-class="{ 'has-error' : userForm.kgrate_[[ item.id]].$invalid && !userForm.kgrate_[[ item.id]].$pristine }"
+                                   placeholder="enter per kg price"
+                                   ng-model="item.kgrate">
+                          </td>
+
+
                           <td>
                             <input type="number" class="form-control" required name="price_[[ item.id]]" ng-change="calculatePrice()"
                                    ng-class="{ 'has-error' : userForm.price_[[ item.id]].$invalid && !userForm.price_[[ item.id]].$pristine }"
                                    placeholder="enter price"
                                    ng-model="item.price">
                           </td>
-                          <th>[[item.item_cost_type]]</th>
+
+
+
+                          <!--<th>[[item.item_cost_type]]</th>-->
 
                         </tr>
                          <tr>
                           <td>Total</td>
                           <td> Quantity: [[ total_quantity ]]</td>
-                          <td>Price: [[ total_price ]]</td>
+                           <td></td>
+                          <td>Total Value: [[ total_price ]]</td>
 
                         </tr>
                       </tbody>
@@ -59,14 +74,76 @@
                 <div class="box">
                   <div class="box-body">
                     Amount Paid:
-                          <input type="number" class="form-control" required
+                          <input type="text" class="form-control" required
                            placeholder="enter amount paid"  name="amount_paid"
-                           ng-class="{ 'has-error' : userForm.amount_paid.$invalid && !userForm.amount_paid.$pristine }"
                            ng-model="amount_paid">
                   </div>
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="box">
+                  <div class="box-body">
+                    Vat:
+                          <input type="text" class="form-control" required
+                           placeholder="enter vat percentage"  name="vat"
+                           ng-model="vat">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="box">
+                  <div class="box-body">
+                    Remarks:
+                          <input type="text" class="form-control" required
+                           placeholder="enter any remarks"  name="remarks"
+                           ng-model="remarks">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="box">
+                  <div class="box-body">
+                    Vehicle Number:
+                          <input type="text" class="form-control" required
+                           placeholder="enter vehicle number"  name="vehicle_number"
+                           ng-model="vehicle_number">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="box">
+                  <div class="box-body">
+                    Contact Number:
+                          <input type="text" class="form-control" required
+                                 placeholder="enter contact number"
+                                 name="contact_number"
+                                 ng-model="contact_number">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="box">
+                  <div class="box-body">
+                    Bill Date:<input id="datepicker_sale_products_reports_1" type="text" class="form-control" placeholder="Bill Date " ng-model="bill_date" name="bill_date">
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="row">
                 <center>
                   <div class="row row-sides"> <!-- row start -->
@@ -77,6 +154,7 @@
                   </div> <!-- row end -->
                 </center>
             </div>
+
           </form>
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->

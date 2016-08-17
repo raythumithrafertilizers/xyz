@@ -1,0 +1,188 @@
+<!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            View or Delete Stock Names <button type="button" class="btn btn-default pull-right"
+                                             ng-click="showPopUpNewStockName()">Add New Name</button>
+          </h1>
+          <div id="addNewStockName1" class="modal fade" role="dialog">
+                              <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Add New Name</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="row">
+                                      <!-- second row start -->
+                                      <div class="col-lg-12">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                            <tr>
+                                              <td>Enter New Name of Stock: </td>
+                                              <td>
+                                                <input type="text" ng-model="new_stock_name">
+                                              </td>
+                                            </tr>
+
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div><!-- second row end -->
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-left"
+                                            data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-default pull-right"
+                                             ng-click="addNewStockName()">save</button>
+                                    <!-- data-dismiss="modal" -->
+                                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr ng-repeat = "stock_name in stock_names">
+                        <td>[[$index+1 ]]</td>
+
+                        <td>[[stock_name.name]]</td>
+
+                        <td>
+                          <div class="row">
+                            <div class="col-lg-10">
+                              <button class="btn btn-block btn-primary btn-flat"
+                                      ng-click="showPopUp(stock_name)">Edit Stock Name</button>
+                            </div>
+                            <!-- Modal start-->
+                            <!-- Modal end-->
+
+                            <div id="EditStockName" class="modal fade" role="dialog">
+                              <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Edit Stock Name</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="row">
+                                      <!-- second row start -->
+                                      <div class="col-lg-12">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                            <tr>
+                                              <td>Edit Stock Name(required): </td>
+                                              <td>
+                                                <input type="text" ng-model="modified_stock_name.name">
+                                              </td>
+                                            </tr>
+
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div><!-- second row end -->
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-left"
+                                            data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-default pull-right"
+                                             ng-click="updateStockName()">save</button>
+                                    <!-- data-dismiss="modal" -->
+                                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Modal end-->
+                            <div class="col-lg-6">
+                              <!-- <button class="btn btn-block btn-danger btn-flat" ng-click="deActivateCard(loyaltycard.lid)">De-Activate</button> -->
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                                                    <div class="row">
+                            <div class="col-lg-10">
+                              <button class="btn btn-block btn-primary btn-flat"
+                                      ng-click="DeletePopUp(stock_name)">Delete Stock Name</button>
+                            </div>
+                            <!-- Modal start-->
+                            <!-- Modal end-->
+
+                            <div id="deleteStockPopUp" class="modal fade" role="dialog">
+                              <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Delete Stock Name</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="row">
+                                      <!-- second row start -->
+                                      <div class="col-lg-12">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                            <tr>
+                                              <td>Are You Sure Delete Stock Name: </td>
+
+                                            </tr>
+
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div><!-- second row end -->
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-left"
+                                            data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-default pull-right"
+                                             ng-click="delete_stock_name()">save</button>
+                                    <!-- data-dismiss="modal" -->
+                                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Modal end-->
+                            <div class="col-lg-6">
+                              <!-- <button class="btn btn-block btn-danger btn-flat" ng-click="deActivateCard(loyaltycard.lid)">De-Activate</button> -->
+                            </div>
+                          </div>
+
+
+
+                        </td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+    <script>
+
+    </script>

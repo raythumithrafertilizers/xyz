@@ -56,6 +56,406 @@ App.config(function(toastrConfig) {
 App.config(function($routeProvider, $authProvider) {
     $routeProvider
 
+            .when('/download-interest-reports', {
+                templateUrl: '/static/app/views/admin/download_temp.html',
+                controller: "downloadInterstReports",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+            .when('/download-paid-money-reports', {
+                templateUrl: '/static/app/views/admin/download_temp.html',
+                controller: "downloadPaidReports",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+            .when('/download-append-reports', {
+                templateUrl: '/static/app/views/admin/download_temp.html',
+                controller: "downloadAppendReports",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+            .when('/create-expenditure', {
+                templateUrl: '/static/app/views/admin/create_expenditure.html',
+                controller: "createExpenditureCtrl",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+            .when('/append-stock-reports', {
+                templateUrl: '/static/app/views/admin/append_stock_report.html',
+                controller: "append_stock_reports_ctrl",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+            .when('/expenditure-reports', {
+                templateUrl: '/static/app/views/admin/expenditure_reports.html',
+                controller: "expenditureReportsCtrl",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+            .when('/interest-reports', {
+                templateUrl: '/static/app/views/admin/interest_reports.html',
+                controller: "interestCtrl",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+             .when('/edit-expenditures', {
+                templateUrl: '/static/app/views/admin/edit_expenditures.html',
+                controller: "editExpenditureCtrl",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+
+
+
+
+            .when('/harvester-payments/:person_id', {
+                templateUrl: '/static/app/views/admin/specific-harvester-payments.html',
+                controller: "specificHarvesterPaymentsCtrl",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+            .when('/download-customer-reports/:status', {
+                templateUrl: '/static/app/views/admin/download_temp.html',
+                controller: "downloadCustomerReports",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+            .when('/download-expenditure-reports', {
+                templateUrl: '/static/app/views/admin/download_temp.html',
+                controller: "downloadExpenditureReports",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+             .when('/download-product-sale-reports/:status', {
+                templateUrl: '/static/app/views/admin/download_temp.html',
+                controller: "downloadProductSaleReports",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+            .when('/download-harvester-reports/:status', {
+                templateUrl: '/static/app/views/admin/download_temp.html',
+                controller: "downloadHarvesterReports",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+            .when('/download-farmer-reports/:status', {
+                templateUrl: '/static/app/views/admin/download_temp.html',
+                controller: "downloadFarmerReports",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+
+
+             .when('/farmer-interests', {
+                templateUrl: '/static/app/views/admin/farmer-interests.html',
+                controller: "farmerInterests",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+             .when('/edit-stock-names', {
+                templateUrl: '/static/app/views/admin/edit-stock-names.html',
+                controller: "editStockNamesController",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+             })
+
+
+           .when('/harvester-payments', {
+                templateUrl: '/static/app/views/admin/harvester-payments.html',
+                controller: "harvesterPaymentsCtrl",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+           })
+
+
+
+            .when('/farmer-payments/:person_id', {
+                templateUrl: '/static/app/views/admin/specific-farmer-payments.html',
+                controller: "specificFarmerPaymentsCtrl",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+
+           .when('/farmer-payments', {
+                templateUrl: '/static/app/views/admin/farmer-payments.html',
+                controller: "farmerPaymentsCtrl",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+           })
+
+
+            .when('/labour-payments/:person_id', {
+                templateUrl: '/static/app/views/admin/specific-labour-payments.html',
+                controller: "specificLabourPaymentsCtrl",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
+           .when('/labour-payments', {
+            templateUrl: '/static/app/views/admin/labour-payments.html',
+            controller: "labourPaymentsCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+          })
+
+          .when('/edit-purchases/:purchase_id', {
+            templateUrl: '/static/app/views/admin/edit-purchase.html',
+            controller : "purchaseDetailsCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+          })
+
+          .when('/append-stock', {
+            templateUrl: '/static/app/views/admin/append_stock.html',
+            controller : "appendStockController",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+          })
+
+          .when('/edit-purchases', {
+            templateUrl: '/static/app/views/admin/edit-purchases.html',
+            controller : "purchasesDetailsCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+          })
+
+
+          .when('/create-purchase', {
+            templateUrl: '/static/app/views/admin/create-purchase.html',
+            controller : "createPurchaseCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+          })
+
+          .when('/edit-harvester', {
+            templateUrl: '/static/app/views/admin/edit-harvester-details.html',
+            controller : "editHarvesterDetailsCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+          })
+
+
+
+          .when('/create-harvester', {
+            templateUrl: '/static/app/views/admin/create-harvester.html',
+            controller : "createHarvesterCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+          })
+
+           .when('/add-former-sold-stock', {
+            templateUrl: '/static/app/views/admin/add-farmer-sold-stock.html',
+            controller : "addFarmerSoldStockCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+          })
+
+          .when('/create-farmer', {
+            templateUrl: '/static/app/views/admin/create-farmer.html',
+            controller : "createFarmerCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+          })
+
+          .when('/edit-farmer-details', {
+            templateUrl: '/static/app/views/admin/farmers-details.html',
+            controller : "editFarmerDetailsCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+          })
+
+          .when('/create-labour', {
+            templateUrl: '/static/app/views/admin/create-labour.html',
+            controller : "createLabourCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+          })
+
+          .when('/edit-labour-details', {
+            templateUrl: '/static/app/views/admin/labour-details.html',
+            controller : "editLabourDetailsCtrl",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+          })
+
+
+
+
           .when('/customer-payments/:customer_id', {
             templateUrl: '/static/app/views/admin/specific-customer-payments.html',
             controller: "specificCustomerPaymentsCtrl",
@@ -114,6 +514,50 @@ App.config(function($routeProvider, $authProvider) {
                 }
             }
         })
+        .when('/farmers-report', {
+            templateUrl: '/static/app/views/admin/farmer_reports.html',
+            controller: "farmerReport",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+        })
+        .when('/harvesters-report', {
+            templateUrl: '/static/app/views/admin/harvester_reports.html',
+            controller: "harvesterReport",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+        })
+        .when('/customers-report', {
+            templateUrl: '/static/app/views/admin/customer_reports.html',
+            controller: "customerReport",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+        })
+        .when('/labours-report', {
+            templateUrl: '/static/app/views/admin/labour_reports.html',
+            controller: "labourReport",
+            resolve: {
+                authenticated: function($location, $auth) {
+                    if (!$auth.isAuthenticated()) {
+                        return $location.path('/');
+                    }
+                }
+            }
+        })
 
         .when('/invoice-bill-report', {
             templateUrl: '/static/app/views/admin/invoice_bill_report.html',
@@ -127,41 +571,9 @@ App.config(function($routeProvider, $authProvider) {
             }
         })
 
-       .when('/legal-category-sold-reports', {
-            templateUrl: '/static/app/views/admin/legal_category_reports.html',
-            controller: "legalCategoryProductCtrl",
-            resolve: {
-                authenticated: function($location, $auth) {
-                    if (!$auth.isAuthenticated()) {
-                        return $location.path('/');
-                    }
-                }
-            }
-        })
 
 
-        .when('/download-invoice-file', {
-            templateUrl: '/static/app/views/admin/donwload_invoice_bill.html',
-            controller: "downLoadInvoiceBillReportsCtrl",
-            resolve: {
-                authenticated: function($location, $auth) {
-                    if (!$auth.isAuthenticated()) {
-                        return $location.path('/');
-                    }
-                }
-            }
-        })
-        .when('/download-legal-category-data', {
-            templateUrl: '/static/app/views/admin/donwload_invoice_bill.html',
-            controller: "legalCategoryReportsCtrl",
-            resolve: {
-                authenticated: function($location, $auth) {
-                    if (!$auth.isAuthenticated()) {
-                        return $location.path('/');
-                    }
-                }
-            }
-        })
+
 
 
         .when('/', {
@@ -170,12 +582,12 @@ App.config(function($routeProvider, $authProvider) {
             resolve: {
                 authenticated: function($location, $auth) {
                     if ($auth.isAuthenticated()) {
-                        return $location.path('/dashboard');
+                        return $location.path('/billing-customers');
                     }
                 }
             }
         })
-        .when('/signup', {
+       /* .when('/signup', {
             templateUrl: '/static/app/views/signup.html',
             controller: 'loginController',
             resolve: {
@@ -185,7 +597,7 @@ App.config(function($routeProvider, $authProvider) {
                     }
                 }
             }
-        })
+        })*/
         .when('/add-stock', {
             templateUrl: '/static/app/views/admin/add-stock.html',
             controller : "addStockController",
@@ -198,29 +610,6 @@ App.config(function($routeProvider, $authProvider) {
             }
         })
 
-        .when('/create-company-bill', {
-            templateUrl: '/static/app/views/admin/add-company-bill.html',
-            controller : "addCompanyBillCtrl",
-            resolve: {
-                authenticated: function($location, $auth) {
-                    if (!$auth.isAuthenticated()) {
-                        return $location.path('/');
-                    }
-                }
-            }
-        })
-
-        .when('/uplpad-gallery-image', {
-            templateUrl: '/static/app/views/admin/add-gallery-image.html',
-            controller : "addGalleryImageCtrl",
-            resolve: {
-                authenticated: function($location, $auth) {
-                    if (!$auth.isAuthenticated()) {
-                        return $location.path('/');
-                    }
-                }
-            }
-        })
 
         .when('/create-user', {
             templateUrl: '/static/app/views/admin/create-user.html',
@@ -246,18 +635,7 @@ App.config(function($routeProvider, $authProvider) {
             }
         })
 
-        .when('/dashboard', {
-            templateUrl: '/static/app/views/admin/dashboard.html',
-            controller: 'dashBoardCtrl',
-            resolve: {
-                authenticated: function($location, $auth) {
-                    if (!$auth.isAuthenticated()) {
-                        console.log('not authenticated', $auth.isAuthenticated())
-                        return $location.path('/');
-                    }
-                }
-            }
-        })
+
         .when('/modify-stock', {
             templateUrl: '/static/app/views/admin/modifyStock.html',
             controller: "modifyStockCtrl",
@@ -318,29 +696,6 @@ App.config(function($routeProvider, $authProvider) {
             }
         })
 
-         .when('/company-bills', {
-            templateUrl: '/static/app/views/admin/companyBills.html',
-            controller : "companyBillingController",
-            resolve: {
-                authenticated: function($location, $auth) {
-                    if (!$auth.isAuthenticated()) {
-                        return $location.path('/');
-                    }
-                }
-            }
-        })
-
-         .when('/gallery-images', {
-            templateUrl: '/static/app/views/admin/galleryImages.html',
-            controller : "galleryImagesCtrl",
-            resolve: {
-                authenticated: function($location, $auth) {
-                    if (!$auth.isAuthenticated()) {
-                        return $location.path('/');
-                    }
-                }
-            }
-        })
 
 
         .when('/select-items', {
@@ -403,17 +758,6 @@ App.config(function($routeProvider, $authProvider) {
             }
         })
 
-        .when('/gallery', {
-            templateUrl: '/static/app/views/admin/gallery.html',
-            controller : "GalleryCtrl",
-            resolve: {
-                authenticated: function($location, $auth) {
-                    if (!$auth.isAuthenticated()) {
-                        return $location.path('/');
-                    }
-                }
-            }
-        })
 
         .when('/profile', {
             templateUrl: '/static/app/views/admin/profile.html',

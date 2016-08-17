@@ -1,0 +1,86 @@
+  <div class="content-wrapper" style="min-height: 946px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Create Labour
+      </h1>
+      <!-- <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Forms</a></li>
+        <li class="active">General Elements</li>
+      </ol> -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box box-danger box-top-border">
+            <div class="box-body">
+            <form ng-submit="addNewLabour()" name="userForm">
+              <div class="row row-sides"> <!-- row start -->
+                <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" placeholder="Name"
+                           ng-model="user.name" name="name"
+                           ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }"
+                           required>
+                    <p ng-show="userForm.name.$invalid && !userForm.name.$pristine"
+                       class="help-block">
+                      name is required.
+                    </p>
+                  </div>
+                </div>
+
+                 <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Contact Number</label>
+                    <input type="number" class="form-control" placeholder="Contact Number"
+                           ng-model="user.phone" name="phone"
+                           ng-class="{ 'has-error' : userForm.phone.$invalid && !userForm.phone.$pristine }"
+                           ng-minlength="10" ng-maxlength="12" required>
+                    <p ng-show="userForm.phone.$error.required && userForm.phone.$dirty" class="help-block">
+                      Phone Number is required</p>
+                    <p class="help-block" ng-show="!userForm.phone.$error.required && (userForm.phone.$error.minlength || userForm.phone.$error.maxlength)">Phone Number must be minimum 10 characters.</p>
+                  </div>
+                </div>
+
+
+              </div> <!-- row end -->
+              <div class="row row-sides"> <!-- row start -->
+
+                 <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" class="form-control" placeholder="Enter Address" ng-model="user.address"
+                           name="address" ng-class="{ 'has-error' : userForm.address.$invalid && !userForm.address.$pristine }"
+                           >
+
+                  </div>
+                </div>
+
+              </div> <!-- row end -->
+
+
+              <div class="row row-sides"> <!-- row start -->
+                <button type="submit" class="btn btn-primary btn-flat btn-on-app"
+                        ng-disabled="userForm.$invalid">Submit</button>
+              </div> <!-- row end -->
+
+            </form>
+            <!-- form end -->
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+

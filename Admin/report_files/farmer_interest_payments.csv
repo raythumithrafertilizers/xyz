@@ -1,0 +1,4 @@
+farmer Name,amount,paid_date,interest_rate,interest_money,remarks,is_purchase_advance
+farmer1,1000.0,2016-08-07,0.0,0.133333333333333,inital advance for farmer1,0
+farmer1,1000.2,2016-08-14,0.0,0.0,paid by farmer 1 first time,0
+farmer1,9000.0,2016-08-08,0.0,0.0,third advance to farmer1,0

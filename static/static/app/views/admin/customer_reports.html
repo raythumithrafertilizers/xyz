@@ -1,0 +1,194 @@
+<!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="row row-sides"> <!-- row start -->
+
+            <div class="col-xs-12 col-lg-4">
+              <div class="form-group">
+                <label>start Date</label><br/>
+                <input type="text" id="datepicker_sale_products_reports_1" ng-change="call_date_change()" class="form-control" placeholder="Start Date " ng-model="start_date" name="start_date">
+
+              </div>
+            </div>
+            <div class="col-xs-12 col-lg-4">
+              <div class="form-group">
+                <label>End Date</label><br/>
+                <input type="text" id="datepicker_sale_products_reports_2" ng-change="call_date_change()" class="form-control" placeholder="End Date " ng-model="end_date" name="end_date">
+
+              </div>
+            </div>
+            <div class="col-xs-12 col-lg-4">
+              <div class="form-group">
+                <label>Select Customer</label><br/>
+                <select id="select_customer"
+                       ng-change="selected_customer()"
+                       class="form-control"
+                        ng-model="selected_customer_object"
+                       ng-options="user.username for user in userslist"
+                       name="select_customer">
+                </select>
+
+              </div>
+            </div>
+        </div> <!-- row end -->
+        <section class="content-header">
+          <h1>
+            Single Customer Bills
+            <a href="#/download-customer-reports/1">
+              Download
+            </a>
+          </h1>
+        </section>
+
+
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <div class="table-responsive-own">
+                  <table id="example1_modify_stock" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>bill number</th>
+                        <th>bill date</th>
+                        <th>Total Quantity</th>
+                        <th>Final Value</th>
+                        <th>Paid</th>
+                        <th>Due</th>
+                        <th>View More</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "customer in specific_bill_data">
+
+                        <td>[[customer.bill_id ]] </td>
+                        <td>[[customer.bill_date | date ]] </td>
+                        <td> [[customer.total_quantity]]</td>
+                        <td> [[customer.total_price]]</td>
+
+                        <td> [[customer.total_paid]]</td>
+                        <td> [[customer.due]]</td>
+                        <td><a href="#/print-bill/[[customer.bill_id]]">view more</a> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+
+                  </div>
+
+
+
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+
+
+        <section class="content-header">
+          <h1>
+            Customer Credits and Debits
+            <a href="#/download-customer-reports/2">
+              Download
+            </a>
+          </h1>
+        </section>
+
+
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <div class="table-responsive-own">
+                  <table id="example1_modify_stock1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Customer Name</th>
+                        <th>Value</th>
+                        <th>Paid</th>
+                        <th>Due</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "customer in all_customers">
+
+                        <td>[[customer.name]] </td>
+                        <td>[[customer.total_price]]</td>
+                        <td>[[customer.total_paid]]</td>
+                        <td>[[customer.due]]</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+
+                  </div>
+                  <!-- /.box-body -->
+
+
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+
+        <section class="content-header">
+          <h1>
+            In Debit Customers
+             <a href="#/download-customer-reports/3">
+              Download
+            </a>
+          </h1>
+        </section>
+
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <div class="table-responsive-own">
+                  <table id="example1_modify_stock2" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Customer Name</th>
+                        <th>Due</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "customer in borrowers">
+
+                        <td>[[customer.name]] </td>
+                        <td>[[customer.due]]</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  </div>
+                  <!-- /.box-body -->
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+    <script>
+      $(function () {
+        $('#example2_modify_stock').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false
+        });
+      });
+    </script>

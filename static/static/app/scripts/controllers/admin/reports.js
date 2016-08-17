@@ -1,8 +1,797 @@
 angular.module("App")
+.controller("downloadExpenditureReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
+  $http({method: 'GET', url: '/superuser/download-expenditure-reports'}).
+  success(function(data, status, headers, config) {
+     var anchor = angular.element('<a/>');
+     anchor.attr({
+         href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
+         target: '_blank',
+         download: 'test.csv'
+     })[0].click();
+    $location.path("/interest-reports")
+  }).error(function(data, status, headers, config) {
+    // handle error
+  });
+})
+.controller("expenditureReportsCtrl", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+
+
+    $scope.stock_names = [{
+        'name': 'Personal',
+        'id': 'personal'
+    }, {
+        'name': 'Industrial',
+        'id': 'industrial'
+    }]
+
+    $scope.selected_farmer = function(){
+        var stock_id = false
+        if($scope.selected_stock_object){
+
+            stock_id = $scope.selected_stock_object
+        }
+
+
+        // getting former sold details
+        var s_split = $scope.start_date.split("/")
+        var e_split = $scope.end_date.split("/")
+
+        if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
+            toastr.error('start date must less than end date')
+            return false;
+        }else{
+            $scope.load = $http({
+            method: 'POST',
+              url: '/superuser/expenditure-reports',
+              data: {
+                    'start_date': $scope.start_date,
+                    'end_date':$scope.end_date,
+                    'stock_id': stock_id
+              }
+            }).then(function (response){
+                    console.log(response, 'report data is')
+                    $scope.data = response.data.data
+                    $timeout(function(){
+                            $("#example1_modify_stock").DataTable();
+                    },500)
+
+            }, function errorCallback(response){
+                    console.log(response);
+            });
+
+        }
+
+
+    }
+
+    var d = new Date()
+
+    $scope.start_date = "" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.end_date = ""//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+
+    $scope.check_dates = function(){
+        var s_split = $scope.start_date.split("/")
+        var e_split = $scope.end_date.split("/")
+
+
+        if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
+            toastr.error('start date must less than end date')
+            return false;
+        }else{
+            if(s_split.length >= 3 && e_split.length >= 3){
+                $scope.selected_farmer()
+            }
+
+        }
+    }
+
+     $timeout(function(){
+        $('#datepicker_sale_products_reports_1') .datepicker({
+            format: 'dd/mm/yyyy',
+            //startDate: new Date()
+            //endDate: '01/12/2020'
+        })
+    },500)
+
+    $timeout(function(){
+        $('#datepicker_sale_products_reports_2') .datepicker({
+            format: 'dd/mm/yyyy',
+            //startDate: '01/03/2016',
+            //endDate: '01/12/2020'
+        })
+    },500)
+
+
+    $scope.call_date_change = function(){
+        $scope.check_dates();
+    }
+
+    $scope.check_dates();
+
+})
+
+.controller("downloadInterstReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+
+
+  $http({method: 'GET', url: '/superuser/download-interest-reports'}).
+  success(function(data, status, headers, config) {
+     var anchor = angular.element('<a/>');
+     anchor.attr({
+         href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
+         target: '_blank',
+         download: 'test.csv'
+     })[0].click();
+    $location.path("/interest-reports")
+  }).error(function(data, status, headers, config) {
+    // handle error
+  });
+})
+.controller("downloadPaidReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+
+
+  $http({method: 'GET', url: '/superuser/download-paid-reports'}).
+  success(function(data, status, headers, config) {
+     var anchor = angular.element('<a/>');
+     anchor.attr({
+         href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
+         target: '_blank',
+         download: 'test.csv'
+     })[0].click();
+    $location.path("/interest-reports")
+  }).error(function(data, status, headers, config) {
+    // handle error
+  });
+})
+
+.controller("interestCtrl", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+
+
+    $scope.load = $http({
+	  		method: 'GET',
+			  url: '/superuser/persons-list/farmer',
+			}).then(function (response)
+				{
+                    console.log(response)
+		    		$scope.userslist = [];
+		    		var usersdata = response.data.userdata
+
+		    		$.each(usersdata, function(i){
+                        var obj = {};
+                        obj.user_id = usersdata[i].user_id;
+                        obj.username = usersdata[i].name;
+                        $scope.userslist.push(obj);
+                    })
+
+                    console.log($scope.userslist)
+				}, function errorCallback(response)
+				{
+		    		console.log(response);
+				});
+
+    $scope.selected_farmer = function(){
+        var farmer_id = false
+        if($scope.selected_farmer_object){
+            farmer_id = $scope.selected_farmer_object.user_id
+        }
+
+        // getting former sold details
+        var s_split = $scope.start_date.split("/")
+        var e_split = $scope.end_date.split("/")
+
+        if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
+            toastr.error('start date must less than end date')
+            return false;
+        }else{
+            $scope.load = $http({
+            method: 'POST',
+              url: '/superuser/interest-reports',
+              data: {
+                    'start_date': $scope.start_date,
+                    'end_date':$scope.end_date,
+                    'farmer_id': farmer_id
+              }
+            }).then(function (response){
+                    console.log(response, 'report data is')
+                    $scope.stock_data = [];
+                    console.log(response.data)
+                    $scope.interest_data = response.data.interest_data
+                    $scope.paid_amounts = response.data.paid_amounts
+                    $scope.specific_farmer_data = response.data.specific_farmer_data
+                    $timeout(function(){
+                            $("#example1_modify_stock").DataTable();
+                    },500)
+
+            }, function errorCallback(response){
+                    console.log(response);
+            });
+
+        }
+
+
+    }
+
+    var d = new Date()
+
+    $scope.start_date = "" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.end_date = ""//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+
+    $scope.check_dates = function(){
+        var s_split = $scope.start_date.split("/")
+        var e_split = $scope.end_date.split("/")
+
+
+        if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
+            toastr.error('start date must less than end date')
+            return false;
+        }else{
+            if(s_split.length >= 3 && e_split.length >= 3){
+                $scope.selected_farmer()
+            }
+
+        }
+    }
+
+     $timeout(function(){
+        $('#datepicker_sale_products_reports_1') .datepicker({
+            format: 'dd/mm/yyyy',
+            //startDate: new Date()
+            //endDate: '01/12/2020'
+        })
+    },500)
+
+    $timeout(function(){
+        $('#datepicker_sale_products_reports_2') .datepicker({
+            format: 'dd/mm/yyyy',
+            //startDate: '01/03/2016',
+            //endDate: '01/12/2020'
+        })
+    },500)
+
+
+    $scope.call_date_change = function(){
+        $scope.check_dates();
+    }
+
+    $scope.check_dates();
+
+})
+
+
+.controller("downloadAppendReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+
+
+  $http({method: 'GET', url: '/superuser/download-append-reports'}).
+  success(function(data, status, headers, config) {
+     var anchor = angular.element('<a/>');
+     anchor.attr({
+         href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
+         target: '_blank',
+         download: 'test.csv'
+     })[0].click();
+    $location.path("/append-stock-reports")
+  }).error(function(data, status, headers, config) {
+    // handle error
+  });
+})
+.controller("append_stock_reports_ctrl", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+
+
+    $scope.load = $http({
+	  		method: 'GET',
+			  url: '/superuser/stock-names',
+			}).then(function (response)
+				{
+                    console.log(response)
+		    		$scope.stock_names = [];
+		    		var stock_names = response.data.stock_names
+
+		    		$.each(stock_names, function(i){
+                        var obj = {};
+                        obj.id = stock_names[i].id;
+                        obj.name = stock_names[i].name;
+                        $scope.stock_names.push(obj);
+                    })
+
+                    console.log($scope.stock_names)
+				}, function errorCallback(response)
+				{
+		    		console.log(response);
+				});
+
+    $scope.selected_farmer = function(){
+        var stock_id = false
+        if($scope.selected_stock_object){
+
+            stock_id = $scope.selected_stock_object
+        }
+
+
+        // getting former sold details
+        var s_split = $scope.start_date.split("/")
+        var e_split = $scope.end_date.split("/")
+
+        if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
+            toastr.error('start date must less than end date')
+            return false;
+        }else{
+            $scope.load = $http({
+            method: 'POST',
+              url: '/superuser/stock-append-reports',
+              data: {
+                    'start_date': $scope.start_date,
+                    'end_date':$scope.end_date,
+                    'stock_id': stock_id
+              }
+            }).then(function (response){
+                    console.log(response, 'report data is')
+                    $scope.data = response.data.data
+                    $timeout(function(){
+                            $("#example1_modify_stock").DataTable();
+                    },500)
+
+            }, function errorCallback(response){
+                    console.log(response);
+            });
+
+        }
+
+
+    }
+
+    var d = new Date()
+
+    $scope.start_date = "" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.end_date = ""//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+
+    $scope.check_dates = function(){
+        var s_split = $scope.start_date.split("/")
+        var e_split = $scope.end_date.split("/")
+
+
+        if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
+            toastr.error('start date must less than end date')
+            return false;
+        }else{
+            if(s_split.length >= 3 && e_split.length >= 3){
+                $scope.selected_farmer()
+            }
+
+        }
+    }
+
+     $timeout(function(){
+        $('#datepicker_sale_products_reports_1') .datepicker({
+            format: 'dd/mm/yyyy',
+            //startDate: new Date()
+            //endDate: '01/12/2020'
+        })
+    },500)
+
+    $timeout(function(){
+        $('#datepicker_sale_products_reports_2') .datepicker({
+            format: 'dd/mm/yyyy',
+            //startDate: '01/03/2016',
+            //endDate: '01/12/2020'
+        })
+    },500)
+
+
+    $scope.call_date_change = function(){
+        $scope.check_dates();
+    }
+
+    $scope.check_dates();
+
+})
+
+
+.controller("farmerReport", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+
+
+    $scope.load = $http({
+	  		method: 'GET',
+			  url: '/superuser/persons-list/farmer',
+			}).then(function (response)
+				{
+                    console.log(response)
+		    		$scope.userslist = [];
+		    		var usersdata = response.data.userdata
+
+		    		$.each(usersdata, function(i){
+                        var obj = {};
+                        obj.user_id = usersdata[i].user_id;
+                        obj.username = usersdata[i].name;
+                        $scope.userslist.push(obj);
+                    })
+
+                    console.log($scope.userslist)
+				}, function errorCallback(response)
+				{
+		    		console.log(response);
+				});
+
+    $scope.selected_farmer = function(){
+        var farmer_id = false
+        if($scope.selected_farmer_object){
+            farmer_id = $scope.selected_farmer_object.user_id
+        }
+
+        // getting former sold details
+        var s_split = $scope.start_date.split("/")
+        var e_split = $scope.end_date.split("/")
+
+        if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
+            toastr.error('start date must less than end date')
+            return false;
+        }else{
+            $scope.load = $http({
+            method: 'POST',
+              url: '/superuser/farmers-report',
+              data: {
+                    'start_date': $scope.start_date,
+                    'end_date':$scope.end_date,
+                    'farmer_id': farmer_id
+              }
+            }).then(function (response){
+                    console.log(response, 'report data is')
+                    $scope.stock_data = [];
+                    console.log(response.data)
+                    $scope.borrowers = response.data.all_borrowers
+                    $scope.all_farmers = response.data.all_farmers
+                    $scope.specific_farmer_data = response.data.specific_farmer_data
+                    $timeout(function(){
+                            $("#example1_modify_stock").DataTable();
+                    },500)
+
+            }, function errorCallback(response){
+                    console.log(response);
+            });
+
+        }
+
+
+    }
+
+    var d = new Date()
+
+    $scope.start_date = "" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.end_date = ""//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+
+    $scope.check_dates = function(){
+        var s_split = $scope.start_date.split("/")
+        var e_split = $scope.end_date.split("/")
+
+
+        if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
+            toastr.error('start date must less than end date')
+            return false;
+        }else{
+            if(s_split.length >= 3 && e_split.length >= 3){
+                $scope.selected_farmer()
+            }
+
+        }
+    }
+
+     $timeout(function(){
+        $('#datepicker_sale_products_reports_1') .datepicker({
+            format: 'dd/mm/yyyy',
+            //startDate: new Date()
+            //endDate: '01/12/2020'
+        })
+    },500)
+
+    $timeout(function(){
+        $('#datepicker_sale_products_reports_2') .datepicker({
+            format: 'dd/mm/yyyy',
+            //startDate: '01/03/2016',
+            //endDate: '01/12/2020'
+        })
+    },500)
+
+
+    $scope.call_date_change = function(){
+        $scope.check_dates();
+    }
+
+    $scope.check_dates();
+
+})
+
+.controller("harvesterReport", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+
+
+
+    $scope.load = $http({
+	  		method: 'GET',
+			  url: '/superuser/persons-list/harvester',
+			}).then(function (response)
+				{
+                    console.log(response)
+		    		$scope.userslist = [];
+		    		var usersdata = response.data.userdata
+
+		    		$.each(usersdata, function(i){
+                        var obj = {};
+                        obj.user_id = usersdata[i].user_id;
+                        obj.username = usersdata[i].name;
+                        $scope.userslist.push(obj);
+                    })
+
+                    console.log($scope.userslist)
+				}, function errorCallback(response)
+				{
+		    		console.log(response);
+				});
+
+    $scope.selected_harvester = function(){
+        var harvester_id = false
+        if($scope.selected_harvester_object){
+            harvester_id = $scope.selected_harvester_object.user_id
+        }
+
+        // getting former sold details
+        var s_split = $scope.start_date.split("/")
+        var e_split = $scope.end_date.split("/")
+
+        if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
+            toastr.error('start date must less than end date')
+            return false;
+        }else{
+            $scope.load = $http({
+            method: 'POST',
+              url: '/superuser/harvesters-report',
+              data: {
+                    'start_date': $scope.start_date,
+                    'end_date':$scope.end_date,
+                    'harvester_id': harvester_id
+              }
+            }).then(function (response){
+                    console.log(response, 'report data is')
+                    $scope.stock_data = [];
+                    console.log(response.data)
+                    $scope.borrowers = response.data.all_borrowers
+                    $scope.all_harvesters = response.data.all_harvesters
+                    $scope.specific_harvester_data = response.data.specific_harvester_data
+                    $timeout(function(){
+                            $("#example1_modify_stock").DataTable();
+                    },500)
+
+            }, function errorCallback(response){
+                    console.log(response);
+            });
+
+        }
+
+
+    }
+
+    var d = new Date()
+
+    $scope.start_date = "" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.end_date = ""//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+
+    $scope.check_dates = function(){
+        var s_split = $scope.start_date.split("/")
+        var e_split = $scope.end_date.split("/")
+
+
+        if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
+            toastr.error('start date must less than end date')
+            return false;
+        }else{
+            if(s_split.length >= 3 && e_split.length >= 3){
+                $scope.selected_harvester();
+            }
+
+        }
+    }
+
+     $timeout(function(){
+        $('#datepicker_sale_products_reports_1') .datepicker({
+            format: 'dd/mm/yyyy',
+            //startDate: new Date()
+            //endDate: '01/12/2020'
+        })
+    },500)
+
+    $timeout(function(){
+        $('#datepicker_sale_products_reports_2') .datepicker({
+            format: 'dd/mm/yyyy',
+            //startDate: '01/03/2016',
+            //endDate: '01/12/2020'
+        })
+    },500)
+
+
+    $scope.call_date_change = function(){
+        $scope.check_dates();
+    }
+
+    $scope.check_dates();
+
+
+})
+.controller("customerReport", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+
+
+
+        $scope.load = $http({
+	  		method: 'GET',
+			  url: '/superuser/persons-list/customer',
+			}).then(function (response)
+				{
+                    console.log(response)
+		    		$scope.userslist = [];
+		    		var usersdata = response.data.userdata
+
+		    		$.each(usersdata, function(i){
+                        var obj = {};
+                        obj.user_id = usersdata[i].user_id;
+                        obj.username = usersdata[i].name;
+                        $scope.userslist.push(obj);
+                    })
+
+                    console.log($scope.userslist)
+				}, function errorCallback(response)
+				{
+		    		console.log(response);
+				});
+
+    $scope.selected_customer = function(){
+        var customer_id = false
+        if($scope.selected_customer_object){
+            customer_id = $scope.selected_customer_object.user_id
+        }
+
+        // getting former sold details
+        var s_split = $scope.start_date.split("/")
+        var e_split = $scope.end_date.split("/")
+
+        if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
+            toastr.error('start date must less than end date')
+            return false;
+        }else{
+            $scope.load = $http({
+            method: 'POST',
+              url: '/superuser/customers-report/',
+              data: {
+                    'start_date': $scope.start_date,
+                    'end_date':$scope.end_date,
+                    'customer_id': customer_id
+              }
+            }).then(function (response){
+                    console.log(response, 'report data is')
+                    $scope.stock_data = [];
+                    console.log(response.data)
+                    $scope.borrowers = response.data.all_borrowers
+                    $scope.all_customers = response.data.all_customers
+                    $scope.specific_bill_data = response.data.specific_bill_data
+                    $timeout(function(){
+                            $("#example1_modify_stock").DataTable();
+                    },500)
+
+            }, function errorCallback(response){
+                    console.log(response);
+            });
+
+        }
+
+
+    }
+
+    var d = new Date()
+
+    $scope.start_date = "" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.end_date = ""//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+
+    $scope.check_dates = function(){
+        var s_split = $scope.start_date.split("/")
+        var e_split = $scope.end_date.split("/")
+
+
+        if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
+            toastr.error('start date must less than end date')
+            return false;
+        }else{
+
+            if(s_split.length >= 3 && e_split.length >= 3){
+                $scope.selected_customer()
+            }
+
+        }
+    }
+
+     $timeout(function(){
+        $('#datepicker_sale_products_reports_1') .datepicker({
+            format: 'dd/mm/yyyy',
+            //startDate: new Date()
+            //endDate: '01/12/2020'
+        })
+    },500)
+
+    $timeout(function(){
+        $('#datepicker_sale_products_reports_2') .datepicker({
+            format: 'dd/mm/yyyy',
+            //startDate: '01/03/2016',
+            //endDate: '01/12/2020'
+        })
+    },500)
+
+
+    $scope.call_date_change = function(){
+        $scope.check_dates();
+    }
+
+    $scope.check_dates();
+
+})
+.controller("labourReport", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+
+
+
+    var d = new Date()
+
+    $scope.start_date = "" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.end_date = ""//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+
+    $scope.check_dates = function(){
+        var s_split = $scope.start_date.split("/")
+        var e_split = $scope.end_date.split("/")
+
+
+        if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
+            toastr.error('start date must less than end date')
+            return false;
+        }else{
+            $scope.load = $http({
+            method: 'POST',
+              url: '/superuser/products-sale-report',
+              data: {'start_date': $scope.start_date, 'end_date':$scope.end_date}
+            }).then(function (response){
+                    console.log(response, 'report data is')
+                    $scope.stock_data = [];
+                    console.log(response.data)
+		    		$scope.stock_data = response.data.stocks_list
+		    		$scope.customer_data = response.data.customer_details
+		    		$timeout(function(){
+                            $("#example1_modify_stock").DataTable();
+                    },500)
+
+            }, function errorCallback(response){
+                    console.log(response);
+            });
+
+        }
+    }
+
+     $timeout(function(){
+        $('#datepicker_sale_products_reports_1') .datepicker({
+            format: 'dd/mm/yyyy',
+            //startDate: new Date()
+            //endDate: '01/12/2020'
+        })
+    },500)
+
+    $timeout(function(){
+        $('#datepicker_sale_products_reports_2') .datepicker({
+            format: 'dd/mm/yyyy',
+            //startDate: '01/03/2016',
+            //endDate: '01/12/2020'
+        })
+    },500)
+
+
+    $scope.call_date_change = function(){
+        $scope.check_dates();
+    }
+
+    $scope.check_dates();
+
+})
 .controller("legalCategoryProductCtrl", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
-    console.log('productSaleCtrl')
 
   
     var d = new Date()
@@ -65,10 +854,10 @@ angular.module("App")
     $scope.check_dates();
 
 })
-.controller("downLoadInvoiceBillReportsCtrl", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+.controller("downloadFarmerReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
-    $http({method: 'GET', url: '/superuser/invoice-bill-reports'}).
+    $http({method: 'GET', url: '/superuser/download-farmer-report/'+$routeParams.status}).
   success(function(data, status, headers, config) {
      var anchor = angular.element('<a/>');
      anchor.attr({
@@ -76,7 +865,55 @@ angular.module("App")
          target: '_blank',
          download: 'test.csv'
      })[0].click();
-    $location.path("/invoice-bill-report")
+    $location.path("/farmers-report")
+  }).error(function(data, status, headers, config) {
+    // handle error
+  });
+})
+.controller("downloadHarvesterReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+
+
+    $http({method: 'GET', url: '/superuser/download-harvester-report/'+$routeParams.status}).
+  success(function(data, status, headers, config) {
+     var anchor = angular.element('<a/>');
+     anchor.attr({
+         href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
+         target: '_blank',
+         download: 'test.csv'
+     })[0].click();
+    $location.path("/harvesters-report")
+  }).error(function(data, status, headers, config) {
+    // handle error
+  });
+})
+.controller("downloadProductSaleReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+
+
+    $http({method: 'GET', url: '/superuser/download-product-sale-report/'+$routeParams.status}).
+  success(function(data, status, headers, config) {
+     var anchor = angular.element('<a/>');
+     anchor.attr({
+         href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
+         target: '_blank',
+         download: 'test.csv'
+     })[0].click();
+    $location.path("/customers-report")
+  }).error(function(data, status, headers, config) {
+    // handle error
+  });
+})
+.controller("downloadCustomerReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+
+
+    $http({method: 'GET', url: '/superuser/download-customers-report/'+$routeParams.status}).
+  success(function(data, status, headers, config) {
+     var anchor = angular.element('<a/>');
+     anchor.attr({
+         href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
+         target: '_blank',
+         download: 'test.csv'
+     })[0].click();
+    $location.path("/product-sale-report")
   }).error(function(data, status, headers, config) {
     // handle error
   });
@@ -166,70 +1003,7 @@ angular.module("App")
 
 })
 .controller("productSaleCtrl", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
-    console.log('productSaleCtrl')
 
-    // pie chart data initlizations and ajax data access
-  var PieData = [
-  {
-    value: 0,
-    color: "#f56954",
-    highlight: "#f56954",
-    label: "Seeds"
-  },
-  {
-    value: 0,
-    color: "#00a65a",
-    highlight: "#00a65a",
-    label: "Pesticides"
-  },
-  {
-    value: 0,
-    color: "#f39c12",
-    highlight: "#f39c12",
-    label: "Fertilizers"
-  },
-  {
-    value: 0,
-    color: "#00c0ef",
-    highlight: "#00c0ef",
-    label: "Bio Pesticides"
-  },
-  {
-    value: 0,
-    color: "#3c8dbc",
-    highlight: "#3c8dbc",
-    label: "Bio Fertilizers"
-  }
-
-];
-
-var pieOptions = {
-  //Boolean - Whether we should show a stroke on each segment
-  segmentShowStroke: true,
-  //String - The colour of each segment stroke
-  segmentStrokeColor: "#fff",
-  //Number - The width of each segment stroke
-  segmentStrokeWidth: 2,
-  //Number - The percentage of the chart that we cut out of the middle
-  percentageInnerCutout: 50, // This is 0 for Pie charts
-  //Number - Amount of animation steps
-  animationSteps: 100,
-  //String - Animation easing effect
-  animationEasing: "easeOutBounce",
-  //Boolean - Whether we animate the rotation of the Doughnut
-  animateRotate: true,
-  //Boolean - Whether we animate scaling the Doughnut from the centre
-  animateScale: false,
-  //Boolean - whether to make the chart responsive to window resizing
-  responsive: true,
-  // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-  maintainAspectRatio: true,
-  //String - A legend template
-  legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-};
-// Get context with jQuery - using jQuery's .get() method.
-var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
-var pieChart = new Chart(pieChartCanvas);
 
 
     var d = new Date()
@@ -241,42 +1015,33 @@ var pieChart = new Chart(pieChartCanvas);
         var s_split = $scope.start_date.split("/")
         var e_split = $scope.end_date.split("/")
 
+        if(s_split.length >= 3 && e_split.length >= 3){
+            console.log(s_split.length, s_split)
+            if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
+                toastr.error('start date must less than end date')
+                return false;
+            }else{
+                $scope.load = $http({
+                method: 'POST',
+                  url: '/superuser/products-sale-report',
+                  data: {'start_date': $scope.start_date, 'end_date':$scope.end_date}
+                }).then(function (response){
+                        console.log(response, 'report data is')
+                        $scope.stock_data = [];
+                        console.log(response.data)
+                        $scope.stock_data = response.data.stocks_list
+                        $scope.customer_data = response.data.customer_details
+                        $timeout(function(){
+                                $("#example1_modify_stock").DataTable();
+                        },500)
 
-        if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
-            toastr.error('start date must less than end date')
-            return false;
-        }else{
-            $scope.load = $http({
-            method: 'POST',
-              url: '/superuser/products-sale-report',
-              data: {'start_date': $scope.start_date, 'end_date':$scope.end_date}
-            }).then(function (response){
-                    $scope.stock_data = [];
-                    console.log(response.data)
-		    		$scope.stock_data = response.data.stocks_list
-		    		$scope.customer_data = response.data.customer_details
-		    		$timeout(function(){
-                            $("#example1_modify_stock").DataTable();
-                    },500)
+                }, function errorCallback(response){
+                        console.log(response);
+                });
 
-                    var data = response.data.types_data
-                    for(temp in PieData){
-                        console.log(data[PieData[temp].label])
-                        if(data[PieData[temp].label] != undefined){
-                            PieData[temp].value = data[PieData[temp].label]
-                        }
-                    }
-
-                    pieChart.Doughnut(PieData, pieOptions);
-
-
-
-
-            }, function errorCallback(response){
-                    console.log(response);
-            });
-
+            }
         }
+
     }
 
      $timeout(function(){

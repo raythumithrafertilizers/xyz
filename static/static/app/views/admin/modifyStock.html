@@ -3,7 +3,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            View or Delete stock
+            Edit stock
           </h1>
         </section>
 
@@ -18,11 +18,9 @@
                     <thead>
                       <tr>
                         <th>Stock name</th>
-                        <th>Stock Type</th>
-                        <th>Quantity</th>
+                        <!--<th>inital stock</th>-->
                         <th>Available Stock</th>
-                        <th>Invoice Number</th>
-                        <th>Expired On</th>
+                        <th>created date</th>
                         <th>Edit</th>
                         <th>Delete</th>
 
@@ -32,11 +30,9 @@
                       <tr ng-repeat = "stock in stockslist">
 
                         <td>[[stock.stock_name]] </td>
-                        <td>[[stock.stock_type]]</td>
-                        <td> [[stock.quantity_weight]]</td>
-                        <td>[[stock.available_stock]]</td>
-                        <td>[[ stock.company_invoice_number ]]</td>
-                        <td> [[stock.expired_date]]</td>
+                        <!--<td>[[stock.i_stock]]</td>-->
+                        <td>[[stock.a_stock]]</td>
+                        <td>[[ stock.created_date |date ]]</td>
 
                         <td>
                           <div class="row">

@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="/static/css/dataTables.bootstrap.css">
      <!-- datatables css -->
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="/static/bower_components/ngGallery/src/css/ngGallery.css">
+    <link rel="stylesheet" type="text/css" href="/static/bower_components/ngGallery/src/css/ngGallery.css">
     <!-- Font-Awesome -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <!-- Theme style -->
+    <!--<link rel="stylesheet" href="static/js/jquery/font-awesome.min.css">
+    --><!-- Theme style -->
     <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="/static/css/ionicons.min.css">
@@ -25,11 +25,12 @@
     <link href="/static/js/toaster/toaster.css" rel="stylesheet" />
     <!-- app css start -->
     <link rel="stylesheet" href="static/css/app.css" type="text/css">
-    <link rel="stylesheet" href="static/bower_components/datepicker/bootstrap-datetimepicker.css" type="text/css">
-    <link rel="stylesheet" href="static/bower_components/datepicker/bootstrap-datetimepickersecond.css" type="text/css">
+    <!--<link rel="stylesheet" href="static/bower_components/datepicker/bootstrap-datetimepicker.css" type="text/css">-->
+    <!--<link rel="stylesheet" href="static/bower_components/datepicker/bootstrap-datetimepickersecond.css" type="text/css">
+    -->
     <link rel="stylesheet" href="static/bower_components/multiSelect/isteven-multi-select.css" type="text/css">
 
-     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+     <link rel="stylesheet" href="static/js/jquery/angular-material.min.css">
 
 	<style type="text/css">
 		.no-js #loader { display: none;  }
@@ -48,11 +49,11 @@
 <div class="se-pre-con"></div>
 <body ng-app="App" ng-controller="authCtrl">
 
-	<header class="main-header" ng-show="role=='admin' or role=='subadmin'">
+	<header class="main-header" ng-show="role=='admin' || role=='subadmin'">
         <!-- Logo -->
         <a class="logo">
           <!-- logo for regular state and mobile devices -->
-          <img src="/static/images/logo.jpg" style="width: 100%;height: 100%;"/>
+          <!--<img src="/static/images/logo.jpg" style="width: 100%;height: 100%;"/>-->
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -63,7 +64,7 @@
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
 
-              <li class="dropdown user user-menu">
+              <!--<li class="dropdown user user-menu">
                 <a class="dropdown-toggle" data-toggle="dropdown" ng-click="get_detailed_notifications()">
                   <div class="notification-div" style="color:red">
                     [[ notification_ids.length ]]
@@ -73,7 +74,7 @@
                 </a>
 
                 <ul class="dropdown-menu profile-pic-bg bg-not">
-                  <!-- User image -->
+                  &lt;!&ndash; User image &ndash;&gt;
                   <li class="days-left">Days Left On Each Stock</li>
                   <li class="no-noti">No New Notifications</li>
                   <li style="height: 16%;" class="user-header user-p" ng-repeat="tmp in data.server_data" >
@@ -88,7 +89,7 @@
                   </li>
 
                 </ul>
-              </li>
+              </li>-->
 
               <li class="dropdown user user-menu">
                 <a class="dropdown-toggle" data-toggle="dropdown">
@@ -119,11 +120,137 @@
         </nav>
       </header>
 <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar"  ng-show="role=='admin' or role=='admin'">
+      <aside class="main-sidebar"  ng-show="role=='admin' || role=='subadmin'">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
+
+
+            <li class="treeview">
+              <a class="col-f">
+                <i class="fa fa-dashboard"></i>
+                <span>Purchase Management</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="col-f">
+                  <a href="/#/create-purchase" class="col-f">
+                    <i class="fa fa-circle-o"></i> Create Purchase
+                  </a>
+
+                </li>
+
+                <li class="col-f">
+                  <a href="/#/edit-purchases" class="col-f">
+                    <i class="fa fa-circle-o"></i> Edit Purchase
+                  </a>
+
+                </li>
+
+
+
+
+
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a class="col-f">
+                <i class="fa fa-dashboard"></i>
+                <span>Harvesters</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="col-f">
+                  <a href="/#/create-harvester" class="col-f">
+                    <i class="fa fa-circle-o"></i> Create A new Harvester
+                  </a>
+
+                </li>
+
+                <li class="col-f">
+                  <a href="/#/edit-harvester" class="col-f">
+                    <i class="fa fa-circle-o"></i> Edit Harvester Info
+                  </a>
+
+                </li>
+
+                <li class="col-f">
+                  <a href="/#/harvester-payments" class="col-f">
+                    <i class="fa fa-circle-o"></i> Harvester Payments
+                  </a>
+
+                </li>
+
+
+
+
+              </ul>
+            </li>
+
+
+
+            <li class="treeview">
+              <a class="col-f">
+                <i class="fa fa-dashboard"></i>
+                <span>Farmers</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="col-f">
+                  <a href="/#/create-farmer" class="col-f">
+                    <i class="fa fa-circle-o"></i> Create A new Farmer
+                  </a>
+
+                </li>
+
+                <li class="col-f">
+                  <a href="/#/edit-farmer-details" class="col-f">
+                    <i class="fa fa-circle-o"></i> Edit Farmer Info
+                  </a>
+
+                </li>
+                <li class="col-f">
+                  <a href="/#/farmer-payments" class="col-f">
+                    <i class="fa fa-circle-o"></i> Farmer Payments
+                  </a>
+                </li>
+                <li class="col-f">
+                  <a href="/#/farmer-interests" class="col-f">
+                    <i class="fa fa-circle-o"></i> Farmer Interests
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a class="col-f">
+                <i class="fa fa-dashboard"></i>
+                <span>Labours</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="col-f">
+                  <a href="/#/create-labour" class="col-f">
+                    <i class="fa fa-circle-o"></i> Create A new Labour
+                  </a>
+
+                </li>
+
+                <li class="col-f">
+                  <a href="/#/edit-labour-details" class="col-f">
+                    <i class="fa fa-circle-o"></i> Edit Labour Info
+                  </a>
+
+                </li>
+               <!-- <li class="col-f">
+                  <a href="/#/labour-payments" class="col-f">
+                    <i class="fa fa-circle-o"></i> Labour Payments
+                  </a>
+
+                </li>-->
+              </ul>
+            </li>
 
             <li class="treeview">
               <a class="col-f">
@@ -143,9 +270,7 @@
                   <a href="/#/get-bill" class="col-f">
                     <i class="fa fa-circle-o"></i> Get Specific Bill
                   </a>
-
                 </li>
-
               </ul>
             </li>
 
@@ -159,7 +284,6 @@
               <ul class="treeview-menu">
                 <li class="col-f">
                 	<a href="/#/add-stock" class="col-f"><i class="fa fa-circle-o">
-
                     </i> Create Stock
                 	</a>
                 </li>
@@ -168,37 +292,22 @@
                       <i class="fa fa-circle-o"></i> Edit Stock
                 	</a>
                 </li>
-
+                <li class="col-f">
+                	<a href="/#/edit-stock-names" class="col-f">
+                      <i class="fa fa-circle-o"></i> Edit Stock Names
+                	</a>
+                </li>
+                <li class="col-f">
+                	<a href="/#/append-stock" class="col-f">
+                      <i class="fa fa-circle-o"></i> Append Stock Count
+                	</a>
+                </li>
               </ul>
             </li>
 
 
 
             <li class="treeview">
-              <a class="col-f">
-                <i class="fa fa-dashboard"></i>
-                <span>Invoice Bill Details</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li class="col-f">
-                  <a href="/#/company-bills" class="col-f">
-                    <i class="fa fa-circle-o"></i> Show All Bills
-                  </a>
-
-                </li>
-                <li class="col-f">
-                  <a href="/#/create-company-bill" class="col-f">
-                    <i class="fa fa-circle-o"></i> Upload New Bill
-                  </a>
-
-                </li>
-              </ul>
-
-            </li>
-
-            <li class="treeview">
-
               <ul class="treeview-menu">
                 <li class="col-f">
                   <a href="/#/create-loyalty-offer" class="col-f"><i class="fa fa-circle-o"></i> Create loyalty offer
@@ -214,6 +323,7 @@
                 </li>
               </ul>
             </li>
+
             <li class="treeview">
               <a class="col-f">
                 <i class="fa fa-dashboard"></i> 
@@ -231,18 +341,34 @@
                     <i class="fa fa-circle-o"></i> create a new Customer
                   </a>
                 </li>
-                <li>
+                <!--<li>
                   <a href="/#/customer-payments" class="col-f">
                     <i class="fa fa-circle-o"></i> customer payments
                   </a>
-                </li>
+                </li>-->
               </ul>
             </li>
 
-            <li>
-              <a href="/#/dashboard" class="col-f">
-                <i class="fa fa-book"></i>
-                <span>Dashboard</span></a>
+
+            <li class="treeview">
+              <a class="col-f">
+                <i class="fa fa-dashboard"></i>
+                <span>Expenditures</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="col-f">
+                  <a href="/#/create-expenditure" class="col-f">
+                    <i class="fa fa-circle-o"></i> Create Expenditures
+                  </a>
+                </li>
+                <li class="col-f">
+                  <a href="/#/edit-expenditures" class="col-f">
+                    <i class="fa fa-circle-o"></i> Edit Expenditures
+                  </a>
+                </li>
+
+              </ul>
             </li>
 
 
@@ -260,95 +386,51 @@
 
                 </li>
                 <li class="col-f">
-                  <a href="/#/legal-category-sold-reports" class="col-f">
-                    <i class="fa fa-circle-o"></i>
-                    Legal Category Sod Reports
+                  <a href="/#/farmers-report" class="col-f">
+                    <i class="fa fa-circle-o"></i> Farmer Report
                   </a>
 
                 </li>
                 <li class="col-f">
-                  <a href="/#/invoice-bill-report" class="col-f">
-                    <i class="fa fa-circle-o"></i> Invoice Reports
+                  <a href="/#/harvesters-report" class="col-f">
+                    <i class="fa fa-circle-o"></i> Harvester Report
                   </a>
 
                 </li>
-
-                <!--<li class="col-f">
-                  <a href="/#/billing-customers" class="col-f">
-                    <i class="fa fa-circle-o"></i> Report 2
+                <li class="col-f">
+                  <a href="/#/customers-report" class="col-f">
+                    <i class="fa fa-circle-o"></i> Customer Report
                   </a>
 
                 </li>
 
                 <li class="col-f">
-                  <a href="/#/billing-customers" class="col-f">
-                    <i class="fa fa-circle-o"></i> Report 3
+                  <a href="/#/append-stock-reports" class="col-f">
+                    <i class="fa fa-circle-o"></i> Stock Report
                   </a>
 
-                </li>-->
+                </li>
+
+                <li class="col-f">
+                  <a href="/#/interest-reports" class="col-f">
+                    <i class="fa fa-circle-o"></i> Previous Interests Report
+                  </a>
+
+                </li>
+
+                 <li class="col-f">
+                  <a href="/#/expenditure-reports" class="col-f">
+                    <i class="fa fa-circle-o"></i> Expenditure Reports
+                  </a>
+
+                </li>
+
+
+
               </ul>
             </li>
 
-            <li class="treeview">
-              <a class="col-f">
-                <i class="fa fa-dashboard"></i>
-                <span>Manage Sub Admins</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li class="col-f">
-                  <a href="/#/view-modify-users" class="col-f">
-                    <i class="fa fa-circle-o"></i> View Admins details
-                  </a>
-                  <a href="/#/create-user" class="col-f">
-                    <i class="fa fa-circle-o"></i> create a new Sub Admin
-                  </a>
-                </li>
-              </ul>
-            </li>
 
-
-
-
-            <li class="treeview">
-              <a class="col-f">
-                <i class="fa fa-dashboard"></i>
-                <span>Manage Gallery</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li class="col-f">
-                  <a href="/#/gallery-images" class="col-f">
-                    <i class="fa fa-circle-o"></i> Show All Gallery Images
-                  </a>
-
-                </li>
-                <li class="col-f">
-                  <a href="/#/uplpad-gallery-image" class="col-f">
-                    <i class="fa fa-circle-o"></i> Upload New Gallery Image
-                  </a>
-
-                </li>
-              </ul>
-
-            </li>
-
-            <li class="treeview">
-              <a class="col-f">
-                <i class="fa fa-dashboard"></i>
-                <span>Customer Gallery</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li class="col-f">
-                  <a href="/#/gallery" class="col-f">
-                    <i class="fa fa-circle-o"></i> Show All Gallery Images
-                  </a>
-
-                </li>
-              </ul>
-
-            </li>
 
           </ul>
         </section>
@@ -361,12 +443,12 @@
 <footer class="main-footer">
 <div class="pull-right hidden-xs">
 </div>
-<strong>Copyright &copy; 2014-2015 <a href="http://anipr.com">Man</a>.</strong> All rights reserved.
+<strong></strong>
 </footer>
 <!-- jQuery 2.1.4 -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="static/js/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="static/js/jquery/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <!-- Bootstrap 3.3.5 -->
 <script src="static/js/bootstrap-app/bootstrap.min.js"></script>
@@ -386,10 +468,10 @@
 
 <script src="/static/bower_components/angular/angular.min.js"></script>
 <script src="/static/bower_components/angular-animate/angular-animate.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script src="static/js/jquery/angular-aria.min.js"></script>
 <script src="/static/js/angular-material/angular-material.min.js"></script>
 
-<script src="https://code.angularjs.org/1.2.16/angular-route.min.js"></script>
+<script src="static/js/jquery/angular-route.min.js"></script>
 
 <script src="/static/js/satellizer.min.js"></script>
 
@@ -423,22 +505,27 @@
 
 <script type="text/javascript" src="/static/app/scripts/controllers/register.js"></script>
 
+<script type="text/javascript" src="/static/app/scripts/controllers/admin/farmers.js"></script>
+<script type="text/javascript" src="/static/app/scripts/controllers/admin/labours.js"></script>
+<script type="text/javascript" src="/static/app/scripts/controllers/admin/harvesters.js"></script>
+<script type="text/javascript" src="/static/app/scripts/controllers/admin/purchases.js"></script>
+
 <script type="text/javascript" src="/static/app/scripts/controllers/stockmanage.js"></script>
-<script type="text/javascript" src="/static/app/scripts/controllers/usersdata.js"></script>
-<script type="text/javascript" src="/static/app/scripts/controllers/customer/customer_home.js"></script>
 
 <script type="text/javascript" src="/static/app/scripts/controllers/admin/userscontroller.js"></script>
+
+<script type="text/javascript" src="/static/app/scripts/controllers/admin/advances.js"></script>
+
 <script type="text/javascript" src="/static/app/scripts/controllers/admin/reports.js"></script>
 <script type="text/javascript" src="/static/app/scripts/controllers/admin/customersController.js"></script>
 <script type="text/javascript" src="/static/app/scripts/controllers/admin/billingCtrl.js"></script>
-<script type="text/javascript" src="/static/app/scripts/controllers/companyBills.js"></script>
-<script type="text/javascript" src="/static/app/scripts/controllers/gallery.js"></script>
+<script type="text/javascript" src="/static/app/scripts/controllers/admin/expenditures.js"></script>
 
 <script type="text/javascript">
     $(window).load(function() {
         // Animate loader off screen
         $(".se-pre-con").fadeOut("slow");
-        //$('#username').html('surya')
+
     });
 </script>
 

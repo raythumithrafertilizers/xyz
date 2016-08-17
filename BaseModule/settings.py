@@ -91,7 +91,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'raythumithra',
+        'NAME': 'kranthiagro',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',
@@ -122,7 +122,7 @@ LINKEDIN_SECRET = "dk1Eyj1Rfn7kuNIl"
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Kolkata'
+TIME_ZONE =  'Asia/Kolkata'
 
 USE_I18N = True
 

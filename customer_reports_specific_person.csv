@@ -1,0 +1,4 @@
+bill number,bill date,total_quantity,final_bill_total,paid,due
+1,2016-07-30,2,0,23
+2,2016-07-29,2,0,2
+4,2016-07-13,1,0,1

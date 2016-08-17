@@ -1,8 +1,8 @@
-  <div class="content-wrapper" style="min-height: 946px;">
+  <div class="content-wrapper" style="min-height: 946px;" cg-busy="load">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Create Stock
+        Edit Stock
       </h1>
       <!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -21,83 +21,40 @@
             <div class="box-body">
             <form ng-submit="updateStock()" name="userForm">
 
+
               <div class="row row-sides"> <!-- row start -->
                 <div class="col-xs-12 col-lg-4">
 
                   <div class="form-group">
-                    <label>Select Invoice Bill</label>
+                    <label>Select Product Name(required) </label>
 
 
-                        <select class="form-control" name="invoice_bill" ng-model="stock.invoice_bill"
-                                ng-options="temp.bill_id as temp.bill_number for temp in billsList">
+                        <select class="form-control" name="invoice_bill" ng-model="stock.stock_name"
+                                ng-options="temp.id as temp.name for temp in stock_names">
                         </select>
 
                     <!--<input type="text" class="form-control" placeholder="Store Id" ng-model="store.storeid" ng-class="{ 'has-error' : userForm.storeid.$invalid && !userForm.storeid.$pristine }" name="storeid" required>
                     <p ng-show="userForm.storeid.$invalid && !userForm.storeid.$pristine" class="help-block">Store id is required.</p>-->
                   </div>
                 </div>
-
-                <div class="col-xs-12 col-lg-4">
-                  <div class="form-group">
-                    <label>Available Stock(required)</label>
-                    <input type="text" class="form-control" required placeholder="Available Stock" ng-model="stock.available_stock" name="available_stock"
-                           ng-class="{ 'has-error' : userForm.available_stock.$invalid && !userForm.available_stock.$pristine }">
-
-                  </div>
-                </div>
-
-              </div> <!-- row end -->
-
-              <div class="row row-sides"> <!-- row start -->
-                <div class="col-xs-12 col-lg-4">
-                  <div class="form-group">
-                    <label>Stock Name(required)</label>
-                    <input type="text" class="form-control" placeholder="Stock Name" ng-model="stock.stock_name" name="stock_name"
-                           ng-class="{ 'has-error' : userForm.stock_name.$invalid && !userForm.stock_name.$pristine }" required>
-                    <p ng-show="userForm.stock_name.$invalid && !userForm.stock_name.$pristine" class="help-block">Stock name is required.</p>
-                  </div>
-                </div>
-                <div class="col-xs-12 col-lg-4">
-
-                  <div class="form-group">
-                    <label>Stock Type(required)</label>
-
-
-                        <select class="form-control" name="stock_type" ng-model="stock.stockType"
-                                ng-options="temp.id as temp.name for temp in stockType"
-                                ng-class="{ 'has-error' : userForm.stock_type.$invalid && !userForm.stock_type.$pristine }"  required>
-                        </select>
-
-                    <!--<input type="text" class="form-control" placeholder="Store Id" ng-model="store.storeid" ng-class="{ 'has-error' : userForm.storeid.$invalid && !userForm.storeid.$pristine }" name="storeid" required>
-                    <p ng-show="userForm.storeid.$invalid && !userForm.storeid.$pristine" class="help-block">Store id is required.</p>-->
-                  </div>
-                </div>
-
-              </div> <!-- row end -->
-
-              <div class="row row-sides"> <!-- row start -->
 
                  <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
-                    <label>Batch Number</label>
-                    <input type="text" class="form-control" placeholder="Enter Batch Number" ng-model="stock.batch_number"
-                           name="batch_number" ng-class="{ 'has-error' : userForm.batch_number.$invalid }">
-                    <p ng-show="userForm.batch_number.$invalid" class="help-block">Enter Batch Number.</p>
+                    <label>available Items Count(required)</label>
+                    <input type="text" class="form-control" required placeholder="Quantity Count" ng-model="stock.a_stock" name="a_stock"
+                           ng-class="{ 'has-error' : userForm.a_stock.$invalid && !userForm.a_stock.$pristine }">
                   </div>
                 </div>
 
-
-                <div class="col-xs-12 col-lg-4">
+                <!--<div class="col-xs-12 col-lg-4">
                   <div class="form-group">
-                    <label>Lot Number</label>
-                    <input type="text" class="form-control" placeholder="LoT Number" ng-model="stock.lot_number" name="lot_number"
-                           ng-class="{ 'has-error' : userForm.lot_number.$invalid && !userForm.lot_number.$pristine }">
+                    <label>Initial Stock(required)</label>
+                    <input type="text" class="form-control" placeholder="Initial Stock" ng-model="stock.i_stock" required name="i_stock"
+                           ng-class="{ 'has-error' : userForm.i_stock.$invalid && !userForm.i_stock.$pristine }">
 
                   </div>
-                </div>
-
+                </div>-->
               </div> <!-- row end -->
-
 
               <div class="row row-sides"> <!-- row start -->
                 <!--<div class="col-xs-12 col-lg-4">
@@ -109,85 +66,25 @@
                   </div>
                 </div>-->
 
-                <div class="col-xs-12 col-lg-4">
-                  <div class="form-group">
-                    <label>Total  Items Count(required)</label>
-                    <input type="text" class="form-control" required placeholder="Quantity Count" ng-model="stock.quantity_count" name="quantity_count"
-                           ng-class="{ 'has-error' : userForm.quantity_count.$invalid && !userForm.quantity_count.$pristine }">
 
-                  </div>
-                </div>
-
-                 <div class="col-xs-12 col-lg-4">
-                  <div class="form-group">
-                    <label>Rate of each Item(required)</label>
-                    <input type="text" class="form-control" required placeholder="Rate " ng-model="stock.rate" name="rate"
-                           ng-class="{ 'has-error' : userForm.rate.$invalid && !userForm.rate.$pristine }">
-
-                  </div>
-                </div>
-
-              </div> <!-- row end -->
-
-
-
-
-
-              <div class="row row-sides"> <!-- row start -->
-
-                <div class="col-xs-12 col-lg-4">
-                  <div class="form-group">
-                    <label>Mfg Date</label><br/>
-                    <input type="text" id="datepicker1" class="form-control" placeholder="Manufacture Date " ng-model="stock.mfg_date" name="mfg_date"
-                           ng-class="{ 'has-error' : userForm.mfg_date.$invalid && !userForm.mfg_date.$pristine }">
-
-                  </div>
-                </div>
-                <div class="col-xs-12 col-lg-4">
-                  <div class="form-group">
-                    <label>Expire Date(required)</label><br/>
-                    <input type="text" id="datepicker" class="form-control" placeholder="Expired Date " ng-model="stock.expired_date" name="expired_date"
-                           ng-class="{ 'has-error' : userForm.expired_date.$invalid && !userForm.expired_date.$pristine }" required>
-
-                  </div>
-                </div>
-              </div> <!-- row end -->
-              <div class="row row-sides"> <!-- row start -->
 
                 <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
                     <label>Remarks </label><br/>
-                    <input type="text"  class="form-control" placeholder="Remarks" ng-model="stock.purchase_from" name="purchase_from"
-                           ng-class="{ 'has-error' : userForm.purchase_from.$invalid && !userForm.purchase_from.$pristine }">
+                    <input type="text"  class="form-control" placeholder="Remarks" ng-model="stock.remarks" name="remarks"
+                           ng-class="{ 'has-error' : userForm.remarks.$invalid && !userForm.remarks.$pristine }">
                   </div>
                 </div>
 
                 <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
-                      <label>Stock-Bill-Type(required)</label>
-                          <select class="form-control" name="isLegal" ng-model="stock.isLegal"
-                                  ng-options="temp.id as temp.display_name for temp in isLegalProduct"
-                                  ng-class="{ 'has-error' : userForm.isLegal.$invalid && !userForm.isLegal.$pristine }"
-                                  required>
-                          </select>
-                    </div>
-                </div>
+                    <label>Stock Creation Date(required)</label><br/>
+                    <input type="text" id="datepicker" class="form-control" placeholder="created Date " ng-model="stock.created_date" name="created_date"
+                           ng-class="{ 'has-error' : userForm.created_date.$invalid && !userForm.created_date.$pristine }" required>
 
+                  </div>
+                </div>
               </div> <!-- row end -->
-
-              <!-- row start -->
-              <div class="row row-sides">
-                <div class="col-xs-12 col-lg-4">
-                  <div class="form-group">
-                    <label>Invoice Price(required) </label><br/>
-                    <input type="text"  class="form-control"
-                           placeholder="invoice price" ng-model="stock.invoice_price"
-                           name="invoice_price" required
-                           ng-class="{ 'has-error' : userForm.invoice_price.$invalid && !userForm.invoice_price.$pristine }">
-                  </div>
-                </div>
-              </div>
-              <!-- row end -->
 
               <div class="row row-sides"> <!-- row start -->
                 <button type="submit" class="btn btn-primary btn-flat btn-on-app" ng-disabled="userForm.$invalid">Submit</button>

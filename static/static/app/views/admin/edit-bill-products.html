@@ -51,7 +51,7 @@
                   <div class="form-group">
                     <label>Bill Date</label>
                     <input type="text" class="form-control" ng-model="bill.bill_date"
-                           readonly>
+                           id="datepicker_sale_products_reports_1">
 
                   </div>
                 </div>
@@ -73,6 +73,34 @@
                 </div>
 
               </div> <!-- row end -->
+
+              <div class="row row-sides"> <!-- row start -->
+                <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Vat Percentage</label>
+                    <input type="text" class="form-control" ng-model="bill.vat_percentage" required>
+
+                  </div>
+                </div>
+                <div class="col-xs-12 col-lg-4">
+
+
+                  <div class="form-group">
+                    <label>Vat Money</label>
+                    <input type="text" class="form-control"
+                           placeholder="Enter Vat Money" ng-model="bill.vat_money"
+                           name="quantity"
+                           ng-class="{ 'has-error' : userForm.vat_money.$invalid }">
+                    <p ng-show="userForm.vat_money.$invalid" class="help-block">
+                      Enter Vat Money.
+                    </p>
+
+                </div>
+
+                </div>
+
+              </div> <!-- row end -->
+
 
               <div class="row row-sides"> <!-- row start -->
                 <div class="col-xs-12 col-lg-4">
@@ -103,6 +131,9 @@
                   </div>
 
                 </div>
+
+              </div> <!-- row end -->
+              <div class="row row-sides"> <!-- row start -->
                 <div class="col-xs-12 col-lg-4">
 
 
@@ -118,8 +149,57 @@
                   </div>
 
                 </div>
+                <div class="col-xs-12 col-lg-4">
+
+
+                  <div class="form-group">
+                    <label>Remarks</label>
+                    <input type="text" class="form-control"
+                           placeholder="Enter remarks" ng-model="bill.remarks"
+                           name="remarks"
+                           ng-class="{ 'has-error' : userForm.remarks.$invalid }">
+                    <p ng-show="userForm.remarks.$invalid" class="help-block">
+                      Enter Remarks.
+                    </p>
+                  </div>
+
+                </div>
+
+
+              </div>
+
+              <div class="row row-sides"> <!-- row start -->
+                <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Vehicle Number</label>
+                    <input type="text" class="form-control"
+                           placeholder="Enter Price" ng-model="bill.vehicle_number"
+                           name="price"
+                           ng-class="{ 'has-error' : userForm.vehicle_number.$invalid }">
+                    <p ng-show="userForm.vehicle_number.$invalid" class="help-block">
+                      Enter vehicle_number.
+                    </p>
+
+                  </div>
+                </div>
+                <div class="col-xs-12 col-lg-4">
+
+
+                  <div class="form-group">
+                    <label>Contact Number</label>
+                    <input type="text" class="form-control"
+                           placeholder="Enter Contact Number" ng-model="bill.contact_number"
+                           name="paid"
+                           ng-class="{ 'has-error' : userForm.contact_number.$invalid }">
+                    <p ng-show="userForm.contact_number.$invalid" class="help-block">
+                      Enter Paid Amount.
+                    </p>
+                  </div>
+
+                </div>
 
               </div> <!-- row end -->
+
 
 
 
@@ -134,9 +214,10 @@
                         <th>Product Number</th>
                         <th>Product Name</th>
                         <th>Quantity</th>
+                        <th>Rate Per Kg</th>
                         <th>Price</th>
 
-                        <th>Return/Change</th>
+                        <!--<th>Return/Change</th>-->
                       </tr>
                     </thead>
                     <tbody>
@@ -158,6 +239,9 @@
                               Enter Product Quantity.
                             </p>
                         </td>
+                               <td><input type="text" class="form-control"
+                          ng-model="product.per_kg_price"
+                           name="product_quantity" readonly></td>
                         <td>
                           <input type="text" class="form-control" ng-change="calculatePrice()"
                            placeholder="Enter Product Price" ng-model="product.product_price"
@@ -168,14 +252,14 @@
                            </p>
                         </td>
 
-                        <td>
+                        <!--<td>
                          <button  ng-if="!(product.isReturned)" type="button" class="btn btn-default pull-right"
                                           data-dismiss="modal" ng-click="addToReturns(product, true)">Return</button>
 
                           <button ng-if="(product.isReturned)" type="button" class="btn btn-default pull-right"
                                           data-dismiss="modal"
                                  ng-click="addToReturns(product, false)">To Products</button>
-                        </td>
+                        </td>-->
                       </tr>
                     </tbody>
                   </table>

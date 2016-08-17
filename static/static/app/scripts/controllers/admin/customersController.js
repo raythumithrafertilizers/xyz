@@ -114,17 +114,21 @@ angular.module("App")
 
 })
 .controller("editCustomerController", function($http, $q, $timeout,toastr,$route, $scope){
-	$scope.load = $http({
+		$scope.load = $http({
 	  		method: 'GET',
-			  url: '/superuser/customers-list',
+			  url: '/superuser/persons-list/customer',
 			}).then(function (response)
 				{
+                    console.log(response)
 		    		$scope.userslist = [];
-		    		var usersdata = JSON.parse(response.data.userdata);
+		    		var usersdata = response.data.userdata
+
 		    		$.each(usersdata, function(i){
                         var obj = {};
-                        obj.userid = usersdata[i].userid;
-                        obj.username = String(usersdata[i].firstname)+ " "  + String(usersdata[i].lastname);
+
+                        obj.user_id = usersdata[i].user_id;
+                        obj.username = usersdata[i].name;
+
                         obj.address =  usersdata[i].address;
                         obj.phone = usersdata[i].phone;
                         $scope.userslist.push(obj);
@@ -132,6 +136,8 @@ angular.module("App")
                          $("#example1").DataTable();
                         },500)
                     })
+
+                    console.log($scope.userslist)
 				}, function errorCallback(response)
 				{
 		    		console.log(response);
@@ -148,7 +154,7 @@ angular.module("App")
 
         $scope.load = $http({
                                 method: 'post',
-                                url: '/superuser/delete-rythu-customer',
+                                url: '/superuser/delete-person',
                                 data: data,
                                 headers: {
                                     'Content-Type': 'application/x-www-form-urlencoded'}
@@ -168,16 +174,16 @@ angular.module("App")
 
      }
     $scope.updateInfo = function(){
-        console.log(this.firstname, this.lastname, this.phone, this.password, this.re_password, this.user_id)
+        console.log(this.name, this.phone, this.user_id)
         var self = this;
         var data = {}
 
-        if(!(self.firstname)){
-            toastr.error('first name missing');
+        if(!(self.name)){
+            toastr.error(' name missing');
             return;
         }
 
-        data.first_name = self.firstname;
+        data.name = self.name;
 
 
         if(!(self.user_id)){
@@ -185,9 +191,7 @@ angular.module("App")
             return;
         }
 
-        if(self.lastname){
-            data.last_name = self.lastname;
-        }
+
 
          if(self.address){
             data.address = self.address;
@@ -206,7 +210,7 @@ angular.module("App")
 
         $scope.load = $http({
                                 method: 'post',
-                                url: '/superuser/edit-customer',
+                                url: '/superuser/edit-person',
                                 data: data,
                                 headers: {
                                     'Content-Type': 'application/x-www-form-urlencoded'}
@@ -238,26 +242,23 @@ angular.module("App")
 
     }
 
-
-	$scope.viewUserData = function(userid, modal){
+	$scope.viewUserData = function(user_id, modal){
 		// $("#myModal").modal("show");
 		$scope.load = $http({
-				  	method: 'post',
-					url: '/superuser/customer-data',
-					data: {
-		                   "userid" : userid,
-		                },
+				  	method: 'GET',
+					url: '/superuser/person-data/'+user_id,
+
 				  	headers: {
 				  		'Content-Type': 'application/x-www-form-urlencoded'}
 						}).then(function successCallback(response)
 							{
 								var userdata = response.data.userdata;
 								var userdetails =  JSON.parse(userdata);
-								$scope.firstname = userdetails.firstname;
-								$scope.lastname = userdetails.lastname;
+								$scope.name = userdetails.name;
+
 								$scope.address = userdetails.address;
 								$scope.phone  = userdetails.phone;
-								$scope.user_id = userid;
+								$scope.user_id = user_id;
 								console.log('user details are', userdetails)
 
 					    		$("#myModal"+modal).modal("show");
@@ -267,34 +268,39 @@ angular.module("App")
 					    		// console.log("not sent");
 							});
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 })
 
 .controller("createCustomerCtrl", function ($scope, $http, $q,$location,
                                         $timeout, $route, toastr){
-        console.log('called created user controller')
         $scope.user = {}
 
-        $scope.user.first_name = ''
-        $scope.user.last_name = ''
+        $scope.user.name = ''
         $scope.user.phone = ''
-        $scope.user.email = ''
-        $scope.user.password = ''
-        $scope.user.password_c = ''
-        $scope.user.active = false;
-
-
-
+        $scope.user.address = ''
 
         $scope.addNewCustomer = function(){
 
             $scope.load = $http({
                                   method: 'post',
-                                  url: '/superuser/add-customer',
+                                  url: '/superuser/add-farmer',
                                   data: {
-                                        'firstname': $scope.user.first_name,
-                                        "lastname": $scope.user.last_name,
+                                        'name': $scope.user.first_name,
                                         "address" : $scope.user.address,
                                         "phone" : $scope.user.phone,
+                                        "type": "customer"
                                     },
                                   headers: {
                                     'Content-Type': 'application/x-www-form-urlencoded'}
@@ -303,12 +309,15 @@ angular.module("App")
                                 toastr.success("Successfully Created ...");
                                 $scope.master = {};
                                 $scope.formData = angular.copy($scope.master);
-                                $location.path("/view-modify-customers")
+                                //$location.path("/view-modify-customers")
 
                             }, function errorCallback(response)
                             {
-                                toastr.error("user already exists!");
+                                toastr.error("customer is already exists!");
                             });
 	    }
+
+
+
 
 });

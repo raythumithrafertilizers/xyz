@@ -96,7 +96,7 @@ var App = angular.module('App')
             return $auth.isAuthenticated();
         };
 
-        $rootScope.get_expired_notification = function(){
+        /*$rootScope.get_expired_notification = function(){
              if($scope.isAuthenticated()){
                  $scope.load =
                  $http({
@@ -119,9 +119,9 @@ var App = angular.module('App')
                     console.log('hellow')
                  })
             }
-        }
+        }*/
 
-        $rootScope.get_detailed_notifications = function(){
+        /*$rootScope.get_detailed_notifications = function(){
             console.log($rootScope.notification_ids, '---------------')
             var get_ids =  $rootScope.notification_ids
             var data = {}
@@ -145,8 +145,8 @@ var App = angular.module('App')
             })
 
         }
-
-        $rootScope.get_expired_notification();
+*/
+        //$rootScope.get_expired_notification();
 
 
         $scope.role=localStorage.getItem("role")

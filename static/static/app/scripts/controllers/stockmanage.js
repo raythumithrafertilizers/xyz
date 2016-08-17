@@ -1,30 +1,127 @@
 angular.module("App")
+.controller("editStockNamesController", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
+    $scope.showPopUpNewStockName = function(){
+        console.log('add new name')
+        $("#addNewStockName1").modal("show");
+    }
+
+    $scope.load =
+         $http({
+              method: 'get',
+              url: '/superuser/stock-names',
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+         }).then(function (response){
+            $scope.stock_names =  response.data.stock_names
+            $timeout(function(){
+                $("#example1").DataTable();
+            },500)
+
+         }, function(error){
+            console.log('hellow')
+         })
+
+    $scope.showPopUp = function(stock){
+        $scope.modified_stock_name = stock
+        $("#EditStockName").modal("show");
+    }
+
+    $scope.DeletePopUp = function(stock){
+        $scope.modified_stock_name = stock
+        $("#deleteStockPopUp").modal("show");
+    }
+
+    $scope.addNewStockName = function(){
+        $scope.load = $http({
+            method: 'post',
+            url: '/superuser/stock-names',
+            data: {
+                    'name': $scope.new_stock_name,
+                    'update': false
+                  },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function successCallback(response){
+
+                    $("#addNewStockName1").modal("hide");
+                     toastr.success('successfully saved')
+                    $timeout(function(){
+                        $route.reload()
+                    },1000)
+
+
+
+
+        }, function errorCallback(response)
+        {
+            toastr.success('unable to  save....')
+            // console.log("not sent");
+        });
+    }
+
+    $scope.updateStockName = function(){
+        $scope.load = $http({
+            method: 'post',
+            url: '/superuser/stock-names',
+            data: {
+                    'name': $scope.modified_stock_name.name,
+                    'id': $scope.modified_stock_name.id,
+                    'update': true
+                  },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function successCallback(response){
+                    toastr.success('successfully saved')
+                     $("#EditStockName").modal("hide");
+
+        }, function errorCallback(response)
+        {
+            toastr.success('unable to  save....')
+             $("#EditStockName").modal("hide");
+            // console.log("not sent");
+        });
+    }
+
+    $scope.delete_stock_name = function(){
+        console.log($scope.modified_stock_name.id)
+        $scope.load = $http({
+            method: 'post',
+            url: '/superuser/delete-stock-name',
+            data: {
+                    'id': $scope.modified_stock_name.id
+                  },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function successCallback(response){
+                    toastr.success('successfully deleted')
+                     $("#deleteStockPopUp").modal("hide");
+
+
+                    $timeout(function(){
+                        $route.reload()
+                    },1000)
+
+        }, function errorCallback(response)
+        {
+            toastr.success('unable to  delete....')
+             $("#deleteStockPopUp").modal("hide");
+            // console.log("not sent");
+        });
+
+    }
+
+
+})
 
 .controller("editStockController", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
     $scope.load = $http({
 	  		method: 'GET',
-			  url: '/superuser/company-bill',
+			  url: '/superuser/stock-names',
 			}).then(function (response){
-		    		$scope.billsList = [];
-		    		console.log(response, '0000000')
-		    		var blist = JSON.parse(response.data.bills_list);
+		    		$scope.stock_names = response.data.stock_names;
 
-		    		$.each(blist, function(i){
-                        var obj = {};
-                        obj.bill_id = blist[i].pk;
-                        obj.company_name = blist[i].fields.company_name;
-                        obj.bill_number = blist[i].fields.company_invoice_number;
-                        obj.invoice_date = blist[i].fields.invoice_date;
-                        obj.bill_image = process_image_path(blist[i].fields.bill_image);
-
-                        $scope.billsList.push(obj);
-                        $timeout(function(){
-                            $("#example1_modify_stock").DataTable();
-                        },500)
-                    })
 			}, function errorCallback(response){
 		    		console.log(response);
 			});
@@ -38,51 +135,8 @@ angular.module("App")
         })
     },500)
 
-    $timeout(function(){
-        $('#datepicker1') .datepicker({
-            format: 'dd/mm/yyyy'
-
-        })
-    },500)
-
-
-   /* $scope.stockType = [
-        {'name': 'Fertilizers', 'id': 'Fertilizers'},
-        {'name': 'Pesticides', 'id': 'Pesticides'},
-        {'name': 'Seeds', 'id': 'Seeds'}
-    ]*/
-
-    $scope.stockType = [
-        {'name': 'Fertilizers', 'id': 'Fertilizers'},
-        {'name': 'Pesticides', 'id': 'Pesticides'},
-        {'name': 'Seeds', 'id': 'Seeds'},
-        {'name': 'Bio Pesticides', 'id': 'Bio Pesticides'},
-        {'name': 'Bio Fertilizers', 'id': 'Bio Fertilizers'}
-    ]
-
-
-    $scope.quantityList = [
-        {'name': 'kgs', 'id': 'kgs'},
-        {'name': 'liters', 'id': 'liters'},
-        {'name': 'units', 'id': 'units'},
-        {'name': 'grams', 'id': 'grams'}
-    ]
-
-    $scope.quantityRateList = [
-        {'name': 'kgs', 'id': 'kgs'},
-        {'name': 'liters', 'id': 'liters'},
-        {'name': 'units', 'id': 'units'},
-        {'name': 'grams', 'id': 'grams'}
-    ]
-
-     $scope.isLegalProduct = [
-        {'name': 'legal', 'id': 'legal', 'display_name': 'invoice stock'},
-        {'name': 'illegal', 'id': 'illegal', 'display_name': 'Quotation stock'},
-    ]
 
     $scope.updateStock = function(){
-
-
         $scope.load = $http({
 					  method: 'post',
 					  url: '/superuser/edit-stock',
@@ -96,7 +150,8 @@ angular.module("App")
 						    		// toastr.success("stock has been created successfully")
 						    		$scope.master = {};
 						    		$scope.formData = angular.copy($scope.master);
-						    		toastr.success('successfully added new stock...')
+						    		$location.path("/modify-stock")
+						    		toastr.success('successfully updated...')
 								}, function errorCallback(response)
 								{
 						    		// console.log("not sent");
@@ -146,31 +201,14 @@ angular.module("App")
 		var stockdata = JSON.parse(response.data.stockdata);
 		console.log('dddddddddgot stock data is', stockdata)
 		$scope.stock = {};
-
 		$scope.stock.stockId = stockdata[0].pk;
-
         $scope.stock.stock_name = stockdata[0].fields.item_name;
-        $scope.stock.expired_date =  dateString(stockdata[0].fields.expire_date)
 
-        $scope.stock.stockType = stockdata[0].fields.item_type
+        $scope.stock.created_date =  dateString(stockdata[0].fields.create_date)
+        $scope.stock.a_stock = stockdata[0].fields.available_stock
+        $scope.stock.i_stock = stockdata[0].fields.inital_stock
+        $scope.stock.remarks = stockdata[0].fields.remarks;
 
-        $scope.stock.available_stock = stockdata[0].fields.available_stock
-
-        $scope.stock.isLegal = stockdata[0].fields.isLegal
-
-        $scope.stock.invoice_bill = stockdata[0].fields.invoice_bill
-
-        $scope.stock.batch_number = stockdata[0].fields.item_batch_number;
-        $scope.stock.mfg_date = dateString(stockdata[0].fields.mfg_date)
-        $scope.stock.lot_number = stockdata[0].fields.item_lot_number;
-        $scope.stock.purchase_from = stockdata[0].fields.purchase_form;
-
-        $scope.stock.quantity_count = stockdata[0].fields.quantity_weight;
-        $scope.stock.quantity = stockdata[0].fields.quantity_type;
-
-        $scope.stock.quantity_rate = stockdata[0].fields.rate_per_type;
-        $scope.stock.rate = stockdata[0].fields.item_cost;
-        $scope.stock.invoice_price = stockdata[0].fields.invoice_cost;
 
 	}, function errorCallBack(error){
 		console.log(error);
@@ -179,107 +217,30 @@ angular.module("App")
 
 })
 
-
 .controller("addStockController", function ($scope,$timeout, $q, $http, $alert, toastr){
-    $scope.stockType = 'Select Stock Type'
-
-    $scope.disable_batch_number = false;
-    $scope.disable_lot_number = false;
-
-    $scope.changed_stock_type = function(){
-        if($scope.stock.stock_type.name == 'Seeds'){
-            $scope.disable_batch_number = true;
-            $scope.disable_lot_number = false;
-
-        }else{
-            $scope.disable_batch_number = false;
-            $scope.disable_lot_number = true;
-
-        }
-    }
-
-    $scope.load = $http({
-	  		method: 'GET',
-			  url: '/superuser/company-bill',
-			}).then(function (response){
-		    		$scope.billsList = [];
-		    		console.log(response, '0000000')
-		    		var blist = JSON.parse(response.data.bills_list);
-
-		    		$.each(blist, function(i){
-                        var obj = {};
-                        obj.bill_id = blist[i].pk;
-                        obj.company_name = blist[i].fields.company_name;
-                        obj.bill_number = blist[i].fields.company_invoice_number;
-                        obj.invoice_date = blist[i].fields.invoice_date;
-                        obj.bill_image = process_image_path(blist[i].fields.bill_image);
-
-                        $scope.billsList.push(obj);
-                        $timeout(function(){
-                            $("#example1_modify_stock").DataTable();
-                        },500)
-                    })
-			}, function errorCallback(response){
-		    		console.log(response);
-			});
+     $scope.load = $http({
+        method: 'GET',
+          url: '/superuser/stock-names',
+        }).then(function (response){
+                $scope.stock_names = response.data.stock_names;
 
 
+        }, function errorCallback(response){
+                console.log(response);
+        });
 
-     $timeout(function(){
+    $timeout(function(){
         $('#datepicker') .datepicker({
             format: 'dd/mm/yyyy',
         })
     },500)
 
-    $timeout(function(){
-        $('#datepicker1') .datepicker({
-            format: 'dd/mm/yyyy',
-        })
-    },500)
-
-
-
-    $scope.stockType = [
-        {'name': 'Fertilizers', 'id': 'Fertilizers'},
-        {'name': 'Pesticides', 'id': 'Pesticides'},
-        {'name': 'Seeds', 'id': 'Seeds'},
-        {'name': 'Bio Pesticides', 'id': 'Bio Pesticides'},
-        {'name': 'Bio Fertilizers', 'id': 'Bio Fertilizers'}
-
-    ]
-
-    $scope.isLegalProduct = [
-        {'name': 'legal', 'id': 'legal', 'display_name': 'invoice stock'},
-        {'name': 'illegal', 'id': 'illegal', 'display_name': 'Quotation stock'},
-    ]
-
-    $scope.quantityList = [
-        {'name': 'kgs', 'id': 'kgs'},
-        {'name': 'liters', 'id': 'liters'},
-        {'name': 'units', 'id': 'units'},
-        {'name': 'grams', 'id': 'grams'},
-        {'name': 'milli liters', 'id': 'milli liters'}
-    ]
-
-    $scope.quantityRateList = [
-        {'name': 'kgs', 'id': 'kgs'},
-        {'name': 'liters', 'id': 'liters'},
-        {'name': 'units', 'id': 'units'},
-        {'name': 'grams', 'id': 'grams'},
-        {'name': 'milli liters', 'id': 'milli liters'}
-
-    ]
-
     $scope.setType = function(type){
         $scope.stockType = type;
     }
+    $scope.createStock = function (){
 
-
-
-		$scope.createStock = function (){
-
-
-                $scope.load = $http({
+               $scope.load = $http({
 					  method: 'post',
 					  url: '/superuser/add-stock',
 					  data: {
@@ -302,6 +263,50 @@ angular.module("App")
 })
 
 
+.controller("appendStockController", function ($scope,$timeout, $q, $http, $alert, toastr){
+     $scope.load = $http({
+        method: 'GET',
+          url: '/superuser/stock-names',
+        }).then(function (response){
+                $scope.stock_names = response.data.stock_names;
+
+
+        }, function errorCallback(response){
+                console.log(response);
+        });
+
+    $timeout(function(){
+        $('#datepicker') .datepicker({
+            format: 'dd/mm/yyyy',
+        })
+    },500)
+
+    $scope.setType = function(type){
+        $scope.stockType = type;
+    }
+    $scope.createStock = function (){
+
+               $scope.load = $http({
+					  method: 'post',
+					  url: '/superuser/append-stock',
+					  data: {
+		                    "stockdata" : $scope.stock,
+		                },
+					  headers: {
+					  	'Content-Type': 'application/x-www-form-urlencoded'}
+							}).then(function successCallback(response)
+								{
+						    		// toastr.success("stock has been created successfully")
+						    		$scope.master = {};
+						    		$scope.formData = angular.copy($scope.master);
+						    		toastr.success('successfully added new stock...')
+
+								}, function errorCallback(response)
+								{
+						    		toastr.error(response.data.response)
+								});
+			}
+})
 
 
 .controller("modifyStockCtrl", function ($scope,toastr, $http, $q, $route, $location, $timeout){
@@ -317,16 +322,10 @@ angular.module("App")
 		    		$.each(stockdata, function(i){
 				    			var obj = {};
 				    			obj.stockId = stockdata[i].pk;
-				    			obj.stock_name = stockdata[i].fields.item_name;
-				    			obj.expired_date =  stockdata[i].fields.expire_date;
-				    			obj.stock_type = stockdata[i].fields.item_type;
-				    			obj.quantity_weight = stockdata[i].fields.quantity_weight;
-				    			obj.available_stock = stockdata[i].fields.available_stock;
-				    			obj.company_invoice_number = stockdata[i].fields.company_invoice_number;
-
-
-				    			console.log(stockdata[i].fields,'------------')
-				    			//obj.invoice_number = stockdata[i].fields.invoice_bill.company_invoice_number
+				    			obj.stock_name = stockdata[i].fields.stock_name;
+				    			obj.created_date =  stockdata[i].fields.create_date;
+				    			obj.a_stock = stockdata[i].fields.available_stock;
+				    			obj.i_stock = stockdata[i].fields.inital_stock;
 				    			$scope.stockslist.push(obj);
 				    			$timeout(function(){
 								    $("#example1_modify_stock").DataTable();

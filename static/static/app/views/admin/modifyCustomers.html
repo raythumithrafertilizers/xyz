@@ -35,7 +35,7 @@
                           <div class="row">
                             <div class="col-lg-10">
                               <button class="btn btn-block btn-primary btn-flat"
-                                      ng-click="viewUserData(user.userid, 1)">View</button>
+                                      ng-click="viewUserData(user.user_id, 1)">View</button>
                             </div>
                             <!-- Modal start-->
                             <div id="myModal1" class="modal fade" role="dialog">
@@ -53,8 +53,8 @@
                                         <table class="table table-hover">
                                             <tbody>                              
                                             <tr>
-                                              <td>Full Name: </td>
-                                              <td>[[firstname]] [[lastname]]</td>
+                                              <td>user name: </td>
+                                              <td>[[name]]</td>
                                             </tr>
                                             <tr>
                                               <td>Address: </td>
@@ -87,7 +87,7 @@
                           <div class="row">
                             <div class="col-lg-10">
                               <button class="btn btn-block btn-primary btn-flat"
-                                      ng-click="viewUserData(user.userid, 2)">Edit</button>
+                                      ng-click="viewUserData(user.user_id, 2)">Edit</button>
                             </div>
                             <!-- Modal start-->
                             <div id="myModal2" class="modal fade" role="dialog">
@@ -105,15 +105,9 @@
                                         <table class="table table-hover">
                                             <tbody>
                                             <tr>
-                                              <td>first_name(required): </td>
+                                              <td>user name(required): </td>
                                               <td>
-                                                <input type="text" ng-model="firstname">
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td>last_name: </td>
-                                              <td>
-                                                <input type="text" ng-model="lastname">
+                                                <input type="text" ng-model="name">
                                               </td>
                                             </tr>
                                             <tr>
@@ -153,7 +147,7 @@
                           <div class="row">
                             <div class="col-lg-8">
                               <button class="btn btn-block btn-primary btn-flat"
-                                      ng-click="viewUserData(user.userid,3)">Delete</button>
+                                      ng-click="viewUserData(user.user_id,3)">Delete</button>
                             </div>
                             <!-- Modal start-->
                             <div id="myModal3" class="modal fade" role="dialog">
@@ -172,8 +166,8 @@
                                         <table class="table table-hover">
                                             <tbody>
                                             <tr>
-                                              <td>Full Name: </td>
-                                              <td>[[firstname]] [[lastname]]</td>
+                                              <td> Name: </td>
+                                              <td>[[name]]</td>
                                             </tr>
                                             <tr>
                                               <td>Address: </td>

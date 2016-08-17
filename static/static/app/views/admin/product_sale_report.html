@@ -21,6 +21,8 @@
         <section class="content-header">
           <h1>
             Each Product Sale Report
+
+            <a href="#/download-product-sale-reports/1">Download</a>
           </h1>
         </section>
 
@@ -36,8 +38,9 @@
                   <table id="example1_modify_stock" class="table table-bordered table-striped">
                     <thead>
                       <tr>
+                        <th>bill date</th>
+                        <th>customer name</th>
                         <th>Stock name</th>
-                        <th>Stock Type</th>
                         <th>Sold Quantity</th>
                         <th>Sold Price</th>
 
@@ -46,11 +49,11 @@
                     </thead>
                     <tbody>
                       <tr ng-repeat = "stock in stock_data">
-
-                        <td>[[stock.fields.specific_product_data[0].fields.item_name]] </td>
-                        <td>[[stock.fields.specific_product_data[0].fields.item_type]]</td>
-                        <td> [[stock.fields.quantity]]</td>
-                        <td>[[stock.fields.price]]</td>
+                        <td>[[stock.bill_date]] </td>
+                        <td>[[stock.customer_name]] </td>
+                        <td>[[stock.name]] </td>
+                        <td> [[stock.quantity]]</td>
+                        <td>[[stock.price]]</td>
 
 
                       </tr>
@@ -73,6 +76,7 @@
         <section class="content-header">
           <h1>
             Customers Purchase Amount Details
+            <a href="#/download-product-sale-reports/2">Download</a>
           </h1>
         </section>
 
@@ -89,8 +93,8 @@
                     <thead>
                       <tr>
                         <th>Customer Name</th>
-                        <th>Total Pay Amount</th>
-                        <th>Paid Amount</th>
+                        <th>Total Advance Paid</th>
+                        <th>Amount Deposited</th>
                         <th>Due</th>
 
 
@@ -120,18 +124,7 @@
             </div><!-- /.col -->
           </div><!-- /.row -->
 
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="box">
-                <div class="box-body">
-                    <center><b><div>Sold Price of Each Category</div></b></center>
-                    <div class="chart">
-                      <canvas id="pieChart" style="height:250px"></canvas>
-                    </div>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-            </div><!-- /.col -->
-          </div><!-- /.row -->
+
         </section><!-- /.content -->
 
       </div><!-- /.content-wrapper -->

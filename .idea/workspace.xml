@@ -2,23 +2,100 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1fe5506-f1c1-4d33-bf3c-f0ec8571d8ca" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/management/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/management/commands/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/management/commands/createadmin.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pip_info.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/change_password.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/customer/customer_home.js" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/report_files/customer_purchase_amount_details.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/report_files/customer_reports_all_customers.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/report_files/customer_reports_borrowers.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/report_files/customer_reports_specific_person.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/report_files/each_product_sale_report.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/report_files/expenditure_reports.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/report_files/farmer_interest_paid_money.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/report_files/farmer_interest_payments.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/report_files/farmer_reports_all_borrowers.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/report_files/farmer_reports_customer_purchase_details.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/report_files/farmer_reports_specific_farmer_purchases.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/report_files/harvester_reports_all_borrowers.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/report_files/harvester_reports_all_purchases.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/report_files/harvester_reports_specific_farmer_purchases.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/customer_reports_specific_person.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/advances.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/expenditures.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/farmers.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/harvesters.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/labours.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/purchases.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/add-farmer-sold-stock.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/append_stock.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/append_stock_report.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/create-farmer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/create-harvester.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/create-labour.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/create-purchase.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/create_expenditure.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/customer_reports.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/download_temp.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/edit-harvester-details.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/edit-purchase.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/edit-purchases.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/edit-stock-names.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/edit_expenditures.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/expenditure_reports.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/farmer-interests.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/farmer-payments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/farmer_reports.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/farmers-details.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/harvester-payments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/harvester_reports.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/interest_reports.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/labour-payments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/labour_reports.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/pay-advances.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/specific-farmer-payments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/specific-harvester-payments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/app/views/admin/specific-labour-payments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/js/jquery/angular-aria.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/js/jquery/angular-material.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/js/jquery/angular-route.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/js/jquery/font-awesome.min .css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/js/jquery/jquery-ui.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/static/js/jquery/jquery.min.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin/migrations/0001_initial.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/companyBills.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/gallery.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/admin/add-company-bill.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/admin/add-gallery-image.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/admin/dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/admin/gallery.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/static/app/views/admin/legal_category_reports.html" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/static/static/app/views/admin/donwload_invoice_bill.html" afterPath="$PROJECT_DIR$/Admin/report_files/append_stock_reports.csv" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/static/static/app/views/admin/galleryImages.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/labour-details.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Backup-To-Google-Drive" afterPath="$PROJECT_DIR$/Backup-To-Google-Drive" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/models.py" afterPath="$PROJECT_DIR$/Admin/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/urls.py" afterPath="$PROJECT_DIR$/Admin/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/views.py" afterPath="$PROJECT_DIR$/Admin/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BaseApp/urls.py" afterPath="$PROJECT_DIR$/BaseApp/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BaseApp/views.py" afterPath="$PROJECT_DIR$/BaseApp/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/installations_r.sh" afterPath="$PROJECT_DIR$/installations_r.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/requirements.txt" afterPath="$PROJECT_DIR$/requirements.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BaseModule/settings.py" afterPath="$PROJECT_DIR$/BaseModule/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backuptextr.txt" afterPath="$PROJECT_DIR$/backuptextr.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/index.html" afterPath="$PROJECT_DIR$/static/static/app/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/app.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/customersController.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/customersController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/reports.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/reports.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/login.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/login.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/stockmanage.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/stockmanage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/BillingCustomers.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/BillingCustomers.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/add-stock.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/add-stock.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/create-customer.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/create-customer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/customer-payments.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/customer-payments.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/edit-bill-products.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/edit-bill-products.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/editStock.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/editStock.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/enter-quantity-price.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/enter-quantity-price.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/finish-create-sale.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/finish-create-sale.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/modifyCustomers.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/modifyCustomers.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/modifyStock.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/modifyStock.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/print-bill.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/print-bill.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/product_sale_report.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/product_sale_report.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/select-items.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/select-items.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/login.html" afterPath="$PROJECT_DIR$/static/static/app/views/login.html" />
     </list>
     <ignored path="BaseModule.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,12 +116,66 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="installations_r.sh" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/installations_r.sh">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/static/app/scripts/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="574">
-              <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+            <state relative-caret-position="382">
+              <caret line="181" column="52" selection-start-line="181" selection-start-column="52" selection-end-line="181" selection-end-column="52" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="reports.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/reports.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="4" column="61" selection-start-line="4" selection-start-column="61" selection-end-line="4" selection-end-column="61" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Admin/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="121" column="66" selection-start-line="121" selection-start-column="66" selection-end-line="121" selection-end-column="66" />
+              <folding>
+                <element signature="e#1#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="expenditure_reports.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Admin/report_files/expenditure_reports.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Admin/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="32" column="65" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="65" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Admin/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="342">
+              <caret line="31" column="46" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="46" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -65,57 +196,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/modifyBilling.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/modifyUsers.html" />
-        <option value="$PROJECT_DIR$/backup.py" />
-        <option value="$PROJECT_DIR$/Backup-To-Google-Drive/helper.py" />
-        <option value="$PROJECT_DIR$/static/static/app/views/signup.html" />
-        <option value="$PROJECT_DIR$/config_file.json" />
-        <option value="$PROJECT_DIR$/Backup-To-Google-Drive/config_file2.json" />
-        <option value="$PROJECT_DIR$/Backup-To-Google-Drive/backup.sh" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/edit-stock-names.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/select-items.html" />
         <option value="$PROJECT_DIR$/BaseModule/settings.py" />
-        <option value="$PROJECT_DIR$/BaseModule/urls.py" />
-        <option value="$PROJECT_DIR$/static/static/css/main.css" />
-        <option value="$PROJECT_DIR$/static/static/css/print-bill.css" />
-        <option value="$PROJECT_DIR$/static/static/app/views/404.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/dashboard.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/modifyCustomers.html" />
-        <option value="$PROJECT_DIR$/Admin/models.py" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/customer-payments.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/specific-customer-payments.html" />
-        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/reports.js" />
-        <option value="$PROJECT_DIR$/static/static/css/AdminLTE.min.css" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/legal_category_reports.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/invoice_bill_report.html" />
-        <option value="$PROJECT_DIR$/static/static/css/app.css" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/product_sale_report.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/modifyStock.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/get-bill.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/login.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/BillingCustomers.html" />
-        <option value="$PROJECT_DIR$/static/static/css/bootstrap.min.css" />
-        <option value="$PROJECT_DIR$/static/static/js/cgbusy/cgbusy.js" />
-        <option value="$PROJECT_DIR$/static/static/js/cgbusy/cgbusy.css" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/companyBills.html" />
-        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/companyBills.js" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/add-company-bill.html" />
-        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/stockmanage.js" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/add-stock.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/editStock.html" />
-        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/print-bill.html" />
-        <option value="$PROJECT_DIR$/Admin/management/commands/createadmins.py" />
-        <option value="$PROJECT_DIR$/Admin/urls.py" />
-        <option value="$PROJECT_DIR$/BaseApp/urls.py" />
-        <option value="$PROJECT_DIR$/static/static/app/scripts/app.js" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/change_password.html" />
+        <option value="$PROJECT_DIR$/backuptextr.txt" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/harvester-payments.html" />
+        <option value="$PROJECT_DIR$/Admin/report_files/farmer_reports_customer_purchase_details.csv" />
+        <option value="$PROJECT_DIR$/Admin/report_files/harvester_reports_specific_farmer_purchases.csv" />
         <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/login.js" />
+        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/harvesters.js" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/specific-harvester-payments.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/create-farmer.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/farmers-details.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/farmer-payments.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/specific-farmer-payments.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/labour-details.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/edit-purchases.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/create-customer.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/BillingCustomers.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/add-stock.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/append_stock.html" />
+        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/stockmanage.js" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/product_sale_report.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/farmer_reports.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/harvester_reports.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/customer_reports.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/create_personal.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/create_industrial.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/edit_expenditures.html" />
+        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/expenditures.js" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/interest_reports.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/editStock.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/modifyStock.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/farmer-interests.html" />
+        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/farmers.js" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/create_expenditure.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/enter-quantity-price.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/finish-create-sale.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/print-bill.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/edit-bill-products.html" />
+        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/create-purchase.html" />
+        <option value="$PROJECT_DIR$/Admin/models.py" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/edit-purchase.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/append_stock_report.html" />
+        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/purchases.js" />
         <option value="$PROJECT_DIR$/static/static/app/index.html" />
-        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/customersController.js" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/expenditure_reports.html" />
+        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/reports.js" />
+        <option value="$PROJECT_DIR$/static/static/app/scripts/app.js" />
+        <option value="$PROJECT_DIR$/Admin/urls.py" />
         <option value="$PROJECT_DIR$/Admin/views.py" />
-        <option value="$PROJECT_DIR$/BaseApp/views.py" />
-        <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/installations_r.sh" />
       </list>
     </option>
   </component>
@@ -155,35 +286,115 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope">
         <subPane subId="Project Files" />
       </pane>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
+              <option name="myItemId" value="Agro" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
+              <option name="myItemId" value="Agro" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
+              <option name="myItemId" value="Agro" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
+              <option name="myItemId" value="Agro" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
+              <option name="myItemId" value="Agro" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Agro" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Agro" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Agro" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Agro" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Agro" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Agro" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Agro" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Agro" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -193,11 +404,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
+              <option name="myItemId" value="Agro" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
+              <option name="myItemId" value="Agro" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -205,29 +416,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="management" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BaseModule" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="management" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commands" />
+              <option name="myItemId" value="report_files" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -236,7 +425,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../raythumithra/test" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
@@ -246,17 +435,17 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static/static/app/views/admin" />
       <recent name="$PROJECT_DIR$/Backup-To-Google-Drive" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/static/static/app/views/admin" />
       <recent name="$PROJECT_DIR$/static/static" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/Admin/report_files" />
       <recent name="$PROJECT_DIR$/static/static/app/views/admin" />
       <recent name="$PROJECT_DIR$/Admin" />
       <recent name="$PROJECT_DIR$/backup_scripts" />
-      <recent name="$PROJECT_DIR$/Backup-To-Google-Drive" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="Python.models">
@@ -440,9 +629,9 @@
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2820907" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3289777" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934132" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32744783" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960877" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -470,6 +659,11 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/Backup-To-Google-Drive" />
+    </ignored-roots>
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <option name="time" value="1" />
@@ -477,354 +671,309 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/print-bill.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="34" column="65" selection-start-line="34" selection-start-column="65" selection-end-line="34" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/print-bill.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1463">
-          <caret line="77" column="36" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/legal_category_reports.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/invoice_bill_report.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="23" column="71" selection-start-line="23" selection-start-column="71" selection-end-line="23" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/product_sale_report.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2432">
-          <caret line="128" column="37" selection-start-line="128" selection-start-column="37" selection-end-line="128" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/modifyStock.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="51" column="49" selection-start-line="51" selection-start-column="49" selection-end-line="51" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/get-bill.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="817">
-          <caret line="43" column="136" selection-start-line="43" selection-start-column="136" selection-end-line="43" selection-end-column="136" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="104" selection-start-line="22" selection-start-column="104" selection-end-line="22" selection-end-column="104" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/BillingCustomers.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="36" column="49" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/css/app.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5130">
-          <caret line="270" column="12" selection-start-line="270" selection-start-column="12" selection-end-line="270" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/css/bootstrap.min.css">
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/BillingCustomers.html">
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/create_expenditure.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="36" column="49" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
+        <state relative-caret-position="1881">
+          <caret line="99" column="48" selection-start-line="99" selection-start-column="48" selection-end-line="99" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/login.html">
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/farmer-interests.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="104" selection-start-line="22" selection-start-column="104" selection-end-line="22" selection-end-column="104" />
+        <state relative-caret-position="1026">
+          <caret line="54" column="62" selection-start-line="54" selection-start-column="38" selection-end-line="54" selection-end-column="62" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/get-bill.html">
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/farmers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="43" column="136" selection-start-line="43" selection-start-column="136" selection-end-line="43" selection-end-column="136" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/modifyStock.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="51" column="49" selection-start-line="51" selection-start-column="49" selection-end-line="51" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/product_sale_report.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="128" column="37" selection-start-line="128" selection-start-column="37" selection-end-line="128" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/invoice_bill_report.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="23" column="71" selection-start-line="23" selection-start-column="71" selection-end-line="23" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/legal_category_reports.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/js/cgbusy/cgbusy.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="7771" selection-start-line="0" selection-start-column="7771" selection-end-line="0" selection-end-column="7771" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/js/cgbusy/cgbusy.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="4047" selection-start-line="0" selection-start-column="4047" selection-end-line="0" selection-end-column="4047" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/add-stock.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-912">
-          <caret line="126" column="80" selection-start-line="126" selection-start-column="80" selection-end-line="126" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/editStock.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="173" column="22" selection-start-line="173" selection-start-column="22" selection-end-line="173" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/stockmanage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="82" column="17" selection-start-line="82" selection-start-column="11" selection-end-line="82" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/add-company-bill.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="72" selection-start-line="2" selection-start-column="58" selection-end-line="2" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/companyBills.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/css/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/css/print-bill.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/css/AdminLTE.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-21181">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/print-bill.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="34" column="65" selection-start-line="34" selection-start-column="65" selection-end-line="34" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/register.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6099">
-          <caret line="321" column="52" selection-start-line="321" selection-start-column="35" selection-end-line="321" selection-end-column="52" />
+        <state relative-caret-position="285">
+          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Admin/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1691">
-          <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/css/bootstrap.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/css/app.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5130">
-          <caret line="270" column="12" selection-start-line="270" selection-start-column="12" selection-end-line="270" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Admin/management/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Admin/management/commands/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Admin/management/commands/createadmin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="39" column="51" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/companyBills.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="154" column="46" selection-start-line="154" selection-start-column="12" selection-end-line="154" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BaseApp/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="43" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/change_password.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="44" column="24" selection-start-line="44" selection-start-column="24" selection-end-line="44" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Admin/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="41" column="68" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="376" column="10" selection-start-line="376" selection-start-column="5" selection-end-line="376" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="46" column="79" selection-start-line="46" selection-start-column="79" selection-end-line="46" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="72" column="43" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/customer/customer_home.js" />
-    <entry file="file://$PROJECT_DIR$/BaseApp/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/customersController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="66" column="43" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="39" column="0" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="78" />
+        <state relative-caret-position="1406">
+          <caret line="76" column="11" selection-start-line="76" selection-start-column="4" selection-end-line="76" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Admin/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="30" column="94" selection-start-line="30" selection-start-column="88" selection-end-line="30" selection-end-column="94" />
+        <state relative-caret-position="323">
+          <caret line="24" column="61" selection-start-line="24" selection-start-column="52" selection-end-line="24" selection-end-column="61" />
+          <folding>
+            <element signature="e#1#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/installations_r.sh">
+    <entry file="file://$PROJECT_DIR$/Admin/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+        <state relative-caret-position="1026">
+          <caret line="57" column="52" selection-start-line="57" selection-start-column="37" selection-end-line="57" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10925">
+          <caret line="575" column="39" selection-start-line="575" selection-start-column="39" selection-end-line="575" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/interest_reports.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="100" column="50" selection-start-line="100" selection-start-column="50" selection-end-line="100" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/farmer-interests.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1026">
+          <caret line="54" column="62" selection-start-line="54" selection-start-column="38" selection-end-line="54" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/create_expenditure.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1881">
+          <caret line="99" column="48" selection-start-line="99" selection-start-column="48" selection-end-line="99" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/farmers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="603">
+          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/enter-quantity-price.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="124" column="33" selection-start-line="124" selection-start-column="33" selection-end-line="124" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/finish-create-sale.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/get-bill.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="132" column="21" selection-start-line="132" selection-start-column="21" selection-end-line="132" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/print-bill.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="126" column="20" selection-start-line="126" selection-start-column="20" selection-end-line="126" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/edit-bill-products.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="190" column="60" selection-start-line="190" selection-start-column="60" selection-end-line="190" selection-end-column="60" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/editStock.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="38" selection-end-column="22" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/edit-stock-names.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/create-purchase.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="34" column="14" selection-start-line="34" selection-start-column="14" selection-end-line="59" selection-end-column="22" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/stockmanage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="22" column="0" selection-start-line="8" selection-start-column="4" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/edit-purchase.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="52" column="112" selection-start-line="52" selection-start-column="112" selection-end-line="52" selection-end-column="112" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/append_stock.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/purchases.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="297" column="40" selection-start-line="297" selection-start-column="37" selection-end-line="297" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/append_stock_report.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="45" column="33" selection-start-line="0" selection-start-column="0" selection-end-line="99" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="421" column="41" selection-start-line="421" selection-start-column="41" selection-end-line="421" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Admin/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="31" column="46" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/expenditures.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="159" column="4" selection-start-line="159" selection-start-column="4" selection-end-line="159" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Admin/report_files/expenditure_reports.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/reports.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="61" selection-start-line="4" selection-start-column="61" selection-end-line="4" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/expenditure_reports.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="36" column="43" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="181" column="52" selection-start-line="181" selection-start-column="52" selection-end-line="181" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Admin/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="121" column="66" selection-start-line="121" selection-start-column="66" selection-end-line="121" selection-end-column="66" />
+          <folding>
+            <element signature="e#1#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Admin/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="32" column="65" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="65" />
           <folding />
         </state>
       </provider>

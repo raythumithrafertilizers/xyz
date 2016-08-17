@@ -1,0 +1,246 @@
+  <div class="content-wrapper" style="min-height: 946px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Create Purchase for Farmer and Harvester
+      </h1>
+      <!-- <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Forms</a></li>
+        <li class="active">General Elements</li>
+      </ol> -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box box-danger box-top-border">
+            <div class="box-body">
+            <form ng-submit="createPurchaseItem()" name="userForm">
+
+              <div class="row row-sides"> <!-- row start -->
+                 <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Farmer Harvester Same ?</label>
+                    <input type="checkbox" ng-model="user.same_farmer_harvester"
+                           ng-change="same_farmr_harvestr()"
+                           name="same_farmer_harvester">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row row-sides"> <!-- row start -->
+                 <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>need to append ?</label>
+                    <input type="checkbox" ng-model="user.need_to_append"
+                           name="need_to_append">
+                  </div>
+                </div>
+              </div>
+
+                <div class="row row-sides" ng-show="user.need_to_append"> <!-- row start -->
+                    <div class="col-xs-12 col-lg-4">
+
+                      <div class="form-group">
+                        <label>Select Product Name(required) </label>
+
+
+                            <select class="form-control" name="invoice_bill" ng-model="user.stock_name"
+                                    ng-options="temp.id as temp.name for temp in stock_names">
+                            </select>
+
+                        <!--<input type="text" class="form-control" placeholder="Store Id" ng-model="store.storeid" ng-class="{ 'has-error' : userForm.storeid.$invalid && !userForm.storeid.$pristine }" name="storeid" required>
+                        <p ng-show="userForm.storeid.$invalid && !userForm.storeid.$pristine" class="help-block">Store id is required.</p>-->
+                      </div>
+                    </div>
+                </div>
+
+
+              <div class="row row-sides"> <!-- row start -->
+                <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" class="form-control" placeholder="quantity"
+                           ng-change="quantity_changed()"
+                           ng-model="user.quantity" name="quantity"
+                           ng-class="{ 'has-error' : userForm.quantity.$invalid && !userForm.quantity.$pristine }"
+                           >
+                    <p ng-show="userForm.quantity.$invalid && !userForm.quantity.$pristine"
+                       class="help-block">
+                      quantity is required.
+                    </p>
+                  </div>
+                </div>
+
+                 <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Quality</label>
+                    <input type="number" class="form-control" placeholder="quality"
+                           ng-model="user.quality" name="quality"
+                           ng-class="{ 'has-error' : userForm.quality.$invalid && !userForm.quality.$pristine }"
+                           >
+                    <p ng-show="userForm.quality.$error.required && userForm.quality.$dirty" class="help-block">
+                      Phone Number is required</p>
+
+                  </div>
+                </div>
+
+                  <div class="col-xs-12 col-lg-4">
+                      <div class="form-group">
+                        <label>Purchase Date</label><br/>
+                        <input type="text" id="datepicker_sale_products_reports_1" class="form-control" placeholder="Purchase Date " ng-model="user.purchase_date" name="user.purchase_date">
+
+                      </div>
+                  </div>
+
+
+              </div> <!-- row end -->
+              <div class="row row-sides"> <!-- row start -->
+
+                 <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Farmer Rate Per Ton(required)</label>
+                    <input type="number" class="form-control"
+                           placeholder="Enter Rate Per Ton of Farmer" ng-model="user.farmer_rate_per_ton"
+                           name="farmer_rate_per_ton"
+                           ng-change="quantity_changed()"
+                           ng-class="{ 'has-error' : userForm.farmer_rate_per_ton.$invalid && !userForm.farmer_rate_per_ton.$pristine }"
+                           >
+
+                  </div>
+                </div>
+
+
+                 <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Total Value</label>
+                    <input type="number" class="form-control"
+                           placeholder="Enter Total Payment" ng-model="user.farmer_total_payment"
+                           name="farmer_total_payment"
+                           ng-change="calculate_final_total_mis_detections()"
+                           ng-class="{ 'has-error' : userForm.farmer_total_payment.$invalid && !userForm.farmer_total_payment.$pristine }"
+                           >
+
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-lg-4" >
+                  <div class="form-group">
+                    <label>Farmer Amount Paid</label>
+                    <input type="number" class="form-control" placeholder="Enter Advance of Farmer" ng-model="user.farmer_advance"
+                           name="farmer_advance" ng-class="{ 'has-error' : userForm.farmer_advance.$invalid && !userForm.farmer_advance.$pristine }"
+                           >
+
+                  </div>
+                </div>
+            </div> <!-- row end -->
+            <div class="row row-sides"> <!-- row start -->
+                <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>miscellaneous Detections</label>
+                    <input type="number" class="form-control"
+                           placeholder="Enter miscellaneous Detections"
+                           ng-model="user.miscellaneous_detections"
+                           name="farmer_advance"
+                           ng-keyup="calculate_final_total_mis_detections()"
+                           ng-class="{ 'has-error' : userForm.remarks.$invalid && !userForm.remarks.$pristine }">
+
+                  </div>
+                </div>
+            </div>
+            <div class="row row-sides"> <!-- row start -->
+                <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Remarks</label>
+                    <input type="text" class="form-control" placeholder="Enter Any Remarks" ng-model="user.remarks"
+                           name="farmer_advance" ng-class="{ 'has-error' : userForm.remarks.$invalid && !userForm.remarks.$pristine }"
+                           >
+
+                  </div>
+                </div>
+            </div>
+
+
+
+
+              <div class="row row-sides" ng-show="!user.same_farmer_harvester"> <!-- row start -->
+
+                 <div class="col-xs-12 col-lg-4" >
+                  <div class="form-group">
+                    <label>Harvester Rate Per Ton</label>
+                    <input type="number" class="form-control"
+                           placeholder="Enter Rate Per Ton of Harvester" ng-model="user.harvester_rate_per_ton"
+                           name="harvester_rate_per_ton"
+                           ng-change="quantity_changed()"
+                           ng-class="{ 'has-error' : userForm.harvester_rate_per_ton.$invalid && !userForm.harvester_rate_per_ton.$pristine }"
+                           >
+
+                  </div>
+                </div>
+
+
+                 <div class="col-xs-12 col-lg-4" ng-show="!user.same_farmer_harvester">
+                  <div class="form-group">
+                    <label>Total Value</label>
+                    <input type="number" class="form-control" placeholder="Enter Total Payment of Harvester" ng-model="user.harvester_total_payment"
+                           name="harvester_total_payment"
+                           ng-class="{ 'has-error' : userForm.harvester_total_payment.$invalid && !userForm.harvester_total_payment.$pristine }">
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-lg-4" ng-show="!user.same_farmer_harvester">
+                  <div class="form-group">
+                    <label>Harvester Amount Paid</label>
+                    <input type="number" class="form-control" placeholder="Enter Advance of Harvester" ng-model="user.harvester_advance"
+                           name="harvester_advance" ng-class="{ 'has-error' : userForm.harvester_advance.$invalid && !userForm.harvester_advance.$pristine }">
+                  </div>
+                </div>
+              </div> <!-- row end -->
+
+              <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="box box-danger box-top-border">
+                    <div class="box-body">
+                        <div class="row row-sides"> <!-- row start -->
+                            <div class="col-xs-12 col-lg-12">
+                               <div class="form-group text-center">
+                                <label >Select Farmer And Harvester</label>
+                                <div isteven-multi-select
+                                    input-model="input_temp_array"
+                                    output-model="output_temp_array"
+                                    button-label="name"
+                                    item-label="name type"
+                                    tick-property="ticked" class="input-drop">
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+
+
+              <div class="row row-sides"> <!-- row start -->
+                <button type="submit" ng-click="processed()"
+                        class="btn btn-primary btn-flat btn-on-app"
+                       ng-disabled="userForm.$invalid" >Submit</button>
+              </div> <!-- row end -->
+
+            </form>
+            <!-- form end -->
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+

@@ -2,97 +2,116 @@ from django.db import models
 from datetime import datetime
 import calendar
 
-class StockType(models.Model):
-	type_name = models.CharField(max_length=500)
+class AdvanceDetails(models.Model):
+	amount = models.FloatField(default=0.0)
+	paid_date = models.DateField(default=datetime.now().date())
+	interest_rate = models.FloatField(default=0.0)
+	interest_money = models.FloatField(default=0.0)
+	purchase_id = models.IntegerField(default=0)
+	paid_details_id = models.IntegerField(default=0)
+	remarks = models.TextField(default='')
+	isCleared= models.BooleanField(default=False)
+	cleared_date = models.DateField(null=True, blank=True)
 
-class Quantity(models.Model):
-	quantity_name = models.CharField(max_length=500)
 
-class RatePerType(models.Model):
-	rate_per_type_name = models.CharField(max_length=500)
+class PiadAdvanceDetails(models.Model):
+	amount = models.FloatField(default=0.0)
+	farmer_paid_date = models.DateField(default=datetime.now().date())
+	interest_rate = models.FloatField(default=0.0)
+	interest_money = models.FloatField(default=0.0)
+	farmer_paid_amount = models.FloatField(default=0.0)
+	final_total_with_interest = models.FloatField(default=0.0)
+	paid_farmer_id = models.IntegerField(default=0)
+	remarks = models.TextField(default='')
 
-class CompanyBills(models.Model):
-	company_name = models.CharField(max_length=300)
-	company_invoice_number = models.CharField(max_length=300)
-	company_tin_number = models.CharField(max_length=300, default="")
-	bill_image = models.FileField(upload_to='static/static/uploads/')
-	invoice_date = models.DateField(datetime.now().date())
-	uploaded_at = models.DateTimeField(default=datetime.now())
+
+class Expenditures(models.Model):
+	amount = models.FloatField(default=0.0)
+	create_date = models.DateField(default=datetime.now().date())
+	remarks = models.TextField(default='')
+	type= models.TextField(default='industrial')
+	isActive = models.BooleanField(default=True)
+
+
+
+class Person(models.Model):
+	name = models.CharField(max_length=400)
+	created_date = models.DateTimeField(null=True, auto_now_add=True)
+	phone = models.CharField(max_length=100)
+	person_type = models.CharField(max_length=200)
+	isActive = models.BooleanField(default=True)
+	address = models.TextField()
+	advance_details = models.ManyToManyField(AdvanceDetails)
+
+
+class SoldStockDetails(models.Model):
+
+	quantity =models.FloatField(default=0.0)
+	quality = models.FloatField(default=0.0)
+
+	farmer_rate_per_ton = models.FloatField(default=0.0)
+	farmer_payment = models.FloatField(default=0.0)
+	farmer_advance = models.FloatField(default=0.0)
+
+	harvester_payment = models.FloatField(default=0.0)
+	harvester_advance = models.FloatField(default=0.0)
+	harvester_rate_per_ton = models.FloatField(default=0.0)
+
+	created_date = models.DateField(default=datetime.now().date())
+	farmer = models.ForeignKey(Person, related_name="farmer_data")
+	harvester = models.ForeignKey(Person, related_name="harvester_data")
+	remarks = models.TextField(default='')
+
+	miscellaneous_detections = models.FloatField(default=0.0)
+
+
+class StockNames(models.Model):
+	name = models.CharField(max_length=500)
+	isActive = models.BooleanField(default=True)
+
 
 class StockDetails(models.Model):
 
-	invoice_bill = models.ForeignKey(CompanyBills,
-									 blank=True,
-									 null=True,)
-
-	item_name = models.CharField(max_length=500)
-	item_type = models.CharField(max_length=100)
-
-	item_batch_number = models.CharField(max_length=500)
-	item_lot_number = models.CharField(max_length= 500)
-
-	expire_date = models.DateField()
-	mfg_date = models.DateField(null=True)
-
-	purchase_form = models.TextField()
-
-	quantity_type = models.CharField(max_length=100)
-	rate_per_type = models.CharField(max_length=100)
-
-	#invoice price
-	invoice_cost = models.FloatField(null=True)
-
-	# sale price
-	item_cost = models.FloatField(null=True)
-	quantity_weight = models.FloatField(null=True)
-
+	item_name = models.ForeignKey(StockNames)
+	inital_stock = models.FloatField(null=True)
 	available_stock = models.FloatField(default= 0.0)
-
-	create_date = models.DateTimeField(default= datetime.now())
-	isLegal = models.CharField(max_length=100, default='legal')
+	create_date = models.DateField(null=True)
 	month = models.CharField( max_length=100, default=calendar.month_name[int(datetime.now().month)])
-	seen = models.BooleanField(default=False)
+	remarks = models.TextField()
+	isActive = models.BooleanField(default=True)
 
-class CustomerPayments(models.Model):
-	paid_amount = models.FloatField(default=0.0)
-	paid_date = models.DateField(default=datetime.now().date())
+class AppendStockDetails(models.Model):
+	stock = models.ForeignKey(StockDetails)
+	create_date = models.DateField(null=True)
+	append_count = models.FloatField(default=0.0)
+	total_stock = models.FloatField(default=0.0)
+	remarks = models.TextField()
+	sold_stock_id = models.IntegerField(default=0)
 
-class Customers(models.Model):
 
-	first_name = models.CharField(max_length=500)
-	last_name = models.CharField(max_length=500)
-
-	phone = models.CharField(max_length=30)
-	address = models.TextField()
-	customer_payments = models.ManyToManyField(CustomerPayments)
-	create_date = models.DateTimeField(default= datetime.now())
 
 class ProductsList(models.Model):
 	product = models.ForeignKey(StockDetails,on_delete=models.CASCADE)
 	quantity = models.FloatField(null=True)
+	per_kg_price = models.FloatField(default=0.0)
 	price = models.FloatField(null=True)
 	isReturned = models.BooleanField(default=False)
 
 class Billing(models.Model):
-
-	customer = models.ForeignKey(Customers, on_delete=models.CASCADE)
+	customer = models.ForeignKey(Person, on_delete=models.CASCADE)
 	products_list = models.ManyToManyField(ProductsList)
-
 	total_price = models.FloatField(null=True)
 	total_paid = models.FloatField(null=True)
+	vat_percentage = models.FloatField(default=0.0)
+	vat_money = models.FloatField(default=0.0)
 	due = models.FloatField(null=True)
 	total_quantity = models.FloatField(null=True)
-	bill_date = models.DateTimeField(default= datetime.now())
+	bill_date = models.DateField(default=datetime.now().date())
 	description = models.TextField()
-	month = models.CharField( max_length=100, default=calendar.month_name[int(datetime.now().month)])
-
-
-
-
-
-class GalleryImages(models.Model):
-	gallery_image = models.FileField(upload_to='static/static/upload_gallary_images/')
-	uploaded_at = models.DateTimeField(default=datetime.now())
+	month = models.CharField(max_length=100, default=calendar.month_name[int(datetime.now().month)])
+	remarks = models.TextField(default='')
+	vehicle_number = models.TextField(default='')
+	contact_number = models.TextField(default='')
 
 
 

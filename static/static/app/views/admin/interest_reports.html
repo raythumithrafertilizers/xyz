@@ -1,0 +1,161 @@
+<!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="row row-sides"> <!-- row start -->
+
+            <div class="col-xs-12 col-lg-4">
+              <div class="form-group">
+                <label>start Date</label><br/>
+                <input type="text" id="datepicker_sale_products_reports_1" ng-change="call_date_change()" class="form-control" placeholder="Start Date " ng-model="start_date" name="start_date">
+
+              </div>
+            </div>
+            <div class="col-xs-12 col-lg-4">
+              <div class="form-group">
+                <label>End Date</label><br/>
+                <input type="text" id="datepicker_sale_products_reports_2" ng-change="call_date_change()" class="form-control" placeholder="End Date " ng-model="end_date" name="end_date">
+
+              </div>
+            </div>
+            <div class="col-xs-12 col-lg-4">
+              <div class="form-group">
+                <label>Select Farmer</label><br/>
+                <select id="select_farmer"
+                       ng-change="selected_farmer()"
+                       class="form-control"
+                        ng-model="selected_farmer_object"
+                       ng-options="user.username for user in userslist"
+                       name="select_farmer">
+                </select>
+
+              </div>
+            </div>
+        </div> <!-- row end -->
+        <section class="content-header">
+          <h1>
+            Farmer Interest Details
+            <a href="#/download-interest-reports">
+              Download
+            </a>
+          </h1>
+        </section>
+
+
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <div class="table-responsive-own">
+                  <table id="example1_modify_stock" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+
+                        <th>farmer name</th>
+                        <th>amount</th>
+                        <th>interest rate</th>
+                        <th>interest money</th>
+                        <th>advance date</th>
+                        <th>closed date</th>
+                        <!--<th>is purchased Advance</th>-->
+                        <th>Remarks</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "data in interest_data">
+
+                        <td>[[data.farmer_name]] </td>
+                        <td>[[data.amount]] </td>
+                        <td> [[data.interest_rate]]</td>
+                        <!--<td> [[farmer.harvester_rate_per_ton]]</td>-->
+                        <td> [[data.interest_money]]</td>
+                        <td> [[data.paid_date | date]]</td>
+                        <td> [[data.cleared_date | date]]</td>
+                        <td> [[data.remarks]]</td>
+
+
+
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+
+                  </div>
+
+
+
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+
+
+        <section class="content-header">
+          <h1>
+            Deposits From Farmers
+            <a href="#/download-paid-money-reports">
+              Download
+            </a>
+          </h1>
+        </section>
+
+
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <div class="table-responsive-own">
+                  <table id="example1_modify_stock1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Farmer Name</th>
+                        <th>Amount Paid</th>
+                        <th>Amount Paid Date</th>
+                        <th>Due</th>
+                        <th>Remarks</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "data in paid_amounts">
+
+                        <td>[[data.farmer_name]] </td>
+                        <td>[[data.paid_amount]]</td>
+                        <td> [[data.paid_date | date]]</td>
+                        <td> [[data.pending]]</td>
+                        <td>[[data.remarks]]</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+
+                  </div>
+                  <!-- /.box-body -->
+
+
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+    <script>
+      $(function () {
+        $('#example2_modify_stock').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false
+        });
+      });
+    </script>

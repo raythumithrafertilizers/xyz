@@ -1,69 +1,232 @@
 
-from rest_framework.response import Response
 from rest_framework.views import APIView
 from BaseApp.views import *
 from django.db.models import Q
 import datetime
-from django.db.models import Sum, Count
-from BaseModule.settings import *
-import os
+from django.db.models import Sum
 import json, csv
 from django.core.files import File
-
-from django.utils.decorators import method_decorator
-
+from BaseModule.settings import BASE_DIR
 item_types = ["Seeds", "Pesticides", "Fertilizers", "Bio_Pesticides", "Bio_Fertilizers"]
 
-
-class SpecificCustomerPayments(APIView):
+class ExpenditureReports(APIView):
     """docstring for ClassName"""
 
-    @method_decorator(admin_login_required)
     def post(self, request):
         try:
             body = request.body.decode("utf-8")
             body = json.loads(body)
+            specific_farmer_id = False
 
-            if(body['get_data']):
-                customer = Customers.objects.get(id=body['customer_id'])
-                customer_payments = customer.customer_payments.all()
-                serialized_customer_payments = serializers.serialize('json', customer_payments)
-                return Response({"response": json.loads(serialized_customer_payments)}, status=200)
+            divided_start_date = body['start_date'].split("/")
+            divided_end_date = body['end_date'].split("/")
+
+            # bill date must be between start and end date
+            filter_args = {
+                '{0}__{1}'.format('create_date', 'gte'): datetime.datetime(int(divided_start_date[2]),int(divided_start_date[1]), int(divided_start_date[0])),
+                '{0}__{1}'.format('create_date', 'lte'): datetime.datetime(int(divided_end_date[2]),int(divided_end_date[1]),int(divided_end_date[0]), 23, 59, 59),
+
+            }
+
+
+            if 'stock_id' in body:
+                if body['stock_id']:
+                    filter_args['type'] = body['stock_id']
+
+            stocklist = Expenditures.objects.filter(**filter_args)
+
+
+            file_path = BASE_DIR + "/Admin/report_files/expenditure_reports.csv"
+            temp_data = []
+            with open(file_path, 'w') as csvfile:
+                spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                spamwriter.writerow(["create date", "amount" ,"type", "remarks"])
+
+                for temp in stocklist:
+                        # increment advance due payment fields
+                        obj = {}
+                        obj['create_date'] = temp.create_date
+                        obj['remarks'] = temp.remarks
+                        obj['amount'] = temp.amount
+                        obj['type'] = temp.type
+                        temp_data.append(obj)
+
+                        spamwriter.writerow([
+                            obj['create_date'],
+                            obj['amount'],
+                            obj['type'],
+                            obj['remarks']
+                        ])
+
+            return Response({"data": temp_data},status=200)
+        except Exception as e:
+            print e
+            return Response({"stockslist": e}, status=200)
+
+
+class GetCompleteInfo(APIView):
+    """docstring for ClassName"""
+
+    def post(self, request):
+        try:
+            body = request.body.decode("utf-8")
+            body = json.loads(body)
+            print body
+            if len(body['ids']):
+                stock_details_data = []
+                stock_names = StockNames.objects.filter(id__in=body['ids'])
+                for temp in stock_names:
+                    data = StockDetails.objects.get(item_name=temp)
+                    obj = {}
+                    obj['id'] = temp.id
+                    obj['available_stock'] = data.available_stock
+                    stock_details_data.append(obj)
+                    return Response({"data": stock_details_data}, status=200)
             else:
-                print body
-                customer_payment = CustomerPayments.objects.get(id=body['id'])
-                customer_payment.paid_amount = body['paid_amount']
-                customer_payment.save()
-                return Response({"response": "successfully saved ... "}, status=200)
-
-
+                return Response({"data": []}, status=200)
 
         except Exception as e:
             print e
             return Response({"stockslist": e}, status=200)
 
 
-class AddPayment(APIView):
+
+
+
+def InterestDownloadView(request):
+    try:
+        name = BASE_DIR + "/Admin/report_files/farmer_interest_payments.csv"
+        f = open(name, 'r')
+        myfile = File(f)
+        response = HttpResponse(myfile, content_type='application/csv')
+        response['Content-Disposition'] = 'attachment; filename=' + name
+        return response
+    except Exception as e:
+        print e
+        return HttpResponse('error')
+
+def PaidDownloadView(request):
+    try:
+        name = BASE_DIR + "/Admin/report_files/farmer_interest_paid_money.csv"
+        f = open(name, 'r')
+        myfile = File(f)
+        response = HttpResponse(myfile, content_type='application/csv')
+        response['Content-Disposition'] = 'attachment; filename=' + name
+        return response
+    except Exception as e:
+        print e
+        return HttpResponse('error')
+
+def ExpenditureDownloadView(request):
+    try:
+        name = BASE_DIR + "/Admin/report_files/expenditure_reports.csv"
+        f = open(name, 'r')
+        myfile = File(f)
+        response = HttpResponse(myfile, content_type='application/csv')
+        response['Content-Disposition'] = 'attachment; filename=' + name
+        return response
+    except Exception as e:
+        print e
+        return HttpResponse('error')
+
+
+class InterestReports(APIView):
     """docstring for ClassName"""
 
-    @method_decorator(admin_login_required)
     def post(self, request):
         try:
             body = request.body.decode("utf-8")
             body = json.loads(body)
+            farmer = False
 
-            customer_payment = CustomerPayments(paid_amount=body['paid_amount'])
-            customer_payment.save()
+            divided_start_date = body['start_date'].split("/")
+            divided_end_date = body['end_date'].split("/")
 
-            customer = Customers.objects.get(id = body['customer_id'])
-            customer.customer_payments.add(customer_payment)
+            if 'farmer_id' in body:
+                if body['farmer_id']:
+                    farmer = Person.objects.get(id = body['farmer_id'])
 
-            return Response({"response": 'successfully added'}, status=200)
+            if farmer:
+                filter_args = {
+                    '{0}__{1}'.format('paid_date', 'gte'): datetime.datetime(int(divided_start_date[2]),int(divided_start_date[1]), int(divided_start_date[0])),
+                    '{0}__{1}'.format('paid_date', 'lte'): datetime.datetime(int(divided_end_date[2]),int(divided_end_date[1]),int(divided_end_date[0]), 23, 59, 59),
+                }
 
+                data = farmer.advance_details.filter(**filter_args)
+                interest_data = []
+                file_path = BASE_DIR + "/Admin/report_files/farmer_interest_payments.csv"
+                with open(file_path, 'w') as csvfile:
+
+                    spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    spamwriter.writerow(
+                        ["farmer Name", "amount", "paid_date", "interest_rate",
+                         "interest_money", "remarks", "is_purchase_advance"])
+
+                    for temp in data:
+                        obj = {}
+                        obj['farmer_name'] = farmer.name
+                        obj['amount'] = temp.amount
+                        obj['paid_date'] = temp.paid_date
+                        obj['cleared_date'] = temp.cleared_date
+                        obj['interest_rate'] = temp.interest_rate
+                        obj['interest_money'] = temp.interest_money
+                        obj['purchase_id'] = temp.purchase_id
+                        obj['remarks'] = temp.remarks
+                        interest_data.append(obj)
+                        spamwriter.writerow([
+                            obj['farmer_name'],
+                            obj['amount'],
+                            obj['paid_date'],
+                            obj['interest_rate'],
+                            obj['interest_money'],
+                            obj['remarks'],
+                            obj['purchase_id']
+                        ])
+
+                filter_args = {
+                    '{0}__{1}'.format('farmer_paid_date', 'gte'): datetime.datetime(int(divided_start_date[2]),
+                                                                             int(divided_start_date[1]),
+                                                                             int(divided_start_date[0])),
+                    '{0}__{1}'.format('farmer_paid_date', 'lte'): datetime.datetime(int(divided_end_date[2]),
+                                                                             int(divided_end_date[1]),
+                                                                             int(divided_end_date[0]), 23, 59, 59),
+                }
+                filter_args['paid_farmer_id'] = farmer.id
+
+                data = PiadAdvanceDetails.objects.filter(**filter_args)
+                paid_amounts = []
+                file_path = BASE_DIR + "/Admin/report_files/farmer_interest_paid_money.csv"
+                with open(file_path, 'w') as csvfile:
+
+                    spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    spamwriter.writerow(
+                        ["farmer Name", "paid_date","paid_amount",
+                         "total_to_be_paid", "pending", "remarks"])
+                    for temp in data:
+                        obj = {}
+                        obj['farmer_name'] = farmer.name
+                        obj['paid_date'] = temp.farmer_paid_date
+                        obj['paid_amount'] = temp.farmer_paid_amount
+                        obj['total_to_be_paid'] = temp.final_total_with_interest
+                        obj['pending'] = temp.final_total_with_interest - temp.farmer_paid_amount
+                        obj['remarks'] = temp.remarks
+                        paid_amounts.append(obj)
+                        spamwriter.writerow([
+                            obj['farmer_name'],
+                            obj['paid_date'],
+                            obj['paid_amount'],
+                            obj['total_to_be_paid'],
+                            obj['pending'],
+                            obj['remarks']
+                        ])
+                return Response({"interest_data": interest_data, 'paid_amounts':paid_amounts}, status=200)
+
+            else:
+                return Response({"interest_data": [], 'paid_amounts':[]}, status=200)
 
         except Exception as e:
-            print e,'============'
-            return Response({"stockslist": e}, status=405)
+            print e
+            return Response({"stockslist": e}, status=200)
 
 
 
@@ -71,271 +234,768 @@ class AddPayment(APIView):
 
 
 
-class DailyLegalProudctCategoryReport(APIView):
+
+class StockAppendReports(APIView):
     """docstring for ClassName"""
 
-    def get(self, request):
+    def post(self, request):
         try:
-            name = "legaltest.csv"
+            body = request.body.decode("utf-8")
+            body = json.loads(body)
+            specific_farmer_id = False
+
+            divided_start_date = body['start_date'].split("/")
+            divided_end_date = body['end_date'].split("/")
+
+            # bill date must be between start and end date
+            filter_args = {
+                '{0}__{1}'.format('create_date', 'gte'): datetime.datetime(int(divided_start_date[2]),int(divided_start_date[1]), int(divided_start_date[0])),
+                '{0}__{1}'.format('create_date', 'lte'): datetime.datetime(int(divided_end_date[2]),int(divided_end_date[1]),int(divided_end_date[0]), 23, 59, 59),
+
+            }
+
+
+            if 'stock_id' in body:
+                if body['stock_id']:
+                    stock_name = StockNames.objects.get(id=body['stock_id'])
+                    sold_stock_object = StockDetails.objects.get(item_name = stock_name)
+                    filter_args['stock'] = sold_stock_object
+
+
+
+            stocklist = AppendStockDetails.objects.filter(**filter_args)
+
+
+            # billing information of start end dates in main_data variable
+
+
+
+            file_path = BASE_DIR + "/Admin/report_files/append_stock_reports.csv"
+            temp_data = []
+            with open(file_path, 'w') as csvfile:
+                spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                spamwriter.writerow(["append_date", "stock_name" ,"append_count", "remarks"])
+
+                for temp in stocklist:
+                        # increment advance due payment fields
+                        obj = {}
+                        obj['stock_name'] = temp.stock.item_name.name
+                        obj['remarks'] = temp.remarks
+                        obj['create_date'] = temp.create_date
+                        obj['append_count'] = temp.append_count
+                        obj['total_stock'] = temp.total_stock
+
+                        temp_data.append(obj)
+
+                        spamwriter.writerow([
+                            obj['create_date'],
+                            obj['stock_name'],
+                            obj['append_count'],
+                            obj['remarks']
+                        ])
+
+            return Response({"data": temp_data},status=200)
+        except Exception as e:
+            print e
+            return Response({"stockslist": e}, status=200)
+class DeleteExpenditure(View):
+
+    def post(self, request):
+        try:
+            body_unicode = request.body.decode('utf-8')
+            body = json.loads(body_unicode)
+            userdata = Expenditures.objects.get(id = str(body['id']))
+            userdata.isActive = False
+            userdata.save()
+            return json_response({"status" : "successfully deleted"}, status=200)
+        except Exception as e:
+            print e
+            return json_response({"err" : "No User Found"}, status=401)
+
+class EditExpenditure(View):
+
+    def post(self, request):
+        """ Here we are checking for the existing stock data if exists we update else throw and error """
+        body = request.body.decode("utf-8")
+        body = json.loads(body)
+        try:
+            print body
+            stock = Expenditures.objects.get(id=str(body['id']))
+
+            converted_date = datetime.datetime.strptime(str(body['created_date']),"%d/%m/%Y").date()
+            stock.create_date = converted_date
+
+            if 'remarks' in body:
+                stock.remarks = body['remarks']
+
+            if 'amount' in body:
+                stock.amount = body['amount']
+
+            if 'type' in body:
+                stock.type = body['type']
+
+            stock.save()
+
+            return HttpResponse("Datasaved successfully", status=200)
+        except Exception, e:
+            return HttpResponse("Data Failed", status=401)
+
+
+class AddExpenditure(View):
+
+    def get(self, request):
+
+        try:
+            expenditures_list = []
+            data = Expenditures.objects.filter(isActive=True)
+            for temp in data:
+                obj = {}
+                obj['id'] = temp.id
+                obj['created_date'] = str(temp.create_date)
+                obj['amount'] = temp.amount
+                obj['type'] = temp.type
+                obj['remarks'] = temp.remarks
+                expenditures_list.append(obj)
+            return json_response({"expenditures_list": expenditures_list}, status=200)
+        except Exception as e:
+            print e
+            return HttpResponse({"response": e}, status=400)
+
+    def post(self, request):
+        try:
+            body_unicode = request.body.decode('utf-8')
+            body = json.loads(body_unicode)
+            print body
+            stock = Expenditures(type = body['stockdata']['stock_name'])
+
+            if 'a_stock' in body['stockdata']:
+                stock.amount = float(body['stockdata']['a_stock'])
+
+
+            if 'remarks' in body['stockdata']:
+                stock.remarks = body['stockdata']['remarks']
+
+            if 'creation_date' in body['stockdata']:
+                stock.create_date = datetime.datetime.strptime(str(body['stockdata']['creation_date']),"%d/%m/%Y").date()
+
+
+            stock.save()
+
+            return json_response({"err" : "stock saved successfully"}, status=200)
+        except Exception as e:
+            print e
+            return json_response({"response":"unable to save stock"}, status=405)
+
+class SaveInterest(APIView):
+    def post(self, request):
+        try:
+            body = request.body.decode("utf-8")
+            body = json.loads(body)
+            farmer = Person.objects.get(id=body['farmer_id'])
+
+
+            paid_advance_details = PiadAdvanceDetails(amount = body['total_advance'])
+            if body['farmer_paid_date']:
+                farmer_paid_date = datetime.datetime.strptime(str(body['farmer_paid_date']),"%d/%m/%Y").date()
+                paid_advance_details.farmer_paid_date = farmer_paid_date
+            paid_advance_details.interest_money = body['total_interest_money']
+            paid_advance_details.interest_rate = body['interest_rate']
+            paid_advance_details.farmer_paid_amount = body['farmer_paid_advance']
+            paid_advance_details.final_total_with_interest = body['final_total_advance']
+            paid_advance_details.remarks = body['remarks']
+            paid_advance_details.paid_farmer_id = body['farmer_id']
+            paid_advance_details.save()
+
+
+            advance = AdvanceDetails(amount = body['final_total_advance'] - body['farmer_paid_advance'])
+            if body['farmer_paid_date']:
+                advance.paid_date = farmer_paid_date
+            if 'remarks' in body:
+                advance.remarks = body['remarks']
+            advance.save()
+            farmer.advance_details.add(advance)
+
+
+            for temp in body['data']:
+                advance = AdvanceDetails.objects.get(id=temp['id'])
+                advance.paid_date = temp['paid_date']
+                advance.interest_money = temp['interest_money']
+                advance.amount = temp['amount']
+                advance.sum_amount = temp['sum_amount']
+                if 'closing_date' in temp:
+                    c_date = datetime.datetime.strptime(str(temp['closing_date']), "%d/%m/%Y").date()
+                    advance.cleared_date = c_date
+                    print c_date
+                advance.isCleared = True
+                advance.paid_details_id = paid_advance_details.id
+                advance.save()
+            return Response({"success": 'successfully saved'},status=200)
+        except Exception as e:
+            print e
+            return Response({"stockslist": e}, status=200)
+
+
+class InterestsReport(APIView):
+    def post(self, request):
+        try:
+            body = request.body.decode("utf-8")
+            body = json.loads(body)
+            advances_list = []
+            if 'farmer_id' in body:
+                if body['farmer_id']:
+                    farmer = Person.objects.get(id = int(body['farmer_id']))
+                    stocklist = farmer.advance_details.filter(isCleared = False)
+
+                    stockslist = serializers.serialize('json', stocklist)
+                    main_data = json.loads(stockslist)
+                    row_id = 1
+                    for key,temp in enumerate(main_data):
+                        print key, temp
+                        if row_id == 1:
+                            print 'yes'
+                            temp_dict = {}
+                            temp_dict['id'] = temp['pk']
+                            temp_dict['paid_date'] = temp['fields']['paid_date']
+                            temp_dict['interest_rate'] = temp['fields']['interest_rate']
+                            temp_dict['interest_money'] = temp['fields']['interest_money']
+                            temp_dict['amount'] = temp['fields']['amount']
+                            temp_dict['sum_amount'] = temp['fields']['amount']
+                            advances_list.append(temp_dict)
+                            row_id += 1
+                        else:
+                            temp_dict = {}
+                            temp_dict['id'] = temp['pk']
+                            temp_dict['paid_date'] = temp['fields']['paid_date']
+                            temp_dict['interest_rate'] = temp['fields']['interest_rate']
+                            temp_dict['interest_money'] = temp['fields']['interest_money']
+                            temp_dict['amount'] = temp['fields']['amount']
+                            temp_dict['sum_amount'] = advances_list[key - 1 ]['sum_amount'] + temp['fields']['amount']
+                            advances_list.append(temp_dict)
+                            row_id += 1
+
+
+
+            return Response({"advances_list": advances_list},status=200)
+        except Exception as e:
+            print e
+            return Response({"stockslist": e}, status=200)
+
+def FarmerDownloadView(request, status):
+    try:
+        status = int(status)
+        print status
+        if status == 1:
+            print status
+            name = BASE_DIR + "/Admin/report_files/farmer_reports_specific_farmer_purchases.csv"
+            f = open(name, 'r')
+            myfile = File(f)
+            response = HttpResponse(myfile, content_type='application/csv')
+            response['Content-Disposition'] = 'attachment; filename=' + name
+
+            return response
+        if status == 2:
+            name = BASE_DIR + "/Admin/report_files/farmer_reports_customer_purchase_details.csv"
             f = open(name, 'r')
             myfile = File(f)
             response = HttpResponse(myfile, content_type='application/csv')
             response['Content-Disposition'] = 'attachment; filename=' + name
             return response
-        except Exception as e:
-            print e
-            return HttpResponse('error')
+
+        if status == 3:
+            name = BASE_DIR + "/Admin/report_files/farmer_reports_all_borrowers.csv"
+            f = open(name, 'r')
+            myfile = File(f)
+            response = HttpResponse(myfile, content_type='application/csv')
+            response['Content-Disposition'] = 'attachment; filename=' + name
+            return response
+
+
+        return HttpResponse('wrong status given')
+    except Exception as e:
+        print e
+        return HttpResponse('error')
+
+def HarvesterDownloadView(request, status):
+    try:
+        status = int(status)
+        print status
+        if status == 1:
+            print status
+            name = BASE_DIR + "/Admin/report_files/harvester_reports_specific_farmer_purchases.csv"
+            f = open(name, 'r')
+            myfile = File(f)
+            response = HttpResponse(myfile, content_type='application/csv')
+            response['Content-Disposition'] = 'attachment; filename=' + name
+
+            return response
+        if status == 2:
+            name = BASE_DIR + "/Admin/report_files/harvester_reports_all_purchases.csv"
+            f = open(name, 'r')
+            myfile = File(f)
+            response = HttpResponse(myfile, content_type='application/csv')
+            response['Content-Disposition'] = 'attachment; filename=' + name
+            return response
+
+        if status == 3:
+            name = BASE_DIR + "/Admin/report_files/harvester_reports_all_borrowers.csv"
+            f = open(name, 'r')
+            myfile = File(f)
+            response = HttpResponse(myfile, content_type='application/csv')
+            response['Content-Disposition'] = 'attachment; filename=' + name
+            return response
+
+        return HttpResponse('wrong status given')
+    except Exception as e:
+        print e
+        return HttpResponse('error')
+
+def ProductSaleDownloadView(request, status):
+    try:
+        status = int(status)
+        print status
+        if status == 1:
+            print status
+            name = BASE_DIR + "/Admin/report_files/each_product_sale_report.csv"
+            f = open(name, 'r')
+            myfile = File(f)
+            response = HttpResponse(myfile, content_type='application/csv')
+            response['Content-Disposition'] = 'attachment; filename=' + name
+
+            return response
+        if status == 2:
+            name = BASE_DIR + "/Admin/report_files/customer_purchase_amount_details.csv"
+            f = open(name, 'r')
+            myfile = File(f)
+            response = HttpResponse(myfile, content_type='application/csv')
+            response['Content-Disposition'] = 'attachment; filename=' + name
+            return response
+
+
+        return HttpResponse('wrong status given')
+
+    except Exception as e:
+        print e
+        return HttpResponse('error')
+
+
+def AppendDownloadView(request):
+    try:
+        name = BASE_DIR + "/Admin/report_files/append_stock_reports.csv"
+        f = open(name, 'r')
+        myfile = File(f)
+        response = HttpResponse(myfile, content_type='application/csv')
+        response['Content-Disposition'] = 'attachment; filename=' + name
+        return response
+    except Exception as e:
+        print e
+        return HttpResponse('error')
+
+def CustomerDownloadView(request, status):
+    try:
+        status = int(status)
+        print status
+        if status == 1:
+            print status
+            name = BASE_DIR + "/Admin/report_files/customer_reports_specific_person.csv"
+            f = open(name, 'r')
+            myfile = File(f)
+            response = HttpResponse(myfile, content_type='application/csv')
+            response['Content-Disposition'] = 'attachment; filename=' + name
+
+            return response
+        if status == 2:
+            name = BASE_DIR + "/Admin/report_files/customer_reports_all_customers.csv"
+            f = open(name, 'r')
+            myfile = File(f)
+            response = HttpResponse(myfile, content_type='application/csv')
+            response['Content-Disposition'] = 'attachment; filename=' + name
+            return response
+        if status == 3:
+            name = BASE_DIR + "/Admin/report_files/customer_reports_borrowers.csv"
+            f = open(name, 'r')
+            myfile = File(f)
+            response = HttpResponse(myfile, content_type='application/csv')
+            response['Content-Disposition'] = 'attachment; filename=' + name
+            return response
+
+        return HttpResponse('wrong status given')
+
+    except Exception as e:
+        print e
+        return HttpResponse('error')
+
+class CustomersReport(APIView):
+
 
     def post(self, request):
         try:
             body = request.body.decode("utf-8")
             body = json.loads(body)
+            specific_customer_id = False
 
             divided_start_date = body['start_date'].split("/")
             divided_end_date = body['end_date'].split("/")
 
-            start_temp_date = datetime.datetime(int(divided_start_date[2]),int(divided_start_date[1]), int(divided_start_date[0]))
-            end_temp_date = datetime.datetime(int(divided_end_date[2]),int(divided_end_date[1]),int(divided_end_date[0]))
-            #print body, datetime(int(divided_start_date[2]),int(divided_start_date[1]), int(divided_start_date[0])), divided_end_date
+            # bill date must be between start and end date
             filter_args = {
-                '{0}__{1}'.format('bill_date', 'gte'): start_temp_date,
-                '{0}__{1}'.format('bill_date', 'lte'): datetime.datetime(int(divided_end_date[2]),int(divided_end_date[1]),int(divided_end_date[0]), 23, 59, 59)
+                '{0}__{1}'.format('bill_date', 'gte'): datetime.datetime(int(divided_start_date[2]),int(divided_start_date[1]), int(divided_start_date[0])),
+                '{0}__{1}'.format('bill_date', 'lte'): datetime.datetime(int(divided_end_date[2]),int(divided_end_date[1]),int(divided_end_date[0]), 23, 59, 59),
             }
+
 
             stocklist = Billing.objects.filter(**filter_args)
             stockslist = serializers.serialize('json', stocklist)
+
+
+            # billing information of start end dates in main_data variable
             main_data = json.loads(stockslist)
 
-            required_rows_list = []
 
 
-            # contains all billing objects
+            if 'customer_id' in body:
+                if body['customer_id']:
+                    specific_customer_id = body['customer_id']
 
-            for temp in main_data:
-                required_rows ={}
-                required_rows['bill_date'] = temp['fields']['bill_date']
+            customer_details = {}
+            specific_customer_data = []
 
-                # if billing object has products
-                if(len(temp['fields']['products_list'])):
+            file_path = BASE_DIR + "/Admin/report_files/customer_reports_specific_person.csv"
+            with open(file_path, 'wb+') as csvfile:
+                spamwriter = csv.writer(csvfile)
+                spamwriter.writerow(
+                    ["bill number", "bill date", "total_quantity", "final_bill_total",
+                     "paid", "due"])
 
-                    products_data = ProductsList.objects.filter(id__in=temp['fields']['products_list'])
+                for temp in main_data:
+                    # increment advance due payment fields
+                    if str(temp['fields']['customer']) in customer_details:
+                        customer_details[str(temp['fields']['customer'])]['total_price'] += temp['fields']['total_price']
+                        customer_details[str(temp['fields']['customer'])]['total_quantity'] += temp['fields']['total_quantity']
+                        customer_details[str(temp['fields']['customer'])]['due'] += temp['fields']['due']
+                        customer_details[str(temp['fields']['customer'])]['total_paid'] += temp['fields']['total_paid']
+                    # initialize fields
+                    else:
+                        customer_details[str(temp['fields']['customer'])] = {
+                            'total_price': 0.0,
+                            'total_quantity': 0.0,
+                            'due': 0.0,
+                            'total_paid':0.0
+                        }
 
-                    products_data_temp = json.loads(serializers.serialize('json', products_data))
+                        customer_details[str(temp['fields']['customer'])]['total_price'] = temp['fields']['total_price']
+                        customer_details[str(temp['fields']['customer'])]['total_quantity']= temp['fields']['total_quantity']
+                        customer_details[str(temp['fields']['customer'])]['due']= customer_details[str(temp['fields']['customer'])]['due']
+                        customer_details[str(temp['fields']['customer'])]['total_paid'] = customer_details[str(temp['fields']['customer'])]['total_paid']
 
-                    # repeat billing object stock list or products list
-                    for tt in products_data_temp:
-                        try:
-                            # get each product info by id and legal
-                            temp_product = StockDetails.objects.get(id = tt['fields']['product'], isLegal='legal')
+                    if specific_customer_id:
+                        if temp['fields']['customer'] == specific_customer_id:
+                            temp_specifc_data = {}
+                            temp_specifc_data['bill_id'] = int(temp['pk'])
+                            temp_specifc_data['total_price'] = int(temp['fields']['total_price'])
+                            temp_specifc_data['total_quantity'] = int(temp['fields']['total_quantity'])
+                            temp_specifc_data['total_paid'] = int(temp['fields']['total_paid'])
+                            temp_specifc_data['due'] = int(temp['fields']['due'])
+                            temp_specifc_data['bill_date'] = str(temp['fields']['bill_date'])
+                            specific_customer_data.append(temp_specifc_data)
 
-                            # check in final results contains item type (seed , some thing...)
-                            if temp_product.item_type in required_rows:
-                                # if contains increase type quantity and replace any spaces in name to _
-                                required_rows[(temp_product.item_type).replace (" ", "_")] +=  tt['fields']['price']
-                            else:
-                                # if does n't contains add type name as key and replace space as _
-                                required_rows[(temp_product.item_type).replace (" ", "_")] = tt['fields']['price']
-                        except Exception as e:
-                            print e
+                            spamwriter.writerow([
+                                temp_specifc_data['bill_id'],
+                                temp_specifc_data['bill_date'],
+                                temp_specifc_data['total_quantity'],
+                                temp_specifc_data['total_paid'],
+                                temp_specifc_data['due']
+                            ])
 
-                # append to required list
-                required_rows_list.append(required_rows)
+            all_customers = []
+            all_borrowers = []
 
-            # allocate zero for non existing categories
-            for temp2 in item_types:
-                for temp in required_rows_list:
-                    if temp2 not in temp.keys():
-                        temp[temp2] = 0
-
-            # check continous date exists or not
-            # if not there add date and fileds with value "--"
-            from datetime import date, timedelta as td
-            temparary_date = []
-            d1 = start_temp_date
-            d2 = end_temp_date
-            delta = d2 - d1
-            for i in range(delta.days + 1):
-                isExits = False
-                for temp in required_rows_list:
-                    temp['bill_date'] = temp['bill_date'].split("T")[0]
-                    if temp['bill_date'] == str(d1 + td(days=i)).split(" ")[0]:
-                        isExits = True
-                        break
-                if not isExits:
-                    obj = {}
-                    obj['bill_date'] = str(d1 + td(days=i)).split(" ")[0]
-                    obj['Seeds'] = '--'
-                    obj['Pesticides'] = '--'
-                    obj['Fertilizers'] = '--'
-                    obj['Bio_Pesticides'] = '--'
-                    obj['Bio_Fertilizers'] = '--'
-                    temparary_date.append(obj)
-
-
-            required_rows_list.extend(temparary_date)
-
-            storing_data = required_rows_list
-
-            obj = {}
-            obj['bill_date'] = "Total"
-            obj['Seeds'] = 0
-            obj['Pesticides'] = 0
-            obj['Fertilizers'] = 0
-            obj['Bio_Pesticides'] = 0
-            obj['Bio_Fertilizers'] = 0
+            file_path = BASE_DIR + "/Admin/report_files/customer_reports_all_customers.csv"
+            with open(file_path, 'wb+') as csvfile:
+                spamwriter = csv.writer(csvfile)
+                spamwriter.writerow(["Customer Name", "Paid", "Total", "due"])
 
 
-            f = csv.writer(open("legaltest.csv", "wb+"))
-            f.writerow(
-                ["bill_date", "Seeds", "Pesticides", "Fertilizers", "Bio_Pesticides", "Bio_Fertilizers"])
-            for x in storing_data:
+                for key in customer_details.keys():
+                    temp_dict = {}
+                    temp_dict['name'] = Person.objects.get(id = int(key)).name
+                    temp_dict['id'] = key,
+                    temp_dict['total_price'] = customer_details[key]['total_price']
+                    temp_dict['due'] = customer_details[key]['due']
+                    temp_dict['total_quantity'] = customer_details[key]['total_quantity']
+                    temp_dict['total_paid'] = customer_details[key]['total_paid']
+                    all_customers.append(temp_dict)
+                    if float(temp_dict['due']) > 0:
+                        all_borrowers.append(temp_dict)
+                    spamwriter.writerow([
+                        temp_dict['name'],
+                        temp_dict['total_paid'],
+                        temp_dict['total_price'],
+                        temp_dict['due'],
+                    ])
+            file_path = BASE_DIR + "/Admin/report_files/customer_reports_borrowers.csv"
+            with open(file_path, 'wb+') as csvfile:
+                spamwriter = csv.writer(csvfile)
+                spamwriter.writerow(["Customer Name", "due"])
+                for temp in all_borrowers:
+                    spamwriter.writerow([temp['name'], temp['due']])
 
-                # add to get total
-                if type(x["Seeds"]) != str:
-                    obj['Seeds'] += x["Seeds"]
-                if type(x["Pesticides"]) != str:
-                    obj['Pesticides'] += x["Pesticides"]
-                if type(x["Fertilizers"]) != str:
-                    obj['Fertilizers'] += x["Fertilizers"]
-                if type(x["Bio_Pesticides"]) != str:
-                    obj['Bio_Pesticides'] += x["Bio_Pesticides"]
-                if type(x["Bio_Fertilizers"]) != str:
-                    obj['Bio_Fertilizers'] += x["Bio_Fertilizers"]
+            return Response({"all_borrowers": all_borrowers,
+                             'all_customers': all_customers,
+                             'specific_bill_data': specific_customer_data},
+                            status=200)
+        except Exception as e:
+            print e
+            return Response({"stockslist": e}, status=200)
 
-                f.writerow([x["bill_date"],
-                            x["Seeds"],
-                            x["Pesticides"],
-                            x["Fertilizers"],
-                            x["Bio_Pesticides"],
-                            x["Bio_Fertilizers"]
-                           ])
+class HarvestersReport(APIView):
+    """docstring for ClassName"""
+
+    def post(self, request):
+        try:
+            body = request.body.decode("utf-8")
+            body = json.loads(body)
+            specific_harvester_id = False
+
+            divided_start_date = body['start_date'].split("/")
+            divided_end_date = body['end_date'].split("/")
+
+            # bill date must be between start and end date
+            filter_args = {
+                '{0}__{1}'.format('created_date', 'gte'): datetime.datetime(int(divided_start_date[2]),int(divided_start_date[1]), int(divided_start_date[0])),
+                '{0}__{1}'.format('created_date', 'lte'): datetime.datetime(int(divided_end_date[2]),int(divided_end_date[1]),int(divided_end_date[0]), 23, 59, 59),
+                'harvester__person_type': 'harvester'
+            }
 
 
-            f.writerow([obj["bill_date"],
-                        obj["Seeds"],
-                        obj["Pesticides"],
-                        obj["Fertilizers"],
-                        obj["Bio_Pesticides"],
-                        obj["Bio_Fertilizers"]
-                        ])
-            storing_data.append(obj)
-            return Response({"stocks_list": required_rows_list}, status=200)
+            stocklist = SoldStockDetails.objects.filter(**filter_args)
+            stockslist = serializers.serialize('json', stocklist)
+
+
+            # billing information of start end dates in main_data variable
+            main_data = json.loads(stockslist)
+
+
+            if 'harvester_id' in body:
+                if body['harvester_id']:
+
+                    specific_harvester_id = body['harvester_id']
+
+            harvester_details = {}
+            specific_harvester_data = []
+
+            file_path = BASE_DIR + "/Admin/report_files/harvester_reports_specific_farmer_purchases.csv"
+            with open(file_path, 'w') as csvfile:
+                spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                spamwriter.writerow(
+                    ["Harvester Name","rate_per_ton_harvester", "total_quantity", "total_quality",
+                     "payment", "advance", "due"])
+
+                for temp in main_data:
+                    # increment advance due payment fields
+                    if str(temp['fields']['harvester']) in harvester_details:
+                        harvester_details[str(temp['fields']['harvester'])]['advance'] += temp['fields']['harvester_advance']
+                        harvester_details[str(temp['fields']['harvester'])]['total_payment'] += temp['fields']['harvester_payment']
+                    # initialize fields
+                    else:
+                        harvester_details[str(temp['fields']['harvester'])] = {
+                            'total_payment': 0.0,
+                            'advance': 0.0,
+                            'due': 0.0
+                        }
+
+                        harvester_details[str(temp['fields']['harvester'])]['total_payment'] = temp['fields']['harvester_payment']
+                        harvester_details[str(temp['fields']['harvester'])]['advance']= temp['fields']['harvester_advance']
+                        harvester_details[str(temp['fields']['harvester'])]['due']= float(harvester_details[str(temp['fields']['harvester'])]['total_payment']) - float(harvester_details[str(temp['fields']['harvester'])]['advance'])
+
+                    if specific_harvester_id:
+                        if temp['fields']['harvester'] == specific_harvester_id:
+
+                            temp['fields']['name'] = Person.objects.get(id=int(temp['fields']['harvester'])).name
+                            temp['fields']['main_advance'] = temp['fields']['harvester_advance']
+                            specific_harvester_data.append(temp['fields'])
+
+                            spamwriter.writerow([
+                                temp['fields']['name'],
+                                temp['fields']['harvester_rate_per_ton'],
+                                temp['fields']['quantity'],
+                                temp['fields']['quality'],
+                                temp['fields']['harvester_payment'],
+                                temp['fields']['main_advance'],
+                                temp['fields']['harvester_payment'] - temp['fields']['main_advance']
+                            ])
+
+            all_harvesters = []
+            all_borrowers = []
+            file_path = BASE_DIR + "/Admin/report_files/harvester_reports_all_purchases.csv"
+            with open(file_path, 'w') as csvfile:
+                spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                spamwriter.writerow(["Harvester Name", "total_payment", "total_advance", "due"])
+
+                for key in harvester_details.keys():
+                    temp_dict = {}
+                    temp_dict['name'] = Person.objects.get(id = int(key)).name
+                    temp_dict['id'] = key,
+                    temp_dict['advance'] = harvester_details[key]['advance']
+                    temp_dict['due'] = harvester_details[key]['due']
+                    temp_dict['total_payment'] = harvester_details[key]['total_payment']
+                    all_harvesters.append(temp_dict)
+                    if float(temp_dict['due']) < 0:
+                        all_borrowers.append(temp_dict)
+
+                    spamwriter.writerow([
+                        temp_dict['name'],
+                        temp_dict['total_payment'],
+                        temp_dict['advance'],
+                        temp_dict['due'],
+                    ])
+
+            file_path = BASE_DIR + "/Admin/report_files/harvester_reports_all_borrowers.csv"
+            with open(file_path, 'w') as csvfile:
+                spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                spamwriter.writerow(["Harvester Name", "due"])
+                for temp in all_borrowers:
+                    spamwriter.writerow([temp['name'], temp['due']])
+
+            return Response({"all_borrowers": all_borrowers,
+                             'all_harvesters': all_harvesters,
+                             'specific_harvester_data': specific_harvester_data},
+                            status=200)
         except Exception as e:
             print e
             return Response({"stockslist": e}, status=200)
 
 
-
-
-
-
-class InvoiceReports(APIView):
+class FarmersReport(APIView):
     """docstring for ClassName"""
-
-    def get(self, request):
-        try:
-            name = "test.csv"
-            f = open(name, 'r')
-            myfile = File(f)
-            response = HttpResponse(myfile, content_type='application/csv')
-            response['Content-Disposition'] = 'attachment; filename=' + name
-            return response
-        except Exception as e:
-            print e
-            return HttpResponse('error')
 
     def post(self, request):
         try:
-
             body = request.body.decode("utf-8")
             body = json.loads(body)
+            specific_farmer_id = False
 
             divided_start_date = body['start_date'].split("/")
             divided_end_date = body['end_date'].split("/")
 
-            #print body, datetime(int(divided_start_date[2]),int(divided_start_date[1]), int(divided_start_date[0])), divided_end_date
+            # bill date must be between start and end date
             filter_args = {
-                '{0}__{1}'.format('invoice_date', 'gte'): datetime.datetime(int(divided_start_date[2]),int(divided_start_date[1]), int(divided_start_date[0])),
-                '{0}__{1}'.format('invoice_date', 'lte'): datetime.datetime(int(divided_end_date[2]),int(divided_end_date[1]),int(divided_end_date[0]))
+                '{0}__{1}'.format('created_date', 'gte'): datetime.datetime(int(divided_start_date[2]),int(divided_start_date[1]), int(divided_start_date[0])),
+                '{0}__{1}'.format('created_date', 'lte'): datetime.datetime(int(divided_end_date[2]),int(divided_end_date[1]),int(divided_end_date[0]), 23, 59, 59),
             }
 
-            invoice_bills = CompanyBills.objects.filter(**filter_args)
-            #serialized_invoice_bills = json.loads(serializers.serialize('json', invoice_bills))
-            final_data = []
-            # invoice bills repeat
 
-            for invoice_bill in invoice_bills:
+            stocklist = SoldStockDetails.objects.filter(**filter_args)
+            stockslist = serializers.serialize('json', stocklist)
+            # billing information of start end dates in main_data variable
+            main_data = json.loads(stockslist)
+            if 'farmer_id' in body:
+                if body['farmer_id']:
+                    specific_farmer_id = body['farmer_id']
 
-                obj ={}
-                stock_details_temp = StockDetails.objects.filter(invoice_bill = invoice_bill).values('item_type').annotate(total_price = Sum("quantity_weight") * Sum("item_cost"))
+            farmer_details = {}
+            specific_farmer_data = []
 
-                # if items types are more repeat and replace space with _
-                for temp in stock_details_temp:
-                    obj[temp['item_type'].replace (" ", "_")] = temp['total_price']
+            file_path = BASE_DIR + "/Admin/report_files/farmer_reports_specific_farmer_purchases.csv"
 
-                obj['invoice_number'] =  invoice_bill.company_invoice_number
-                obj['invoice_date'] = str(invoice_bill.invoice_date)
-                obj['company_name'] = str(invoice_bill.company_name)
-                obj['company_tin_number'] = str(invoice_bill.company_tin_number)
-                final_data.append(obj)
+            with open(file_path, 'w') as csvfile:
+                spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                spamwriter.writerow(["farmer Name", "rate_per_ton_farmer" ,"rate_per_ton_harvester", "total_quantity", "total_quality", "payment", "advance", "due"])
 
-            for key in item_types:
-                for object in final_data:
-                    if  key not in object.keys():
-                        object[key] = 0
+                for temp in main_data:
+                    # increment advance due payment fields
+                    if str(temp['fields']['farmer']) in farmer_details:
+                        if temp['fields']['farmer_advance']:
+                            farmer_details[str(temp['fields']['farmer'])]['advance'] += temp['fields']['farmer_advance']
+                        else:
+                            farmer_details[str(temp['fields']['farmer'])]['advance'] += temp['fields']['common_advance']
+                        if temp['fields']['farmer_payment']:
+                            farmer_details[str(temp['fields']['farmer'])]['total_payment'] += temp['fields']['farmer_payment']
+                        farmer_details[str(temp['fields']['farmer'])]['due'] = float(farmer_details[str(temp['fields']['farmer'])]['total_payment']) - float(farmer_details[str(temp['fields']['farmer'])]['advance'])
+                    # initialize fields
+                    else:
 
-            storing_data = final_data
+                        farmer_details[str(temp['fields']['farmer'])] = {
+                            'total_payment': 0.0,
+                            'advance': 0.0,
+                            'due': 0.0
+                        }
 
-            obj1 = {}
-            obj1['invoice_date'] = "Total"
-            obj1["invoice_number"] = "--"
-            obj1["company_name"] = '--'
-            obj1["company_tin_number"] = '--'
-            obj1['Seeds'] = 0
-            obj1['Pesticides'] = 0
-            obj1['Fertilizers'] = 0
-            obj1['Bio_Pesticides'] = 0
-            obj1['Bio_Fertilizers'] = 0
+                        farmer_details[str(temp['fields']['farmer'])]['total_payment'] = temp['fields']['farmer_payment']
+                        if temp['fields']['farmer_advance']:
+                            farmer_details[str(temp['fields']['farmer'])]['advance']= temp['fields']['farmer_advance']
+                        else:
+                            farmer_details[str(temp['fields']['farmer'])]['advance'] = temp['fields']['common_advance']
+                        farmer_details[str(temp['fields']['farmer'])]['due']= float(farmer_details[str(temp['fields']['farmer'])]['total_payment']) - float(farmer_details[str(temp['fields']['farmer'])]['advance'])
 
-            f = csv.writer(open("test.csv", "wb+"))
-            f.writerow(["invoice_date", "invoice_number", "company_name", "tin_number", "Seeds", "Pesticides", "Fertilizers", "Bio_Pesticides", "Bio_Fertilizers"])
-            for x in storing_data:
 
-                # add to get total
-                if type(x["Seeds"]) != str:
-                    obj1['Seeds'] += x["Seeds"]
-                if type(x["Pesticides"]) != str:
-                    obj1['Pesticides'] += x["Pesticides"]
-                if type(x["Fertilizers"]) != str:
-                    obj1['Fertilizers'] += x["Fertilizers"]
-                if type(x["Bio_Pesticides"]) != str:
-                    obj1['Bio_Pesticides'] += x["Bio_Pesticides"]
-                if type(x["Bio_Fertilizers"]) != str:
-                    obj1['Bio_Fertilizers'] += x["Bio_Fertilizers"]
+                    if temp['fields']['farmer'] == specific_farmer_id:
 
-                f.writerow( [x["invoice_date"],
-                            x["invoice_number"],
-                            x["company_name"],
-                            x["company_tin_number"],
-                            x["Seeds"],
-                            x["Pesticides"],
-                            x["Fertilizers"],
-                            x["Bio_Pesticides"],
-                            x["Bio_Fertilizers"]])
+                        temp['fields']['name'] = Person.objects.get(id=int(temp['fields']['farmer'])).name
 
-            f.writerow([obj1["invoice_date"],
-                        obj1["invoice_number"],
-                        obj1["company_name"],
-                        obj1["company_tin_number"],
-                        obj1["Seeds"],
-                        obj1["Pesticides"],
-                        obj1["Fertilizers"],
-                        obj1["Bio_Pesticides"],
-                        obj1["Bio_Fertilizers"]
+                        if float(temp['fields']['farmer_advance']):
+                            temp['fields']['main_advance'] = temp['fields']['farmer_advance']
+                        else:
+                            temp['fields']['main_advance'] = temp['fields']['common_advance']
+
+                        if float(temp['fields']['farmer_payment']):
+                            temp['fields']['main_payment'] = temp['fields']['farmer_payment']
+                        else:
+                            temp['fields']['main_payment'] = temp['fields']['common_payment']
+
+
+
+                        specific_farmer_data.append(temp['fields'])
+
+                        spamwriter.writerow([
+                            temp['fields']['name'],
+                            temp['fields']['farmer_rate_per_ton'],
+                            temp['fields']['harvester_rate_per_ton'],
+                            temp['fields']['quantity'],
+                            temp['fields']['quality'],
+                            temp['fields']['main_payment'],
+                            temp['fields']['main_advance'],
+                            temp['fields']['main_payment'] - temp['fields']['main_advance']
                         ])
-            #print obj1
-            final_data.append(obj1)
-            return Response({"invoice_final_report": final_data},status=200)
+
+            all_farmers = []
+            all_borrowers = []
+
+            file_path = BASE_DIR + "/Admin/report_files/farmer_reports_customer_purchase_details.csv"
+
+            with open(file_path, 'w') as csvfile:
+                spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                spamwriter.writerow(["farmer Name", "total_payment", "total_advance","due"])
+
+                for key in farmer_details.keys():
+                    temp_dict = {}
+                    temp_dict['name'] = Person.objects.get(id = int(key)).name
+                    temp_dict['id'] = key,
+                    temp_dict['advance'] = farmer_details[key]['advance']
+                    temp_dict['due'] = farmer_details[key]['due']
+                    temp_dict['total_payment'] = farmer_details[key]['total_payment']
+                    all_farmers.append(temp_dict)
+                    if float(temp_dict['due']) < 0:
+                        all_borrowers.append(temp_dict)
+
+                    spamwriter.writerow([
+                        temp_dict['name'],
+                        temp_dict['total_payment'],
+                        temp_dict['advance'],
+                        temp_dict['due'],
+                    ])
+
+            file_path = BASE_DIR + "/Admin/report_files/farmer_reports_all_borrowers.csv"
+
+            with open(file_path, 'w') as csvfile:
+                spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                spamwriter.writerow(["farmer Name", "due"])
+                for temp in all_borrowers:
+                    spamwriter.writerow([temp['name'],temp['due']])
+
+            return Response({"all_borrowers": all_borrowers,
+                                 'all_farmers': all_farmers,
+                                 'specific_farmer_data': specific_farmer_data},
+                                status=200)
         except Exception as e:
             print e
             return Response({"stockslist": e}, status=200)
@@ -352,85 +1012,1024 @@ class Reports(APIView):
             divided_start_date = body['start_date'].split("/")
             divided_end_date = body['end_date'].split("/")
 
-            #print body, datetime(int(divided_start_date[2]),int(divided_start_date[1]), int(divided_start_date[0])), divided_end_date
+            # bill date must be between start and end date
             filter_args = {
                 '{0}__{1}'.format('bill_date', 'gte'): datetime.datetime(int(divided_start_date[2]),int(divided_start_date[1]), int(divided_start_date[0])),
                 '{0}__{1}'.format('bill_date', 'lte'): datetime.datetime(int(divided_end_date[2]),int(divided_end_date[1]),int(divided_end_date[0]), 23, 59, 59)
             }
 
             stocklist = Billing.objects.filter(**filter_args)
-            stockslist = serializers.serialize('json', stocklist)
-            main_data = json.loads(stockslist)
+            if len(stocklist):
+                stockslist = serializers.serialize('json', stocklist)
 
-            result_products_list = []
+                # billing information of start end dates in main_data variable
+                main_data = json.loads(stockslist)
 
-            types_data = {}
+                result_products_list = []
+                types_data = {}
 
-            for temp in main_data:
-                if(len(temp['fields']['products_list'])):
-                    products_data = ProductsList.objects.filter(id__in=temp['fields']['products_list'])
-                    products_data_temp = json.loads(serializers.serialize('json', products_data))
-                    for tt in products_data_temp:
-                        temp_product = StockDetails.objects.get(id = tt['fields']['product'])
-                        tt['fields']['specific_product_data'] = json.loads(serializers.serialize('json', [temp_product]))
+                for temp in main_data:
+                    if(len(temp['fields']['products_list'])):
+                        products_data = ProductsList.objects.filter(id__in=temp['fields']['products_list'])
+                        products_data_temp = json.loads(serializers.serialize('json', products_data))
+                        customer_name = Person.objects.get(id = temp['fields']['customer']).name
+                        date_to_bill = str(temp['fields']['bill_date'])
+                        print customer_name, date_to_bill
+                        for tt in products_data_temp:
 
-                        if hasattr(types_data, tt['fields']['specific_product_data'][0]['fields']['item_type']):
-                            types_data[tt['fields']['specific_product_data'][0]['fields']['item_type']] += tt['fields']['price']
-                        else:
-                            types_data[tt['fields']['specific_product_data'][0]['fields']['item_type']] = tt['fields']['price']
+                            temp_product = StockDetails.objects.select_related().filter(id = tt['fields']['product'])
+                            tt['fields']['specific_product_data'] = json.loads(serializers.serialize('json', temp_product))
+                            tt['fields']['specific_product_data'][0]['fields']['item_name'] =  temp_product[0].item_name.name
+                            if tt['fields']['specific_product_data'][0]['fields']['item_name'] in types_data:
+                                types_data[tt['fields']['specific_product_data'][0]['fields']['item_name']]['price'] += tt['fields']['price']
+                                types_data[tt['fields']['specific_product_data'][0]['fields']['item_name']]['quantity'] += tt['fields']['quantity']
 
+                            else:
+                                types_data[tt['fields']['specific_product_data'][0]['fields']['item_name']] = {}
+                                types_data[tt['fields']['specific_product_data'][0]['fields']['item_name']]['price'] = tt['fields']['price']
+                                types_data[tt['fields']['specific_product_data'][0]['fields']['item_name']]['quantity'] = tt['fields']['quantity']
 
-
-
-                        result_products_list.append(tt)
-                temp['fields']['products_data'] = products_data_temp
-                print temp['fields']['customer']
-
-            customer_aggregation = Billing.objects.filter(**filter_args).values('customer').annotate(total_price=Sum('total_price'),
-                                                        total_paid=Sum('total_paid'),
-                                                        due=Sum('due'))
-
-            for t in customer_aggregation:
-                print int(t['customer'])
-                customer_details = Customers.objects.get(id = int(t['customer']))
-                t['customer_name'] = customer_details.first_name+" "+customer_details.last_name
+                                types_data[tt['fields']['specific_product_data'][0]['fields']['item_name']]['bill_date'] =  date_to_bill
+                                types_data[tt['fields']['specific_product_data'][0]['fields']['item_name']]['customer_name'] = customer_name
 
 
-                cpal = 0
-                cp = customer_details.customer_payments.all()
-                scp = json.loads(serializers.serialize('json', cp))
-                for tcp in scp:
-                    cpal += tcp['fields']['paid_amount']
-
-                    t['total_paid'] += cpal
-                    t['due'] -= cpal
 
 
-            return Response({"stocks_list": result_products_list, 'customer_details': customer_aggregation, 'types_data': types_data}, status=200)
+                    temp['fields']['products_data'] = products_data_temp
+                    print temp['fields']['customer']
+
+
+                customer_aggregation = Billing.objects.filter(**filter_args).values('customer').annotate(total_price=Sum('total_price'),
+                                                            total_paid=Sum('total_paid'),
+                                                            due=Sum('due'))
+
+                file_path = BASE_DIR + "/Admin/report_files/customer_purchase_amount_details.csv"
+                with open(file_path, 'w') as csvfile:
+                    spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    spamwriter.writerow(["Customer Name", "Total Bill Amount", "Total Paid Amount", "Due"])
+                    for t in customer_aggregation:
+                        customer_details = Person.objects.get(id = int(t['customer']))
+                        t['customer_name'] = customer_details.name
+                        cpal = 0
+                        cp = customer_details.advance_details.all()
+                        scp = json.loads(serializers.serialize('json', cp))
+                        for tcp in scp:
+                            cpal += tcp['fields']['paid_amount']
+                            t['total_paid'] += cpal
+                            t['due'] -= cpal
+                        spamwriter.writerow([t['customer_name'],t['total_price'],t['total_paid'], t['due']])
+
+
+                file_path = BASE_DIR+"/Admin/report_files/each_product_sale_report.csv"
+                with open(file_path, 'w') as csvfile:
+                    spamwriter = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    spamwriter.writerow(["Customer Name", "Bill Date", "Stock Name", "Sold Quantity", "Sold Price"])
+                    for key in types_data.keys():
+                        temp_dict = {}
+                        temp_dict['name'] = key
+                        temp_dict['price'] = types_data[key]['price']
+                        temp_dict['quantity'] = types_data[key]['quantity']
+                        temp_dict['customer_name'] = types_data[key]['customer_name']
+                        temp_dict['bill_date'] = types_data[key]['bill_date']
+                        spamwriter.writerow([temp_dict['customer_name'],temp_dict['bill_date'], key, types_data[key]['price'],types_data[key]['quantity']])
+                        result_products_list.append(temp_dict)
+                return Response({"stocks_list": result_products_list, 'customer_details': customer_aggregation, 'types_data': types_data}, status=200)
+            return Response({"stocks_list": [], 'customer_details': [], 'types_data': []},
+            status=200)
+        except Exception as e:
+            print e
+            return Response({"stockslist": e}, status=200)
+
+
+class BillManagement(View):
+
+    def get(self, request):
+        try:
+
+            # if billId is given return bill details
+            if 'billId' in request.GET:
+
+                data = Billing.objects.get(id = request.GET['billId'])
+                temp_data = data.products_list.all()
+                product_list = []
+
+                for temp in temp_data:
+                    obj = {}
+                    obj['product_name'] = temp.product.item_name.name
+                    obj['product_id'] = temp.product.id
+                    obj['product_price'] =temp.price
+                    obj['product_quantity'] = temp.quantity
+                    obj['bill_product_id'] = temp.id
+                    obj['per_kg_price'] = temp.per_kg_price
+                    obj['isReturned'] = temp.isReturned
+                    product_list.append(obj)
+
+
+                customers = serializers.serialize('json', Person.objects.filter(person_type='customer'))
+                bill_info = serializers.serialize('json', [data])
+                return json_response({"bill_info": bill_info, 'product_list': product_list, 'customers': customers}, status=200)
+
+            # if customer Id is given return customer all bills
+            elif 'customerId' in request.GET:
+                customer = Person.objects.get(id = request.GET['customerId'])
+                data = Billing.objects.filter(customer = customer)
+                bills_list = serializers.serialize('json', data)
+
+                return json_response({"bills_list": bills_list}, status=200)
+
+            else:
+                return json_response({"response": 'customerid or bill id not found'}, status=400)
+
+
+        except Exception as e:
+            print e
+            return HttpResponse({"response": e}, status=400)
+
+    def put(self, request):
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        try:
+            # update the return, re-return status
+            if 'status' in body:
+                data = ProductsList.objects.get(id = body['bill_product_number'])
+                data.isReturned = body['status']
+                data.save()
+                return json_response({"response":'successfully updated'}, status=200)
+            else:
+
+                # save related product information of specific bill
+                for temp in body['product_details']:
+                    data = ProductsList.objects.get(id = temp['bill_product_number'])
+                    data.quantity = temp['product_quantity']
+                    data.price = temp['product_price']
+                    data.save()
+
+                # save billing information
+                customer = Person.objects.get(id = body['bill_details']['customerId'])
+                data = Billing.objects.get(id = body['bill_details']['bill_id'])
+                data.customer = customer
+                data.total_price = float(body['bill_details']['price'])
+                if 'bill_date' in body['bill_details']:
+                    if body['bill_details']['bill_date']:
+                        data.bill_date = datetime.datetime.strptime(str(body['bill_details']['bill_date']), '%d/%m/%Y')
+                data.total_quantity= float(body['bill_details']['quantity'])
+                data.due = float(body['bill_details']['due'])
+                data.total_paid = float(body['bill_details']['paid'])
+
+
+                data.contact_number = body['bill_details']['contact_number']
+                data.vehicle_number = body['bill_details']['vehicle_number']
+                data.remarks = body['bill_details']['remarks']
+
+                data.vat_money = float(body['bill_details']['vat_money'])
+                data.vat_percentage = float(body['bill_details']['vat_percentage'])
+
+                data.save()
+
+                return json_response({"response":'successfully updated'}, status=200)
+        except Exception, e:
+            print e
+            return json_response({"response":"failed to update"}, status=400)
+
+    def post(self, request):
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        try:
+            listOfProducts = []
+            for temp in body['products']:
+                prdct = ProductsList(price=temp['price'], quantity = temp['quantity'], per_kg_price = temp['kgrate'])
+                print temp['id'], '*****'
+                stock_name_object = StockNames.objects.get(id = temp['id'])
+                specific_stock = StockDetails.objects.get(item_name = stock_name_object)
+                prdct.product = specific_stock
+                prdct.save()
+                listOfProducts.append(prdct)
+                specific_stock.available_stock -= int(temp['quantity'])
+                specific_stock.save()
+
+            billingObject = Billing(due = body['due'])
+            billingObject.total_paid = body['amount_paid']
+            billingObject.vat_percentage = body['vat_percentage']
+            billingObject.vat_money = body['vat_money']
+
+            if 'bill_date' in body:
+                if body['bill_date']:
+                    print 'yes bill date in body', str(datetime.datetime.strptime(body['bill_date'], '%d/%m/%Y'))
+
+                    billingObject.bill_date = datetime.datetime.strptime(body['bill_date'], '%d/%m/%Y')
+
+            billingObject.total_quantity = body['total_quantity']
+            billingObject.total_price = body['total_price']
+            billingObject.customer = Person.objects.get(id = body['customerId'])
+
+            if 'contact_number' in body:
+                billingObject.contact_number = body['contact_number']
+
+            if 'vehicle_number' in body:
+                billingObject.vehicle_number = body['vehicle_number']
+
+            if 'remarks' in body:
+                billingObject.remarks = body['remarks']
+
+            billingObject.save()
+            billingObject.products_list.add(*listOfProducts)
+            billingObject.save()
+
+            print listOfProducts
+            return json_response({"bill_pk":billingObject.id}, status=200)
+        except Exception, e:
+            print e
+            return json_response({"response":"failed"}, status=401)
+
+
+
+def deleteBill(request):
+    try:
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        if 'bill_id' in body:
+            bill = Billing.objects.get(id = str(body['bill_id']))
+            bill.delete()
+            return json_response({"status" : "successfully deleted"}, status=200)
+        else:
+            customer = Person.objects.get(id = body['customer_id'])
+            data = Billing.objects.filter(customer = customer).delete()
+            return json_response({"status" : "successfully deleted"}, status=200)
+
+
+    except Exception as e:
+        print e
+        return json_response({"err" : "No Stock Found"}, status=401)
+
+
+class DeleteStockNamesOperation(APIView):
+    def post(self, request):
+            try:
+                body_unicode = request.body.decode('utf-8')
+                body = json.loads(body_unicode)
+                sn = StockNames.objects.get(id = body['id'])
+                sn.isActive = False
+                sn.save()
+                return json_response({"status": "successfully done..."}, status=200)
+            except Exception as e:
+                print e
+                return json_response({"err": "No User Found"}, status=401)
+
+
+class BillingStockNamesOperation(APIView):
+    def get(self, request):
+        try:
+            st_names = StockNames.objects.filter(isActive=True)
+            stock_names = []
+            for stock in st_names:
+                isExists = StockDetails.objects.filter(item_name=stock)
+                if len(isExists):
+                    data = {}
+                    data['name'] = stock.name
+                    data['id'] = stock.id
+                    stock_names.append(data)
+            return Response({'stock_names': stock_names}, status=200)
+        except Exception as e:
+            print e
+            return Response({'error': 'got error'}, status=405)
+
+
+class StockNamesOperation(APIView):
+    def get(self, request):
+        try:
+            st_names = StockNames.objects.filter(isActive=True)
+            stock_names = []
+            for stock in st_names:
+                data = {}
+                data['name'] = stock.name
+                data['id'] = stock.id
+                stock_names.append(data)
+            return Response({'stock_names': stock_names}, status=200)
+        except Exception as e:
+            print e
+            return Response({'error': 'got error'}, status=405)
+
+
+    def post(self, request):
+            try:
+                body_unicode = request.body.decode('utf-8')
+                body = json.loads(body_unicode)
+                if body['update']:
+                    sn = StockNames.objects.get(id = body['id'])
+                    sn.name = body['name']
+                    sn.save()
+                else:
+                    sn = StockNames(name = body['name'])
+                    sn.isActive = True
+                    sn.save()
+
+                return json_response({"status": "successfully done..."}, status=200)
+            except Exception as e:
+                print e
+                return json_response({"err": "No User Found"}, status=401)
+
+
+class SpecificPersonData(APIView):
+    """fetching data of respective user"""
+
+    def get(self, request, person_id):
+        try:
+            userdata = Person.objects.get(id=int(person_id))
+            user_total_details = {
+                "name": userdata.name,
+                "address": userdata.address,
+                "phone": userdata.phone,
+
+            }
+
+            return Response({"userdata": json.dumps(user_total_details)}, status=200)
+        except Exception, e:
+            return Response({"response": "userdata not found"}, status=405)
+
+
+
+class addPersonPaymentDetails(APIView):
+
+
+    def post(self, request):
+        try:
+            body = request.body.decode("utf-8")
+            body = json.loads(body)
+
+            customer_payment = AdvanceDetails(amount=body['paid_amount'])
+            if 'remarks' in body:
+                customer_payment.remarks = body['remarks']
+            if 'paid_date' in body:
+                if body['paid_date']:
+                    customer_payment.paid_date = datetime.datetime.strptime(body['paid_date'], '%d/%m/%Y')
+
+            customer_payment.save()
+
+            farmer = Person.objects.get(id=body['person_id'])
+            farmer.advance_details.add(customer_payment)
+
+            return Response({"response": 'successfully added'}, status=200)
+        except Exception as e:
+            print e
+            return Response({"error": "something went wrong..."}, status=405)
+
+
+
+
+
+class SpecificPersonPayments(APIView):
+    """docstring for ClassName"""
+
+
+    def post(self, request):
+        try:
+            body = request.body.decode("utf-8")
+            body = json.loads(body)
+
+            print body
+
+            if(body['get_data']):
+                person = Person.objects.get(id=body['person_id'], person_type=body['person_type'])
+                payments = person.advance_details.all()
+                serialized_payments_payments = serializers.serialize('json', payments)
+                return Response({"response": json.loads(serialized_payments_payments)}, status=200)
+            else:
+                payment = AdvanceDetails.objects.get(id=body['id'])
+                payment.amount = body['amount']
+
+                if 'remarks' in body:
+                    payment.remarks = body['remarks']
+                if 'paid_date' in body:
+                    if body['paid_date']:
+                        payment.paid_date = datetime.datetime.strptime(body['paid_date'], '%d/%m/%Y')
+
+                payment.save()
+                return Response({"response": "successfully saved ... "}, status=200)
+        except Exception as e:
+            print e
+            return Response({"stockslist": e}, status=200)
+
+class GetPersonsData(APIView):
+    """fetching all customer data"""
+    def get(self, request, type):
+        try:
+            users = Person.objects.filter(person_type = type, isActive=True)
+            userlist  = []
+            for user in users:
+                data ={}
+                data['name'] = user.name
+                data['address'] =  user.address
+                data['phone'] = user.phone
+                data['user_id'] = user.id
+                data['user_type'] = type
+                userlist.append(data)
+
+            user_basic_data = userlist
+            return Response({'userdata' : user_basic_data}, status = 200)
+        except Exception as e:
+            print e
+            return Response({'error' : 'got error'}, status = 405)
+
+
+
+class AddPerson(View):
+
+    def get(self, request):
+        return HttpResponse("method not allowed")
+
+    def post(self, request):
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        try:
+            user = Person.objects.get(phone = str(body['phone']))
+            return json_response({"err" : "Farmer already exists with this email id"}, status=401)
+        except Exception, e:
+            print e
+            user = Person(phone=body['phone'],
+                             name = body['name'], person_type=body['type'])
+            if 'address' in body:
+                user.address = body['address']
+            user.save()
+            return json_response({"response":"success"}, status=200)
+
+class DeletePerson(APIView):
+
+    def get(self, request):
+        return Response({"response": "method not allowed "}, status=405)
+
+    def post(self, request):
+        try:
+            body_unicode = request.body.decode('utf-8')
+            body = json.loads(body_unicode)
+            print body,'============='
+            userdata = Person.objects.get(id = str(body['user_id']))
+            userdata.isActive = False
+            userdata.save()
+            return json_response({"status" : "successfully deleted"}, status=200)
+        except Exception as e:
+            print e
+            return json_response({"err" : "No User Found"}, status=401)
+
+
+class EditPerson(APIView):
+
+    def get(self, request):
+        return Response({"response": "method not allowed "}, status=405)
+    def post(self, request):
+        try:
+            body_unicode = request.body.decode('utf-8')
+            body = json.loads(body_unicode)
+            user = Person.objects.get(id = str(body['user_id']))
+            print body, '------------'
+            if 'name' in body:
+                user.name = body['name']
+
+            if 'address' in body:
+                user.address = body['address']
+                print 'password '
+
+            if 'phone' in body:
+                user.phone = body['phone']
+
+            user.save()
+
+            return json_response({"status" : "successfully updated"}, status=200)
+        except Exception as e:
+            print e
+            return json_response({"err" : "No User Found"}, status=401)
+
+
+class GetStock(APIView):
+
+    def get(self, request):
+        try:
+            labours = Person.objects.values_list('id', 'name', 'phone', 'address')
+            dummy_data = []
+            print int(labours[0][0])
+            for labour in labours:
+                obj = {}
+                obj['farmer_id'] = int(labour[0])
+                obj['farmer_name'] = labour[1]
+                obj['farmer_phone'] = labour[2]
+                obj['farmer_address'] =labour[3]
+                dummy_data.append(obj)
+
+            return json_response({'labours_list': dummy_data}, status=200)
+        except Exception as e:
+            print e
+            return json_response({'error': "something went wrong"}, status=405)
+
+
+
+# ------------ harvester payments --------------------
+class SpecificHarvesterPayments(APIView):
+    """docstring for ClassName"""
+
+
+    def post(self, request):
+        try:
+            body = request.body.decode("utf-8")
+            body = json.loads(body)
+
+            if(body['get_data']):
+                person = Person.objects.get(id=body['person_id'])
+                payments = person.advance_details.all()
+                serialized_payments_payments = serializers.serialize('json', payments)
+                print serialized_payments_payments
+                return Response({"response": json.loads(serialized_payments_payments)}, status=200)
+            else:
+                payment = AdvanceDetails.objects.get(id=body['id'])
+                payment.amount = body['amount']
+                payment.save()
+                return Response({"response": "successfully saved ... "}, status=200)
+
+
+
         except Exception as e:
             print e
             return Response({"stockslist": e}, status=200)
 
 
 
+class GetHarvesterDetails(APIView):
 
-class GetStock(APIView):
+    def get(self, request):
+        try:
+            labours = Person.objects.values_list('id', 'name', 'phone', 'address')
+            dummy_data = []
+            for labour in labours:
+                obj = {}
+                obj['harvester_id'] = int(labour[0])
+                obj['harvester_name'] = labour[1]
+                obj['harvester_phone'] = labour[2]
+                obj['harvester_address'] =labour[3]
+                dummy_data.append(obj)
+
+            return json_response({'harvesters_list': dummy_data}, status=200)
+        except Exception as e:
+            print e
+            return json_response({'error': "something went wrong"}, status=405)
+
+    def post(self, request):
+        try:
+            body = request.body.decode("utf-8")
+            body = json.loads(body)
+
+            customer_payment = AdvanceDetails(amount=body['paid_amount'])
+            customer_payment.save()
+
+            harvester = Person.objects.get(id=body['harvester_id'])
+            harvester.advance_details.add(customer_payment)
+
+            return Response({"response": 'successfully added'}, status=200)
+        except Exception as e:
+            print e
+            return Response({"error": "something went wrong..."}, status=405)
+# ------------ end of harvester payments -------------
+
+
+class updateSpecificPurchase(View):
+
+    def post(self, request):
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        print body
+        try:
+            harvester = Person.objects.get(id=body['harvester_id'])
+            farmer = Person.objects.get(id=body['farmer_id'])
+
+            purchase_item = SoldStockDetails.objects.get(id = body['purchase_id'])
+
+            purchase_item.farmer = farmer
+            purchase_item.harvester = harvester
+
+            if 'remarks' in body:
+                purchase_item.remarks = body['remarks']
+            if 'purchase_date' in body:
+                if body['purchase_date']:
+                    purchase_item.created_date = datetime.datetime.strptime(body['purchase_date'], '%d/%m/%Y')
+
+            if 'quantity' in body:
+                purchase_item.quantity=body['quantity']
+
+            if 'miscellaneous_detections' in body:
+                purchase_item.miscellaneous_detections = body['miscellaneous_detections']
+            if 'quality' in body:
+                purchase_item.quality=body['quality']
+
+            if 'farmer_rate_per_ton' in body:
+                purchase_item.farmer_rate_per_ton=body['farmer_rate_per_ton']
+
+            if 'farmer_total_payment' in body:
+                purchase_item.farmer_payment=body['farmer_total_payment']
+
+            if 'farmer_advance' in body:
+                purchase_item.farmer_advance=body['farmer_advance']
+
+            if 'harvester_rate_per_ton'  in body:
+                purchase_item.harvester_rate_per_ton=body['harvester_rate_per_ton']
+
+            if 'harvester_total_payment' in body:
+                purchase_item.harvester_payment=body['harvester_total_payment']
+
+            if 'harvester_advance' in body:
+                purchase_item.harvester_advance=body['harvester_advance']
+
+            t_amount = float(body['farmer_advance']) - float(body['farmer_total_payment'])
+            customer_payment = AdvanceDetails.objects.get(purchase_id=purchase_item.id)
+            customer_payment.amount = t_amount
+            customer_payment.save()
+            purchase_item.save()
+            return json_response({"response": "successfully updated"}, status=200)
+        except Exception as e:
+            print e
+            return json_response({"error":"success"}, status=405)
+
+
+
+class getSpecificPurchase(View):
+
+    def post(self, request):
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+
+        try:
+            temp = SoldStockDetails.objects.get(id = body['purchase_id'])
+            obj = {}
+            obj['purchaseId'] = temp.id
+            obj['quantity'] = temp.quantity
+            obj['quality'] = temp.quality
+
+            obj['farmer_amount'] = temp.farmer_payment
+            obj['harvester_amount'] = temp.harvester_payment
+
+            obj['farmer_rate_per_ton'] = temp.farmer_rate_per_ton
+            obj['harvester_rate_per_ton'] = temp.harvester_rate_per_ton
+
+            obj['farmer_advance'] = temp.farmer_advance
+            obj['harvester_advance'] = temp.harvester_advance
+
+            obj['miscellaneous_detections'] = temp.miscellaneous_detections
+
+            obj['remarks'] = temp.remarks
+            obj['purchased_date'] = str(temp.created_date)
+
+
+            obj['farmer_name'] = temp.farmer.name
+            obj['harvester_name'] = temp.harvester.name
+            obj['farmer_id'] = temp.farmer.id
+            obj['harvester_id'] = temp.harvester.id
+            # getting append data values
+            append_data = AppendStockDetails.objects.filter(sold_stock_id = temp.id)
+            if len(append_data):
+                obj['need_to_append'] = True
+                obj['stock_id'] = append_data[0].stock.item_name.id
+            else:
+                obj['need_to_append'] = False
+
+            # getting users
+            harvesters = Person.objects.filter(person_type="harvester")
+
+            harvester_list = []
+            for user in harvesters:
+
+                data = {}
+                if obj['harvester_id'] == user.id:
+                    data['ticked'] = True
+                else:
+                    data['ticked'] = False
+                data['name'] = user.name
+                data['address'] = user.address
+                data['phone'] = user.phone
+                data['userid'] = user.id
+                data['type'] = 'harvester'
+                harvester_list.append(data)
+
+            farmers = Person.objects.filter(person_type="farmer")
+
+            farmers_list = []
+            for user in farmers:
+                data = {}
+                if obj['farmer_id'] == user.id:
+                    data['ticked'] = True
+                else:
+                    data['ticked'] = False
+                data['name'] = user.name
+                data['address'] = user.address
+                data['phone'] = user.phone
+                data['userid'] = user.id
+                data['type'] = 'farmer'
+                farmers_list.append(data)
+
+            harvester_list.extend(farmers_list)
+            return json_response({"response": obj, 'users': harvester_list}, status=200)
+        except Exception as e:
+            print e
+            return json_response({"error":"success"}, status=405)
+
+class DeleteSoldStock(APIView):
+
+    def get(self, request):
+        return Response({"response": "method not allowed "}, status=405)
+
+    def post(self, request):
+        try:
+            body_unicode = request.body.decode('utf-8')
+            body = json.loads(body_unicode)
+
+            userdata = SoldStockDetails.objects.get(id = body['purchase_id'])
+            userdata.delete()
+            return json_response({"status" : "successfully deleted"}, status=200)
+        except Exception as e:
+            print e
+            return json_response({"err" : "No User Found"}, status=401)
+
+class AddPurchase(View):
+
+    def get(self, request):
+        try:
+            soldStockDetailsObject = SoldStockDetails.objects.all()
+            final_result = []
+            for temp in soldStockDetailsObject:
+                print temp.farmer.name, temp.harvester
+                obj = {}
+                obj['purchaseId'] = temp.id
+                obj['quantity'] = temp.quantity
+                obj['quality'] = temp.quality
+                obj['farmer_amount'] = temp.farmer_payment
+                obj['harvester_amount'] = temp.harvester_payment
+
+                obj['farmer_name'] = temp.farmer.name
+                obj['harvester_name'] = temp.harvester.name
+                obj['farmer_id'] = temp.farmer.id
+                obj['harvester_id'] = temp.harvester.id
+                final_result.append(obj)
+
+            return json_response({"response": final_result}, status=200)
+        except Exception as e:
+            print e
+            return json_response({"error": "some thing went wrong"}, status=405)
+
+    def post(self, request):
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+
+        print body
+        try:
+            if body['harvester_id'] == body['farmer_id']:
+                harvester = Person.objects.get(id = body['harvester_id'])
+                farmer = harvester
+            else:
+                harvester = Person.objects.get(id=body['harvester_id'])
+                farmer = Person.objects.get(id=body['farmer_id'])
+
+            purchase_item = SoldStockDetails(quantity=body['quantity'],
+                                             quality = body['quality'],
+                                             farmer_rate_per_ton = body['farmer_rate_per_ton'],
+                                             farmer = farmer,
+                                             harvester = harvester
+                                             )
+            if 'miscellaneous_detections' in body:
+                purchase_item.miscellaneous_detections = body['miscellaneous_detections']
+            if 'harvester_rate_per_ton' in body:
+                purchase_item.harvester_rate_per_ton = body['harvester_rate_per_ton']
+
+            if 'remarks' in body:
+                purchase_item.remarks = body['remarks']
+            if 'purchase_date' in body:
+                if body['purchase_date']:
+                    purchase_item.created_date =  datetime.datetime.strptime(body['purchase_date'], '%d/%m/%Y')
+
+            if 'harvester_advance' in body:
+                purchase_item.harvester_advance = body['harvester_advance']
+
+            if 'farmer_advance' in body:
+                purchase_item.farmer_advance = body['farmer_advance']
+            if 'farmer_total_payment' in body:
+                purchase_item.farmer_payment = body['farmer_total_payment']
+
+            if 'harvester_total_payment' in body:
+                if body['harvester_total_payment']:
+                    purchase_item.harvester_payment = body['harvester_total_payment']
+
+            purchase_item.save()
+            # advance adding
+
+            t_amount = float(body['farmer_advance']) - float(body['farmer_total_payment'])
+            customer_payment = AdvanceDetails(amount=t_amount)
+            customer_payment.save()
+
+            farmer.advance_details.add(customer_payment)
+            customer_payment.purchase_id = purchase_item.id
+            customer_payment.save()
+
+            if 'need_to_append' in body:
+                if body['need_to_append']:
+                    if 'stock_name' in body:
+                        stock = StockNames.objects.get(id = int(body['stock_name']))
+                        stock_details = StockDetails.objects.filter(item_name = stock)
+                        if len(stock_details):
+                            stock_details_object = stock_details[0]
+                            stock_details_object.available_stock += float(body['quantity'])
+                            stock_details_object.save()
+                        else:
+                            stock_details_object = StockDetails(item_name = stock)
+                            stock_details_object.available_stock = float(body['quantity'])
+                            dd = datetime.datetime.strptime(body['purchase_date'], '%d/%m/%Y')
+                            stock_details_object.create_date = dd
+                            stock_details_object.month = calendar.month_name[int(dd.month)]
+                            stock_details_object.remarks = body['remarks']
+                            stock_details_object.save()
+
+                        append_stock_object = AppendStockDetails(stock=stock_details_object)
+                        append_stock_object.create_date = datetime.datetime.strptime(body['purchase_date'], '%d/%m/%Y')
+                        append_stock_object.append_count = float(body['quantity'])
+                        append_stock_object.total_stock = stock_details_object.available_stock
+                        append_stock_object.remarks = body['remarks']
+                        append_stock_object.sold_stock_id = purchase_item.id
+                        append_stock_object.save()
+
+            return json_response({"response" : "successfully added"}, status=200)
+        except Exception as e:
+
+            print e
+            return json_response({"error":"success"}, status=405)
+
+
+
+
+
+class GetFarmersHarvesters(APIView):
+
+    def get(self, request):
+        return Response({"response": "method not allowed "}, status=405)
+
+    def post(self, request):
+        try:
+            harvesters = Person.objects.filter(person_type="harvester")
+
+            harvester_list = []
+            for user in harvesters:
+                data = {}
+                data['name'] = user.name
+                data['address'] = user.address
+                data['phone'] = user.phone
+                data['userid'] = user.id
+                data['type'] = 'harvester'
+                harvester_list.append(data)
+
+
+
+            farmers = Person.objects.filter(person_type="farmer")
+
+            farmers_list = []
+            for user in farmers:
+                data = {}
+                data['name'] = user.name
+                data['address'] = user.address
+                data['phone'] = user.phone
+                data['userid'] = user.id
+                data['type'] = 'farmer'
+                farmers_list.append(data)
+
+            harvester_list.extend(farmers_list)
+
+            users_basic_data = json.dumps(harvester_list)
+            return json_response({"users": users_basic_data}, status=200)
+
+
+        except Exception as e:
+            print e
+            return json_response({"err" : "No User Found"}, status=401)
+
+class DeleteHarvester(APIView):
+
+    def get(self, request):
+        return Response({"response": "method not allowed "}, status=405)
+
+    def post(self, request):
+        try:
+            body_unicode = request.body.decode('utf-8')
+            body = json.loads(body_unicode)
+            print body,'============='
+            userdata = Person.objects.get(id = str(body['user_id']))
+            userdata.delete()
+            return json_response({"status" : "successfully deleted"}, status=200)
+        except Exception as e:
+            print e
+            return json_response({"err" : "No User Found"}, status=401)
+
+class EditHarvester(APIView):
+
+    def get(self, request):
+        return Response({"response": "method not allowed "}, status=405)
+    def post(self, request):
+        try:
+            body_unicode = request.body.decode('utf-8')
+            body = json.loads(body_unicode)
+            user = Person.objects.get(id = str(body['user_id']))
+            print body, '------------'
+            if 'name' in body:
+                user.name = body['name']
+
+
+
+            if 'address' in body:
+                user.address = body['address']
+                print 'password '
+
+
+            if 'phone' in body:
+                user.phone = body['phone']
+
+            user.save()
+
+
+            return json_response({"status" : "successfully updated"}, status=200)
+        except Exception as e:
+            print e
+            return json_response({"err" : "No User Found"}, status=401)
+
+
+class HarvesterData(APIView):
+    """fetching data of respective user"""
+
+    def get(self, request):
+        return Response({"response": "method not allowed"}, status=401)
+    def post(self, request):
+        body =  request.body
+        body =  json.loads(body)
+        print "userid:", body['userid']
+
+        try:
+            userdata =  Person.objects.get(id = int(body['userid']))
+            user_total_details = {
+                "name" : userdata.name,
+                "address" :  userdata.address,
+                "phone" : userdata.phone,
+            }
+
+            return Response({"userdata": json.dumps(user_total_details)}, status = 200)
+        except Exception, e:
+            return Response({"response": "userdata not found"},status = 405)
+
+
+class GetHarvestersData(APIView):
+    """fetching all customer data"""
+    def get(self, request):
+        try:
+            users = Person.objects.all()
+            userlist  = []
+            for user in users:
+                data ={}
+                data['name'] = user.name
+                data['address'] =  user.address
+                data['phone'] = user.phone
+                data['userid'] = user.id
+                userlist.append(data)
+
+            user_basic_data = json.dumps(userlist)
+            return Response({'userdata' : user_basic_data}, status = 200)
+        except Exception as e:
+            print e
+            return Response({'error' : 'got error'}, status = 405)
+
+class AddHarvester(View):
+
+    def get(self, request):
+        return HttpResponse("method not allowed")
+
+    def post(self, request):
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        try:
+            user = Person.objects.get(phone = str(body['phone']))
+            return json_response({"err" : "Farmer already exists with this email id"}, status=401)
+        except Exception, e:
+            print e
+            user = Person(phone=body['phone'],
+                             name = body['name'])
+
+            if 'address' in body:
+                user.address = body['address']
+            user.save()
+            return json_response({"response":"success"}, status=200)
+
+
+
+class GetStorageStock(APIView):
     """docstring for ClassName"""
 
     def get(self, request):
         try:
-            stocklist = StockDetails.objects.all()
+            stocklist = StockDetails.objects.filter(isActive=True)
             stockslist = serializers.serialize('json', stocklist)
             main_data = json.loads(stockslist)
 
             for temp in main_data:
-                data = CompanyBills.objects.get(id = temp['fields']['invoice_bill'])
-                temp['fields']['company_invoice_number'] = data.company_invoice_number
-
-                #temp_data = temp.invoice_bill.company_invoice_number
-                #temp['temp_data'] = temp_data
-
-
+                stock_names_object = StockNames.objects.get(id = temp['fields']['item_name'])
+                temp['fields']['stock_name'] = stock_names_object.name
+            print main_data
             return Response({"stockslist": json.dumps(main_data)}, status=200)
         except Exception as e:
             print e
@@ -455,59 +2054,31 @@ class EditStock(APIView):
         body = request.body.decode("utf-8")
         body = json.loads(body)
         try:
-
+            print body
             stock = StockDetails.objects.get(id = str(body['stockdata']['stockId']))
-
-            expired_converted_date = datetime.datetime.strptime(str(body['stockdata']['expired_date']),"%d/%m/%Y").date()
-
-            stock.item_name = body['stockdata']['stock_name']
-
-            stock.item_type = body['stockdata']['stockType']
-
-            stock.expire_date = expired_converted_date
+            print stock.id
+            #expired_converted_date = datetime.datetime.strptime(str(body['stockdata']['created_date']),"%d/%m/%Y").date()
+            #print expired_converted_date, '============='
+            #stock.item_name = body['stockdata']['stock_name']
 
 
+            #stock.creation_date = expired_converted_date
 
-            if 'isLegal' in body['stockdata']:
-                print 'yes isLeagal',
-                stock.isLegal = body['stockdata']['isLegal']
 
-            if 'invoice_bill' in body['stockdata']:
-                try:
-                    print body['stockdata']['invoice_bill'], '-------------------'
-                    temp_invoice_bill = CompanyBills.objects.get(id=body['stockdata']['invoice_bill'])
-                    stock.invoice_bill = temp_invoice_bill
-                except Exception as e:
-                    print e
-                    return json_response({"err": "no invoice bill found ..."}, status=200)
 
-            if 'batch_number' in body['stockdata']:
-                stock.item_batch_number = body['stockdata']['batch_number']
 
-            if 'available_stock' in body['stockdata']:
-                stock.available_stock = body['stockdata']['available_stock']
+            if 'a_stock' in body['stockdata']:
+                stock.available_stock = body['stockdata']['a_stock']
 
-            if 'invoice_price' in body['stockdata']:
-                stock.invoice_cost = body['stockdata']['invoice_price']
+            if 'i_stock' in body['stockdata']:
+                stock.inital_stock = body['stockdata']['i_stock']
 
-            if 'lot_number' in body['stockdata']:
-                stock.item_lot_number = body['stockdata']['lot_number']
+            if 'created_date' in body['stockdata']:
+                print 'creation data'
+                stock.create_date = datetime.datetime.strptime(str(body['stockdata']['created_date']),"%d/%m/%Y").date()
 
-            if 'quantity' in body['stockdata']:
-                stock.quantity_type = body['stockdata']['quantity']
-            if 'quantity_rate' in body['stockdata']:
-                stock.rate_per_type = body['stockdata']['quantity_rate']
-
-            if 'quantity_count' in body['stockdata']:
-                stock.quantity_weight = body['stockdata']['quantity_count']
-            if 'rate' in body['stockdata']:
-                stock.item_cost = body['stockdata']['rate']
-
-            if 'mfg_date' in body['stockdata']:
-                stock.mfg_date = datetime.datetime.strptime(str(body['stockdata']['mfg_date']),"%d/%m/%Y").date()
-
-            if 'purchase_from' in body['stockdata']:
-                stock.purchase_form = body['stockdata']['purchase_from']
+            if 'remarks' in body['stockdata']:
+                stock.remarks = body['stockdata']['remarks']
 
             stock.save()
 
@@ -553,42 +2124,6 @@ class EditUsers(APIView):
             print e
             return json_response({"err" : "No User Found"}, status=401)
 
-class EditCustomer(APIView):
-
-    def get(self, request):
-        return Response({"response": "method not allowed "}, status=405)
-    def post(self, request):
-        try:
-            body_unicode = request.body.decode('utf-8')
-            body = json.loads(body_unicode)
-            user = Customers.objects.get(id = str(body['user_id']))
-            print body, '------------'
-            if 'first_name' in body:
-                user.first_name = body['first_name']
-                print 'first name'
-
-            if 'last_name' in body:
-                user.last_name = body['last_name']
-                print 'last name'
-
-
-            if 'address' in body:
-                user.address = body['address']
-                print 'password '
-
-
-            if 'phone' in body:
-                user.phone = body['phone']
-
-            user.save()
-
-
-            return json_response({"status" : "successfully updated"}, status=200)
-        except Exception as e:
-            print e
-            return json_response({"err" : "No User Found"}, status=401)
-
-
 class DeleteStock(APIView):
 
     def get(self, request):
@@ -598,9 +2133,9 @@ class DeleteStock(APIView):
         try:
             body_unicode = request.body.decode('utf-8')
             body = json.loads(body_unicode)
-            print body,'============='
             stockdata = StockDetails.objects.get(id = str(body['stockId']))
-            stockdata.delete()
+            stockdata.isActive = False
+            stockdata.save()
             return json_response({"status" : "successfully deleted"}, status=200)
         except Exception as e:
             print e
@@ -624,173 +2159,6 @@ class DeleteUser(APIView):
             print e
             return json_response({"err" : "No User Found"}, status=401)
 
-class DeleteCustomer(APIView):
-
-    def get(self, request):
-        return Response({"response": "method not allowed "}, status=405)
-
-    def post(self, request):
-        try:
-            body_unicode = request.body.decode('utf-8')
-            body = json.loads(body_unicode)
-            print body,'============='
-            userdata = Customers.objects.get(id = str(body['user_id']))
-            userdata.delete()
-            return json_response({"status" : "successfully deleted"}, status=200)
-        except Exception as e:
-            print e
-            return json_response({"err" : "No User Found"}, status=401)
-
-class AddCustomer(View):
-
-    def get(self, request):
-        return HttpResponse("method not allowed")
-
-    def post(self, request):
-        body_unicode = request.body.decode('utf-8')
-        body = json.loads(body_unicode)
-        try:
-            user = Customers.objects.get(phone = str(body['phone']))
-            return json_response({"err" : "User already exists with this email id"}, status=401)
-        except Exception, e:
-            print e
-            user = Customers(phone=body['phone'],
-                             first_name = body['firstname'])
-            if 'lastname' in body:
-                user.last_name = body['lastname']
-            if 'address' in body:
-                user.address = body['address']
-            user.save()
-            return json_response({"response":"success"}, status=200)
-
-class BillManagement(View):
-
-    def get(self, request):
-        try:
-
-            # if billId is given return bill details
-            if 'billId' in request.GET:
-                print
-                data = Billing.objects.get(id = request.GET['billId'])
-
-
-                temp_data = data.products_list.all()
-                product_list = []
-
-                for temp in temp_data:
-                    obj = {}
-                    obj['product_name'] = temp.product.item_name
-                    obj['product_id'] = temp.product.id
-                    obj['product_price'] =temp.price
-                    obj['product_quantity'] = temp.quantity
-                    obj['bill_product_id'] = temp.id
-                    obj['isReturned'] = temp.isReturned
-                    product_list.append(obj)
-
-
-                customers = serializers.serialize('json', Customers.objects.all())
-                bill_info = serializers.serialize('json', [data])
-                return json_response({"bill_info": bill_info, 'product_list': product_list, 'customers': customers}, status=200)
-
-            # if customer Id is given return customer all bills
-            elif 'customerId' in request.GET:
-                customer = Customers.objects.get(id = request.GET['customerId'])
-                data = Billing.objects.filter(customer = customer)
-                bills_list = serializers.serialize('json', data)
-
-                return json_response({"bills_list": bills_list}, status=200)
-
-            else:
-                return json_response({"response": 'customerid or bill id not found'}, status=400)
-
-
-        except Exception as e:
-            print e
-            return HttpResponse({"response": e}, status=400)
-
-    def put(self, request):
-        body_unicode = request.body.decode('utf-8')
-        body = json.loads(body_unicode)
-        try:
-            # update the return, re-return status
-            if 'status' in body:
-                data = ProductsList.objects.get(id = body['bill_product_number'])
-                data.isReturned = body['status']
-                data.save()
-                return json_response({"response":'successfully updated'}, status=200)
-            else:
-
-                # save related product information of specific bill
-                for temp in body['product_details']:
-                    data = ProductsList.objects.get(id = temp['bill_product_number'])
-                    data.quantity = temp['product_quantity']
-                    data.price = temp['product_price']
-                    data.save()
-
-                # save billing information
-                customer = Customers.objects.get(id = body['bill_details']['customerId'])
-                data = Billing.objects.get(id = body['bill_details']['bill_id'])
-                data.customer = customer
-                data.total_price = float(body['bill_details']['price'])
-                data.total_quantity= float(body['bill_details']['quantity'])
-                data.due = float(body['bill_details']['due'])
-                data.total_paid = float(body['bill_details']['paid'])
-                data.save()
-
-                return json_response({"response":'successfully updated'}, status=200)
-        except Exception, e:
-            print e
-            return json_response({"response":"failed to update"}, status=400)
-
-    def post(self, request):
-        body_unicode = request.body.decode('utf-8')
-        body = json.loads(body_unicode)
-        try:
-            listOfProducts = []
-            for temp in body['products']:
-                print temp['id'], '========'
-                prdct = ProductsList(price=temp['price'], quantity = temp['quantity'])
-                specific_stock = StockDetails.objects.get(id = temp['id'])
-                prdct.product = specific_stock
-                prdct.save()
-                listOfProducts.append(prdct)
-                specific_stock.available_stock -= int(temp['quantity'])
-                specific_stock.save()
-
-            billingObject = Billing(due = body['due'])
-            billingObject.total_paid = body['amount_paid']
-            billingObject.total_quantity = body['total_quantity']
-            billingObject.total_price = body['total_price']
-            billingObject.customer = Customers.objects.get(id = body['customerId'])
-            billingObject.save()
-            billingObject.products_list.add(*listOfProducts)
-            billingObject.save()
-
-            print listOfProducts
-            return json_response({"bill_pk":billingObject.id}, status=200)
-        except Exception, e:
-            print e
-            return json_response({"response":"failed"}, status=401)
-
-
-
-def deleteBill(request):
-    try:
-        body_unicode = request.body.decode('utf-8')
-        body = json.loads(body_unicode)
-        if 'bill_id' in body:
-            bill = Billing.objects.get(id = str(body['bill_id']))
-            bill.delete()
-            return json_response({"status" : "successfully deleted"}, status=200)
-        else:
-            customer = Customers.objects.get(id = body['customer_id'])
-            data = Billing.objects.filter(customer = customer).delete()
-            return json_response({"status" : "successfully deleted"}, status=200)
-
-
-    except Exception as e:
-        print e
-        return json_response({"err" : "No Stock Found"}, status=401)
 
 
 def GetBillById(request):
@@ -813,39 +2181,32 @@ def printBill(request):
         body = json.loads(body_unicode)
         if 'bill_id' in body:
             bill = Billing.objects.get(id = str(body['bill_id']))
+            print bill.bill_date, '=======', bill.id
             bill_details = {}
-            bill_details['customer_name'] = bill.customer.first_name +" "+ bill.customer.last_name
+            bill_details['customer_name'] = bill.customer.name
+            bill_details['bill_date'] = str(bill.bill_date)
             bill_details['total_price'] = bill.total_price
             bill_details['total_quantity'] = bill.total_quantity
             bill_details['due'] = bill.due
-            bill_details['bill_id'] = bill.id
-
-
+            bill_details['vat_percentage'] = bill.vat_percentage
+            bill_details['vat_money'] = bill.vat_money
+            bill_details['contact_number'] = bill.contact_number
+            bill_details['vehicle_number'] = bill.vehicle_number
+            bill_details['remarks'] = bill.remarks
+            bill_details['bill_id'] = int(bill.id)
             products_all_list = bill.products_list.all()
-
             temp_product_details = []
             for t_product in products_all_list:
-
                 product_details = {}
-                product_details['product_name'] = t_product.product.item_name
-                product_details['expired_date'] = str(t_product.product.expire_date)
-                product_details['product_type'] = t_product.product.item_type
-                product_details['legal_type'] =  t_product.product.isLegal
 
-
-                if t_product.product.item_batch_number:
-                    product_details['bt_no'] = t_product.product.item_batch_number
-                elif t_product.product.item_lot_number:
-                    product_details['bt_no'] = t_product.product.item_lot_number
-
-
+                product_details['product_name'] = t_product.product.item_name.name
                 product_details['total_quantity'] = t_product.quantity
                 product_details['total_price'] = t_product.price
-
-
+                product_details['kgrate'] = t_product.per_kg_price
                 product_details['single_price'] = round(float(t_product.price)/float(t_product.quantity),3)
                 temp_product_details.append(product_details)
             bill_details['p_details'] = temp_product_details
+            print bill_details
 
             return json_response({"data" : bill_details}, status=200)
 
@@ -853,95 +2214,9 @@ def printBill(request):
 
 
     except Exception as e:
-        print e
+        print e, '==========='
         return json_response({"error" : "No Stock Found"}, status=400)
 
-def deleteCompanyBill(request):
-    try:
-        body_unicode = request.body.decode('utf-8')
-        body = json.loads(body_unicode)
-        bill = CompanyBills.objects.get(id = str(body['bill_id']))
-        os.remove(BASE_DIR+'/'+str(bill.bill_image))
-        bill.delete()
-        return json_response({"status" : "successfully deleted"}, status=200)
-
-    except Exception as e:
-        print e
-        return json_response({"err" : "No Stock Found"}, status=401)
-
-
-
-class CompanyBillsManagement(View):
-
-    def get(self, request):
-        try:
-            company_bills1 = CompanyBills.objects.all()
-            company_bills = serializers.serialize('json', company_bills1)
-            return json_response({"bills_list": company_bills}, status=200)
-        except Exception as e:
-            print e
-            return Response({"stockslist": e}, status=405)
-
-    def post(self, request):
-        try:
-
-            file_name = ''
-            try:
-
-                for filename, file in request.FILES.iteritems():
-                    file_name = request.FILES[filename]
-
-                data = json.loads(json.dumps(request.POST))
-                if 'bill_id' in request.POST:
-                    print 'yes update'
-                    companyBill = CompanyBills.objects.get(id = data['bill_id'])
-                    companyBill.company_name = data['company_name']
-                    companyBill.company_invoice_number = data['company_invoice']
-                    companyBill.invoice_date = data['invoice_date']
-                    companyBill.company_tin_number = data['tin_number']
-
-                    if file_name:
-                        print 'yes pic'
-                        companyBill.bill_image = file_name
-                    companyBill.save()
-                    return json_response({"response" : "data updated successfully"}, status=200)
-                else:
-                    companyBill = CompanyBills(company_name = data['company_name'])
-                    companyBill.company_invoice_number = data['company_invoice']
-                    companyBill.company_tin_number = data['tin_number']
-                    temp_invoice_date = datetime.datetime.strptime(str(data['invoice_date']),
-                                                                        "%d/%m/%Y").date()
-                    companyBill.invoice_date = temp_invoice_date
-                    companyBill.bill_image = file_name
-                    companyBill.save()
-                    return json_response({"response" : "data saved successfully"}, status=200)
-            except Exception as e:
-                print e
-                return json_response({"error" : "unable to process data"}, status=200)
-        except Exception as e:
-            json_response({"err" : "User already exists with this email id"}, status=401)
-
-    def put(self, request):
-        try:
-
-            file_name = ''
-            try:
-
-                for filename, file in request.FILES.iteritems():
-                    file_name = request.FILES[filename]
-
-
-                from django.http import QueryDict
-                qd = QueryDict(request.body)
-                put_dict = {k: v[0] if len(v)==1 else v for k, v in qd.lists()}
-                print put_dict
-                """"""
-                return json_response({"response" : "data saved successfully"}, status=200)
-            except Exception as e:
-                print e
-                return json_response({"error" : "unable to process data"}, status=405)
-        except Exception as e:
-            json_response({"err" : "User already exists with this email id"}, status=401)
 
 class AddUser(View):
 	"""User Registration"""
@@ -980,6 +2255,42 @@ class AddUser(View):
 			return json_response({"response":"success"}, status=200)
 
 
+class AppendStock(View):
+
+    def get(self, request):
+        return HttpResponse("method not allowed")
+    def post(self, request):
+        try:
+            body_unicode = request.body.decode('utf-8')
+            body = json.loads(body_unicode)
+            print body
+
+            stock_name = StockNames.objects.get(id=int(body['stockdata']['stock_name']))
+
+            stock = StockDetails.objects.get(item_name = stock_name)
+
+            if 'a_stock' in body['stockdata']:
+                stock.available_stock += float(body['stockdata']['a_stock'])
+
+            stock.save()
+
+            append_stock_details = AppendStockDetails(stock=stock)
+            if 'a_stock' in body['stockdata']:
+                append_stock_details.append_count = float(body['stockdata']['a_stock'])
+            if 'remarks' in body['stockdata']:
+                append_stock_details.remarks = body['stockdata']['remarks']
+            if 'creation_date' in body['stockdata']:
+                append_stock_details.create_date = datetime.datetime.strptime(str(body['stockdata']['creation_date']),"%d/%m/%Y").date()
+            append_stock_details.save()
+
+
+
+
+            return json_response({"err" : "stock saved successfully"}, status=200)
+        except Exception as e:
+            print e
+            return json_response({"response":"unable to save stock"}, status=405)
+
 
 class AddStock(View):
     def get(self, request):
@@ -988,58 +2299,28 @@ class AddStock(View):
         try:
             body_unicode = request.body.decode('utf-8')
             body = json.loads(body_unicode)
+            print body
 
-            temp_invoice_bill = CompanyBills.objects.get(id=body['stockdata']['invoice_bill'])
-            isStockExits = StockDetails.objects.filter(invoice_bill = temp_invoice_bill, item_name = body['stockdata']['stock_name'])
+            stock_name = StockNames.objects.get(id=int(body['stockdata']['stock_name']))
+
+            isStockExits = StockDetails.objects.filter(item_name = stock_name, isActive=True)
             if len(isStockExits):
                 return json_response({"response": "stock already saved with same invoice and name"}, status=405)
 
-            expired_converted_date = datetime.datetime.strptime(str(body['stockdata']['expired_date']),"%d/%m/%Y").date()
+            stock = StockDetails(item_name = stock_name)
 
-            stock = StockDetails(item_name = body['stockdata']['stock_name'],
-                                 item_type= body['stockdata']['stock_type']['name'],
-                                 expire_date = expired_converted_date)
+            if 'a_stock' in body['stockdata']:
+                stock.available_stock = float(body['stockdata']['a_stock'])
 
-            if 'invoice_bill' in body['stockdata']:
-                try:
-                    #temp_invoice_bill = CompanyBills.objects.get(id = body['stockdata']['invoice_bill'])
-                    stock.invoice_bill = temp_invoice_bill
-                except Exception as e:
-                    print e
-                    return json_response({"err": "no invoice bill found ..."}, status=200)
+            if 'i_stock' in body['stockdata']:
+                stock.inital_stock = body['stockdata']['i_stock']
 
-            if 'isLegal' in body['stockdata']:
-                stock.isLegal = body['stockdata']['isLegal']['name']
+            if 'remarks' in body['stockdata']:
+                stock.remarks = body['stockdata']['remarks']
 
-            if 'batch_number' in body['stockdata']:
-                stock.item_batch_number = body['stockdata']['batch_number']
+            if 'creation_date' in body['stockdata']:
+                stock.create_date = datetime.datetime.strptime(str(body['stockdata']['creation_date']),"%d/%m/%Y").date()
 
-            if 'available_stock' in body['stockdata']:
-                stock.available_stock = body['stockdata']['available_stock']
-
-            if 'invoice_price' in body['stockdata']:
-                stock.invoice_cost = body['stockdata']['invoice_price']
-                
-            if 'lot_number' in body['stockdata']:
-                stock.item_lot_number = body['stockdata']['lot_number']
-
-            if 'quantity' in body['stockdata']:
-                stock.quantity_type = body['stockdata']['quantity']['name']
-            if 'quantity_rate' in body['stockdata']:
-                stock.rate_per_type = body['stockdata']['quantity_rate']['name']
-
-            if 'quantity_count' in body['stockdata']:
-                stock.quantity_weight = float(body['stockdata']['quantity_count'])
-                stock.available_stock = float(body['stockdata']['quantity_count'])
-
-            if 'rate' in body['stockdata']:
-                stock.item_cost = body['stockdata']['rate']
-
-            if 'mfg_date' in body['stockdata']:
-                stock.mfg_date = datetime.datetime.strptime(str(body['stockdata']['mfg_date']),"%d/%m/%Y").date()
-
-            if 'purchase_from' in body['stockdata']:
-                stock.purchase_form = body['stockdata']['purchase_from']
 
             stock.save()
 
@@ -1066,27 +2347,6 @@ class GetUsersData(APIView):
         user_basic_data = json.dumps(userlist)
         return Response({'userdata' : user_basic_data}, status = 200)
 
-class GetCustomerData(APIView):
-    """fetching all customer data"""
-    def get(self, request):
-        try:
-            users = Customers.objects.all()
-            userlist  = []
-            for user in users:
-                data ={}
-                data['firstname'] = user.first_name
-                data['lastname'] =  user.last_name
-                data['address'] =  user.address
-                data['phone'] = user.phone
-                data['userid'] = user.id
-                userlist.append(data)
-
-            user_basic_data = json.dumps(userlist)
-            return Response({'userdata' : user_basic_data}, status = 200)
-        except Exception as e:
-            print e
-            return Response({'error' : 'got error'}, status = 405)
-
 class UserData(APIView):
     """fetching data of respective user"""
 
@@ -1110,338 +2370,6 @@ class UserData(APIView):
             return Response({"userdata": json.dumps(user_total_details)}, status = 200)
         except Exception, e:
             return Response({"response": "userdata not found"},status = 401)
-
-class CustomerData(APIView):
-    """fetching data of respective user"""
-
-    def get(self, request):
-        return Response({"response": "method not allowed"}, status=401)
-    def post(self, request):
-        body =  request.body
-        body =  json.loads(body)
-        print "userid:", body['userid']
-
-        try:
-            userdata =  Customers.objects.get(id = int(body['userid']))
-            user_total_details = {
-                "firstname" : userdata.first_name,
-                "lastname" : userdata.last_name,
-                "address" :  userdata.address,
-                "phone" : userdata.phone,
-            }
-
-            return Response({"userdata": json.dumps(user_total_details)}, status = 200)
-        except Exception, e:
-            return Response({"response": "userdata not found"},status = 405)
-
-class GraphData(View):
-    def get(self, request):
-        return HttpResponse("method not allowed")
-
-    def post(self, request):
-        try:
-            body_unicode = request.body.decode('utf-8')
-            body = json.loads(body_unicode)
-            if 'get_products_quantity' in body:
-                print 'yes  in body'
-                stocklist = StockDetails.objects.all()
-                stockslist = serializers.serialize('json', stocklist)
-
-                return json_response({"stockslist": stockslist}, status=200)
-
-            elif 'paid_unpaid_month_wise' in body:
-                print 'yes  in body paid_unpaid_month_wise'
-                data = Billing.objects.values('month')\
-                    .annotate(paid=Sum('total_paid'), due=Sum('due'), total_price=Sum('total_price'))
-
-                final_data = []
-                for temp in data:
-                    obj = {}
-                    obj['month'] = temp['month']
-                    obj['paid']  = temp['paid']
-                    obj['due'] = temp['due']
-                    obj['total_price'] = temp['total_price']
-                    final_data.append(obj)
-                return json_response({"stockslist": final_data}, status=200)
-
-            elif 'customers_credit_debit' in body:
-
-
-                bills = Billing.objects.values('customer').annotate(paid=Sum('total_paid'), due=Sum('due'), total_price = Sum('total_price'))
-                dummy_data = []
-                for temp in bills:
-                    obj = {}
-                    customer_info = Customers.objects.filter(id = temp['customer'])
-                    cp = customer_info[0].customer_payments.all()
-
-                    scp = json.loads(serializers.serialize('json', cp))
-
-                    cpal = 0
-                    for tcp in scp:
-                        cpal += tcp['fields']['paid_amount']
-
-                    customer_information = serializers.serialize('json', customer_info)
-                    customer_information = json.loads(customer_information)
-
-                    name = customer_information[0]['fields']['first_name']+" "+customer_information[0]['fields']['last_name']
-
-                    phone = customer_information[0]['fields']['phone']
-                    obj['customer_id'] = customer_information[0]['pk']
-                    obj['total_price'] = temp['total_price']
-
-                    obj['paid'] = temp['paid'] + cpal
-                    obj['due'] = temp['total_price'] - obj['paid']
-                    obj['customer_name'] = name
-                    obj['phone'] = phone
-                    dummy_data.append(obj)
-
-                return json_response({'bills': dummy_data}, status=200)
-
-            elif 'low_quantity_avaible_products' in body:
-
-                try:
-                    stocks = StockDetails.objects.all().order_by('available_stock').values_list('item_name','available_stock')
-                    dummy_data = []
-                    for temp in stocks:
-                        obj = {}
-                        obj['stock_name'] = temp[0]
-                        obj['available_stock'] = temp[1]
-                        dummy_data.append(obj)
-                    return json_response({'stock': dummy_data}, status=200)
-                except Exception as e:
-                    print e
-                    return json_response({'error': e}, status=405)
-
-            elif 'counts_number' in body:
-
-                try:
-                    total_sold_quantity = StockDetails.objects.all().aggregate(total_quantiy=Sum('quantity_weight') - Sum('available_stock'))['total_quantiy']
-
-                    paid_due = Billing.objects.all().aggregate(total_paid=Sum('total_paid'), due =  Sum('due'))
-
-                    all_customers = Customers.objects.all()
-                    cpal = 0
-                    for ac in all_customers:
-                        cp = ac.customer_payments.all()
-                        scp = json.loads(serializers.serialize('json', cp))
-                        for tcp in scp:
-                            cpal += tcp['fields']['paid_amount']
-
-                    paid_due['total_paid'] += cpal
-                    paid_due['due'] -= cpal
-
-                    total_stock = StockDetails.objects.all()
-
-                    total_sold_price = 0
-
-                    for temp in total_stock:
-                        sold_stock = temp.quantity_weight - temp.available_stock
-                        total_sold_price += sold_stock * temp.item_cost
-
-                    obj = {}
-
-                    if total_sold_quantity:
-                        obj['total_sold_quantity'] = total_sold_quantity
-                    else:
-                        obj['total_sold_quantity'] = 0.0
-
-
-                    if total_sold_price:
-                        obj['total_sold_price'] = total_sold_price
-                    else:
-                       obj['total_sold_price'] = 0.0
-
-                    if paid_due['total_paid']:
-                        obj['paid'] = paid_due['total_paid']
-                    else:
-                        obj['paid'] = 0.0
-
-                    if paid_due['due']:
-                        obj['due'] = paid_due['due']
-                    else:
-                        obj['due'] = 0.0
-
-                    return json_response({'counts': obj}, status=200)
-                except Exception as e:
-                    print e
-                    return json_response({'error': e}, status=405)
-
-
-
-
-            elif 'notification_data' in body:
-                print 'in notifications ...........'
-                stocks = StockDetails.objects.all()
-                dummy_data = []
-                current = datetime.datetime.now().date()
-                print 'current is', current
-                for temp in stocks:
-
-                    dummy_date_variable = temp.expire_date
-                    days_left = (dummy_date_variable - current).days
-                    if days_left < 30 and days_left > 0 and not temp.seen:
-
-                        print 'in less than 30 and not seen'
-                        obj = {}
-                        obj['stock_id'] = temp.id
-                        obj['stock_name'] = temp.item_name
-                        obj['days_left'] = days_left
-                        dummy_data.append(obj)
-
-                return json_response({'info': dummy_data}, status=200)
-
-            elif 'get_details_of_notifications' in body:
-                print 'in notifications ...........'
-
-                stocks = StockDetails.objects.all()
-                dummy_data = []
-                current = datetime.datetime.now().date()
-                print 'current is', current
-                for temp in stocks:
-
-                    if 'notification_ids' in body and temp.id in body['notification_ids']:
-                        temp.seen = True
-                        temp.save()
-
-                    dummy_date_variable = temp.expire_date
-                    days_left = (dummy_date_variable - current).days
-
-                    if days_left < 30 and days_left > 0:
-
-                        print 'in less than 30 and not seen'
-
-                        obj = {}
-                        obj['stock_id'] = temp.id
-                        obj['stock_name'] = temp.item_name
-                        obj['days_left'] = days_left
-
-                        dummy_data.append(obj)
-
-
-                return json_response({'info': dummy_data}, status=200)
-
-
-
-
-
-            elif 'expired_expiring_products' in body:
-
-                stocks = StockDetails.objects.all()
-                dummy_data = []
-                current = datetime.datetime.now().date()
-                print 'current is', current
-                for temp in stocks:
-
-                    dummy_date_variable = temp.expire_date
-                    days_left = (dummy_date_variable - current).days
-
-
-                    if days_left < 30 and days_left > 1:
-
-                        print 'in less than 30'
-
-                        obj = {}
-                        obj['stock_name'] = temp.item_name
-                        obj['quantity_type'] = temp.quantity_type
-
-                        obj['quantity'] = temp.available_stock
-                        obj['expired_date'] = str(temp.expire_date)
-                        obj['days_left'] = days_left
-                        obj['status'] = 'expiring'
-                        dummy_data.append(obj)
-
-
-                    elif days_left < 1 :
-                        print 'in expired ----', temp.expire_date
-                        obj = {}
-                        obj['stock_name'] = temp.item_name
-                        obj['quantity_type'] = temp.quantity_type
-
-                        obj['quantity'] = temp.available_stock
-                        obj['expired_date'] = str(temp.expire_date)
-                        obj['days_left'] = days_left
-                        obj['status'] = 'expired'
-                        dummy_data.append(obj)
-
-                    else:
-                        print 'not expired'
-
-                        obj = {}
-                        obj['stock_name'] = temp.item_name
-                        obj['quantity_type'] = temp.quantity_type
-
-                        obj['quantity'] = temp.available_stock
-                        obj['expired_date'] = str(temp.expire_date)
-                        obj['days_left'] = days_left
-                        obj['status'] = 'has days'
-                        dummy_data.append(obj)
-
-
-
-                return json_response({'info': dummy_data}, status=200)
-
-
-
-        except Exception as e:
-            print e
-            return json_response({"error": "unable to get data"}, status=401)
-
-
-class GalleryManagement(View):
-
-    def get(self, request):
-        try:
-            gallery_images = GalleryImages.objects.all()
-            images = serializers.serialize('json', gallery_images)
-            return json_response({"gallery_images": images}, status=200)
-        except Exception as e:
-            print e
-            return Response({"error": e}, status=405)
-
-    def post(self, request):
-        try:
-
-            file_name = ''
-            try:
-
-                for filename, file in request.FILES.iteritems():
-                    file_name = request.FILES[filename]
-
-                data = json.loads(json.dumps(request.POST))
-                if 'image_id' in request.POST:
-                    print 'yes update', data['image_id']
-                    tmp = GalleryImages.objects.get(id = data['image_id'])
-                    if file_name:
-                        print 'yes pic'
-                        tmp.gallery_image = file_name
-                        tmp.save()
-                    return json_response({"response" : "data updated successfully"}, status=200)
-                else:
-                    image = GalleryImages(gallery_image = file_name)
-                    image.save()
-                    return json_response({"response" : "data saved successfully"}, status=200)
-            except Exception as e:
-                print e
-                return json_response({"error" : "unable to process data"}, status=200)
-        except Exception as e:
-            return json_response({"error" : "unable to process"}, status=401)
-
-
-
-
-def deleteGalleryImage(request):
-    try:
-        body_unicode = request.body.decode('utf-8')
-        body = json.loads(body_unicode)
-        image = GalleryImages.objects.get(id = str(body['image_id']))
-        os.remove(BASE_DIR+'/'+str(image.gallery_image))
-        image.delete()
-        return json_response({"status" : "successfully deleted"}, status=200)
-
-    except Exception as e:
-        print e
-        return json_response({"error" : "unable to delete image"}, status=401)
-
 
 from django_cron import CronJobBase, Schedule
 

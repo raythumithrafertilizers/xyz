@@ -2,7 +2,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Create Store
+        Create Customer
       </h1>
       <!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -23,7 +23,7 @@
               <div class="row row-sides"> <!-- row start -->
                 <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
-                    <label>First Name</label>
+                    <label>Name</label>
                     <input type="text" class="form-control" placeholder="First Name"
                            ng-model="user.first_name" name="first_name"
                            ng-class="{ 'has-error' : userForm.first_name.$invalid && !userForm.first_name.$pristine }"
@@ -35,19 +35,7 @@
                   </div>
                 </div>
 
-                 <div class="col-xs-12 col-lg-4">
-                  <div class="form-group">
-                    <label>last Name</label>
-                    <input type="text" class="form-control" placeholder="last Name"
-                           ng-model="user.last_name" name="last_name"
-                           ng-class="{ 'has-error' : userForm.last_name.$invalid && !userForm.last_name.$pristine }"
-                           >
-                    <p ng-show="userForm.last_name.$invalid && !userForm.last_name.$pristine"
-                       class="help-block">
-                      last name is required.
-                    </p>
-                  </div>
-                </div>
+
 
 
               </div> <!-- row end -->
@@ -64,6 +52,10 @@
                     <p class="help-block" ng-show="!userForm.phone.$error.required && (userForm.phone.$error.minlength || userForm.phone.$error.maxlength)">Phone Number must be minimum 10 characters.</p>
                   </div>
                 </div>
+
+              </div> <!-- row end -->
+
+              <div class="row row-sides"> <!-- row start -->
                  <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
                     <label>Address</label>
@@ -75,6 +67,8 @@
                 </div>
 
               </div> <!-- row end -->
+
+
 
 
               <div class="row row-sides"> <!-- row start -->

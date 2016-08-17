@@ -6,8 +6,6 @@ function process_image_path(path){
 }
 angular.module("App")
 .controller("getBillCtrl", function($http,$location,$localStorage, $q, $timeout,toastr,$route, $scope){
-    console.log('get bill controller')
-
     $scope.getting_bill = function(){
         $scope.load =
         $http({
@@ -25,283 +23,6 @@ angular.module("App")
 
 })
 
-.controller("dashBoardCtrl", function($http,$location,$localStorage, $q, $timeout,toastr,$route, $scope){
-
-
-// gallery start here
-function process_gallery_image_path(path){
-    var image_path = path.split('/')
-    return 'static/upload_gallary_images/'+image_path[image_path.length-1]
-
-}
-
-$scope.load =
-$http({
-    method: 'GET',
-      url: '/superuser/gallery-image',
-    }).then(function (response){
-            console.log('response iamges', response)
-            $scope.images = [];
-            var imagesList = JSON.parse(response.data.gallery_images);
-
-            $.each(imagesList, function(i){
-                var obj = {};
-                obj.thumb = process_gallery_image_path(imagesList[i].fields.gallery_image);
-                obj.img = obj.thumb
-                $scope.images.push(obj);
-            })
-
-    }, function errorCallback(response){
-            console.log(response);
-    });
-
-
-// pie chart data initlizations and ajax data access
-  var PieData = [
-  {
-    value: 0,
-    color: "#f56954",
-    highlight: "#f56954",
-    label: "Seeds"
-  },
-  {
-    value: 0,
-    color: "#00a65a",
-    highlight: "#00a65a",
-    label: "Pesticides"
-  },
-  {
-    value: 0,
-    color: "#f39c12",
-    highlight: "#f39c12",
-    label: "Fertilizers"
-  },
-  {
-    value: 0,
-    color: "#00c0ef",
-    highlight: "#00c0ef",
-    label: "Bio Pesticides"
-  },
-  {
-    value: 0,
-    color: "#3c8dbc",
-    highlight: "#3c8dbc",
-    label: "Bio Fertilizers"
-  }
-
-];
-
-var pieOptions = {
-  //Boolean - Whether we should show a stroke on each segment
-  segmentShowStroke: true,
-  //String - The colour of each segment stroke
-  segmentStrokeColor: "#fff",
-  //Number - The width of each segment stroke
-  segmentStrokeWidth: 2,
-  //Number - The percentage of the chart that we cut out of the middle
-  percentageInnerCutout: 50, // This is 0 for Pie charts
-  //Number - Amount of animation steps
-  animationSteps: 100,
-  //String - Animation easing effect
-  animationEasing: "easeOutBounce",
-  //Boolean - Whether we animate the rotation of the Doughnut
-  animateRotate: true,
-  //Boolean - Whether we animate scaling the Doughnut from the centre
-  animateScale: false,
-  //Boolean - whether to make the chart responsive to window resizing
-  responsive: true,
-  // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-  maintainAspectRatio: true,
-  //String - A legend template
-  legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-};
-// Get context with jQuery - using jQuery's .get() method.
-var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
-var pieChart = new Chart(pieChartCanvas);
-//Create pie or douhnut chart
-
- $scope.load =
- $http({
-      method: 'post',
-      url: '/superuser/get-graph-data',
-      data: {
-            'get_products_quantity': true
-      },
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
- }).then(function (response){
-    var data = JSON.parse(response.data.stockslist)
-    //console.log(data)
-    $.each(data, function(i){
-
-        for(temp in PieData){
-             if(data[i].fields.item_type == PieData[temp].label){
-                PieData[temp].value += data[i].fields.available_stock
-             }
-        }
-    })
-    console.log(PieData)
-    pieChart.Doughnut(PieData, pieOptions);
- }, function(error){
-    console.log('error', error)
-
- })
- //------------end of donout graph ---------------------
-
-
-//------------paid and unpaid amount in graphs
-// pie chart data initlizations and ajax data access
-
-  var PieData1 = [
-  {
-    value: 0,
-    color: "#f56954",
-    highlight: "#f56954",
-    label: "Paid Amount"
-  },
-  {
-    value: 0,
-    color: "#00a65a",
-    highlight: "#00a65a",
-    label: "Due Amount"
-  },
-
-];
-
-var pieOptions1 = {
-  //Boolean - Whether we should show a stroke on each segment
-  segmentShowStroke: true,
-  //String - The colour of each segment stroke
-  segmentStrokeColor: "#fff",
-  //Number - The width of each segment stroke
-  segmentStrokeWidth: 2,
-  //Number - The percentage of the chart that we cut out of the middle
-  percentageInnerCutout: 50, // This is 0 for Pie charts
-  //Number - Amount of animation steps
-  animationSteps: 100,
-  //String - Animation easing effect
-  animationEasing: "easeOutBounce",
-  //Boolean - Whether we animate the rotation of the Doughnut
-  animateRotate: true,
-  //Boolean - Whether we animate scaling the Doughnut from the centre
-  animateScale: false,
-  //Boolean - whether to make the chart responsive to window resizing
-  responsive: true,
-  // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-  maintainAspectRatio: true,
-  //String - A legend template
-  legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-};
-// Get context with jQuery - using jQuery's .get() method.
-var pieChartCanvas1 = $("#pieChart1").get(0).getContext("2d");
-var pieChart1 = new Chart(pieChartCanvas1);
-//Create pie or douhnut chart
-
- /*$scope.load =
- $http({
-      method: 'post',
-      url: '/superuser/get-graph-data',
-      data: {
-            'get_products_quantity': true
-      },
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
- }).then(function (response){
-    var data = JSON.parse(response.data.stockslist)
-    //console.log(data)
-    $.each(data, function(i){
-
-        for(temp in PieData){
-             if(data[i].fields.item_type == PieData[temp].label){
-                PieData[temp].value += data[i].fields.quantity_weight
-             }
-        }
-    })
-    console.log(PieData)
-    pieChart1.Doughnut(PieData1, pieOptions1);
- }, function(error){
-    console.log('error', error)
-
- })*/
- // --------------------end of paid and unpaid amount in graphs-------------------
-
-//---getting customers credit and debit------------
-$scope.load =
-         $http({
-              method: 'post',
-              url: '/superuser/get-graph-data',
-              data: {
-                    'customers_credit_debit': true
-              },
-              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-         }).then(function (response){
-            console.log('bills information', response)
-            $timeout(function(){
-                $("#example1").DataTable();
-            },500)
-            $scope.customer_pay_info = response.data.bills
-         }, function(error){
-            console.log('hellow')
-         })
-
-//---getting expired and expiring products ------------
-$scope.load =
-         $http({
-              method: 'post',
-              url: '/superuser/get-graph-data',
-              data: {
-                    'expired_expiring_products': true
-              },
-              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-         }).then(function (response){
-            console.log(' product_expired_data', response)
-            $timeout(function(){
-                $("#example2").DataTable();
-            },500)
-            $scope.product_expired_data = response.data.info
-         }, function(error){
-            console.log('hellow')
-         })
-
-//---getting low quantity products ------------
-$scope.load =
-         $http({
-              method: 'post',
-              url: '/superuser/get-graph-data',
-              data: {
-                    'low_quantity_avaible_products': true
-              },
-              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-         }).then(function (response){
-            console.log(' product_expired_data', response)
-            $timeout(function(){
-                $("#example3").DataTable();
-            },500)
-            $scope.low_product_data = response.data.stock
-         }, function(error){
-            console.log('hellow')
-         })
-
-//---getting count of dashboard  ------------
-$scope.load =
-         $http({
-              method: 'post',
-              url: '/superuser/get-graph-data',
-              data: {
-                    'counts_number': true
-              },
-              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-         }).then(function (response){
-            console.log(' product_expired_data', response)
-
-            $scope.counts = response.data.counts;
-            PieData1[0]['value'] = $scope.counts.paid;
-            PieData1[1]['value'] = $scope.counts.due;
-
-            pieChart1.Doughnut(PieData1, pieOptions1);
-
-         }, function(error){
-            console.log('hellow')
-         })
-})
 
 .controller("printBillCtrl", function($http, $q,$location,$routeParams,
                                              $timeout,toastr,$route, $scope){
@@ -317,6 +38,7 @@ $scope.load =
             }).then(function successCallback(response){
 
                         $scope.bill_info = response.data.data;
+                        console.log($scope.bill_info)
 
                         if(response.data.data['due']){
                             $scope.bill_type_display = "CREDIT"
@@ -324,8 +46,7 @@ $scope.load =
                             $scope.bill_type_display = "CASH"
                         }
 
-                        $scope.bill_info['bill_date'] = new Date()
-                        console.log(response, '============')
+
             }, function errorCallback(response)
             {
                 toastr.error('unable to create bill')
@@ -333,13 +54,7 @@ $scope.load =
             });
 
 
-            $scope.print_bill_info = function() {
-                  var printContents = document.getElementById("printing_space").innerHTML;
-                  var popupWin = window.open('', '_blank', 'width=300,height=300');
-                  popupWin.document.open();
-                  popupWin.document.write('<html><head><link rel="stylesheet" href="/static/css/app.css"><link rel="stylesheet" href="/static/css/bootstrap.min.css"><link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css"></head><body onload="window.print()">' + printContents + '</body></html>');
-                  popupWin.document.close();
-            }
+
 
 
 
@@ -364,6 +79,13 @@ $scope.load =
         console.log($localStorage.customer)
     }
 
+     $timeout(function(){
+            $('#datepicker_sale_products_reports_1') .datepicker({
+                format: 'dd/mm/yyyy',
+                //startDate: new Date()
+                //endDate: '01/12/2020'
+            })
+        },500)
 
      $scope.calculateQuantity = function(){
         var dt = $scope.products_list;
@@ -377,7 +99,7 @@ $scope.load =
         console.log($scope.bill.quantity)
      }
 
-     $scope.calculatePrice = function(){
+     /*$scope.calculatePrice = function(){
 
         var dt = $scope.products_list;
 
@@ -387,7 +109,7 @@ $scope.load =
            price = price + parseFloat(dt[j]['product_price']);
         }
          $scope.bill.price = price;
-     }
+     }*/
 
      $scope.calculateDue = function(){
         $scope.bill.due = parseFloat($scope.bill.price) - parseFloat($scope.bill.paid)
@@ -396,7 +118,7 @@ $scope.load =
 
 
 
-    $scope.addToReturns = function(product, status){
+    /*$scope.addToReturns = function(product, status){
         for(var temp in $scope.products_list){
                 if($scope.products_list[temp].bill_product_number == product.bill_product_number){
                     console.log('matched')
@@ -419,10 +141,9 @@ $scope.load =
 			    toastr.success(response.data.response)
 			})
 
-    }
+    }*/
 
     $scope.updateBill = function(){
-        console.log($scope.bill)
         $scope.load = $http({
 	  		method: 'put',
 			  url: '/superuser/bill-management',
@@ -466,27 +187,36 @@ $scope.load =
                     $scope.bill.paid = bills_data[0].fields.total_paid
                     $scope.bill.due = bills_data[0].fields.due
 
+                    $scope.bill.vehicle_number = bills_data[0].fields.vehicle_number
+                    $scope.bill.contact_number = bills_data[0].fields.contact_number
+                    $scope.bill.remarks = bills_data[0].fields.remarks
 
-                    $scope.bill.bill_date = new Date(bills_data[0].fields.bill_date)
-                    $scope.bill.bill_date = new Date(bills_data[0].fields.bill_date)
+                    $scope.bill.vat_percentage = bills_data[0].fields.vat_percentage
+                    $scope.bill.vat_money = bills_data[0].fields.vat_money
+
+                    var pda= bills_data[0].fields.bill_date.split("-")
+                    $scope.bill.bill_date = pda[2]+"/"+pda[1]+"/"+pda[0]
+
+                    //$scope.bill.bill_date = new Date(bills_data[0].fields.bill_date)
+                    //$scope.bill.bill_date = new Date(bills_data[0].fields.bill_date)
 
                     $scope.customers = JSON.parse(response.data.customers)
                     var temp_customers = []
 		    	    $.each($scope.customers, function(i){
+
 		    	        var obj = {}
-		    	        obj.name = $scope.customers[i].fields.first_name+" "+$scope.customers[i].fields.last_name
+		    	        obj.name = $scope.customers[i].fields.name
 		    	        obj.id = $scope.customers[i].pk
 		    	        temp_customers.push(obj)
 		    	    })
 		    	    $scope.customers = temp_customers;
-
                     $scope.products_list = []
 		    		var products =  response.data.product_list
-
 		    		$.each(products, function(i){
                         var obj = {};
                         obj.product_id = products[i].product_id;
                         obj.product_name = products[i].product_name;
+                        obj.per_kg_price = products[i].per_kg_price;
                         obj.product_price = products[i].product_price;
                         obj.product_quantity =  products[i].product_quantity;
                         obj.bill_product_number = products[i].bill_product_id
@@ -599,10 +329,25 @@ $scope.load =
 .controller("finishCreateSaleCtrl", function($http,$localStorage, $q,$location,
                                              $timeout,toastr,$route, $scope){
         $scope.user = $localStorage.customer;
+        console.log('customer is ', $localStorage.customer)
         $scope.selectedProductsList = $localStorage.selectedItems
-        $scope.total_price = $localStorage.total_price;
+
         $scope.total_quantity = $localStorage.total_quantity;
         $scope.amount_paid = $localStorage.amount_paid;
+        $scope.vat = $localStorage.vat;
+
+        $scope.vehicle_number = $localStorage.vehicle_number
+        $scope.contact_number = $localStorage.contact_number
+        $scope.remarks = $localStorage.remarks
+
+
+
+        $scope.total_price = $localStorage.total_price;
+
+        $scope.vat_money = ($scope.vat/100)*$scope.total_price
+
+        $scope.total_price += ($scope.vat/100)*$scope.total_price
+
         $scope.due = $scope.total_price - $scope.amount_paid;
 
         $scope.saveBill = function(){
@@ -611,9 +356,15 @@ $scope.load =
                 'products': $scope.selectedProductsList,
                 'total_price': $scope.total_price,
                 'total_quantity': $scope.total_quantity,
+                'vat_percentage': $scope.vat,
+                'vat_money': $scope.vat_money,
                 'amount_paid': $scope.amount_paid,
                 'due': $scope.due,
-                'customerId': $scope.user.userid
+                'customerId': $scope.user.userid,
+                'bill_date': $localStorage.bill_date,
+                'remarks': $scope.remarks,
+                'contact_number': $scope.contact_number,
+                'vehicle_number': $scope.vehicle_number
             }
 
             $scope.load =
@@ -676,15 +427,15 @@ $scope.load =
 
 	$scope.load = $http({
 	  		method: 'GET',
-			  url: '/superuser/customers-list',
+			  url: '/superuser/persons-list/customer',
 			}).then(function (response)
 				{
 		    		$scope.userslist = [];
-		    		var usersdata = JSON.parse(response.data.userdata);
+		    		var usersdata = response.data.userdata;
 		    		$.each(usersdata, function(i){
                         var obj = {};
-                        obj.userid = usersdata[i].userid;
-                        obj.username = String(usersdata[i].firstname)+ " "  + String(usersdata[i].lastname);
+                        obj.userid = usersdata[i].user_id;
+                        obj.username = usersdata[i].name;
                         obj.address =  usersdata[i].address;
                         obj.phone = usersdata[i].phone;
                         $scope.userslist.push(obj);
@@ -808,37 +559,79 @@ $scope.load =
 .controller("enterQuantityPriceCtrl", function ($scope, $http, $q,$location,toastr,
                                         $timeout, $route, toastr, $localStorage){
         $scope.amount_paid = 0;
-        console.log('enter quantity and price ctrl')
+        $scope.vat = 0.0
         $scope.selectedProductsList = $localStorage.selectedItems
 
          var dt = $scope.selectedProductsList;
 
+          $timeout(function(){
+                $('#datepicker_sale_products_reports_1') .datepicker({
+                    format: 'dd/mm/yyyy',
+                    //startDate: new Date()
+                    //endDate: '01/12/2020'
+                })
+          },500)
+
+         var ids = []
          for(var j in dt){
-            console.log('selected item details', dt)
+            ids.push($scope.selectedProductsList[j]['id'])
             $scope.selectedProductsList[j]['quantity'] = '';
             $scope.selectedProductsList[j]['price'] = ''
+            $scope.selectedProductsList[j]['kgrate'] = ''
 
          }
-         console.log($scope.selectedProductsList)
+         console.log(ids, '=============')
+         $scope.load = $http({
+                      method: 'post',
+                      url: '/superuser/get_complete_stock_info',
+                      data: {'ids':ids},
+                      headers: {
+                        'Content-Type': 'application/json'}
+               }).then(function (response)
+                {   var data = response.data.data
+
+                    for(var i in data){
+                        for(var j in $scope.selectedProductsList){
+                            if($scope.selectedProductsList[j]['id'] == data[i]['id']){
+                                $scope.selectedProductsList[j]['avaible_stock'] = data[i]['available_stock']
+                                break;
+                            }
+                        }
+                    }
+
+
+                }, function errorCallback(response)
+                {
+                    toastr.error("user already exists!");
+                });
+
+
 
          $scope.submitRateQuantity = function(){
                 $localStorage.selectedItems =$scope.selectedProductsList
                 $localStorage.amount_paid = $scope.amount_paid;
+                $localStorage.vat = $scope.vat;
+                $localStorage.bill_date = $scope.bill_date
+                $localStorage.contact_number = $scope.contact_number
+                $localStorage.vehicle_number = $scope.vehicle_number
+                $localStorage.remarks = $scope.remarks
                 $location.path('/finsh-create-sale')
          }
-         $scope.calculateQuantity = function(){
+        $scope.calculateQuantity = function(){
+            console.log('calculating', $scope.selectedProductsList)
             var dt = $scope.selectedProductsList;
             $scope.total_quantity = 0;
+
              for(var j in dt){
                 if(dt[j].quantity > dt[j].avaible_stock){
                     toastr.error('stock not available.....')
                     dt[j].quantity = 0;
                     dt[j].price = 0;
-
                 }
                 $scope.total_quantity = $scope.total_quantity + $scope.selectedProductsList[j]['quantity'];
-                dt[j].price = dt[j].item_cost * dt[j].quantity
+
              }
+
             $localStorage.total_quantity = $scope.total_quantity;
             $scope.calculatePrice();
 
@@ -853,7 +646,9 @@ $scope.load =
              $localStorage.total_price = $scope.total_price;
          }
 
-         console.log(this.amount_paid, $scope.amount_paid)
+        
+
+
 
 })
 .controller("selectItemsController", function ($scope, $http, $q,$location,toastr,
@@ -869,29 +664,18 @@ $scope.load =
 
  $scope.load = $http({
                       method: 'get',
-                      url: '/superuser/stock-list',
+                      url: '/superuser/billing-stock-names',
                       headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'}
                }).then(function (response)
-                {   var data = JSON.parse(response.data.stockslist)
+                {   var data = response.data.stock_names
                     console.log(data)
                     $scope.input_temp_array = []
                     for(var i in data){
                         var obj = {}
-                        obj.name = data[i].fields.item_name
-                        obj.type = "--"+data[i].fields.item_type+"--"+data[i].fields.company_invoice_number
-
-                        obj.quantity_weight = data[i].fields.quantity_weight
-                        obj.quantity_weight_type = data[i].fields.quantity_type
-
-                        obj.item_cost_type = data[i].fields.rate_per_type
-                        obj.item_cost = data[i].fields.item_cost
-
-                        obj.avaible_stock = data[i].fields.available_stock
-
-
+                        obj.name = data[i].name
                         obj.ticked = false
-                        obj.id = data[i].pk
+                        obj.id = data[i].id
                         $scope.input_temp_array.push(obj)
                     }
 
@@ -905,137 +689,3 @@ $scope.load =
 
 })
 
-
-
-
-
-
-
-
-
-// ------------backup graph data --------------------
-// Get context with jQuery - using jQuery's .get() method.
-/*
-        var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
-        // This will get the first returned node in the jQuery collection.
-        var areaChart = new Chart(areaChartCanvas);
-        var areaChartOptions = {
-          //Boolean - If we should show the scale at all
-          showScale: true,
-          //Boolean - Whether grid lines are shown across the chart
-          scaleShowGridLines: true,
-          //String - Colour of the grid lines
-          scaleGridLineColor: "rgba(0,0,0,.05)",
-          //Number - Width of the grid lines
-          scaleGridLineWidth: 1,
-          //Boolean - Whether to show horizontal lines (except X axis)
-          scaleShowHorizontalLines: true,
-          //Boolean - Whether to show vertical lines (except Y axis)
-          scaleShowVerticalLines: true,
-          //Boolean - Whether the line is curved between points
-          bezierCurve: true,
-          //Number - Tension of the bezier curve between points
-          bezierCurveTension: 0.3,
-          //Boolean - Whether to show a dot for each point
-          pointDot: false,
-          //Number - Radius of each point dot in pixels
-          pointDotRadius: 4,
-          //Number - Pixel width of point dot stroke
-          pointDotStrokeWidth: 1,
-          //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-          pointHitDetectionRadius: 20,
-          //Boolean - Whether to show a stroke for datasets
-          datasetStroke: true,
-          //Number - Pixel width of dataset stroke
-          datasetStrokeWidth: 2,
-          //Boolean - Whether to fill the dataset with a color
-          datasetFill: true,
-          //String - A legend template
-          legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
-          //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-          maintainAspectRatio: true,
-          //Boolean - whether to make the chart responsive to window resizing
-          responsive: true
-        };
-
-        var areaChartData = {
-          labels: [],
-          datasets: [
-            {
-              label: "Total Sales",
-              fillColor: "rgba(210, 214, 222, 1)",
-              strokeColor: "rgba(210, 214, 222, 1)",
-              pointColor: "rgba(210, 214, 222, 1)",
-              pointStrokeColor: "#c1c7d1",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(220,220,220,1)",
-              data: []
-            },
-            {
-              label: "Paid Amounts",
-              fillColor: "rgba(60,141,188,0.9)",
-              strokeColor: "rgba(60,141,188,0.8)",
-              pointColor: "#3b8bba",
-              pointStrokeColor: "rgba(60,141,188,1)",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(60,141,188,1)",
-              data: []
-            },
-            {
-              label: "Due Amounts",
-              fillColor: "rgba(60,121,170,0.9)",
-              strokeColor: "rgba(60,108,188,0.8)",
-              pointColor: "#3b8bba",
-              pointStrokeColor: "rgba(60,141,188,1)",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(60,141,188,1)",
-              data: []
-            }
-          ]
-        };
-
-
-         $scope.load =
-         $http({
-              method: 'post',
-              url: '/superuser/get-graph-data',
-              data: {
-                    'paid_unpaid_month_wise': true
-              },
-              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-         }).then(function (response){
-            var data = response.data.stockslist
-            var months = [
-                'January',
-                'February',
-                'March',
-                'April',
-                'May',
-                'June',
-                'July',
-                'August',
-                'September',
-                'October',
-                'November',
-                'December'
-            ]
-            for(var j in months){
-                $.each(data, function(i){
-                        //console.log(data[i], months[j])
-                        if(data[i].month == months[j]){
-                            console.log('yes', data[i].month)
-                            areaChartData.labels.push(data[i].month)
-                            areaChartData.datasets[0].data.push(data[i].total_price)
-                            areaChartData.datasets[1].data.push(data[i].paid)
-                            areaChartData.datasets[2].data.push(data[i].due)
-
-                        }
-                })
-            }
-            console.log(areaChartData,'==================================')
-            areaChart.Line(areaChartData, areaChartOptions);
-
-         }, function(error){
-            console.log('error', error)
-
-         })*/

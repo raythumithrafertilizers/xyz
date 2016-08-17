@@ -4,12 +4,6 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <div class="row row-sides"> <!-- row start -->
-                <button type="button" ng-click="print_bill_info()"
-                        class="btn btn-primary btn-flat btn-on-app">
-                  Print Bill
-                </button>
-        </div> <!-- row end -->
 
       </h1>
     </section>
@@ -23,30 +17,19 @@
           <div class="box box-danger box-top-border">
             <div class="box-body box-body-print">
               <!-- start print bill start -->
-              <div class="row">
-                <div class="col-lg-3 col-md-3 col-xs-3 text-left">
-                  <h5>TIN No : 36292158448</h5>
-                  <h5>PL No : 20/2015</h5>
-                  <h5>SL No : RRD/21/JDA/2015/3714</h5>
-                  <h5>FL No : RRD/21/ADA/2015/16502</h5>
-                </div>
-                <div class="col-lg-6 col-md-6 col-xs-6 text-center print-heading">
-                  <h5><b>subject to vikarabad jurisdiction</b></h5>
-                  <p class="btn btn-bill">[[ bill_type_display ]] BILL</p>
-                  <h3><b>RAYTHU MITHRA FERTILIZERS</b></h3>
-                  <h4>PESTICIDES & SEEDS</h4>
-                  <h5>Shop No. 4-326, Vill, Thoramamidi, Mdl, Bantwaram, R.R. Dist. - 501142.</h5>
-                  <h4><b>రైతు మిత్ర ఫర్టిలైజర్స్  </b> - <span>తొరమామిడి </span></h4>
-                </div>
-                <div class="col-lg-3 col-md-4 col-xs-3 text-right">
-                  <h5>Cell : 9705163311</h5>
-                </div>
-              </div>
+
+
 
               <div class="row">
                 <div class="col-lg-6 text-left">
                   <h5 class="no">Bill No: <b>[[ bill_info.bill_id ]]</b></h5>
+
                 </div>
+
+
+
+
+
 
                 <div class="col-lg-6 text-right">
                   Date : <input type="text" class="date-item" value="[[ bill_info.bill_date |date ]]" ng-model="bill_info.bill_date"/>
@@ -59,6 +42,8 @@
                 </div>
               </div>
 
+
+
               <div class="row">
                 <div class="col-lg-12">
                   <div class="table-responsive-own">
@@ -70,22 +55,18 @@
                     <p>PARTICULARS.</p>
                   </th>
                   <!--<th class="text-center" style="width:50px">Stock Type.</th>-->
-                  <th class="text-center">Expired Date.</th>
-                  <th class="text-center" style="width:150px">Bt/Lot.No.</th>
-                  <th class="text-center">Qty.</th>
-                  <th class="text-center">Rate.</th>
-                  <th class="text-center">Rs.</th>
 
+                  <th class="text-center">Qty.</th>
+                  <th class="text-center">Rate Per Kg</th>
+                  <th class="text-center">Total Rate</th>
                 </tr>
 
                 <tr ng-repeat="product in bill_info.p_details" class="table-td">
                   <td><input type="text" value="[[ $index+1 ]]" class="enter-text" /></td>
                   <td><input type="text" value="[[ product.product_name ]]" ng-model="product.product_name" class="enter-text" /></p></td>
                   <!--<td><input type="text" value="[[ product.product_type ]]" ng-model="product.product_type" class="enter-text" /></td>-->
-                  <td><input type="text" value="[[ product.expired_date ]]" ng-model="product.expired_date" class="enter-text" /></td>
-                  <td><input type="text" value="[[ product.bt_no ]]" ng-model="product.bt_no" class="enter-text" /></td>
                   <td><input type="text" value="[[ product.total_quantity ]]" ng-model="product.total_quantity" class="enter-text" /></td>
-                  <td><input type="text" value="[[ product.single_price ]]" ng-model="product.single_price" class="enter-text" /></td>
+                  <td><input type="text" value="[[ product.kgrate ]]" ng-model="product.kgrate" class="enter-text" /></td>
                   <td><input type="text" value="[[ product.total_price ]]" ng-model="product.total_price"  class="enter-text" /></td>
                 </tr>
                 <tr class="table-space-first">
@@ -115,15 +96,21 @@
                 <tr style="border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;">
                   <td><input type="text" class="enter-text" /></td>
                   <td>
-                    <p><center><b style="font-size:15px;">Total</b>(including vat)</center></p>
+                    <p><center><b style="font-size:15px;">Total</b> Including vat [[bill_info.vat_percentage]] %([[ bill_info.vat_money ]] rupees) </center></p>
+                  </td>
+                  <td>
+                    <b style="font-size:15px;">
+                    <input type="text"
+                           value="[[ bill_info.total_quantity ]]"
+                           ng-model="bill_info.total_quantity"
+                           class="enter-text" /></b>
                   </td>
                   <td></td>
-                  <!--<td></td>-->
-                  <td></td>
-                  <td><b style="font-size:15px;">
-                    <input type="text" value="[[ bill_info.total_quantity ]]" ng-model="bill_info.total_quantity" class="enter-text" /></b></td>
-                  <td></td>
-                  <td><b style="font-size:15px;">
+
+
+                  <td>
+
+                    <b style="font-size:15px;">
                     <input type="text" value="[[ bill_info.total_price ]]" ng-model="bill_info.total_price" class="enter-text" /></b></td>
                 </tr>
 
@@ -133,21 +120,31 @@
               </div>
 
               <div class="row">
-                <div class="col-lg-3 col-md-3 col-xs-3">
-                  <img width="50" height="50" src="/static/images/poison.jpg" alt="">
-                    <span>రైతు సంతకం </span>
-                </div>
-                <div class="col-lg-6 col-md-6 col-xs-6 text-center">
-                  <h5>ఇది విషము అని నాకు తెలియును, వ్యవసాయ అవసర</h5>
-                  <h5><b>నిమిత్తమే కొనుగోలు తేయడమైనది </b></h5>
-                  <h5>Goods once sold will not be taken back.</h5>
-                </div>
-                <div class="col-lg-3 col-md-3 col-xs-3 text-center">
-                  <input type="text" class="Signature text-center"/>
-                  <h5><b>Signature</b></h5>
-                  <h5><b>RAYTHU MITHRA FERTILIZERS</b></h5>
+                <div class="col-lg-6 text-left">
+                    <h5 class="no">Contact Number: <b>
+                      [[ bill_info.contact_number ]]
+                    </b>
+                    </h5>
                 </div>
               </div>
+
+              <div class="row">
+                <div class="col-lg-6 text-left">
+                    <h5 class="no">Vehicle Number: <b>[[ bill_info.contact_number ]]</b></h5>
+                </div>
+              </div>
+
+
+
+              <div class="row">
+                <div class="col-lg-6 text-left">
+                    <h5 class="no">Remarks: <b>[[ bill_info.contact_number ]]</b></h5>
+                </div>
+              </div>
+
+
+
+
 
               <!-- start print bill end -->
             </div>

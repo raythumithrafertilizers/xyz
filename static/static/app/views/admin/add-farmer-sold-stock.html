@@ -1,0 +1,102 @@
+  <div class="content-wrapper" style="min-height: 946px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Create Store
+      </h1>
+      <!-- <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Forms</a></li>
+        <li class="active">General Elements</li>
+      </ol> -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box box-danger box-top-border">
+            <div class="box-body">
+            <form ng-submit="addFarmerSoldStock()" name="userForm">
+              <div class="row row-sides"> <!-- row start -->
+                <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" class="form-control" placeholder="quantity"
+                           ng-model="user.quantity" name="quantity"
+                           ng-class="{ 'has-error' : userForm.quantity.$invalid && !userForm.quantity.$pristine }"
+                           required>
+                    <p ng-show="userForm.quantity.$invalid && !userForm.quantity.$pristine"
+                       class="help-block">
+                      Quantity is required.
+                    </p>
+                  </div>
+                </div>
+
+                 <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Quality</label>
+                    <input type="number" class="form-control" placeholder="Quality"
+                           ng-model="user.quality" name="quality"
+                           ng-class="{ 'has-error' : userForm.quality.$invalid && !userForm.quality.$pristine }"
+                           required>
+                    <p ng-show="userForm.quality.$error.required && userForm.quality.$dirty" class="help-block">
+                      quality Number is required</p>
+
+                  </div>
+                </div>
+
+
+              </div> <!-- row end -->
+              <div class="row row-sides"> <!-- row start -->
+
+                 <div class="col-xs-12 col-lg-4">
+                  <div class="form-group">
+                    <label>Rate Per Ton</label>
+                    <input type="number" class="form-control" placeholder="Rate Per Ton" ng-model="user.rateperton"
+                           name="rateperton" ng-class="{ 'has-error' : userForm.rateperton.$invalid && !userForm.rateperton.$pristine }"
+                           required>
+
+                  </div>
+                </div>
+
+              <div class="col-xs-12 col-lg-12">
+               <div class="form-group text-center">
+                <label >Select Products</label>
+
+
+                <div isteven-multi-select
+                    input-model="input_temp_array"
+                    output-model="output_temp_array"
+                    button-label="name"
+                    item-label="name type"
+                    tick-property="ticked" class="input-drop">
+                </div>
+              </div>
+            </div>
+
+
+              </div> <!-- row end -->
+
+
+              <div class="row row-sides"> <!-- row start -->
+                <button type="submit" class="btn btn-primary btn-flat btn-on-app"
+                        ng-disabled="userForm.$invalid">Submit</button>
+              </div> <!-- row end -->
+
+            </form>
+            <!-- form end -->
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+
