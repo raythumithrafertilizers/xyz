@@ -3,11 +3,11 @@
  user="root"
  password="root"
  host="localhost"
- db_name="raythumithra"
+ db_name="kranthiagro"
 
 
 # Other options
- backup_path="/home/ubuntu/raythumithra/backup_scripts/database_backup"
+ backup_path="/home/ubuntu/xyz/backup_scripts/database_backup"
  date=$(date +"%d-%b-%Y")
 
 # Set default file permissions
@@ -20,13 +20,7 @@
 # Delete files older than 30 days
  find $backup_path/* -mtime +30 -exec rm {} \;
 
-python /home/ubuntu/raythumithra/backup_scripts/backup.py config_file.json database_backup/$db_name.sql
-
-zip -r /home/ubuntu/raythumithra/backup_scripts/backup_bills/bill_images.zip /home/ubuntu/raythumithra/static/static/uploads
-
-python /home/ubuntu/raythumithra/backup_scripts/backup.py config_file2.json backup_bills/bill_images.zip
+python /home/ubuntu/xyz/backup_scripts/backup.py config_file.json database_backup/$db_name.sql
 
 
-rm -rf /home/ubuntu/raythumithra/backup_scripts/backup_bills/*
-
-rm -rf /home/ubuntu/raythumithra/backup_scripts//database_backup/*
+rm -rf /home/ubuntu/xyz/backup_scripts/database_backup/*

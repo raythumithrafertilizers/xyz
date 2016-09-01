@@ -16,6 +16,9 @@ mysql  Ver 14.14 Distrib 5.5.49, for debian-linux-gnu (x86_64)
 
 sudo pip install django==1.8.5
 sudo pip install django-crontab
+sudo pip install djangorestframework
+sudo pip install PyJwt
+
 
 
 to setup google drive upload follow below statements

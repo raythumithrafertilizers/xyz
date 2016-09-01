@@ -3,7 +3,7 @@ sudo pip install django==1.8.5
 sudo pip install djangorestframework
 sudo pip install django-cors-headers
 sudo pip install django-cron
-
+sudo apt-get install python-mysqldb
 sudo apt-get update
 sudo apt-get install mysql-server
 sudo pip install MySQL-python

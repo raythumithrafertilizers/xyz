@@ -1,7 +1,7 @@
 {
-    "service_account":"raythumithra-service-account@artful-mystery-129107.iam.gserviceaccount.com",
-    "private_key12_path":"raythumithra.p12",
-    "backup_folder_id":"0B0BZOnZkuhDxT2NDVU5CUW50dWM",
-    "description" : "database backup of raythumithra data",
+    "service_account":"kranthiagro@kranthiagro-140903.iam.gserviceaccount.com",
+    "private_key12_path":"kranthiagro-5bb7d1cfe449.p12",
+    "backup_folder_id":"0B2ro7OVWG-SrN2pUQ21CbmJjeVU",
+    "description" : "database backup of kranthi agro data",
     "max_file_in_folder": 100
 }
