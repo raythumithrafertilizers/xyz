@@ -6,14 +6,24 @@ angular.module("App")
     $scope.load =
          $http({
               method: 'post',
-              url: '/superuser/get-specific-customer-payments',
+              url: '/superuser/get-specific-person-payments',
               data: {
-                    'customer_id': $routeParams.customer_id,
-                    'get_data': true
+                    'person_id': $routeParams.person_id,
+                    'get_data': true,
+                    'person_type': 'customer'
                     },
               headers: {'Content-Type': 'application/x-www-form-urlencoded'}
          }).then(function (response){
             $scope.payments =  response.data.response
+
+            for(var i in $scope.payments){
+                   console.log()
+                 var pda= $scope.payments[i].fields.paid_date.split("-")
+                 var converted_date = pda[2]+"/"+pda[1]+"/"+pda[0]
+                 $scope.payments[i].fields.paid_date = converted_date;
+
+            }
+
             $timeout(function(){
                 $("#example1").DataTable();
             },500)
@@ -29,16 +39,23 @@ angular.module("App")
     }
 
     $scope.updatePayment = function(){
+
+         var pda= $scope.amount.details.fields.paid_date.split("-")
+         var converted_date = pda[2]+"/"+pda[1]+"/"+pda[0]
+
         $scope.load = $http({
             method: 'post',
-            url: '/superuser/get-specific-customer-payments',
+            url: '/superuser/get-specific-person-payments',
             data: {
                     'get_data': false,
                     'id': $scope.amount.details.pk,
-                    'paid_amount':$scope.amount.details.fields.paid_amount
-                  },
+                    'amount':$scope.amount.details.fields.amount,
+                    'paid_date': $scope.amount.details.fields.paid_date,
+                    'remarks': $scope.amount.details.fields.remarks,
+            },
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'}
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
         }).then(function successCallback(response){
                     toastr.success('successfully saved')
                     $("#amountEditPopUp").modal("hide");
@@ -51,49 +68,55 @@ angular.module("App")
     }
 
     $scope.editPayment = function(customer){
-        $location.path("/customer-payments/"+customer.customer_id)
+        $location.path("/customer-payments/"+customer.user_id)
     }
+
 })
 .controller("customerPaymentsCtrl", function($http, $q,$location, $timeout,toastr,$route, $scope){
-    console.log('customerPaymentsCtrl')
     $scope.amount = {}
     $scope.amount.enter_amount = 0
 
     $scope.load =
          $http({
-              method: 'post',
-              url: '/superuser/get-graph-data',
-              data: {
-                    'customers_credit_debit': true
-              },
+              method: 'GET',
+              url: '/superuser/persons-list/customer',
+
               headers: {'Content-Type': 'application/x-www-form-urlencoded'}
          }).then(function (response){
-            console.log('bills information', response)
+            console.log('farmers  information', response)
             $timeout(function(){
                 $("#example1").DataTable();
             },500)
-            $scope.customer_pay_info = response.data.bills
+            $scope.customer_pay_info = response.data.userdata
             console.log($scope.customer_pay_info)
          }, function(error){
             console.log('hellow')
          })
 
     $scope.showPopUp = function(customer){
-        console.log(customer, '-------------')
         $scope.amount.enter_amount = 0
         $scope.current_customer = customer
         $("#amountEditPopUp").modal("show");
     }
 
+     $timeout(function(){
+            $('#datepicker_sale_products_reports_1') .datepicker({
+                format: 'dd/mm/yyyy',
+                //startDate: new Date()
+                //endDate: '01/12/2020'
+            })
+        },500)
+
     $scope.addPayment = function(){
-        console.log($scope.amount.enter_amount, $scope.current_customer.customer_id)
+        console.log($scope.amount.enter_amount, $scope.current_customer.user_id)
         $scope.load = $http({
             method: 'post',
-            url: '/superuser/add-payment',
+            url: '/superuser/add-person-amount',
             data: {
-                    'customer_id': $scope.current_customer.customer_id,
+                    'person_id': $scope.current_customer.user_id,
                     'paid_amount':$scope.amount.enter_amount,
-                    'status':'all_customers',
+                    'paid_date':$scope.amount.paid_date,
+                    'remarks':$scope.amount.remarks,
                   },
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'}
@@ -109,7 +132,7 @@ angular.module("App")
     }
 
     $scope.editPayment = function(customer){
-        $location.path("/customer-payments/"+customer.customer_id)
+        $location.path("/customer-payments/"+customer.user_id)
     }
 
 })

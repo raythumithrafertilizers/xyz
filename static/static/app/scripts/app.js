@@ -456,7 +456,7 @@ App.config(function($routeProvider, $authProvider) {
 
 
 
-          .when('/customer-payments/:customer_id', {
+          .when('/customer-payments/:person_id', {
             templateUrl: '/static/app/views/admin/specific-customer-payments.html',
             controller: "specificCustomerPaymentsCtrl",
             resolve: {

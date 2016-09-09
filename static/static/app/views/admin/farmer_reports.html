@@ -33,13 +33,17 @@
         </div> <!-- row end -->
         <section class="content-header">
           <h1>
-            Farmer Purchase Report
-            <a href="#/download-farmer-reports/1">
-              Download
-            </a>
+            Farmer Name :: [[ farmer_name]]
+
           </h1>
         </section>
 
+        <section class="content-header">
+          <h1>
+            Total Due ::[[ farmer_due ]]
+
+          </h1>
+        </section>
 
 
         <!-- Main content -->
@@ -53,28 +57,20 @@
                     <thead>
                       <tr>
                         <th>date</th>
-                        <th>farmer name</th>
-                        <th>rate/ton of farmer</th>
+                        <th>particular or remarks</th>
+                        <th>quantity</th>
                         <!--<th>rate/ton of harvester</th>-->
-                        <th>Total Quantity</th>
-                        <th>Total Quality</th>
-                        <th>Value</th>
-                        <th>Advance</th>
-                        <th>Due</th>
+                        <th>value</th>
+
                       </tr>
                     </thead>
                     <tbody>
                       <tr ng-repeat = "farmer in specific_farmer_data">
 
-                        <td>[[farmer.created_date | date]] </td>
-                        <td>[[farmer.name]] </td>
-                        <td> [[farmer.farmer_rate_per_ton]]</td>
-                        <!--<td> [[farmer.harvester_rate_per_ton]]</td>-->
+                        <td>[[farmer.date | date]] </td>
+                        <td>[[farmer.particulars_remarks]] </td>
                         <td> [[farmer.quantity]]</td>
-                        <td> [[farmer.quality]]</td>
-                        <td> [[farmer.main_payment]]</td>
-                        <td> [[farmer.main_advance]]</td>
-                        <td>[[(farmer.main_payment) - (farmer.main_advance)]]</td>
+                        <td> [[farmer.value]]</td>
 
 
                       </tr>
@@ -96,7 +92,7 @@
 
         <section class="content-header">
           <h1>
-            Credit Debit Farmers
+            Credit
             <a href="#/download-farmer-reports/2">
               Download
             </a>
@@ -115,19 +111,18 @@
                   <table id="example1_modify_stock1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>Farmer Name</th>
-                        <th>Value To Be Supplied</th>
-                        <th>Total Advance Paid</th>
-                        <th>Due</th>
+                        <th>date</th>
+                        <th>particular or remarks</th>
+                        <th>value</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr ng-repeat = "farmer in all_farmers">
 
-                        <td>[[farmer.name]] </td>
-                        <td>[[farmer.total_payment]]</td>
-                        <td> [[farmer.advance]]</td>
-                        <td>[[farmer.due]]</td>
+                        <td>[[farmer.date | date ]] </td>
+                        <td>[[farmer.particular_remarks]]</td>
+                        <td> [[farmer.value]]</td>
+
                       </tr>
                     </tbody>
                   </table>
@@ -146,7 +141,7 @@
 
         <section class="content-header">
           <h1>
-            Farmers In Debit
+            All Farmer Dues
             <a href="#/download-farmer-reports/3">
               Download
             </a>

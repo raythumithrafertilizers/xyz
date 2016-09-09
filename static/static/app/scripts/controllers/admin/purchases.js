@@ -78,8 +78,9 @@ angular.module("App")
                                 $scope.user['farmer_total_payment'] = basic_info['farmer_amount']
                                 $scope.user['farmer_advance'] = basic_info['farmer_advance']
                                 $scope.user['miscellaneous_detections'] = basic_info['miscellaneous_detections']
-                                $scope.user['need_to_append'] = basic_info['need_to_append']
+                                $scope.user['need_to_append'] = true
                                 $scope.user['stock_name'] = basic_info['stock_id']
+                                $scope.user['temp_stock_name'] = basic_info['stock_name']
 
 
 
@@ -293,7 +294,7 @@ angular.module("App")
 
 
         $scope.user.same_farmer_harvester = false
-        $scope.user.need_to_append = false;
+        $scope.user.need_to_append = true;
 
         $scope.calculate_final_total_mis_detections = function(){
             if($scope.user.farmer_total_payment && $scope.user.miscellaneous_detections){

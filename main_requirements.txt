@@ -1,0 +1,7 @@
+django==1.8.5
+djangorestframework
+django-cors-headers
+django-cron
+MySQL-python
+PyJwt
+google-api-python-client==1.4.2

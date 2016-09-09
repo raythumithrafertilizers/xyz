@@ -20,12 +20,12 @@
             <div class="col-xs-12 col-lg-4">
               <div class="form-group">
                 <label>Select Harvester</label><br/>
-                <select id="select_harvester"
-                       ng-change="selected_harvester()"
+                <select id="select_farmer"
+                       ng-change="selected_farmer()"
                        class="form-control"
-                        ng-model="selected_harvester_object"
+                        ng-model="selected_farmer_object"
                        ng-options="user.username for user in userslist"
-                       name="select_harvester">
+                       name="select_farmer">
                 </select>
 
               </div>
@@ -33,13 +33,17 @@
         </div> <!-- row end -->
         <section class="content-header">
           <h1>
-            Harvester Purchase Reports
-            <a href="#/download-harvester-reports/1">
-              Download
-            </a>
+            Harvester Name :: [[ farmer_name]]
+
           </h1>
         </section>
 
+        <section class="content-header">
+          <h1>
+            Total Due ::[[ farmer_due ]]
+
+          </h1>
+        </section>
 
 
         <!-- Main content -->
@@ -53,26 +57,20 @@
                     <thead>
                       <tr>
                         <th>date</th>
-                        <th>Harvester name</th>
-                        <th>rate/ton of harvester</th>
-                        <th>Total Quantity</th>
-                        <th>Total Quality</th>
-                        <th>Value</th>
-                        <th>Advance</th>
-                        <th>Due</th>
+                        <th>particular or remarks</th>
+                        <th>quantity</th>
+                        <!--<th>rate/ton of harvester</th>-->
+                        <th>value</th>
+
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat = "harvester in specific_harvester_data">
+                      <tr ng-repeat = "farmer in specific_farmer_data">
 
-                        <td>[[harvester.created_date | date]] </td>
-                        <td>[[harvester.name]] </td>
-                        <td> [[harvester.harvester_rate_per_ton]]</td>
-                        <td> [[harvester.quantity]]</td>
-                        <td> [[harvester.quality]]</td>
-                        <td> [[harvester.main_payment]]</td>
-                        <td> [[harvester.main_advance]]</td>
-                        <td>[[(harvester.main_payment) - (harvester.main_advance)]]</td>
+                        <td>[[farmer.date | date]] </td>
+                        <td>[[farmer.particulars_remarks]] </td>
+                        <td> [[farmer.quantity]]</td>
+                        <td> [[farmer.value]]</td>
 
 
                       </tr>
@@ -94,8 +92,8 @@
 
         <section class="content-header">
           <h1>
-           Credit Debit Harvesters
-            <a href="#/download-harvester-reports/2">
+            Credit
+            <a href="#/download-farmer-reports/2">
               Download
             </a>
           </h1>
@@ -113,19 +111,18 @@
                   <table id="example1_modify_stock1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>Harvester Name</th>
-                        <th>Total Harvesting Value</th>
-                        <th>Total Advance</th>
-                        <th>Due</th>
+                        <th>date</th>
+                        <th>particular or remarks</th>
+                        <th>value</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat = "harvester in all_harvesters">
+                      <tr ng-repeat = "farmer in all_farmers">
 
-                        <td>[[harvester.name]] </td>
-                        <td>[[harvester.total_payment]]</td>
-                        <td> [[harvester.advance]]</td>
-                        <td>[[harvester.due]]</td>
+                        <td>[[farmer.date | date ]] </td>
+                        <td>[[farmer.particular_remarks]]</td>
+                        <td> [[farmer.value]]</td>
+
                       </tr>
                     </tbody>
                   </table>
@@ -144,8 +141,8 @@
 
         <section class="content-header">
           <h1>
-            In Debit Harvesters
-            <a href="#/download-harvester-reports/3">
+            All Harvester Due
+            <a href="#/download-farmer-reports/3">
               Download
             </a>
           </h1>
@@ -162,25 +159,31 @@
                   <table id="example1_modify_stock2" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>Harvester Name</th>
+                        <th>Farmer Name</th>
                         <th>Due</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat = "harvester in borrowers">
+                      <tr ng-repeat = "farmer in borrowers">
 
-                        <td>[[harvester.name]] </td>
-                        <td>[[harvester.due]]</td>
+                        <td>[[farmer.name]] </td>
+                        <td>[[farmer.due]]</td>
                       </tr>
                     </tbody>
                   </table>
+
+
+
                   </div>
                   <!-- /.box-body -->
+
+
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->
           </div><!-- /.row -->
         </section><!-- /.content -->
+
       </div><!-- /.content-wrapper -->
     <script>
       $(function () {

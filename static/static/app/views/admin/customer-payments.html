@@ -3,9 +3,10 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            View or Delete Customers
+            View or Delete Customer Payments
           </h1>
         </section>
+
 
         <!-- Main content -->
         <section class="content">
@@ -17,22 +18,18 @@
                     <thead>
                       <tr>
                         <th>Customer Name</th>
-                        <th>Total Purchased Amount</th>
-                        <th>Paid</th>
-                        <th>Due</th>
-
+                        <th>Customer Phone</th>
+                        <th>Customer Address</th>
                         <th>Add Amount</th>
                         <th>Edit Amounts</th>
-
                       </tr>
                     </thead>
                     <tbody>
                       <tr ng-repeat = "customer in customer_pay_info">
                         <td>[[customer.name]]</td>
+                        <td>[[customer.phone]]</td>
+                        <td>[[customer.address]]</td>
 
-                        <td>[[customer.total_price]]</td>
-                        <td>[[customer.paid]]</td>
-                        <td>[[customer.due]]</td>
 
                         <td>
                           <div class="row">
@@ -61,6 +58,20 @@
                                                 <input type="text" ng-model="amount.enter_amount">
                                               </td>
                                             </tr>
+                                            <tr>
+                                              <td>Enter Date(<b>DD/MM/YYYY</b>): </td>
+                                              <td>
+                                                <input type="text" class="form-control" placeholder="Paid Date " ng-model="amount.paid_date" name="amount.paid_date">
+                                              </td>
+                                            </tr>
+
+                                            <tr>
+                                              <td>Remarks</td>
+                                              <td>
+                                                <input type="text" ng-model="amount.remarks">
+                                              </td>
+                                            </tr>
+
 
                                           </tbody>
                                         </table>

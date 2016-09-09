@@ -37,11 +37,16 @@ class Expenditures(models.Model):
 class Person(models.Model):
 	name = models.CharField(max_length=400)
 	created_date = models.DateTimeField(null=True, auto_now_add=True)
-	phone = models.CharField(max_length=100)
+	phone = models.CharField(max_length=100, default='', null=True)
 	person_type = models.CharField(max_length=200)
 	isActive = models.BooleanField(default=True)
-	address = models.TextField()
+	address = models.TextField(default='')
 	advance_details = models.ManyToManyField(AdvanceDetails)
+
+
+class StockNames(models.Model):
+	name = models.CharField(max_length=500)
+	isActive = models.BooleanField(default=True)
 
 
 class SoldStockDetails(models.Model):
@@ -51,23 +56,20 @@ class SoldStockDetails(models.Model):
 
 	farmer_rate_per_ton = models.FloatField(default=0.0)
 	farmer_payment = models.FloatField(default=0.0)
-	farmer_advance = models.FloatField(default=0.0)
 
 	harvester_payment = models.FloatField(default=0.0)
-	harvester_advance = models.FloatField(default=0.0)
 	harvester_rate_per_ton = models.FloatField(default=0.0)
 
 	created_date = models.DateField(default=datetime.now().date())
-	farmer = models.ForeignKey(Person, related_name="farmer_data")
-	harvester = models.ForeignKey(Person, related_name="harvester_data")
+	farmer = models.ForeignKey(Person, related_name="farmer_data", default='')
+	harvester = models.ForeignKey(Person, related_name="harvester_data", default='')
 	remarks = models.TextField(default='')
+	stock_object = models.ForeignKey(StockNames, default='', null=True)
+
 
 	miscellaneous_detections = models.FloatField(default=0.0)
 
 
-class StockNames(models.Model):
-	name = models.CharField(max_length=500)
-	isActive = models.BooleanField(default=True)
 
 
 class StockDetails(models.Model):

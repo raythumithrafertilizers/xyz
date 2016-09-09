@@ -388,7 +388,7 @@ angular.module("App")
 
 
 .controller("farmerReport", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
-
+    $scope.farmer_name = ''
 
     $scope.load = $http({
 	  		method: 'GET',
@@ -416,6 +416,8 @@ angular.module("App")
         var farmer_id = false
         if($scope.selected_farmer_object){
             farmer_id = $scope.selected_farmer_object.user_id
+            $scope.farmer_name = $scope.selected_farmer_object.username
+
         }
 
         // getting former sold details
@@ -438,9 +440,15 @@ angular.module("App")
                     console.log(response, 'report data is')
                     $scope.stock_data = [];
                     console.log(response.data)
-                    $scope.borrowers = response.data.all_borrowers
-                    $scope.all_farmers = response.data.all_farmers
-                    $scope.specific_farmer_data = response.data.specific_farmer_data
+                    $scope.borrowers = response.data.specific_farmer_data
+                    for(var t in $scope.borrowers){
+                        console.log($scope.borrowers[t].farmer_name, $scope.farmer_name)
+                        if($scope.borrowers[t].name == $scope.farmer_name){
+                            $scope.farmer_due = $scope.borrowers[t]['due']
+                        }
+                    }
+                    $scope.all_farmers = response.data.credits
+                    $scope.specific_farmer_data = response.data.debits
                     $timeout(function(){
                             $("#example1_modify_stock").DataTable();
                     },500)
@@ -504,6 +512,8 @@ angular.module("App")
 
 
 
+    $scope.farmer_name = ''
+
     $scope.load = $http({
 	  		method: 'GET',
 			  url: '/superuser/persons-list/harvester',
@@ -526,10 +536,12 @@ angular.module("App")
 		    		console.log(response);
 				});
 
-    $scope.selected_harvester = function(){
-        var harvester_id = false
-        if($scope.selected_harvester_object){
-            harvester_id = $scope.selected_harvester_object.user_id
+    $scope.selected_farmer = function(){
+        var farmer_id = false
+        if($scope.selected_farmer_object){
+            farmer_id = $scope.selected_farmer_object.user_id
+            $scope.farmer_name = $scope.selected_farmer_object.username
+
         }
 
         // getting former sold details
@@ -542,19 +554,25 @@ angular.module("App")
         }else{
             $scope.load = $http({
             method: 'POST',
-              url: '/superuser/harvesters-report',
+              url: '/superuser/harvesters-reports',
               data: {
                     'start_date': $scope.start_date,
                     'end_date':$scope.end_date,
-                    'harvester_id': harvester_id
+                    'farmer_id': farmer_id
               }
             }).then(function (response){
                     console.log(response, 'report data is')
                     $scope.stock_data = [];
                     console.log(response.data)
-                    $scope.borrowers = response.data.all_borrowers
-                    $scope.all_harvesters = response.data.all_harvesters
-                    $scope.specific_harvester_data = response.data.specific_harvester_data
+                    $scope.borrowers = response.data.specific_farmer_data
+                    for(var t in $scope.borrowers){
+                        console.log($scope.borrowers[t].farmer_name, $scope.farmer_name)
+                        if($scope.borrowers[t].name == $scope.farmer_name){
+                            $scope.farmer_due = $scope.borrowers[t]['due']
+                        }
+                    }
+                    $scope.all_farmers = response.data.credits
+                    $scope.specific_farmer_data = response.data.debits
                     $timeout(function(){
                             $("#example1_modify_stock").DataTable();
                     },500)
@@ -583,7 +601,7 @@ angular.module("App")
             return false;
         }else{
             if(s_split.length >= 3 && e_split.length >= 3){
-                $scope.selected_harvester();
+                $scope.selected_farmer()
             }
 
         }
@@ -612,13 +630,14 @@ angular.module("App")
 
     $scope.check_dates();
 
-
 })
 .controller("customerReport", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
 
-        $scope.load = $http({
+    $scope.farmer_name = ''
+
+    $scope.load = $http({
 	  		method: 'GET',
 			  url: '/superuser/persons-list/customer',
 			}).then(function (response)
@@ -640,10 +659,12 @@ angular.module("App")
 		    		console.log(response);
 				});
 
-    $scope.selected_customer = function(){
-        var customer_id = false
-        if($scope.selected_customer_object){
-            customer_id = $scope.selected_customer_object.user_id
+    $scope.selected_farmer = function(){
+        var farmer_id = false
+        if($scope.selected_farmer_object){
+            farmer_id = $scope.selected_farmer_object.user_id
+            $scope.farmer_name = $scope.selected_farmer_object.username
+
         }
 
         // getting former sold details
@@ -656,19 +677,25 @@ angular.module("App")
         }else{
             $scope.load = $http({
             method: 'POST',
-              url: '/superuser/customers-report/',
+              url: '/superuser/customers-reports',
               data: {
                     'start_date': $scope.start_date,
                     'end_date':$scope.end_date,
-                    'customer_id': customer_id
+                    'farmer_id': farmer_id
               }
             }).then(function (response){
                     console.log(response, 'report data is')
                     $scope.stock_data = [];
                     console.log(response.data)
-                    $scope.borrowers = response.data.all_borrowers
-                    $scope.all_customers = response.data.all_customers
-                    $scope.specific_bill_data = response.data.specific_bill_data
+                    $scope.borrowers = response.data.specific_farmer_data
+                    for(var t in $scope.borrowers){
+                        console.log($scope.borrowers[t].farmer_name, $scope.farmer_name)
+                        if($scope.borrowers[t].name == $scope.farmer_name){
+                            $scope.farmer_due = $scope.borrowers[t]['due']
+                        }
+                    }
+                    $scope.all_farmers = response.data.credits
+                    $scope.specific_farmer_data = response.data.debits
                     $timeout(function(){
                             $("#example1_modify_stock").DataTable();
                     },500)
@@ -696,9 +723,8 @@ angular.module("App")
             toastr.error('start date must less than end date')
             return false;
         }else{
-
             if(s_split.length >= 3 && e_split.length >= 3){
-                $scope.selected_customer()
+                $scope.selected_farmer()
             }
 
         }
@@ -726,7 +752,6 @@ angular.module("App")
     }
 
     $scope.check_dates();
-
 })
 .controller("labourReport", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 

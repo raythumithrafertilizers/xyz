@@ -43,10 +43,10 @@
                 <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
                     <label>Contact Number</label>
-                    <input type="number" class="form-control" placeholder="Contact Number"
+                    <input type="text" class="form-control" placeholder="Contact Number"
                            ng-model="user.phone" name="phone"
                            ng-class="{ 'has-error' : userForm.phone.$invalid && !userForm.phone.$pristine }"
-                           ng-minlength="10" ng-maxlength="12" required>
+                           ng-minlength="10" ng-maxlength="12">
                     <p ng-show="userForm.phone.$error.required && userForm.phone.$dirty" class="help-block">
                       Phone Number is required</p>
                     <p class="help-block" ng-show="!userForm.phone.$error.required && (userForm.phone.$error.minlength || userForm.phone.$error.maxlength)">Phone Number must be minimum 10 characters.</p>
