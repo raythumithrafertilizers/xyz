@@ -162,7 +162,7 @@ var App = angular.module('App')
                 localStorage.removeItem("store_id")
                 localStorage.removeItem("customer_id")
                 $auth.logout();
-                $location.path('/')
+                $location.path('/create-purchase')
             }, function(error){
                 console.log('hellow')
             })

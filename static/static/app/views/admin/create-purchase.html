@@ -21,16 +21,7 @@
             <div class="box-body">
             <form ng-submit="createPurchaseItem()" name="userForm">
 
-              <div class="row row-sides"> <!-- row start -->
-                 <div class="col-xs-12 col-lg-4">
-                  <div class="form-group">
-                    <label>Farmer Harvester Same ?</label>
-                    <input type="checkbox" ng-model="user.same_farmer_harvester"
-                           ng-change="same_farmr_harvestr()"
-                           name="same_farmer_harvester">
-                  </div>
-                </div>
-              </div>
+
 
               <!--<div class="row row-sides"> &lt;!&ndash; row start &ndash;&gt;
                  <div class="col-xs-12 col-lg-4">
@@ -42,6 +33,29 @@
                 </div>
               </div>
 -->
+
+                <div class="col-md-12">
+                <!-- general form elements -->
+                <!--<div class="box ">-->
+                    <div class="box-body">
+                        <div class="row row-sides"> <!-- row start -->
+                            <div class="col-xs-12 col-lg-12">
+                               <div class="form-group text-center">
+                                <label >Select Farmer And Harvester</label>
+                                <div isteven-multi-select
+                                    input-model="input_temp_array"
+                                    output-model="output_temp_array"
+                                    button-label="name"
+                                    item-label="name type"
+                                    tick-property="ticked" class="input-drop">
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                <!--</div>-->
+              </div>
+
                 <div class="row row-sides" ng-show="user.need_to_append"> <!-- row start -->
                     <div class="col-xs-12 col-lg-4">
 
@@ -57,13 +71,28 @@
                         <p ng-show="userForm.storeid.$invalid && !userForm.storeid.$pristine" class="help-block">Store id is required.</p>-->
                       </div>
                     </div>
+                    <div class="col-xs-12 col-lg-4">
+
+                      <div class="form-group">
+                        <div class="row row-sides"> <!-- row start -->
+                             <div class="col-xs-12">
+                              <div class="form-group">
+                                <label>Farmer Harvester Same ?</label>
+                                <input type="checkbox" ng-model="user.same_farmer_harvester"
+                                       ng-change="same_farmr_harvestr()"
+                                       name="same_farmer_harvester">
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
                 </div>
 
 
               <div class="row row-sides"> <!-- row start -->
                 <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
-                    <label>Quantity(required)</label>
+                    <label>Quantity In Tons(required)</label>
                     <input type="text" class="form-control" placeholder="quantity"
                            ng-change="quantity_changed()"
                            ng-model="user.quantity" name="quantity"
@@ -106,7 +135,7 @@
                  <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
                     <label>Farmer Rate Per Ton(required)</label>
-                    <input type="number" class="form-control"
+                    <input type="text" class="form-control"
                            placeholder="Enter Rate Per Ton of Farmer" ng-model="user.farmer_rate_per_ton"
                            name="farmer_rate_per_ton"
                            ng-change="quantity_changed()"
@@ -120,7 +149,7 @@
                  <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
                     <label>Total Value</label>
-                    <input type="number" class="form-control"
+                    <input type="text" class="form-control"
                            placeholder="Enter Total Payment" ng-model="user.farmer_total_payment"
                            name="farmer_total_payment"
                            ng-change="calculate_final_total_mis_detections()"
@@ -132,7 +161,7 @@
 
                 <div class="col-xs-12 col-lg-4" >
                   <div class="form-group">
-                    <label>Farmer Amount Paid</label>
+                    <label>Amount Paid to Farmer</label>
                     <input type="text" class="form-control" placeholder="Enter Advance of Farmer" ng-model="user.farmer_advance"
                            name="farmer_advance" ng-class="{ 'has-error' : userForm.farmer_advance.$invalid && !userForm.farmer_advance.$pristine }"
                            >
@@ -196,34 +225,14 @@
 
                 <div class="col-xs-12 col-lg-4" ng-show="!user.same_farmer_harvester">
                   <div class="form-group">
-                    <label>Harvester Amount Paid</label>
+                    <label>Amount Paid to Harvester</label>
                     <input type="text" class="form-control" placeholder="Enter Advance of Harvester" ng-model="user.harvester_advance"
                            name="harvester_advance" ng-class="{ 'has-error' : userForm.harvester_advance.$invalid && !userForm.harvester_advance.$pristine }">
                   </div>
                 </div>
               </div> <!-- row end -->
 
-              <div class="col-md-12">
-                <!-- general form elements -->
-                <div class="box box-danger box-top-border">
-                    <div class="box-body">
-                        <div class="row row-sides"> <!-- row start -->
-                            <div class="col-xs-12 col-lg-12">
-                               <div class="form-group text-center">
-                                <label >Select Farmer And Harvester</label>
-                                <div isteven-multi-select
-                                    input-model="input_temp_array"
-                                    output-model="output_temp_array"
-                                    button-label="name"
-                                    item-label="name type"
-                                    tick-property="ticked" class="input-drop">
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              </div>
+
 
 
               <div class="row row-sides"> <!-- row start -->

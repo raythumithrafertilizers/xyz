@@ -33,8 +33,17 @@
         </div> <!-- row end -->
         <section class="content-header">
           <h1>
-            Stock Append Details
-            <a href="#/download-append-reports">
+            Stock Name: [[stock_name]]
+            <br/>
+            Remain Stock: [[remain]]
+
+          </h1>
+        </section>
+
+        <section class="content-header">
+          <h1>
+            Debit
+            <a href="#/download-append-reports" target="_blank">
               Download
             </a>
           </h1>
@@ -52,10 +61,11 @@
                   <table id="example1_modify_stock" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>created date</th>
-                        <th>stock name</th>
-                        <th>append count</th>
-                        <th>Total Stock</th>
+                        <th>date</th>
+                        <!--<th>stock name</th>-->
+                        <th>quantity</th>
+                        <!--<th>Total Stock</th>
+                        -->
                         <th>remarks</th>
 
                       </tr>
@@ -64,10 +74,65 @@
                       <tr ng-repeat = "temp in data">
 
                         <td>[[temp.create_date | date]] </td>
-                        <td>[[temp.stock_name]] </td>
+                        <!--<td>[[temp.stock_name]] </td>-->
                         <td> [[temp.append_count]]</td>
-                        <td> [[temp.total_stock]]</td>
+                        <!--<td> [[temp.total_stock]]</td>-->
                         <td>[[temp.remarks]]</td>
+
+
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+
+                  </div>
+
+
+
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+        <section class="content-header">
+          <h1>
+            Remaining Stock Report
+            <a href="#/download-remain-stock-reports" target="_blank">
+              Download
+            </a>
+          </h1>
+        </section>
+
+
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <div class="table-responsive-own">
+                  <table id="example1_modify_stock1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>stock name</th>
+                        <!--<th>stock name</th>-->
+                        <th>remaining count</th>
+                        <!--<th>Total Stock</th>
+                        -->
+                        <!--<th>remarks</th>-->
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "temp in remaining_all_stock">
+
+                        <!--<td>[[temp.create_date | date]] </td>
+                        --><!--<td>[[temp.stock_name]] </td>-->
+                        <td> [[temp.stock_name]]</td>
+                        <!--<td> [[temp.total_stock]]</td>-->
+                        <td>[[temp.available_stock]]</td>
 
 
                       </tr>

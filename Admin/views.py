@@ -254,47 +254,98 @@ class StockAppendReports(APIView):
 
             }
 
+            filter_args2 = {
+                '{0}__{1}'.format('create_date', 'gte'): datetime.datetime(int(divided_start_date[2]),
+                                                                           int(divided_start_date[1]),
+                                                                           int(divided_start_date[0])),
+                '{0}__{1}'.format('create_date', 'lte'): datetime.datetime(int(divided_end_date[2]),
+                                                                           int(divided_end_date[1]),
+                                                                           int(divided_end_date[0]), 23, 59, 59),
 
+            }
+
+            temp_data = []
+            stock_name = ""
+            remain_stock = ""
+            available_stock = []
             if 'stock_id' in body:
                 if body['stock_id']:
                     stock_name = StockNames.objects.get(id=body['stock_id'])
                     sold_stock_object = StockDetails.objects.get(item_name = stock_name)
+                    stock_name = stock_name.name
+                    remain_stock = sold_stock_object.available_stock
                     filter_args['stock'] = sold_stock_object
 
 
 
-            stocklist = AppendStockDetails.objects.filter(**filter_args)
+                    stocklist = AppendStockDetails.objects.filter(**filter_args)
 
 
-            # billing information of start end dates in main_data variable
+                    # billing information of start end dates in main_data variable
 
 
 
-            file_path = BASE_DIR + "/Admin/report_files/append_stock_reports.csv"
-            temp_data = []
+                    file_path = BASE_DIR + "/Admin/report_files/append_stock_reports.csv"
+
+                    with open(file_path, 'w') as csvfile:
+                        spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+
+                        spamwriter.writerow(["stock_name", stock_name])
+                        spamwriter.writerow(["Remaining Stock Count", remain_stock])
+                        spamwriter.writerow(["", ""])
+                        spamwriter.writerow(["", ""])
+
+                        spamwriter.writerow(["date", "quantity", "remarks"])
+
+                        for temp in stocklist:
+                                # increment advance due payment fields
+                                obj = {}
+                                obj['stock_name'] = temp.stock.item_name.name
+                                obj['remarks'] = temp.remarks
+                                obj['create_date'] = temp.create_date
+                                obj['append_count'] = temp.append_count
+                                obj['total_stock'] = temp.total_stock
+
+                                temp_data.append(obj)
+
+                                spamwriter.writerow([
+                                    obj['create_date'],
+                                    obj['append_count'],
+                                    obj['remarks']
+                                ])
+
+
+
+            file_path = BASE_DIR + "/Admin/report_files/append_all_stock_reports.csv"
+            sum_of_remaining = 0.0
             with open(file_path, 'w') as csvfile:
                 spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                spamwriter.writerow(["append_date", "stock_name" ,"append_count", "remarks"])
+                spamwriter.writerow([
+                    'stock_name',
+                    'remaining_stock'
+                ])
 
+                stocklist = StockDetails.objects.filter(**filter_args2)
                 for temp in stocklist:
-                        # increment advance due payment fields
-                        obj = {}
-                        obj['stock_name'] = temp.stock.item_name.name
-                        obj['remarks'] = temp.remarks
-                        obj['create_date'] = temp.create_date
-                        obj['append_count'] = temp.append_count
-                        obj['total_stock'] = temp.total_stock
+                    obj = {}
+                    obj['stock_name'] = temp.item_name.name
+                    obj['available_stock'] = temp.available_stock
+                    sum_of_remaining += float(temp.available_stock)
+                    available_stock.append(obj)
+                    spamwriter.writerow([
+                        obj['stock_name'],
+                        obj['available_stock']
 
-                        temp_data.append(obj)
+                    ])
 
-                        spamwriter.writerow([
-                            obj['create_date'],
-                            obj['stock_name'],
-                            obj['append_count'],
-                            obj['remarks']
-                        ])
+                spamwriter.writerow(["", sum_of_remaining])
 
-            return Response({"data": temp_data},status=200)
+
+            return Response({"data": temp_data,
+                             "remaining_all_stocks":available_stock,
+                             "stock_name": stock_name,
+                             "remain": remain_stock},status=200)
+
         except Exception as e:
             print e
             return Response({"stockslist": e}, status=200)
@@ -554,15 +605,6 @@ def ProductSaleDownloadView(request, status):
         status = int(status)
         print status
         if status == 1:
-            print status
-            name = BASE_DIR + "/Admin/report_files/each_product_sale_report.csv"
-            f = open(name, 'r')
-            myfile = File(f)
-            response = HttpResponse(myfile, content_type='application/csv')
-            response['Content-Disposition'] = 'attachment; filename=' + name
-
-            return response
-        if status == 2:
             name = BASE_DIR + "/Admin/report_files/customer_credits.csv"
             f = open(name, 'r')
             myfile = File(f)
@@ -581,6 +623,18 @@ def ProductSaleDownloadView(request, status):
 def AppendDownloadView(request):
     try:
         name = BASE_DIR + "/Admin/report_files/append_stock_reports.csv"
+        f = open(name, 'r')
+        myfile = File(f)
+        response = HttpResponse(myfile, content_type='application/csv')
+        response['Content-Disposition'] = 'attachment; filename=' + name
+        return response
+    except Exception as e:
+        print e
+        return HttpResponse('error')
+
+def AppendDownloadView2(request):
+    try:
+        name = BASE_DIR + "/Admin/report_files/append_all_stock_reports.csv"
         f = open(name, 'r')
         myfile = File(f)
         response = HttpResponse(myfile, content_type='application/csv')
@@ -720,6 +774,14 @@ class CustomersReport(APIView):
                     if temp.customer.id == specific_farmer_id:
                         if count == 0:
                             spamwriter.writerow(["Customer name", temp.customer.name])
+                            spamwriter.writerow([
+                                "",
+                                ""
+                            ])
+                            spamwriter.writerow([
+                                "",
+                                ""
+                            ])
                             spamwriter.writerow(["Date","Bill Number" , "Quantity", "Remarks", "Value"])
                             count += 1
                         obj = {}
@@ -751,28 +813,44 @@ class CustomersReport(APIView):
 
                         for temp in advances:
                             if temp.amount > 0:
-                                if count == 0:
-                                    obj = {}
+                                obj = {}
+                                obj['date'] = temp.paid_date
+                                obj['bill_number'] = " "
+                                obj['total_quantity'] = " "
+                                obj['total_price'] = temp.amount
+                                obj['remarks'] = temp.remarks
+                                specific_farmer_credits.append(obj)
+                                sum_of_credits_value += obj['total_price']
+                                spamwriter.writerow([
+                                    obj['date'],
+                                    " ",
+                                    " ",
+                                    obj['remarks'],
+                                    obj['total_price']
+                                ])
 
+                            elif temp.amount < 0 :
+                                print 'write debits.................', temp.amount
+                                if count == 0:
+                                    spamwriter2.writerow([
+                                        "customer name",
+                                        person.name
+                                    ])
+                                    spamwriter2.writerow([
+                                        "",
+                                        ""
+                                    ])
+                                    spamwriter2.writerow([
+                                        "",
+                                       ""
+                                    ])
+                                    spamwriter2.writerow([
+                                        "date",
+                                       "remarks",
+                                        "value"
+                                    ])
                                     count += 1
 
-                                    obj['date'] = temp.paid_date
-                                    obj['bill_number'] = " "
-                                    obj['total_quantity'] = " "
-                                    obj['total_price'] = temp.amount
-                                    obj['remarks'] = temp.remarks
-                                    specific_farmer_credits.append(obj)
-                                    sum_of_credits_value += obj['total_price']
-                                    spamwriter.writerow([
-                                        obj['date'],
-                                        " ",
-                                        " ",
-                                        obj['remarks'],
-                                        obj['total_price']
-                                    ])
-
-                            else:
-                                print 'write debits.................', temp.amount
                                 obj = {}
                                 obj['date'] = temp.paid_date
                                 obj['remarks'] = temp.remarks
@@ -819,6 +897,48 @@ class CustomersReport(APIView):
                         " ",
                         sum_of_credits_value
                     ])
+            all_keys = []
+            all_borrowers = []
+            sum_of_due = 0.0
+            farmer_keys = farmer_details.keys()
+            stock_keys = all_farmers_stock_values.keys()
+            all_keys.extend(farmer_keys)
+            all_keys.extend(stock_keys)
+
+            print 'all keys are ', all_keys
+
+            with open(sum_of_dues_file, 'w') as csvfile:
+                spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                spamwriter.writerow(["Customer Name", "due"])
+
+                for key in list(set(all_keys)):
+
+                    temp_dict = {}
+                    temp_dict['name'] = key
+                    temp_dict['due'] = 0.0
+
+                    if key in farmer_details:
+                        sum_of_due += farmer_details[key]
+                        temp_dict['due'] -= farmer_details[key]
+
+                    if key in all_farmers_stock_values:
+                        sum_of_due += all_farmers_stock_values[key]
+                        temp_dict['due'] -= all_farmers_stock_values[key]
+
+                    all_borrowers.append(temp_dict)
+                    spamwriter.writerow([
+                        temp_dict['name'],
+                        temp_dict['due']
+                    ])
+
+                spamwriter.writerow([
+                    "",
+                    ""
+                ])
+                spamwriter.writerow([
+                    "total",
+                    sum_of_due
+                ])
 
             return Response({"debits": specific_farmer_debits,
                              'credits': specific_farmer_credits,
@@ -871,8 +991,6 @@ class HarvestersReport(APIView):
                 farmer_details[harvester.name] = 0.0
                 for advance in advances:
                     farmer_details[harvester.name] += float(advance.amount)
-
-            print farmer_details,'***********'
 
             all_borrowers = []
             sum_of_due = 0.0
@@ -1322,89 +1440,71 @@ class Reports(APIView):
 
             divided_start_date = body['start_date'].split("/")
             divided_end_date = body['end_date'].split("/")
-
+            print 'stock is ', body['stock_id']
             # bill date must be between start and end date
+
+            stock_names_object = StockNames.objects.get(id = int(body['stock_id']))
+            stock_details_object = StockDetails.objects.get(item_name= stock_names_object)
             filter_args = {
-                '{0}__{1}'.format('bill_date', 'gte'): datetime.datetime(int(divided_start_date[2]),int(divided_start_date[1]), int(divided_start_date[0])),
-                '{0}__{1}'.format('bill_date', 'lte'): datetime.datetime(int(divided_end_date[2]),int(divided_end_date[1]),int(divided_end_date[0]), 23, 59, 59)
+                '{0}__{1}'.format('bill_date', 'gte'): datetime.datetime(int(divided_start_date[2]),
+                                                                         int(divided_start_date[1]),
+                                                                         int(divided_start_date[0])),
+                '{0}__{1}'.format('bill_date', 'lte'): datetime.datetime(int(divided_end_date[2]),
+                                                                         int(divided_end_date[1]),
+                                                                         int(divided_end_date[0]), 23, 59, 59),
+                '{0}__{1}'.format('products_list', 'product'): stock_details_object
             }
 
             stocklist = Billing.objects.filter(**filter_args)
-            if len(stocklist):
-                stockslist = serializers.serialize('json', stocklist)
+            info = {}
+            quantity_sum = 0.0
+            price_sum = 0.0
+            response = []
 
-                # billing information of start end dates in main_data variable
-                main_data = json.loads(stockslist)
-
-                result_products_list = []
-                types_data = {}
-
-                for temp in main_data:
-                    if(len(temp['fields']['products_list'])):
-                        products_data = ProductsList.objects.filter(id__in=temp['fields']['products_list'])
-                        products_data_temp = json.loads(serializers.serialize('json', products_data))
-                        customer_name = Person.objects.get(id = temp['fields']['customer']).name
-                        date_to_bill = str(temp['fields']['bill_date'])
-                        print customer_name, date_to_bill
-                        for tt in products_data_temp:
-
-                            temp_product = StockDetails.objects.select_related().filter(id = tt['fields']['product'])
-                            tt['fields']['specific_product_data'] = json.loads(serializers.serialize('json', temp_product))
-                            tt['fields']['specific_product_data'][0]['fields']['item_name'] =  temp_product[0].item_name.name
-                            if tt['fields']['specific_product_data'][0]['fields']['item_name'] in types_data:
-                                types_data[tt['fields']['specific_product_data'][0]['fields']['item_name']]['price'] += tt['fields']['price']
-                                types_data[tt['fields']['specific_product_data'][0]['fields']['item_name']]['quantity'] += tt['fields']['quantity']
-
-                            else:
-                                types_data[tt['fields']['specific_product_data'][0]['fields']['item_name']] = {}
-                                types_data[tt['fields']['specific_product_data'][0]['fields']['item_name']]['price'] = tt['fields']['price']
-                                types_data[tt['fields']['specific_product_data'][0]['fields']['item_name']]['quantity'] = tt['fields']['quantity']
-
-                                types_data[tt['fields']['specific_product_data'][0]['fields']['item_name']]['bill_date'] =  date_to_bill
-                                types_data[tt['fields']['specific_product_data'][0]['fields']['item_name']]['customer_name'] = customer_name
-
-
-
-
-                    temp['fields']['products_data'] = products_data_temp
-                    print temp['fields']['customer']
-
-
-                customer_aggregation = Billing.objects.filter(**filter_args).values('customer').annotate(total_price=Sum('total_price'),
-                                                            total_paid=Sum('total_paid'),
-                                                            due=Sum('due'))
+            for temp in stocklist:
+                product_info = temp.products_list.get(product=stock_details_object)
+                if temp.customer.name in info:
+                    info[temp.customer]['value'] += product_info.price
+                    info[temp.customer]['quantity'] += product_info.quantity
+                else:
+                    info[temp.customer.name] = {
+                        'quantity': product_info.quantity,
+                        'value': product_info.price
+                    }
+                quantity_sum += product_info.quantity
+                price_sum += product_info.price
 
                 file_path = BASE_DIR + "/Admin/report_files/customer_credits.csv"
                 with open(file_path, 'w') as csvfile:
                     spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                    spamwriter.writerow(["Customer Name", "Total Bill Amount", "Total Paid Amount", "Due"])
-                    for t in customer_aggregation:
-                        customer_details = Person.objects.get(id = int(t['customer']))
-                        t['customer_name'] = customer_details.name
-                        cpal = 0
-                        cp = customer_details.advance_details.all()
-                        scp = json.loads(serializers.serialize('json', cp))
-                        for tcp in scp:
-                            cpal += tcp['fields']['paid_amount']
-                            t['total_paid'] += cpal
-                            t['due'] -= cpal
-                        spamwriter.writerow([t['customer_name'],t['total_price'],t['total_paid'], t['due']])
+
+                    spamwriter.writerow(["Product Name", stock_names_object.name])
+
+                    spamwriter.writerow(["", ""])
+                    spamwriter.writerow(["", ""])
+                    spamwriter.writerow(["", ""])
+
+                    spamwriter.writerow(["Customer Name", "Weight", "Value"])
+                    for key in info.keys():
+                        obj = {}
+                        obj['customer_name'] = key
+                        obj['weight'] =  info[key]['quantity']
+                        obj['value'] = info[key]['value']
+                        response.append(obj)
+                        spamwriter.writerow([key,
+                                             obj['weight'],
+                                             obj['value']])
+                    spamwriter.writerow(["",
+                                     "",
+                                     ""])
+                    spamwriter.writerow(["",
+                                     quantity_sum,
+                                     price_sum])
 
 
-                file_path = BASE_DIR+"/Admin/report_files/each_product_sale_report.csv"
-                with open(file_path, 'w') as csvfile:
-                    spamwriter = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                    spamwriter.writerow(["Customer Name", "Bill Date", "Stock Name", "Sold Quantity", "Sold Price"])
-                    for key in types_data.keys():
-                        temp_dict = {}
-                        temp_dict['name'] = key
-                        temp_dict['price'] = types_data[key]['price']
-                        temp_dict['quantity'] = types_data[key]['quantity']
-                        temp_dict['customer_name'] = types_data[key]['customer_name']
-                        temp_dict['bill_date'] = types_data[key]['bill_date']
-                        spamwriter.writerow([temp_dict['customer_name'],temp_dict['bill_date'], key, types_data[key]['price'],types_data[key]['quantity']])
-                        result_products_list.append(temp_dict)
-                return Response({"stocks_list": result_products_list, 'customer_details': customer_aggregation, 'types_data': types_data}, status=200)
+
+
+                return Response({"stocks_list": response}, status=200)
             return Response({"stocks_list": [], 'customer_details': [], 'types_data': []},
             status=200)
         except Exception as e:

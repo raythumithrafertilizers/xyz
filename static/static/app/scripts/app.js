@@ -91,6 +91,18 @@ App.config(function($routeProvider, $authProvider) {
                 }
             })
 
+            .when('/download-remain-stock-reports', {
+                templateUrl: '/static/app/views/admin/download_temp.html',
+                controller: "downloadRemainAppendReports",
+                resolve: {
+                    authenticated: function($location, $auth) {
+                        if (!$auth.isAuthenticated()) {
+                            return $location.path('/');
+                        }
+                    }
+                }
+            })
+
             .when('/create-expenditure', {
                 templateUrl: '/static/app/views/admin/create_expenditure.html',
                 controller: "createExpenditureCtrl",
@@ -582,7 +594,7 @@ App.config(function($routeProvider, $authProvider) {
             resolve: {
                 authenticated: function($location, $auth) {
                     if ($auth.isAuthenticated()) {
-                        return $location.path('/billing-customers');
+                        return $location.path('/create-purchase');
                     }
                 }
             }

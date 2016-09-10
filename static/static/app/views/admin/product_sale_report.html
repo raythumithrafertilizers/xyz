@@ -17,12 +17,26 @@
 
               </div>
             </div>
+
+              <div class="col-xs-12 col-lg-4">
+              <div class="form-group">
+                <label>Select Stock Name</label><br/>
+                <select id="select_farmer"
+                       ng-change="selected_farmer()"
+                       class="form-control"
+                        ng-model="selected_stock_object"
+                       ng-options="stock.id as stock.name for stock in stock_names"
+                       name="select_farmer">
+                </select>
+
+              </div>
+            </div>
         </div> <!-- row end -->
         <section class="content-header">
           <h1>
             Each Product Sale Report
 
-            <a href="#/download-product-sale-reports/1">Download</a>
+            <a href="#/download-product-sale-reports/1" target="_blank">Download</a>
           </h1>
         </section>
 
@@ -40,7 +54,7 @@
                       <tr>
                         <th>bill date</th>
                         <th>customer name</th>
-                        <th>Stock name</th>
+                        <!--<th>Stock name</th>-->
                         <th>Sold Quantity</th>
                         <th>Sold Price</th>
 
@@ -49,11 +63,10 @@
                     </thead>
                     <tbody>
                       <tr ng-repeat = "stock in stock_data">
-                        <td>[[stock.bill_date]] </td>
                         <td>[[stock.customer_name]] </td>
-                        <td>[[stock.name]] </td>
-                        <td> [[stock.quantity]]</td>
-                        <td>[[stock.price]]</td>
+                        <!--<td>[[stock.name]] </td>-->
+                        <td> [[stock.weight]]</td>
+                        <td>[[stock.value]]</td>
 
 
                       </tr>
@@ -73,59 +86,6 @@
         </section><!-- /.content -->
 
 
-        <section class="content-header">
-          <h1>
-            Customers Purchase Amount Details
-            <a href="#/download-product-sale-reports/2">Download</a>
-          </h1>
-        </section>
-
-
-
-        <!-- Main content -->
-        <section class="content">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="box">
-                <div class="box-body">
-                  <div class="table-responsive-own">
-                  <table id="example1_modify_stock1" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th>Customer Name</th>
-                        <th>Total Advance Paid</th>
-                        <th>Amount Deposited</th>
-                        <th>Due</th>
-
-
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat = "customer in customer_data">
-
-                        <td>[[customer.customer_name]] </td>
-                        <td>[[customer.total_price]]</td>
-                        <td> [[customer.total_paid]]</td>
-                        <td>[[customer.due]]</td>
-
-
-                      </tr>
-                    </tbody>
-                  </table>
-
-
-
-                  </div>
-                  <!-- /.box-body -->
-
-
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-
-
-        </section><!-- /.content -->
 
       </div><!-- /.content-wrapper -->
     <script>

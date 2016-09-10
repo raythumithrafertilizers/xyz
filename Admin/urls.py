@@ -25,6 +25,8 @@ urlpatterns = patterns('Admin.views',
    #downloading urls
    url(r'^download-customers-report/(?P<status>\w{0,50})/$', CustomerDownloadView),
    url(r'^download-append-reports$', AppendDownloadView),
+
+    url(r'^download-remain-stock-reports$', AppendDownloadView2),
    url(r'^download-product-sale-report/(?P<status>\w{0,50})/$', ProductSaleDownloadView),
    url(r'^download-farmer-report/(?P<status>\w{0,50})/$', FarmerDownloadView),
    url(r'^download-harvester-report/(?P<status>\w{0,50})/$', HarvesterDownloadView),
