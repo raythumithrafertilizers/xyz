@@ -1,8 +1,10 @@
 stock_name,stock2
-Remaining Stock Count,2456.0
+Remaining Stock Count,3456.0
 ,
 ,
 date,quantity,remarks
 2016-10-05,100.0,farmer paid advance 900
 2016-09-28,2000.0,eeee
 2016-11-05,456.0,tyr
+2016-09-13,11.0,
+2016-08-30,1000.0,first append count to stock4

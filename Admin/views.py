@@ -2730,12 +2730,19 @@ class AppendStock(View):
 
             stock_name = StockNames.objects.get(id=int(body['stockdata']['stock_name']))
 
-            stock = StockDetails.objects.get(item_name = stock_name)
+            stock = StockDetails.objects.filter(item_name = stock_name)
 
-            if 'a_stock' in body['stockdata']:
-                stock.available_stock += float(body['stockdata']['a_stock'])
+            if len(stock):
+                stock = stock[0]
+                if 'a_stock' in body['stockdata']:
+                    stock.available_stock += float(body['stockdata']['a_stock'])
+                stock.save()
+            else:
+                if 'a_stock' in body['stockdata']:
+                    stock = StockDetails(item_name = stock_name,
+                                         available_stock = float(body['stockdata']['a_stock']))
+                    stock.save()
 
-            stock.save()
 
             append_stock_details = AppendStockDetails(stock=stock)
             if 'a_stock' in body['stockdata']:
@@ -2743,10 +2750,9 @@ class AppendStock(View):
             if 'remarks' in body['stockdata']:
                 append_stock_details.remarks = body['stockdata']['remarks']
             if 'creation_date' in body['stockdata']:
-                append_stock_details.create_date = datetime.datetime.strptime(str(body['stockdata']['creation_date']),"%d/%m/%Y").date()
+                append_stock_details.create_date = datetime.datetime.strptime(str(body['stockdata']['creation_date']),
+                                                                              "%d/%m/%Y").date()
             append_stock_details.save()
-
-
 
 
             return json_response({"err" : "stock saved successfully"}, status=200)

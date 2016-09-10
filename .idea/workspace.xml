@@ -2,24 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1fe5506-f1c1-4d33-bf3c-f0ec8571d8ca" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Admin/report_files/append_all_stock_reports.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Backup-To-Google-Drive" afterPath="$PROJECT_DIR$/Backup-To-Google-Drive" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/append_all_stock_reports.csv" afterPath="$PROJECT_DIR$/Admin/report_files/append_all_stock_reports.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/append_stock_reports.csv" afterPath="$PROJECT_DIR$/Admin/report_files/append_stock_reports.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/customer_credits.csv" afterPath="$PROJECT_DIR$/Admin/report_files/customer_credits.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/customer_debits.csv" afterPath="$PROJECT_DIR$/Admin/report_files/customer_debits.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/customer_dues_sum.csv" afterPath="$PROJECT_DIR$/Admin/report_files/customer_dues_sum.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/expenditure_reports.csv" afterPath="$PROJECT_DIR$/Admin/report_files/expenditure_reports.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/urls.py" afterPath="$PROJECT_DIR$/Admin/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/farmer_debits.csv" afterPath="$PROJECT_DIR$/Admin/report_files/farmer_debits.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/farmer_dues_sum.csv" afterPath="$PROJECT_DIR$/Admin/report_files/farmer_dues_sum.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/harvester_dues_sum.csv" afterPath="$PROJECT_DIR$/Admin/report_files/harvester_dues_sum.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/views.py" afterPath="$PROJECT_DIR$/Admin/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/index.html" afterPath="$PROJECT_DIR$/static/static/app/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/app.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/reports.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/reports.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/login.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/append_stock_report.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/append_stock_report.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/create-purchase.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/create-purchase.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/edit-purchases.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/edit-purchases.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/print-bill.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/print-bill.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/add-stock.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/add-stock.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/append_stock.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/append_stock.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/create_expenditure.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/create_expenditure.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/customer_reports.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/customer_reports.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/expenditure_reports.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/expenditure_reports.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/product_sale_report.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/product_sale_report.html" />
     </list>
     <ignored path="BaseModule.iws" />
@@ -44,8 +45,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Admin/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="28" column="40" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="40" />
+            <state relative-caret-position="177">
+              <caret line="57" column="37" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="37" />
               <folding>
                 <element signature="e#0#51#0" expanded="true" />
               </folding>
@@ -56,28 +57,68 @@
       <file leaf-file-name="reports.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/reports.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="281" column="70" selection-start-line="281" selection-start-column="70" selection-end-line="281" selection-end-column="70" />
+            <state relative-caret-position="-1044">
+              <caret line="966" column="66" selection-start-line="966" selection-start-column="66" selection-end-line="966" selection-end-column="66" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="customer_reports.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/customer_reports.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-19">
+              <caret line="155" column="65" selection-start-line="155" selection-start-column="65" selection-end-line="155" selection-end-column="65" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/static/app/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-813">
-              <caret line="280" column="0" selection-start-line="280" selection-start-column="0" selection-end-line="280" selection-end-column="0" />
+            <state relative-caret-position="235">
+              <caret line="242" column="24" selection-start-line="238" selection-start-column="16" selection-end-line="242" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="print-bill.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/print-bill.html">
+      <file leaf-file-name="edit_expenditures.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/edit_expenditures.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-171">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="create_expenditure.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/create_expenditure.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="53" column="55" selection-start-line="53" selection-start-column="55" selection-end-line="53" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="expenditure_reports.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/expenditure_reports.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="114">
-              <caret line="132" column="81" selection-start-line="132" selection-start-column="81" selection-end-line="132" selection-end-column="81" />
+              <caret line="36" column="67" selection-start-line="36" selection-start-column="67" selection-end-line="36" selection-end-column="67" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/static/app/scripts/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="353">
+              <caret line="596" column="63" selection-start-line="596" selection-start-column="63" selection-end-line="596" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -86,63 +127,18 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Admin/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="636" column="58" selection-start-line="636" selection-start-column="58" selection-end-line="636" selection-end-column="58" />
+            <state relative-caret-position="267">
+              <caret line="2742" column="41" selection-start-line="2742" selection-start-column="41" selection-end-line="2742" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Admin/models.py">
+      <file leaf-file-name="product_sale_report.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/product_sale_report.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="75" column="18" selection-start-line="75" selection-start-column="6" selection-end-line="75" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-                <marker date="1473474748975" expanded="true" signature="1344:1493" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/static/app/scripts/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="9" column="33" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="create-purchase.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/create-purchase.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="64">
-              <caret line="94" column="43" selection-start-line="94" selection-start-column="43" selection-end-line="94" selection-end-column="43" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="edit-purchases.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/edit-purchases.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/login.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2489">
-              <caret line="164" column="48" selection-start-line="164" selection-start-column="48" selection-end-line="164" selection-end-column="48" />
+            <state relative-caret-position="95">
+              <caret line="47" column="35" selection-start-line="47" selection-start-column="35" selection-end-line="47" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -164,8 +160,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/create_personal.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/create_industrial.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/edit_expenditures.html" />
         <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/expenditures.js" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/interest_reports.html" />
@@ -173,10 +167,8 @@
         <option value="$PROJECT_DIR$/static/static/app/views/admin/modifyStock.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/farmer-interests.html" />
         <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/farmers.js" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/create_expenditure.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/finish-create-sale.html" />
         <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/expenditure_reports.html" />
         <option value="$PROJECT_DIR$/backup_scripts/config_file2.json" />
         <option value="$PROJECT_DIR$/backup_scripts/config_file.json" />
         <option value="$PROJECT_DIR$/backup_scripts/backup.sh" />
@@ -200,21 +192,25 @@
         <option value="$PROJECT_DIR$/static/static/app/views/admin/enter-quantity-price.html" />
         <option value="$PROJECT_DIR$/Admin/models.py" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/edit-bill-products.html" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/customer_reports.html" />
         <option value="$PROJECT_DIR$/Admin/report_files/customer_credits.csv" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/farmer_reports.html" />
         <option value="$PROJECT_DIR$/Admin/report_files/customer_dues_sum.csv" />
-        <option value="$PROJECT_DIR$/static/static/app/views/admin/product_sale_report.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/append_stock_report.html" />
         <option value="$PROJECT_DIR$/Admin/urls.py" />
-        <option value="$PROJECT_DIR$/Admin/views.py" />
-        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/reports.js" />
         <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/login.js" />
-        <option value="$PROJECT_DIR$/static/static/app/scripts/app.js" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/create-purchase.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/edit-purchases.html" />
-        <option value="$PROJECT_DIR$/static/static/app/index.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/print-bill.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/add-stock.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/append_stock.html" />
+        <option value="$PROJECT_DIR$/Admin/views.py" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/product_sale_report.html" />
+        <option value="$PROJECT_DIR$/static/static/app/scripts/app.js" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/create_expenditure.html" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/expenditure_reports.html" />
+        <option value="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/reports.js" />
+        <option value="$PROJECT_DIR$/static/static/app/views/admin/customer_reports.html" />
+        <option value="$PROJECT_DIR$/static/static/app/index.html" />
       </list>
     </option>
   </component>
@@ -717,7 +713,7 @@
     <frame x="65" y="-4" width="1215" height="724" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30288064" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.381893" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32627645" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -807,6 +803,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1786">
           <caret line="94" column="18" selection-start-line="94" selection-start-column="18" selection-end-line="94" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -881,13 +878,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="125" column="47" selection-start-line="125" selection-start-column="47" selection-end-line="125" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/customer_reports.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="118" column="28" selection-start-line="118" selection-start-column="28" selection-end-line="118" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -971,14 +961,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/product_sale_report.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="38" column="52" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/static/app/views/signup.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -987,28 +969,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/append_stock.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Admin/report_files/append_all_stock_reports.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Admin/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="636" column="58" selection-start-line="636" selection-start-column="58" selection-end-line="636" selection-end-column="58" />
           <folding />
         </state>
       </provider>
@@ -1032,24 +996,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Admin/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="28" column="40" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/reports.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="281" column="70" selection-start-line="281" selection-start-column="70" selection-end-line="281" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2489">
@@ -1063,7 +1009,7 @@
         <state relative-caret-position="64">
           <caret line="94" column="43" selection-start-line="94" selection-start-column="43" selection-end-line="94" selection-end-column="43" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1076,26 +1022,112 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/print-bill.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="132" column="81" selection-start-line="132" selection-start-column="81" selection-end-line="132" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/add-stock.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="81" column="95" selection-start-line="81" selection-start-column="95" selection-end-line="81" selection-end-column="95" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/append_stock.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="82" column="95" selection-start-line="82" selection-start-column="95" selection-end-line="82" selection-end-column="95" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Admin/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="57" column="37" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Admin/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="2742" column="41" selection-start-line="2742" selection-start-column="41" selection-end-line="2742" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/product_sale_report.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="47" column="35" selection-start-line="47" selection-start-column="35" selection-end-line="47" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/static/app/scripts/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="33" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="34" />
+        <state relative-caret-position="353">
+          <caret line="596" column="63" selection-start-line="596" selection-start-column="63" selection-end-line="596" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/create_expenditure.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="53" column="55" selection-start-line="53" selection-start-column="55" selection-end-line="53" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/expenditure_reports.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="36" column="67" selection-start-line="36" selection-start-column="67" selection-end-line="36" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/edit_expenditures.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-171">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/scripts/controllers/admin/reports.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1044">
+          <caret line="966" column="66" selection-start-line="966" selection-start-column="66" selection-end-line="966" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/customer_reports.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-19">
+          <caret line="155" column="65" selection-start-line="155" selection-start-column="65" selection-end-line="155" selection-end-column="65" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/static/app/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-813">
-          <caret line="280" column="0" selection-start-line="280" selection-start-column="0" selection-end-line="280" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/static/app/views/admin/print-bill.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="132" column="81" selection-start-line="132" selection-start-column="81" selection-end-line="132" selection-end-column="81" />
+        <state relative-caret-position="235">
+          <caret line="242" column="24" selection-start-line="238" selection-start-column="16" selection-end-line="242" selection-end-column="24" />
           <folding />
         </state>
       </provider>

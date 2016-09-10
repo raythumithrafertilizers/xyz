@@ -1,5 +1,5 @@
 angular.module("App")
-.controller("downloadExpenditureReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+.controller("downloadExpenditureReports", function ($scope,toastr,$window, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
   $http({method: 'GET', url: '/superuser/download-expenditure-reports'}).
@@ -10,7 +10,7 @@ angular.module("App")
          target: '_blank',
          download: 'test.csv'
      })[0].click();
-    $location.path("/interest-reports")
+        $window.close()
   }).error(function(data, status, headers, config) {
     // handle error
   });
@@ -68,8 +68,8 @@ angular.module("App")
 
     var d = new Date()
 
-    $scope.start_date = "" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
-    $scope.end_date = ""//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.start_date = "1/1/2015" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.end_date = "1/1/2020"//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
 
     $scope.check_dates = function(){
         var s_split = $scope.start_date.split("/")
@@ -112,7 +112,7 @@ angular.module("App")
 
 })
 
-.controller("downloadInterstReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+.controller("downloadInterstReports", function ($scope, $window,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
   $http({method: 'GET', url: '/superuser/download-interest-reports'}).
@@ -123,12 +123,12 @@ angular.module("App")
          target: '_blank',
          download: 'test.csv'
      })[0].click();
-    $location.path("/interest-reports")
+     $window.close()
   }).error(function(data, status, headers, config) {
     // handle error
   });
 })
-.controller("downloadPaidReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+.controller("downloadPaidReports", function ($scope,toastr,$window, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
   $http({method: 'GET', url: '/superuser/download-paid-reports'}).
@@ -139,7 +139,7 @@ angular.module("App")
          target: '_blank',
          download: 'test.csv'
      })[0].click();
-    $location.path("/interest-reports")
+     $window.close()
   }).error(function(data, status, headers, config) {
     // handle error
   });
@@ -259,7 +259,7 @@ angular.module("App")
 })
 
 
-.controller("downloadAppendReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+.controller("downloadAppendReports", function ($scope,toastr, $window, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
   $http({method: 'GET', url: '/superuser/download-append-reports'}).
@@ -270,13 +270,13 @@ angular.module("App")
          target: '_blank',
          download: 'test.csv'
      })[0].click();
-    $location.path("/append-stock-reports")
+     $window.close()
   }).error(function(data, status, headers, config) {
     // handle error
   });
 })
 
-.controller("downloadRemainAppendReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+.controller("downloadRemainAppendReports", function ($scope,$window, toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
   $http({method: 'GET', url: '/superuser/download-remain-stock-reports'}).
@@ -287,13 +287,13 @@ angular.module("App")
          target: '_blank',
          download: 'test.csv'
      })[0].click();
-    $location.path("/append-stock-reports")
+     $window.close()
   }).error(function(data, status, headers, config) {
     // handle error
   });
 })
 
-.controller("append_stock_reports_ctrl", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+.controller("append_stock_reports_ctrl", function ($scope,toastr,$window, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
     $scope.load = $http({
@@ -363,8 +363,8 @@ angular.module("App")
 
     var d = new Date()
 
-    $scope.start_date = "" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
-    $scope.end_date = ""//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.start_date = "1/1/2015" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.end_date = "1/1/2020"//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
 
     $scope.check_dates = function(){
         var s_split = $scope.start_date.split("/")
@@ -485,8 +485,8 @@ angular.module("App")
 
     var d = new Date()
 
-    $scope.start_date = "" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
-    $scope.end_date = ""//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.start_date = "1/1/2015" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.end_date = "1/1/2020"//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
 
     $scope.check_dates = function(){
         var s_split = $scope.start_date.split("/")
@@ -609,8 +609,8 @@ angular.module("App")
 
     var d = new Date()
 
-    $scope.start_date = "" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
-    $scope.end_date = ""//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.start_date = "1/1/2015" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.end_date = "1/1/2020"//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
 
     $scope.check_dates = function(){
         var s_split = $scope.start_date.split("/")
@@ -732,8 +732,8 @@ angular.module("App")
 
     var d = new Date()
 
-    $scope.start_date = "" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
-    $scope.end_date = ""//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.start_date = "1/1/2015" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.end_date = "1/1/2020"//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
 
     $scope.check_dates = function(){
         var s_split = $scope.start_date.split("/")
@@ -900,7 +900,7 @@ angular.module("App")
     $scope.check_dates();
 
 })
-.controller("downloadFarmerReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+.controller("downloadFarmerReports", function ($scope,$window,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
     $http({method: 'GET', url: '/superuser/download-farmer-report/'+$routeParams.status}).
@@ -911,12 +911,12 @@ angular.module("App")
          target: '_blank',
          download: 'test.csv'
      })[0].click();
-    //$location.path("/farmers-report")
+     $window.close()
   }).error(function(data, status, headers, config) {
     // handle error
   });
 })
-.controller("downloadHarvesterReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+.controller("downloadHarvesterReports", function ($scope,$window, toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
     $http({method: 'GET', url: '/superuser/download-harvester-report/'+$routeParams.status}).
@@ -927,12 +927,12 @@ angular.module("App")
          target: '_blank',
          download: 'test.csv'
      })[0].click();
-    $location.path("/harvesters-report")
+     $window.close()
   }).error(function(data, status, headers, config) {
     // handle error
   });
 })
-.controller("downloadProductSaleReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+.controller("downloadProductSaleReports", function ($scope,$window,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
     $http({method: 'GET', url: '/superuser/download-product-sale-report/'+$routeParams.status}).
@@ -943,12 +943,12 @@ angular.module("App")
          target: '_blank',
          download: 'test.csv'
      })[0].click();
-    $location.path("/customers-report")
+     $window.close()
   }).error(function(data, status, headers, config) {
     // handle error
   });
 })
-.controller("downloadCustomerReports", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+.controller("downloadCustomerReports", function ($scope,toastr,$window, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
     $http({method: 'GET', url: '/superuser/download-customers-report/'+$routeParams.status}).
@@ -959,12 +959,12 @@ angular.module("App")
          target: '_blank',
          download: 'test.csv'
      })[0].click();
-    $location.path("/product-sale-report")
+     $window.close()
   }).error(function(data, status, headers, config) {
     // handle error
   });
 })
-.controller("legalCategoryReportsCtrl", function ($scope,toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
+.controller("legalCategoryReportsCtrl", function ($scope,$window, toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
     $http({method: 'GET', url: '/superuser/legal-category-report'}).
@@ -975,7 +975,7 @@ angular.module("App")
          target: '_blank',
          download: 'legaltest.csv'
      })[0].click();
-    $location.path("/legal-category-sold-reports")
+     $window.close()
   }).error(function(data, status, headers, config) {
     // handle error
   });
@@ -1054,8 +1054,8 @@ angular.module("App")
 
     var d = new Date()
 
-    $scope.start_date = "" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
-    $scope.end_date = ""//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.start_date = "1/1/2015" //d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+    $scope.end_date = "1/1/2020"//d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
 
      $scope.load = $http({
 	  		method: 'GET',
