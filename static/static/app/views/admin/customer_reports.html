@@ -45,54 +45,9 @@
           </h1>
         </section>
 
-
-        <!-- Main content -->
-        <section class="content">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="box">
-                <div class="box-body">
-                  <div class="table-responsive-own">
-                  <table id="example1_modify_stock" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th>date</th>
-                        <th>particular or remarks</th>
-                        <th>quantity</th>
-                        <!--<th>rate/ton of harvester</th>-->
-                        <th>value</th>
-
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat = "farmer in specific_farmer_data">
-
-                        <td>[[farmer.date | date]] </td>
-                        <td>[[farmer.particulars_remarks]] </td>
-                        <td> [[farmer.quantity]]</td>
-                        <td> [[farmer.value]]</td>
-
-
-                      </tr>
-                    </tbody>
-                  </table>
-
-
-
-                  </div>
-
-
-
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </section><!-- /.content -->
-
-
         <section class="content-header">
           <h1>
-            Credit
+            Debits
             <a href="#/download-customer-reports/2">
               Download
             </a>
@@ -112,7 +67,7 @@
                     <thead>
                       <tr>
                         <th>date</th>
-                        <th>particular or remarks</th>
+                        <th>remarks</th>
                         <th>value</th>
                       </tr>
                     </thead>
@@ -121,7 +76,7 @@
 
                         <td>[[farmer.date | date ]] </td>
                         <td>[[farmer.remarks]]</td>
-                        <td> [[farmer.total_price]]</td>
+                        <td> [[farmer.value]]</td>
 
                       </tr>
                     </tbody>
@@ -138,6 +93,62 @@
             </div><!-- /.col -->
           </div><!-- /.row -->
         </section><!-- /.content -->
+
+
+         <section class="content-header">
+          <h1>
+            Credits
+            <a href="#/download-customer-reports/2">
+              Download
+            </a>
+          </h1>
+        </section>
+
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-body">
+                  <div class="table-responsive-own">
+                  <table id="example1_modify_stock" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>date</th>
+                        <th>remarks</th>
+                        <th>quantity</th>
+                        <!--<th>rate/ton of harvester</th>-->
+                        <th>value</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat = "farmer in specific_farmer_data">
+
+                        <td>[[farmer.date | date]] </td>
+                        <td>[[farmer.remarks]] </td>
+                        <td> [[farmer.total_quantity]]</td>
+                        <td> [[farmer.total_price]]</td>
+
+
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+
+                  </div>
+
+
+
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+
+
 
         <section class="content-header">
           <h1>

@@ -704,11 +704,19 @@ class CustomersReport(APIView):
 
             specific_farmer_debits = []
             specific_farmer_credits = []
+            all_farmers_stock_values = {}
 
             with open(credits_file, 'w') as csvfile:
                 spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 count = 0
                 for temp in stocklist:
+
+                    if temp.customer:
+                        if temp.customer.name in all_farmers_stock_values:
+                            all_farmers_stock_values[temp.customer.name] += temp.total_price
+                        else:
+                            all_farmers_stock_values[temp.customer.name] = temp.total_price
+
                     if temp.customer.id == specific_farmer_id:
                         if count == 0:
                             spamwriter.writerow(["Customer name", temp.customer.name])
@@ -744,7 +752,6 @@ class CustomersReport(APIView):
                         for temp in advances:
                             if temp.amount > 0:
                                 if count == 0:
-                                    spamwriter.writerow(["date", "Bill Number", "Quantity", "remarks", "value"])
                                     obj = {}
 
                                     count += 1
@@ -777,6 +784,8 @@ class CustomersReport(APIView):
                                     obj['value']
                                 ])
                                 sum_of_debits_value += obj['value']
+
+
 
             # writing sum of all cols into files
             with open(credits_file, 'a') as csvfile:
@@ -857,11 +866,13 @@ class HarvestersReport(APIView):
             stocklist = SoldStockDetails.objects.filter(**filter_args)
             all_farmers = Person.objects.filter(person_type='harvester')
             farmer_details = {}
-            for farmer in all_farmers:
-                advances = farmer.advance_details.filter(**paid_filter_args)
-                farmer_details[farmer.name] = 0.0
+            for harvester in all_farmers:
+                advances = harvester.advance_details.filter(**paid_filter_args)
+                farmer_details[harvester.name] = 0.0
                 for advance in advances:
-                    farmer_details[farmer.name] += float(advance.amount)
+                    farmer_details[harvester.name] += float(advance.amount)
+
+            print farmer_details,'***********'
 
             all_borrowers = []
             sum_of_due = 0.0
@@ -869,28 +880,7 @@ class HarvestersReport(APIView):
             sum_of_debits_value = 0.0
             sum_of_credits_value = 0.0
 
-            with open(sum_of_dues_file, 'w') as csvfile:
-                spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                spamwriter.writerow(["Harvester Name", "due"])
-                for key in farmer_details.keys():
-                    sum_of_due += farmer_details[key]
-                    temp_dict = {}
-                    temp_dict['name'] = key
-                    temp_dict['due'] = farmer_details[key]
-                    all_borrowers.append(temp_dict)
-                    spamwriter.writerow([
-                        temp_dict['name'],
-                        temp_dict['due']
-                    ])
 
-                spamwriter.writerow([
-                    "",
-                    ""
-                ])
-                spamwriter.writerow([
-                    "total",
-                    sum_of_due
-                ])
 
             if 'farmer_id' in body:
                 if body['farmer_id']:
@@ -899,24 +889,33 @@ class HarvestersReport(APIView):
 
 
             specific_farmer_debits = []
-            specific_farmer_credits = []
-
+            specific_harvester_credits = []
+            all_farmers_stock_values = {}
 
 
             with open(debits_file, 'w') as csvfile:
                 spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 count = 0
                 for temp in stocklist:
-                    if temp.farmer.id == specific_farmer_id:
+
+                    if temp.harvester and temp.harvester != temp.farmer:
+                        if temp.harvester.name in all_farmers_stock_values:
+                            all_farmers_stock_values[temp.harvester.name] += temp.harvester_payment
+                        else:
+                            all_farmers_stock_values[temp.harvester.name] = temp.harvester_payment
+
+                    if temp.harvester.id == specific_farmer_id:
                         if count == 0:
-                            spamwriter.writerow(["Harvester name", temp.farmer.name])
+                            spamwriter.writerow(["Harvester name", temp.harvester.name])
+                            spamwriter.writerow(["", "", ""])
+                            spamwriter.writerow(["", "", ""])
                             spamwriter.writerow(["date", "particulars_or_remarks", "quantity", "value"])
                             count += 1
                         obj = {}
                         obj['date'] = temp.created_date
                         obj['particulars_remarks'] = temp.stock_object.name
                         obj['quantity'] = temp.quantity
-                        obj['value'] = temp.farmer_payment
+                        obj['value'] = temp.harvester_payment
                         specific_farmer_debits.append(obj)
                         spamwriter.writerow([
                             obj['date'],
@@ -929,6 +928,7 @@ class HarvestersReport(APIView):
                         count += 1
 
             if specific_farmer_id:
+                print "selected Harvester id is", specific_farmer_id
                 person = Person.objects.get(id = specific_farmer_id)
                 advances = person.advance_details.all()
                 count = 0
@@ -939,21 +939,26 @@ class HarvestersReport(APIView):
 
                         for temp in advances:
                             if temp.amount > 0:
+                                print temp.amount,'&&&&'
                                 if count == 0:
+                                    spamwriter.writerow(["Harvester Name", person.name])
+                                    spamwriter.writerow(["",""])
+                                    spamwriter.writerow(["", ""])
                                     spamwriter.writerow(["date", "particulars", "value"])
-                                    obj = {}
-                                    obj['date'] = temp.paid_date
-                                    obj['particulars_remarks'] = temp.remarks
-                                    obj['value'] = temp.amount
-                                    specific_farmer_credits.append(obj)
-                                    spamwriter.writerow([
-                                        obj['date'],
-                                        obj['particulars_remarks'],
-                                        obj['value']
-                                    ])
-                                    sum_of_credits_value += obj['value']
-                                    count +=1
-                            else:
+                                    count += 1
+                                obj = {}
+                                obj['date'] = temp.paid_date
+                                obj['particulars_remarks'] = temp.remarks
+                                obj['value'] = temp.amount
+                                specific_harvester_credits.append(obj)
+                                spamwriter.writerow([
+                                    obj['date'],
+                                    obj['particulars_remarks'],
+                                    obj['value']
+                                ])
+                                sum_of_credits_value += obj['value']
+                                count +=1
+                            elif temp.amount < 0:
                                 print 'write debits.................', temp.amount
                                 obj = {}
                                 obj['date'] = temp.paid_date
@@ -966,6 +971,10 @@ class HarvestersReport(APIView):
                                     obj['value']
                                 ])
                                 sum_of_debits_value += obj['value']
+
+
+
+
 
             # writing sum of all cols into files
             with open(credits_file, 'a') as csvfile:
@@ -998,10 +1007,51 @@ class HarvestersReport(APIView):
                         sum_of_credits_value
                     ])
 
+            all_keys = []
+            all_borrowers = []
+            sum_of_due = 0.0
+            farmer_keys = farmer_details.keys()
+            stock_keys = all_farmers_stock_values.keys()
+            all_keys.extend(farmer_keys)
+            all_keys.extend(stock_keys)
 
+            print 'all keys are ', all_keys
+
+            with open(sum_of_dues_file, 'w') as csvfile:
+                    spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    spamwriter.writerow(["Harvester Name", "due"])
+
+                    for key in list(set(all_keys)):
+
+                        temp_dict = {}
+                        temp_dict['name'] = key
+                        temp_dict['due'] = 0.0
+
+                        if key in farmer_details:
+                            sum_of_due += farmer_details[key]
+                            temp_dict['due'] -= farmer_details[key]
+
+                        if key in all_farmers_stock_values:
+                            sum_of_due += all_farmers_stock_values[key]
+                            temp_dict['due'] -= all_farmers_stock_values[key]
+
+                        all_borrowers.append(temp_dict)
+                        spamwriter.writerow([
+                            temp_dict['name'],
+                            temp_dict['due']
+                        ])
+
+                    spamwriter.writerow([
+                        "",
+                        ""
+                    ])
+                    spamwriter.writerow([
+                        "total",
+                        sum_of_due
+                    ])
 
             return Response({"debits": specific_farmer_debits,
-                             'credits': specific_farmer_credits,
+                             'credits': specific_harvester_credits,
                              'specific_farmer_data': all_borrowers,
                              'sum_of_quantity': sum_of_quantity,
                              'sum_of_credits': sum_of_credits_value,
@@ -1050,15 +1100,18 @@ class FarmersReport(APIView):
                     farmer_details[farmer.name] += float(advance.amount)
 
             all_borrowers = []
-            file_path = BASE_DIR + "/Admin/report_files/farmer_dues_sum.csv"
+
             sum_of_due = 0.0
             sum_of_quantity = 0.0
             sum_of_debits_value = 0.0
             sum_of_credits_value = 0.0
 
+            file_path = BASE_DIR + "/Admin/report_files/farmer_dues_sum.csv"
             with open(file_path, 'w') as csvfile:
                 spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 spamwriter.writerow(["farmer Name", "due"])
+
+
                 for key in farmer_details.keys():
                     sum_of_due += farmer_details[key]
                     temp_dict = {}
@@ -1085,7 +1138,7 @@ class FarmersReport(APIView):
 
 
 
-            all_farmers_dues = []
+            all_farmers_stock_values = {}
             specific_farmer_debits = []
             specific_farmer_credits = []
 
@@ -1095,9 +1148,17 @@ class FarmersReport(APIView):
                 spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 count = 0
                 for temp in stocklist:
+                    if temp.farmer:
+                        if temp.farmer.name in all_farmers_stock_values:
+                            all_farmers_stock_values[temp.farmer.name] += temp.farmer_payment
+                        else:
+                            all_farmers_stock_values[temp.farmer.name] = temp.farmer_payment
+
                     if temp.farmer.id == specific_farmer_id:
                         if count == 0:
                             spamwriter.writerow(["farmer name", temp.farmer.name])
+                            spamwriter.writerow(["", ""])
+                            spamwriter.writerow(["", ""])
                             spamwriter.writerow(["date", "particulars_or_remarks", "quantity", "value"])
                             count += 1
                         obj = {}
@@ -1131,6 +1192,9 @@ class FarmersReport(APIView):
                         for temp in advances:
                             if temp.amount > 0:
                                 if count == 0:
+                                    spamwriter.writerow(["farmer Name", person.name])
+                                    spamwriter.writerow(["", ""])
+                                    spamwriter.writerow(["", ""])
                                     spamwriter.writerow(["date", "particulars", "value"])
                                     obj = {}
                                     obj['date'] = temp.paid_date
@@ -1144,7 +1208,7 @@ class FarmersReport(APIView):
                                     ])
                                     sum_of_credits_value += obj['value']
                                     count +=1
-                            else:
+                            elif temp.amount < 0 :
                                 print 'write debits.................', temp.amount
                                 obj = {}
                                 obj['date'] = temp.paid_date
@@ -1192,7 +1256,48 @@ class FarmersReport(APIView):
                         sum_of_credits_value
                     ])
 
+            all_keys = []
+            all_borrowers = []
+            sum_of_due =0.0
+            farmer_keys = farmer_details.keys()
+            stock_keys = all_farmers_stock_values.keys()
+            all_keys.extend(farmer_keys)
+            all_keys.extend(stock_keys)
 
+
+            file_path = BASE_DIR + "/Admin/report_files/farmer_dues_sum.csv"
+            with open(file_path, 'w') as csvfile:
+                spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                spamwriter.writerow(["farmer Name", "due"])
+
+                for key in list(set(all_keys)):
+                    print key
+                    temp_dict = {}
+                    temp_dict['name'] = key
+                    temp_dict['due'] = 0.0
+
+                    if key in farmer_details:
+                        sum_of_due += farmer_details[key]
+                        temp_dict['due'] -= farmer_details[key]
+
+                    if key in all_farmers_stock_values:
+                        sum_of_due += all_farmers_stock_values[key]
+                        temp_dict['due'] -= all_farmers_stock_values[key]
+
+                    all_borrowers.append(temp_dict)
+                    spamwriter.writerow([
+                        temp_dict['name'],
+                        temp_dict['due']
+                    ])
+
+                spamwriter.writerow([
+                    "",
+                    ""
+                ])
+                spamwriter.writerow([
+                    "total",
+                    sum_of_due
+                ])
 
             return Response({"debits": specific_farmer_debits,
                              'credits': specific_farmer_credits,
@@ -1426,7 +1531,8 @@ class BillManagement(View):
 
             billingObject.total_quantity = body['total_quantity']
             billingObject.total_price = body['total_price']
-            billingObject.customer = Person.objects.get(id = body['customerId'])
+            bill_related_customer = Person.objects.get(id = body['customerId'])
+            billingObject.customer = bill_related_customer
 
             if 'contact_number' in body:
                 billingObject.contact_number = body['contact_number']
@@ -1441,7 +1547,21 @@ class BillManagement(View):
             billingObject.products_list.add(*listOfProducts)
             billingObject.save()
 
-            print listOfProducts
+            if float(body['amount_paid']):
+                if float(body['amount_paid']) > 0:
+                    saving_amount = -float(body['amount_paid'])
+                else:
+                    saving_amount = float(body['amount_paid'])
+                ado = AdvanceDetails(amount = saving_amount)
+                if 'bill_date' in body:
+                    if body['bill_date']:
+                        ado.paid_date = datetime.datetime.strptime(body['bill_date'], '%d/%m/%Y')
+                ado.bill_id = billingObject.id
+                if 'remarks' in body:
+                    ado.remarks = str(body['remarks'])
+                ado.save()
+                bill_related_customer.advance_details.add(ado)
+
             return json_response({"bill_pk":billingObject.id}, status=200)
         except Exception, e:
             print e

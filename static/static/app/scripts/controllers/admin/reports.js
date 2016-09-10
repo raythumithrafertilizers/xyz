@@ -694,8 +694,8 @@ angular.module("App")
                             $scope.farmer_due = $scope.borrowers[t]['due']
                         }
                     }
-                    $scope.all_farmers = response.data.credits
-                    $scope.specific_farmer_data = response.data.debits
+                    $scope.all_farmers = response.data.debits
+                    $scope.specific_farmer_data = response.data.credits
                     $timeout(function(){
                             $("#example1_modify_stock").DataTable();
                     },500)
@@ -890,7 +890,7 @@ angular.module("App")
          target: '_blank',
          download: 'test.csv'
      })[0].click();
-    $location.path("/farmers-report")
+    //$location.path("/farmers-report")
   }).error(function(data, status, headers, config) {
     // handle error
   });

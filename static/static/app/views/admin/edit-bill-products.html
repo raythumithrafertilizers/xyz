@@ -123,7 +123,7 @@
                     <label>Paid Amount</label>
                     <input type="text" class="form-control" ng-change="calculateDue()"
                            placeholder="Enter Amount Paid" ng-model="bill.paid"
-                           name="paid"
+                           name="paid" readonly
                            ng-class="{ 'has-error' : userForm.paid.$invalid }">
                     <p ng-show="userForm.paid.$invalid" class="help-block">
                       Enter Paid Amount.

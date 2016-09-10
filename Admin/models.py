@@ -8,6 +8,7 @@ class AdvanceDetails(models.Model):
 	interest_rate = models.FloatField(default=0.0)
 	interest_money = models.FloatField(default=0.0)
 	purchase_id = models.IntegerField(default=0)
+	bill_id = models.IntegerField(default=0)
 	paid_details_id = models.IntegerField(default=0)
 	remarks = models.TextField(default='')
 	isCleared= models.BooleanField(default=False)

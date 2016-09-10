@@ -1,8 +1,6 @@
-Customer name,customer3
+Customer name,customer1
 Date,Bill Number,Quantity,Remarks,Value
-2016-09-01,1,100.0,,1200.0
-2016-09-01,2,100.0,,1200.0
-date,Bill Number,Quantity,remarks,value
-2016-09-16, , ,added on 16th sep,40000.0
+2016-09-15,4,23.0,,300.0
+2016-09-20, , ,kranthi  paid to farmer 100,100.0
  , ,,
- , ,200.0, ,42400.0
+ , ,23.0, ,400.0
