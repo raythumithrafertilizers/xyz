@@ -1,9 +1,9 @@
-customer name,customer1
 ,
-,
+Debit Reports,
 date,remarks,value
-2016-09-15,,-123.0
-2016-09-20,farmer paid 200,-200.0
-2016-09-03,no remarks added,-300.0
+2016-09-10,sold stock3 and stock4 for customer 7,-900.0
+2016-09-09,customer paid to krathi,-987.0
+2016-09-09,customer paid to krathi,-456.0
+2016-09-09,,-11.0
  , ,
- , ,-623.0
+Total, ,-2354.0

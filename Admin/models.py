@@ -55,6 +55,8 @@ class SoldStockDetails(models.Model):
 	quantity =models.FloatField(default=0.0)
 	quality = models.FloatField(default=0.0)
 
+	quantity_in_numbers = models.FloatField(default=0.0)
+
 	farmer_rate_per_ton = models.FloatField(default=0.0)
 	farmer_payment = models.FloatField(default=0.0)
 

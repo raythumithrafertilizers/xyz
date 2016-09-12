@@ -1,3 +1,4 @@
+Title,Stock Reports
 stock_name,stock3
 Remaining Stock Count,1365.0
 ,
@@ -8,3 +9,9 @@ date,quantity,remarks
 2016-09-14,45.0,
 2016-09-07,234.0,advance 890 and 11.2 amount paid to farmer
 2016-08-30,123.0,
+,
+Remain Stock Reports,
+stock_name,remaining_stock
+stock1,2009.0
+stock2,3479.0
+Total,5488.0

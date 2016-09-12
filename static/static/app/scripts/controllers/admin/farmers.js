@@ -191,8 +191,10 @@ angular.module("App")
             for(var i in $scope.payments){
 
                  var pda= $scope.payments[i].fields.paid_date.split("-")
+                 $scope.payments[i].fields.paid_date_format = $scope.payments[i].fields.paid_date;
                  var converted_date = pda[2]+"/"+pda[1]+"/"+pda[0]
                  $scope.payments[i].fields.paid_date = converted_date;
+
 
             }
             $timeout(function(){

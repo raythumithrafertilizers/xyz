@@ -1,9 +1,13 @@
+,,
 Harvester name,harvester1
 ,,
-,,
+Debits Report,,
 date,particulars_or_remarks,quantity,value
 2016-10-05,stock2,100.0,200.0
 2016-09-21,stock1,2000.0,20000.0
+2016-09-20,testing_stock_name,2.3,0.0
+2016-09-06,stock4,11.2,134.4
+2016-09-07,stock3,1.2,13.2
 2016-09-09,harvester paid to kranthi,-50.0
- , ,,
- , ,2100.0,20150.0
+, ,,
+Total, ,2114.7,20297.600000000002

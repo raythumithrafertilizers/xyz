@@ -1,3 +1,4 @@
+Title,Customer Reports
 ,
 Customer name,customer7
 ,
@@ -13,3 +14,20 @@ Date,Bill Number,Quantity,Remarks,Value
 2016-09-02, , ,sdfsd,9999999.0
  , ,,
 Total , ,107.0, ,10028159.8
+,
+Debit Reports,
+date,remarks,value
+2016-09-10,sold stock3 and stock4 for customer 7,-900.0
+2016-09-09,customer paid to krathi,-987.0
+2016-09-09,customer paid to krathi,-456.0
+2016-09-09,,-11.0
+ , ,
+Total, ,-2354.0
+,
+Customer Dues Report
+customer1,520.0
+customer3,22.0
+customer2,4.0
+customer7,10025805.8
+,
+Total,10026351.8

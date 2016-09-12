@@ -919,7 +919,7 @@ angular.module("App")
 .controller("downloadHarvesterReports", function ($scope,$window, toastr, $routeParams, $http, $q, $route, $location, $alert, $timeout){
 
 
-    $http({method: 'GET', url: '/superuser/download-harvester-report/'+$routeParams.status}).
+   $http({method: 'GET', url: '/superuser/download-harvester-report/'+$routeParams.status}).
   success(function(data, status, headers, config) {
      var anchor = angular.element('<a/>');
      anchor.attr({
@@ -943,6 +943,7 @@ angular.module("App")
          target: '_blank',
          download: 'test.csv'
      })[0].click();
+
      $window.close()
   }).error(function(data, status, headers, config) {
     // handle error
@@ -1106,6 +1107,8 @@ angular.module("App")
             }).then(function (response){
                         console.log(response, 'report data is')
                         $scope.stock_data = response.data.stocks_list
+                        $scope.sum_of_quantity = response.data.sum_of_quantity
+                        $scope.sum_of_price = response.data.sum_of_price
                         $timeout(function(){
                                 $("#example1_modify_stock").DataTable();
                         },500)

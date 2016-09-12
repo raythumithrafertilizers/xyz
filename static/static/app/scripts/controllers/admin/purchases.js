@@ -35,8 +35,16 @@ angular.module("App")
 
 
         $scope.calculate_final_total_mis_detections = function(){
-            if($scope.user.farmer_total_payment && $scope.user.miscellaneous_detections){
-                $scope.user.farmer_total_payment -= $scope.user.miscellaneous_detections;
+            console.log('called miscleanous caluclation')
+            if($scope.user.quantity &&  $scope.user.farmer_rate_per_ton){
+                if($scope.user.miscellaneous_detections){
+                    $scope.user.farmer_total_payment = $scope.user.quantity * $scope.user.farmer_rate_per_ton
+                    $scope.user.farmer_total_payment -= $scope.user.miscellaneous_detections;
+                }else{
+                    $scope.user.farmer_total_payment = $scope.user.quantity * $scope.user.farmer_rate_per_ton
+
+                }
+
             }
         }
 
@@ -220,6 +228,7 @@ angular.module("App")
                         obj.quality = usersdata[i].quality;
                         obj.farmer_amount = usersdata[i].farmer_amount
                         obj.harvester_amount = usersdata[i].harvester_amount
+                        obj.date = usersdata[i].date
                         $scope.userslist.push(obj);
                         $timeout(function(){
                          $("#example1").DataTable();
@@ -297,8 +306,15 @@ angular.module("App")
         $scope.user.need_to_append = true;
 
         $scope.calculate_final_total_mis_detections = function(){
-            if($scope.user.farmer_total_payment && $scope.user.miscellaneous_detections){
-                $scope.user.farmer_total_payment -= $scope.user.miscellaneous_detections;
+            console.log('called miscleanous caluclation')
+            if($scope.user.quantity &&  $scope.user.farmer_rate_per_ton){
+                if($scope.user.miscellaneous_detections){
+                    $scope.user.farmer_total_payment = $scope.user.quantity * $scope.user.farmer_rate_per_ton
+                    $scope.user.farmer_total_payment -= $scope.user.miscellaneous_detections;
+                }else{
+                    $scope.user.farmer_total_payment = $scope.user.quantity * $scope.user.farmer_rate_per_ton
+                }
+
             }
         }
 

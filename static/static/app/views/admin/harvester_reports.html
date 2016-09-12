@@ -45,6 +45,16 @@
           </h1>
         </section>
 
+         <section class="content-header">
+          <h1>
+            All Harvester Due
+            <a href="#/download-harvester-reports/3" target="_blank">
+              Download
+            </a>
+          </h1>
+        </section>
+
+
 
         <!-- Main content -->
         <section class="content">
@@ -90,7 +100,7 @@
         </section><!-- /.content -->
 
 
-        <section class="content-header">
+      <!--  <section class="content-header">
           <h1>
             Credit
             <a href="#/download-farmer-reports/2">
@@ -98,7 +108,7 @@
             </a>
           </h1>
         </section>
-
+-->
 
 
         <!-- Main content -->
@@ -120,7 +130,7 @@
                       <tr ng-repeat = "farmer in all_farmers">
 
                         <td>[[farmer.date | date ]] </td>
-                        <td>[[farmer.particular_remarks]]</td>
+                        <td>[[farmer.particulars_remarks]]</td>
                         <td> [[farmer.value]]</td>
 
                       </tr>
@@ -139,14 +149,6 @@
           </div><!-- /.row -->
         </section><!-- /.content -->
 
-        <section class="content-header">
-          <h1>
-            All Harvester Due
-            <a href="#/download-farmer-reports/3">
-              Download
-            </a>
-          </h1>
-        </section>
 
 
         <!-- Main content -->
