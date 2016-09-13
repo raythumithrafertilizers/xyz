@@ -275,9 +275,44 @@ class StockAppendReports(APIView):
 
             }
 
+
+            #-----------------calculating customer sold products------------------------
+
+            stock_names_object_customer_sold = StockNames.objects.get(id=int(body['stock_id']))
+            stock_details_object_customer_sold = StockDetails.objects.get(item_name=stock_names_object_customer_sold)
+            filter_args3 = {
+                '{0}__{1}'.format('bill_date', 'gte'): datetime.datetime(int(divided_start_date[2]),
+                                                                         int(divided_start_date[1]),
+                                                                         int(divided_start_date[0])),
+                '{0}__{1}'.format('bill_date', 'lte'): datetime.datetime(int(divided_end_date[2]),
+                                                                         int(divided_end_date[1]),
+                                                                         int(divided_end_date[0]), 23, 59, 59),
+                '{0}__{1}'.format('products_list', 'product'): stock_details_object_customer_sold
+            }
+
+            stocklist_customer_sold = Billing.objects.filter(**filter_args3)
+
+            quantity_sum_c = 0.0
+            response_c = []
+
+            for temp in stocklist_customer_sold:
+                product_info = temp.products_list.filter(product=stock_details_object_customer_sold)
+                if len(product_info):
+                    obj = {}
+                    print product_info[0].quantity, '*****'
+                    obj['create_date'] = temp.bill_date
+                    obj['remarks'] = 'sold to ' + str(temp.customer.name)
+                    obj['append_count'] = product_info[0].quantity
+                    quantity_sum_c += product_info[0].quantity
+                    response_c.append(obj)
+
+            #-------------------------------------------
+
             temp_data = []
             stock_name = ""
             remain_stock = ""
+            sum_of_manufacture_stock = 0.0
+            sum_of_purchase_stock_farmers = 0.0
             available_stock = []
             if 'stock_id' in body:
                 if body['stock_id']:
@@ -286,18 +321,8 @@ class StockAppendReports(APIView):
                     stock_name = stock_name.name
                     remain_stock = sold_stock_object.available_stock
                     filter_args['stock'] = sold_stock_object
-
-
-
                     stocklist = AppendStockDetails.objects.filter(**filter_args)
-
-
-                    # billing information of start end dates in main_data variable
-
-
-
                     file_path = BASE_DIR + "/Admin/report_files/append_stock_reports.csv"
-
                     with open(file_path, 'w') as csvfile:
                         spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
@@ -310,6 +335,13 @@ class StockAppendReports(APIView):
                         spamwriter.writerow(["date", "quantity", "remarks"])
 
                         for temp in stocklist:
+
+                                if temp.sold_stock_id:
+                                    sum_of_purchase_stock_farmers += temp.append_count
+                                else:
+                                    sum_of_manufacture_stock += temp.append_count
+
+                                print 'count of got stock'
                                 # increment advance due payment fields
                                 obj = {}
                                 obj['stock_name'] = temp.stock.item_name.name
@@ -325,6 +357,13 @@ class StockAppendReports(APIView):
                                     obj['append_count'],
                                     obj['remarks']
                                 ])
+                        for tmp in response_c:
+                            temp_data.append(tmp)
+                            spamwriter.writerow([
+                                str(tmp['create_date']),
+                                float(tmp['append_count']),
+                                tmp['remarks']
+                            ])
 
 
 
@@ -374,7 +413,11 @@ class StockAppendReports(APIView):
             return Response({"data": temp_data,
                              "remaining_all_stocks":available_stock,
                              "stock_name": stock_name,
-                             "remain": remain_stock},status=200)
+                             "remain": remain_stock,
+                             'sum_of_manufacture_stock': sum_of_manufacture_stock,
+                             'sum_of_sold_farmer_stock': sum_of_purchase_stock_farmers,
+                             'sum_of_sold_customer_stock': quantity_sum_c}
+                            ,status=200)
 
         except Exception as e:
             print e
@@ -1732,6 +1775,9 @@ class BillManagement(View):
                 listOfProducts.append(prdct)
                 specific_stock.available_stock -= int(temp['quantity'])
                 specific_stock.save()
+
+
+
 
             billingObject = Billing(due = body['due'])
             billingObject.total_paid = body['amount_paid']

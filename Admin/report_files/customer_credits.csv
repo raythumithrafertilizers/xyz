@@ -1,15 +1,12 @@
+Title,Sale Report
+Product Name,stock4
 ,
-Customer name,customer7
 ,
-Credit Reports,
-Date,Bill Number,Quantity,Remarks,Value
-2016-09-10,8,9.0,sold stock3 and stock4 for customer 7,1430.8
-2016-09-09,9,32.0,,5675.0
-2016-09-12,13,55.0,,5555.0
-2016-09-12,14,10.0,,2000.0
-2016-09-12,15,1.0,,45.0
-2016-09-09, , ,kranthi paid to customer 7 9999,9999.0
-2016-09-09, , ,krnathi paid to customer,3456.0
-2016-09-02, , ,sdfsd,9999999.0
- , ,,
-Total , ,107.0, ,10028159.8
+,
+Customer Name,Weight,Value
+customer1,22.0,44.0
+customer3,44.0,466.0
+customer2,2.0,4.0
+customer7,70.0,8400.0
+,,
+Total,138.0,8914.0

@@ -1,6 +1,7 @@
 angular.module("App")
 .controller("specificCustomerPaymentsCtrl", function($http, $q,$location, $timeout,toastr,$route,$routeParams, $scope){
     console.log('specificCustomerPaymentsCtrl')
+    $scope.show_customer_name = $routeParams.customer_name
     $scope.amount = {}
     $scope.amount.details = ""
     $scope.load =
@@ -133,7 +134,7 @@ angular.module("App")
     }
 
     $scope.editPayment = function(customer){
-        $location.path("/customer-payments/"+customer.user_id)
+        $location.path("/customer-payments/"+customer.user_id+"/"+customer.name)
     }
 
 })

@@ -1,10 +1,19 @@
-stock_name,stock3
-Remaining Stock Count,1365.0
+stock_name,stock4
+Remaining Stock Count,1619.2
 ,
 ,
 Debit Reports,
 date,quantity,remarks
 2016-08-30,1000.0,first append count to stock4
-2016-09-14,45.0,
-2016-09-07,234.0,advance 890 and 11.2 amount paid to farmer
-2016-08-30,123.0,
+2016-09-22,2.2,remarks of one rupees
+2016-09-06,200.0,farmer advance 333 and total 134
+2016-11-04,222.0,appending 222 to stock
+2016-09-28,333.0,added 333 stock
+2016-09-10,4.0,sold to customer7
+2016-09-12,11.0,sold to customer3
+2016-09-14,2.0,sold to customer2
+2016-09-12,22.0,sold to customer1
+2016-09-12,55.0,sold to customer7
+2016-09-12,10.0,sold to customer7
+2016-09-12,1.0,sold to customer7
+2016-09-09,33.0,sold to customer3

@@ -174,6 +174,7 @@ angular.module("App")
 .controller("specificFarmerPaymentsCtrl", function($http, $q,$location, $timeout,toastr,$route,$routeParams, $scope){
     console.log('specificCustomerPaymentsCtrl')
 
+    $scope.farmer_show_name = $routeParams.farmer_name
     $scope.amount = {}
     $scope.amount.details = ""
     $scope.load =
@@ -310,7 +311,7 @@ angular.module("App")
     }
 
     $scope.editPayment = function(customer){
-        $location.path("/farmer-payments/"+customer.user_id)
+        $location.path("/farmer-payments/"+customer.user_id+"/"+customer.name)
     }
 
 })

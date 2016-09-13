@@ -1,5 +1,6 @@
 angular.module("App")
 .controller("specificHarvesterPaymentsCtrl", function($http, $q,$location, $timeout,toastr,$route,$routeParams, $scope){
+    $scope.harvester_show_name = $routeParams.harvester_name
 
 
     console.log('specificCustomerPaymentsCtrl')
@@ -136,7 +137,7 @@ angular.module("App")
     }
 
     $scope.editPayment = function(customer){
-        $location.path("/harvester-payments/"+customer.user_id)
+        $location.path("/harvester-payments/"+customer.user_id+"/"+customer.name)
     }
 
 })

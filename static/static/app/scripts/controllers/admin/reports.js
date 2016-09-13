@@ -347,6 +347,9 @@ angular.module("App")
                     $scope.data = response.data.data
                     $scope.stock_name = response.data.stock_name
                     $scope.remain = response.data.remain
+                    $scope.sum_of_manufacture_stock = response.data.sum_of_manufacture_stock
+                    $scope.sum_of_sold_farmer_stock = response.data.sum_of_sold_farmer_stock
+                    $scope.sum_of_sold_customer_stock = response.data.sum_of_sold_customer_stock
                     $scope.remaining_all_stock = response.data.remaining_all_stocks
                     $timeout(function(){
                             $("#example1_modify_stock").DataTable();

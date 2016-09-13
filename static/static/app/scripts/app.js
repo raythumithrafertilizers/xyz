@@ -167,7 +167,7 @@ App.config(function($routeProvider, $authProvider) {
 
 
 
-            .when('/harvester-payments/:person_id', {
+            .when('/harvester-payments/:person_id/:harvester_name', {
                 templateUrl: '/static/app/views/admin/specific-harvester-payments.html',
                 controller: "specificHarvesterPaymentsCtrl",
                 resolve: {
@@ -280,7 +280,7 @@ App.config(function($routeProvider, $authProvider) {
 
 
 
-            .when('/farmer-payments/:person_id', {
+            .when('/farmer-payments/:person_id/:farmer_name', {
                 templateUrl: '/static/app/views/admin/specific-farmer-payments.html',
                 controller: "specificFarmerPaymentsCtrl",
                 resolve: {
@@ -468,7 +468,7 @@ App.config(function($routeProvider, $authProvider) {
 
 
 
-          .when('/customer-payments/:person_id', {
+          .when('/customer-payments/:person_id/:customer_name', {
             templateUrl: '/static/app/views/admin/specific-customer-payments.html',
             controller: "specificCustomerPaymentsCtrl",
             resolve: {
