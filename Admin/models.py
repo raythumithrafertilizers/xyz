@@ -92,6 +92,7 @@ class AppendStockDetails(models.Model):
 	total_stock = models.FloatField(default=0.0)
 	remarks = models.TextField()
 	sold_stock_id = models.IntegerField(default=0)
+	manual_create_or_append_stock_id = models.IntegerField(default=0)
 
 
 

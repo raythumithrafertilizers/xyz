@@ -1767,7 +1767,6 @@ class BillManagement(View):
             listOfProducts = []
             for temp in body['products']:
                 prdct = ProductsList(price=temp['price'], quantity = temp['quantity'], per_kg_price = temp['kgrate'])
-                print temp['id'], '*****'
                 stock_name_object = StockNames.objects.get(id = temp['id'])
                 specific_stock = StockDetails.objects.get(item_name = stock_name_object)
                 prdct.product = specific_stock
@@ -1786,8 +1785,6 @@ class BillManagement(View):
 
             if 'bill_date' in body:
                 if body['bill_date']:
-                    print 'yes bill date in body', str(datetime.datetime.strptime(body['bill_date'], '%d/%m/%Y'))
-
                     billingObject.bill_date = datetime.datetime.strptime(body['bill_date'], '%d/%m/%Y')
 
             billingObject.total_quantity = body['total_quantity']
@@ -1836,6 +1833,21 @@ def deleteBill(request):
         body = json.loads(body_unicode)
         if 'bill_id' in body:
             bill = Billing.objects.get(id = str(body['bill_id']))
+            products = bill.products_list.all()
+            # increase available stock
+            for temp in products:
+                print temp.quantity
+                temp.product.available_stock += temp.quantity
+                temp.product.save()
+                # removing product
+                temp.delete()
+
+            #advance_objects removing
+            advance_objects = AdvanceDetails.objects.filter(bill_id = bill.id)
+            for temp in advance_objects:
+                temp.delete()
+
+            # deleting bill
             bill.delete()
             return json_response({"status" : "successfully deleted"}, status=200)
         else:
@@ -2354,7 +2366,26 @@ class DeleteSoldStock(APIView):
             body = json.loads(body_unicode)
 
             userdata = SoldStockDetails.objects.get(id = body['purchase_id'])
+
+            # deleting advance objects based on sold stock id
+            advance_details = AdvanceDetails.objects.filter(purchase_id = userdata.id)
+            for temp in advance_details:
+                temp.delete()
+
+            # append details objects removing
+            append_details = AppendStockDetails.objects.filter(sold_stock_id = userdata.id)
+            for temp in append_details:
+                temp.delete()
+
+            # decreasing available count
+            stock_names_object = userdata.stock_object
+            stock_details_object = StockDetails.objects.get(item_name=stock_names_object)
+            stock_details_object.available_stock -= userdata.quantity_in_numbers
+            stock_details_object.save()
+
+            # removing purvchase object
             userdata.delete()
+
             return json_response({"status" : "successfully deleted"}, status=200)
         except Exception as e:
             print e
@@ -2922,6 +2953,7 @@ class AppendStock(View):
             if 'creation_date' in body['stockdata']:
                 append_stock_details.create_date = datetime.datetime.strptime(str(body['stockdata']['creation_date']),
                                                                               "%d/%m/%Y").date()
+            append_stock_details.manual_create_or_append_stock_id = stock.id
             append_stock_details.save()
 
 
@@ -2938,7 +2970,6 @@ class AddStock(View):
         try:
             body_unicode = request.body.decode('utf-8')
             body = json.loads(body_unicode)
-            print body
 
             stock_name = StockNames.objects.get(id=int(body['stockdata']['stock_name']))
 
