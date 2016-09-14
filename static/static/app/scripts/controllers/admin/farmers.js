@@ -239,6 +239,9 @@ angular.module("App")
         }).then(function successCallback(response){
                     toastr.success('successfully saved')
                     $("#amountEditPopUp").modal("hide");
+                    $timeout(function(){
+                            $("#example1").DataTable();
+                    },5000)
 
         }, function errorCallback(response)
         {

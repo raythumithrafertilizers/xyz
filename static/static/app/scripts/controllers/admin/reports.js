@@ -55,7 +55,7 @@ angular.module("App")
                     $scope.data = response.data.data
                     $timeout(function(){
                             $("#example1_modify_stock").DataTable();
-                    },500)
+                    },5000)
 
             }, function errorCallback(response){
                     console.log(response);
@@ -353,7 +353,9 @@ angular.module("App")
                     $scope.remaining_all_stock = response.data.remaining_all_stocks
                     $timeout(function(){
                             $("#example1_modify_stock").DataTable();
-                    },500)
+                            $("#example1_modify_stock1").DataTable();
+                            $("#example1_modify_stock2").DataTable();
+                    },5000)
 
             }, function errorCallback(response){
                     console.log(response);
@@ -461,6 +463,13 @@ angular.module("App")
                     'farmer_id': farmer_id
               }
             }).then(function (response){
+
+                    $timeout(function(){
+                            $("#example1_modify_stock").DataTable();
+                            $("#example1_modify_stock1").DataTable();
+                            $("#example1_modify_stock2").DataTable();
+                    },5000)
+
                     console.log(response, 'report data is')
                     $scope.stock_data = [];
                     console.log(response.data)
@@ -473,9 +482,9 @@ angular.module("App")
                     }
                     $scope.all_farmers = response.data.credits
                     $scope.specific_farmer_data = response.data.debits
-                    $timeout(function(){
-                            $("#example1_modify_stock").DataTable();
-                    },500)
+
+
+
 
             }, function errorCallback(response){
                     console.log(response);
@@ -599,7 +608,9 @@ angular.module("App")
                     $scope.specific_farmer_data = response.data.debits
                     $timeout(function(){
                             $("#example1_modify_stock").DataTable();
-                    },500)
+                            $("#example1_modify_stock1").DataTable();
+                            $("#example1_modify_stock2").DataTable();
+                    },5000)
 
             }, function errorCallback(response){
                     console.log(response);
@@ -722,7 +733,9 @@ angular.module("App")
                     $scope.specific_farmer_data = response.data.credits
                     $timeout(function(){
                             $("#example1_modify_stock").DataTable();
-                    },500)
+                            $("#example1_modify_stock2").DataTable();
+                            $("#example1_modify_stock1").DataTable();
+                    },5000)
 
             }, function errorCallback(response){
                     console.log(response);

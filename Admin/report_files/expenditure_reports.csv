@@ -1,6 +1,9 @@
 Expenditure Reports,
 ,
 create date,amount,type,remarks
+2016-08-31,3433.0,personal,rr
+2016-08-31,34334.0,personal,rr
+2016-10-08,343340.0,personal,rr
 2016-08-10,5555.0,industrial,t
 2016-08-10,55556.0,industrial,t
-Total, , ,61111.0
+Total,442218.0, , 
