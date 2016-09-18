@@ -2,38 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1fe5506-f1c1-4d33-bf3c-f0ec8571d8ca" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Backup-To-Google-Drive" afterPath="$PROJECT_DIR$/Backup-To-Google-Drive" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/append_all_stock_reports.csv" afterPath="$PROJECT_DIR$/Admin/report_files/append_all_stock_reports.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/append_stock_reports.csv" afterPath="$PROJECT_DIR$/Admin/report_files/append_stock_reports.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/customer_all_report_data.csv" afterPath="$PROJECT_DIR$/Admin/report_files/customer_all_report_data.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/customer_debits.csv" afterPath="$PROJECT_DIR$/Admin/report_files/customer_debits.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/customer_dues_sum.csv" afterPath="$PROJECT_DIR$/Admin/report_files/customer_dues_sum.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/expenditure_reports.csv" afterPath="$PROJECT_DIR$/Admin/report_files/expenditure_reports.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/farmer_all_report_data.csv" afterPath="$PROJECT_DIR$/Admin/report_files/farmer_all_report_data.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/farmer_credits.csv" afterPath="$PROJECT_DIR$/Admin/report_files/farmer_credits.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/farmer_debits.csv" afterPath="$PROJECT_DIR$/Admin/report_files/farmer_debits.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/farmer_dues_sum.csv" afterPath="$PROJECT_DIR$/Admin/report_files/farmer_dues_sum.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/harvester_all_report_data.csv" afterPath="$PROJECT_DIR$/Admin/report_files/harvester_all_report_data.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/harvester_credits.csv" afterPath="$PROJECT_DIR$/Admin/report_files/harvester_credits.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/harvester_debits.csv" afterPath="$PROJECT_DIR$/Admin/report_files/harvester_debits.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/report_files/stock_all_report_data.csv" afterPath="$PROJECT_DIR$/Admin/report_files/stock_all_report_data.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Admin/views.py" afterPath="$PROJECT_DIR$/Admin/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/index.html" afterPath="$PROJECT_DIR$/static/static/app/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/billingCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/purchases.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/purchases.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/reports.js" afterPath="$PROJECT_DIR$/static/static/app/scripts/controllers/admin/reports.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/BillingCustomers.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/BillingCustomers.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/append_stock_report.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/append_stock_report.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/create-purchase.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/create-purchase.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/customer_reports.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/customer_reports.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/edit-purchase.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/edit-purchase.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/expenditure_reports.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/expenditure_reports.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/farmer_reports.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/farmer_reports.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/harvester_reports.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/harvester_reports.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/app/views/admin/product_sale_report.html" afterPath="$PROJECT_DIR$/static/static/app/views/admin/product_sale_report.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/css/app.css" afterPath="$PROJECT_DIR$/static/static/css/app.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/static/css/main.css" afterPath="$PROJECT_DIR$/static/static/css/main.css" />
     </list>
     <ignored path="BaseModule.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,11 +25,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/static/css/app.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="114">
               <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="5" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -80,7 +61,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/installations_r.sh" />
         <option value="$PROJECT_DIR$/main_installation.sh" />
         <option value="$PROJECT_DIR$/main_requirements.txt" />
@@ -131,6 +111,7 @@
         <option value="$PROJECT_DIR$/static/static/app/views/admin/append_stock_report.html" />
         <option value="$PROJECT_DIR$/static/static/app/views/admin/expenditure_reports.html" />
         <option value="$PROJECT_DIR$/static/static/css/app.css" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -185,242 +166,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Agro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -941,6 +686,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
           <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="5" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
           <folding />
         </state>
       </provider>
