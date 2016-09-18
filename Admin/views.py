@@ -2306,6 +2306,7 @@ class getSpecificPurchase(View):
 
 
             obj['farmer_name'] = temp.farmer.name
+            obj['quantity_in_numbers'] = temp.quantity_in_numbers
             obj['harvester_name'] = temp.harvester.name
             obj['farmer_id'] = temp.farmer.id
             obj['harvester_id'] = temp.harvester.id

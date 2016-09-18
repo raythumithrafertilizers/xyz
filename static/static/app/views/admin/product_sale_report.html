@@ -3,7 +3,7 @@
         <!-- Content Header (Page header) -->
         <div class="row row-sides"> <!-- row start -->
 
-            <div class="col-xs-12 col-lg-4">
+            <div class="col-xs-12 col-lg-4 col-lg-offset-2">
               <div class="form-group">
                 <label>start Date</label><br/>
                 <input type="text" id="datepicker_sale_products_reports_1" ng-change="call_date_change()" class="form-control" placeholder="Start Date " ng-model="start_date" name="start_date">
@@ -18,27 +18,39 @@
               </div>
             </div>
 
-              <div class="col-xs-12 col-lg-4">
-              <div class="form-group">
+
+        </div> <!-- row end -->
+        <div class="row row-sides">
+          <div class="col-xs-4 col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4 text-center">
+              <div >
                 <label>Select Stock Name</label><br/>
-                <select id="select_farmer"
+                <!--<select id="select_farmer"
                        ng-change="selected_farmer()"
                        class="form-control"
                         ng-model="selected_stock_object"
                        ng-options="stock.id as stock.name for stock in stock_names"
                        name="select_farmer">
-                </select>
+                </select>-->
+
+                  <div isteven-multi-select
+                      input-model="stock_names"
+                      output-model="selected_stock_object"
+                      button-label="name"
+                      on-item-click="selected_farmer()"
+                      item-label="name type"  selection-mode="single"
+                      tick-property="ticked" class="input-drop">
+                  </div>
 
               </div>
             </div>
-        </div> <!-- row end -->
-         <section class="content-header">
-          <h1>
-            Total Quantity: [[ sum_of_quantity]]<br/>
+        </div>
+         <section class="content-header text-center">
+          <h3>
+            Total Quantity: [[ sum_of_quantity]] &nbsp; &nbsp; &nbsp;
             Total Price: [[ sum_of_price ]]
 
 
-          </h1>
+          </h3>
         </section>
         <section class="content-header">
           <h1>

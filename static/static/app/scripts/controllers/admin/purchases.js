@@ -89,6 +89,7 @@ angular.module("App")
                                 $scope.user['need_to_append'] = true
                                 $scope.user['stock_name'] = basic_info['stock_id']
                                 $scope.user['temp_stock_name'] = basic_info['stock_name']
+                                 $scope.user['quantity_in_numbers'] = basic_info['quantity_in_numbers']
 
 
 
@@ -415,6 +416,12 @@ angular.module("App")
                 return;
             }
 
+             if(!$scope.user['stock_name'] || $scope.user['stock_name'] == undefined){
+                toastr.error('please select stock name')
+                return;
+            }
+
+            console.log($scope.user['stock_name'], '******')
 
 
 

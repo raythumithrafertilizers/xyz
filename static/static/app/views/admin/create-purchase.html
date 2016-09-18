@@ -63,7 +63,9 @@
                         <label>Select Product Name(required) </label>
 
 
-                            <select class="form-control" name="invoice_bill" ng-model="user.stock_name"
+                            <select class="form-control"
+                                    name="invoice_bill"
+                                    ng-model="user.stock_name"
                                     ng-options="temp.id as temp.name for temp in stock_names">
                             </select>
 
@@ -94,7 +96,7 @@
                         <input type="text" class="form-control" placeholder="quantity in numbers"
                                ng-model="user.quantity_in_numbers" name="quantity_in_numbers"
                                ng-class="{ 'has-error' : userForm.quantity_in_numbers.$invalid && !userForm.quantity_in_numbers.$pristine }"
-                               autocomplete="off">
+                               autocomplete="off" required>
 
                     </div>
                     </div>
@@ -105,11 +107,13 @@
                 <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
                     <label>Quantity In Tons(required)</label>
-                    <input type="text" class="form-control" placeholder="quantity in numbers"
+                    <input type="text" class="form-control"
+                           placeholder="quantity in numbers"
                            ng-change="quantity_changed();calculate_final_total_mis_detections()"
-                           ng-model="user.quantity" name="quantity"
+                           ng-model="user.quantity"
+                           name="quantity"
                            ng-class="{ 'has-error' : userForm.quantity.$invalid && !userForm.quantity.$pristine }"
-                           autocomplete="off">
+                           autocomplete="off" required>
                     <p ng-show="userForm.quantity.$invalid && !userForm.quantity.$pristine"
                        class="help-block">
                       quantity is required.
@@ -195,8 +199,6 @@
 
                   </div>
                 </div>
-            </div>
-            <div class="row row-sides"> <!-- row start -->
                 <div class="col-xs-12 col-lg-4">
                   <div class="form-group">
                     <label>Remarks</label>
@@ -207,7 +209,6 @@
                   </div>
                 </div>
             </div>
-
 
 
 
@@ -248,9 +249,9 @@
 
 
 
-              <div class="row row-sides"> <!-- row start -->
+              <div class="row row-sides text-center"> <!-- row start -->
                 <button type="submit" ng-click="processed()"
-                        class="btn btn-primary btn-flat btn-on-app"
+                        class="btn btn-primary btn-flat btn-on-app text-center"
                        ng-disabled="userForm.$invalid" >Submit</button>
               </div> <!-- row end -->
 

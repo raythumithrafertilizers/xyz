@@ -3,7 +3,7 @@
         <!-- Content Header (Page header) -->
         <div class="row row-sides"> <!-- row start -->
 
-            <div class="col-xs-12 col-lg-4">
+            <div class="col-xs-12 col-lg-4 col-lg-offset-2">
               <div class="form-group">
                 <label>start Date</label><br/>
                 <input type="text" id="datepicker_sale_products_reports_1" ng-change="call_date_change()" class="form-control" placeholder="Start Date " ng-model="start_date" name="start_date">
@@ -17,30 +17,38 @@
 
               </div>
             </div>
-            <div class="col-xs-12 col-lg-4">
-              <div class="form-group">
-                <label>Select Farmer</label><br/>
+
+        </div> <!-- row end -->
+
+        <div class="row row-sides">
+          <div class="col-xs-3 col-lg-offset-4 text-center">
+             <label >Select Farmer Name</label>
+              <div >
+                <!--<label>Select Stock Name</label><br/>
                 <select id="select_farmer"
                        ng-change="selected_farmer()"
                        class="form-control"
-                        ng-model="selected_farmer_object"
-                       ng-options="user.username for user in userslist"
+                        ng-model="selected_stock_object"
+                       ng-options="stock.id as stock.name for stock in stock_names"
                        name="select_farmer">
-                </select>
+                </select>-->
+
+                  <div isteven-multi-select
+                      input-model="userslist"
+                      output-model="selected_farmer_object"
+                      button-label="username"
+                      on-item-click="selected_farmer()"
+                      item-label="username"  selection-mode="single"
+                      tick-property="ticked" class="input-drop">
+                  </div>
 
               </div>
             </div>
-        </div> <!-- row end -->
-        <section class="content-header">
-          <h1>
-            Farmer Name :: [[ farmer_name]]
+        </div>
 
-          </h1>
-        </section>
-
-        <section class="content-header">
+        <section class="content-header text-center">
           <h1>
-            Total Due ::[[ farmer_due ]]
+            Farmer Name :: [[ farmer_name]] &nbsp;&nbsp; &nbsp;Total Due ::[[ farmer_due ]]
 
           </h1>
         </section>

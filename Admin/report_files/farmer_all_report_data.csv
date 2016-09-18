@@ -1,36 +1,22 @@
 Title,Farmer Reports
-Farmer Name,f1
-,
-Debits Report,
-date,particulars_or_remarks,quantity,value
-2016-09-14,Sugar cane,2.1,6300.0
-2016-09-05,Sugar cane,2.5,7500.0
-2016-09-10,Sugar cane,3.0,8900.0
-2016-09-07,Sugar cane,1.0,3000.0
-2016-09-21,Sugar cane,2.0,5800.0
-2016-09-13,,11.0,11.0
-2016-09-13,Sugar cane,1.2,10.2
-2016-02-28,farmer paid to kranthi,-2000.0
-2016-02-28,farmer paid to kranthi,-900.0
  , ,,
-Total, ,22.8,28621.2
+Total, ,0.0,0.0
 ,
 Credits Report,
 date,particulars,value
-2016-09-14,,1000.0
-2016-09-10,,1000.0
-2016-09-07,,2000.0
-2016-11-11,kranathi paid to farmer 1000,1000.0
-2016-09-13,,1.0
-2016-09-13,,222.0
+2016-09-21,,3000.0
  , ,,
-Total , ,5223.0
+Total , ,3000.0
+ , ,,
+Total , ,0.0
+ , ,,
+Total , ,0.0
 ,
 Farmer Dues,
 farmer Name,due
-f1,-29198.2
+f1,-29116.2
 f2,-5000.0
 f3,0.0
 yashki lakshmi narayana,-445000.0
 ,
-Total,489844.2
+Total,489966.2

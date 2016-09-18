@@ -1,3 +1,12 @@
+@media only screen and (max-width: 700px) {
+    .checkboxLayer {
+        left: 25px;
+    }
+    .main-sidebar {
+        overflow-y: scroll !important;
+        height: 500px;
+    }
+}
 .days-left{
     text-align: center;
     color: white;

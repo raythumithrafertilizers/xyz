@@ -321,10 +321,12 @@ angular.module("App")
 				});
 
     $scope.selected_farmer = function(){
+
+
         var stock_id = false
         if($scope.selected_stock_object){
 
-            stock_id = $scope.selected_stock_object
+            stock_id = $scope.selected_stock_object[0].id
         }
 
 
@@ -449,12 +451,16 @@ angular.module("App")
 				});
 
     $scope.selected_farmer = function(){
+
+
         var farmer_id = false
-        if($scope.selected_farmer_object){
-            farmer_id = $scope.selected_farmer_object.user_id
-            $scope.farmer_name = $scope.selected_farmer_object.username
+        if($scope.selected_farmer_object && $scope.selected_farmer_object.length){
+
+             farmer_id = $scope.selected_farmer_object[0].user_id
+            $scope.farmer_name = $scope.selected_farmer_object[0].username
 
         }
+
 
         // getting former sold details
         var s_split = $scope.start_date.split("/")
@@ -1122,10 +1128,11 @@ angular.module("App")
 				});
 
     $scope.selected_farmer = function(){
-        var stock_id = false
-        if($scope.selected_stock_object){
 
-            stock_id = $scope.selected_stock_object
+        var stock_id = false
+        if($scope.selected_stock_object && $scope.selected_stock_object.length){
+
+            stock_id = $scope.selected_stock_object[0]['id']
         }
 
 

@@ -390,8 +390,7 @@ angular.module("App")
 })
 
 .controller("manageBillingController", function($http,$localStorage, $q, $timeout,toastr,$route, $scope){
-
-	$scope.setUserId = function(user){
+    $scope.setUserId = function(user){
             $localStorage.customer =  user
     }
 
@@ -401,7 +400,7 @@ angular.module("App")
         $("#myModal3").modal("show");
     }
 
-    $scope.confirmDeleteAllBills = function(){
+   /* $scope.confirmDeleteAllBills = function(){
 
         $scope.load =
         $http({
@@ -423,7 +422,7 @@ angular.module("App")
             toastr.error('unable to  updated')
             // console.log("not sent");
         });
-    }
+    }*/
 
 	$scope.load = $http({
 	  		method: 'GET',
@@ -432,17 +431,17 @@ angular.module("App")
 				{
 		    		$scope.userslist = [];
 		    		var usersdata = response.data.userdata;
-		    		$.each(usersdata, function(i){
+		    		for(var i in usersdata){
                         var obj = {};
                         obj.userid = usersdata[i].user_id;
                         obj.username = usersdata[i].name;
                         obj.address =  usersdata[i].address;
                         obj.phone = usersdata[i].phone;
                         $scope.userslist.push(obj);
-                        $timeout(function(){
-                         $("#example1").DataTable();
-                        },500)
-                    })
+                    }
+                    $timeout(function(){
+                       $("#example11").DataTable();
+                    },3000)
 				}, function errorCallback(response)
 				{
 		    		console.log(response);
