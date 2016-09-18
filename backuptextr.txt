@@ -1,1 +1,0 @@
-showing error duplicate advaces objects found in update purchase.
