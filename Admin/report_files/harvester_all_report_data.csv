@@ -1,25 +1,19 @@
 Title,Harvester Reports
 ,,
-Harvester name,harvester5
+Harvester name,h2
 ,,
 Debits Report,,
 date,particulars_or_remarks,quantity,value
-2016-09-14,stock3,45.0,1530.0
-2016-08-30,stock3,2.2,4.4
-2016-03-22,harvester paid to kranthi,-231.0
+2016-09-07,Sugar cane,1.0,400.0
 , ,,
-Total, ,47.2,1303.4
-,
-Credit Reports,
-date,particulars,value
-2016-08-30,,222.0
-2016-03-22,kranthi paid to harvester,120.0
+Total, ,1.0,400.0
  , ,,
-Total , ,342.0
+Total , ,0.0
 ,
 Dues Report,
 Harvester Name,due
-harvester1,-21707.600000000002
-harvester5,-1645.4
+h2,-400.0
+h3,0.0
+h1,-2840.0
 ,
-total,23353.000000000004
+total,1240.0

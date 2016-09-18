@@ -1,33 +1,18 @@
 Title,Customer Reports
-,
-Customer name,customer7
-,
-Credit Reports,
-Date,Bill Number,Quantity,Remarks,Value
-2016-09-10,8,9.0,sold stock3 and stock4 for customer 7,1430.8
-2016-09-09,9,32.0,,5675.0
-2016-09-12,13,55.0,,5555.0
-2016-09-12,14,10.0,,2000.0
-2016-09-12,15,1.0,,45.0
-2016-09-09, , ,kranthi paid to customer 7 9999,9999.0
-2016-09-09, , ,krnathi paid to customer,3456.0
-2016-09-02, , ,sdfsd,9999999.0
  , ,,
-Total , ,107.0, ,10028159.8
+Total , ,0.0, ,0.0
 ,
 Debit Reports,
 date,remarks,value
-2016-09-10,sold stock3 and stock4 for customer 7,-900.0
-2016-09-09,customer paid to krathi,-987.0
-2016-09-09,customer paid to krathi,-456.0
-2016-09-09,,-11.0
+2016-09-08,,-200.0
+2016-11-11,customer paid to kranthi,-300.0
  , ,
-Total, ,-2354.0
+Total, ,-500.0
+ , ,
+Total, ,0.0
 ,
 Customer Dues Report
-customer1,643.0
-customer3,466.0
-customer2,4.0
-customer7,10025805.8
+c2,1257.0
+c1,33.0
 ,
-Total,10026918.8
+Total,1290.0

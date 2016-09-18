@@ -88,7 +88,7 @@ var App = angular.module('App')
     }; // end
 
 })
-.controller('authCtrl', function($scope, $auth,$http,  $location,$rootScope) {
+.controller('authCtrl', function($scope, $auth,$http, $window, $location,$rootScope) {
 
 
 
@@ -162,7 +162,9 @@ var App = angular.module('App')
                 localStorage.removeItem("store_id")
                 localStorage.removeItem("customer_id")
                 $auth.logout();
-                $location.path('/create-purchase')
+                $location.path('/')
+
+                //$location.reload()
             }, function(error){
                 console.log('hellow')
             })

@@ -31,6 +31,11 @@
               </div>
             </div>
         </div> <!-- row end -->
+           <section class="content-header">
+          <h1>
+            Total Amount: [[total]]
+          </h1>
+        </section>
         <section class="content-header">
           <h1>
             Expenditure Reports Data
@@ -49,27 +54,23 @@
               <div class="box">
                 <div class="box-body">
                   <div class="table-responsive-own">
-                  <table id="example1_modify_stock" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th>created date</th>
-                        <th>Amount</th>
-                        <th>Remarks</th>
-                        <th>Type</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat = "temp in data">
+                  <table id="example1_modify_stock10"
+                         class="table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <th>created date</th>
+                          <th>Amount</th>
+                          <th>Remarks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat = "temp in data">
 
-                        <td>[[temp.create_date | date]] </td>
-                        <td>[[temp.amount]] </td>
-                        <td> [[temp.remarks]]</td>
-                        <td> [[temp.type]]</td>
-
-
-
-                      </tr>
-                    </tbody>
+                          <td>[[temp.create_date | date]] </td>
+                          <td>[[temp.amount]] </td>
+                          <td> [[temp.remarks]]</td>
+                        </tr>
+                      </tbody>
                   </table>
 
 
@@ -84,15 +85,4 @@
           </div><!-- /.row -->
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
-    <script>
-      $(function () {
-        $('#example2_modify_stock').DataTable({
-          "paging": true,
-          "lengthChange": false,
-          "searching": false,
-          "ordering": true,
-          "info": true,
-          "autoWidth": false
-        });
-      });
-    </script>
+

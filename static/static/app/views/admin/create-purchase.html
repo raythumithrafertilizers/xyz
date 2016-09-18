@@ -94,7 +94,7 @@
                         <input type="text" class="form-control" placeholder="quantity in numbers"
                                ng-model="user.quantity_in_numbers" name="quantity_in_numbers"
                                ng-class="{ 'has-error' : userForm.quantity_in_numbers.$invalid && !userForm.quantity_in_numbers.$pristine }"
-                               >
+                               autocomplete="off">
 
                     </div>
                     </div>
@@ -109,7 +109,7 @@
                            ng-change="quantity_changed();calculate_final_total_mis_detections()"
                            ng-model="user.quantity" name="quantity"
                            ng-class="{ 'has-error' : userForm.quantity.$invalid && !userForm.quantity.$pristine }"
-                           >
+                           autocomplete="off">
                     <p ng-show="userForm.quantity.$invalid && !userForm.quantity.$pristine"
                        class="help-block">
                       quantity is required.
@@ -123,7 +123,7 @@
                     <input type="text" class="form-control" placeholder="quality"
                            ng-model="user.quality" name="quality"
                            ng-class="{ 'has-error' : userForm.quality.$invalid && !userForm.quality.$pristine }"
-                           >
+                           autocomplete="off">
 
 
                   </div>
@@ -134,7 +134,8 @@
                         <label>Purchase Date(required)</label><br/>
                         <input type="text" id="datepicker_sale_products_reports_1"
                                class="form-control" placeholder="Purchase Date "
-                               ng-model="user.purchase_date" name="user.purchase_date" required>
+                               ng-model="user.purchase_date"  autocomplete="off"
+                               name="user.purchase_date" required>
 
                       </div>
                   </div>
@@ -152,7 +153,7 @@
                            name="farmer_rate_per_ton"
                            ng-change="quantity_changed();calculate_final_total_mis_detections()"
                            ng-class="{ 'has-error' : userForm.farmer_rate_per_ton.$invalid && !userForm.farmer_rate_per_ton.$pristine }"
-                           >
+                           autocomplete="off">
 
                   </div>
                 </div>
@@ -166,7 +167,7 @@
                            name="farmer_total_payment"
                            ng-change="calculate_final_total_mis_detections()"
                            ng-class="{ 'has-error' : userForm.farmer_total_payment.$invalid && !userForm.farmer_total_payment.$pristine }"
-                           >
+                           autocomplete="off">
 
                   </div>
                 </div>
@@ -176,7 +177,7 @@
                     <label>Amount Paid to Farmer</label>
                     <input type="text" class="form-control" placeholder="Enter Advance of Farmer" ng-model="user.farmer_advance"
                            name="farmer_advance" ng-class="{ 'has-error' : userForm.farmer_advance.$invalid && !userForm.farmer_advance.$pristine }"
-                           >
+                           autocomplete="off">
 
                   </div>
                 </div>
@@ -188,7 +189,7 @@
                     <input type="text" class="form-control"
                            placeholder="Enter miscellaneous Detections"
                            ng-model="user.miscellaneous_detections"
-                           name="farmer_advance"
+                           name="farmer_advance" autocomplete="off"
                            ng-keyup="calculate_final_total_mis_detections()"
                            ng-class="{ 'has-error' : userForm.remarks.$invalid && !userForm.remarks.$pristine }">
 
@@ -218,9 +219,9 @@
                     <input type="text" class="form-control"
                            placeholder="Enter Rate Per Ton of Harvester" ng-model="user.harvester_rate_per_ton"
                            name="harvester_rate_per_ton"
-                           ng-change="quantity_changed()"
+                           ng-change="quantity_changed2()"
                            ng-class="{ 'has-error' : userForm.harvester_rate_per_ton.$invalid && !userForm.harvester_rate_per_ton.$pristine }"
-                           >
+                           autocomplete="off">
 
                   </div>
                 </div>
@@ -230,7 +231,7 @@
                   <div class="form-group">
                     <label>Total Value</label>
                     <input type="text" class="form-control" placeholder="Enter Total Payment of Harvester" ng-model="user.harvester_total_payment"
-                           name="harvester_total_payment"
+                           name="harvester_total_payment" autocomplete="off"
                            ng-class="{ 'has-error' : userForm.harvester_total_payment.$invalid && !userForm.harvester_total_payment.$pristine }">
                   </div>
                 </div>
@@ -239,7 +240,7 @@
                   <div class="form-group">
                     <label>Amount Paid to Harvester</label>
                     <input type="text" class="form-control" placeholder="Enter Advance of Harvester" ng-model="user.harvester_advance"
-                           name="harvester_advance" ng-class="{ 'has-error' : userForm.harvester_advance.$invalid && !userForm.harvester_advance.$pristine }">
+                           autocomplete="off" name="harvester_advance" ng-class="{ 'has-error' : userForm.harvester_advance.$invalid && !userForm.harvester_advance.$pristine }">
                   </div>
                 </div>
               </div> <!-- row end -->

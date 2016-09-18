@@ -31,36 +31,38 @@ angular.module("App")
         if($scope.selected_stock_object){
 
             stock_id = $scope.selected_stock_object
-        }
 
 
-        // getting former sold details
-        var s_split = $scope.start_date.split("/")
-        var e_split = $scope.end_date.split("/")
 
-        if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
-            toastr.error('start date must less than end date')
-            return false;
-        }else{
-            $scope.load = $http({
-            method: 'POST',
-              url: '/superuser/expenditure-reports',
-              data: {
-                    'start_date': $scope.start_date,
-                    'end_date':$scope.end_date,
-                    'stock_id': stock_id
-              }
-            }).then(function (response){
-                    console.log(response, 'report data is')
-                    $scope.data = response.data.data
-                    $timeout(function(){
-                            $("#example1_modify_stock").DataTable();
-                    },5000)
+            // getting former sold details
+            var s_split = $scope.start_date.split("/")
+            var e_split = $scope.end_date.split("/")
 
-            }, function errorCallback(response){
-                    console.log(response);
-            });
+            if(new Date(s_split[1]+"/"+s_split[0]+"/"+s_split[2]) > new Date(e_split[1]+"/"+e_split[0]+"/"+e_split[2])){
+                toastr.error('start date must less than end date')
+                return false;
+            }else{
+                $scope.load = $http({
+                method: 'POST',
+                  url: '/superuser/expenditure-reports',
+                  data: {
+                        'start_date': $scope.start_date,
+                        'end_date':$scope.end_date,
+                        'stock_id': stock_id
+                  }
+                }).then(function (response){
+                        console.log(response, 'report data is')
+                        $scope.data = response.data.data
+                        $scope.total = response.data.total
+                        $timeout(function(){
+                                $("#example1_modify_stock10").DataTable();
+                        },2000)
 
+                }, function errorCallback(response){
+                        console.log(response);
+                });
+
+            }
         }
 
 
@@ -201,7 +203,7 @@ angular.module("App")
                     $scope.specific_farmer_data = response.data.specific_farmer_data
                     $timeout(function(){
                             $("#example1_modify_stock").DataTable();
-                    },500)
+                    },2000)
 
             }, function errorCallback(response){
                     console.log(response);
@@ -334,6 +336,14 @@ angular.module("App")
             toastr.error('start date must less than end date')
             return false;
         }else{
+
+            var table = $("#example1_modify_stock").DataTable();
+            table.destroy();
+
+            table = $("#example1_modify_stock1").DataTable();
+            table.destroy();
+
+
             $scope.load = $http({
             method: 'POST',
               url: '/superuser/stock-append-reports',
@@ -354,8 +364,8 @@ angular.module("App")
                     $timeout(function(){
                             $("#example1_modify_stock").DataTable();
                             $("#example1_modify_stock1").DataTable();
-                            $("#example1_modify_stock2").DataTable();
-                    },5000)
+
+                    },2000)
 
             }, function errorCallback(response){
                     console.log(response);
@@ -468,7 +478,7 @@ angular.module("App")
                             $("#example1_modify_stock").DataTable();
                             $("#example1_modify_stock1").DataTable();
                             $("#example1_modify_stock2").DataTable();
-                    },5000)
+                    },2000)
 
                     console.log(response, 'report data is')
                     $scope.stock_data = [];
@@ -585,6 +595,18 @@ angular.module("App")
             toastr.error('start date must less than end date')
             return false;
         }else{
+
+            // destroying table
+            var table = $("#example1_modify_stock").DataTable();
+            table.destroy();
+
+            table = $("#example1_modify_stock1").DataTable();
+            table.destroy();
+
+            table = $("#example1_modify_stock2").DataTable();
+            table.destroy();
+
+
             $scope.load = $http({
             method: 'POST',
               url: '/superuser/harvesters-reports',
@@ -607,10 +629,13 @@ angular.module("App")
                     $scope.all_farmers = response.data.credits
                     $scope.specific_farmer_data = response.data.debits
                     $timeout(function(){
+
+
+
                             $("#example1_modify_stock").DataTable();
                             $("#example1_modify_stock1").DataTable();
                             $("#example1_modify_stock2").DataTable();
-                    },5000)
+                    },2000)
 
             }, function errorCallback(response){
                     console.log(response);
@@ -735,7 +760,7 @@ angular.module("App")
                             $("#example1_modify_stock").DataTable();
                             $("#example1_modify_stock2").DataTable();
                             $("#example1_modify_stock1").DataTable();
-                    },5000)
+                    },2000)
 
             }, function errorCallback(response){
                     console.log(response);
@@ -820,7 +845,7 @@ angular.module("App")
 		    		$scope.customer_data = response.data.customer_details
 		    		$timeout(function(){
                             $("#example1_modify_stock").DataTable();
-                    },500)
+                    },2000)
 
             }, function errorCallback(response){
                     console.log(response);
@@ -882,7 +907,7 @@ angular.module("App")
 
 		    		$timeout(function(){
                             $("#example1_legal_stock").DataTable();
-                    },500)
+                    },2000)
 
 
             }, function errorCallback(response){
@@ -1031,7 +1056,7 @@ angular.module("App")
 
 		    		$timeout(function(){
                             $("#example1_invoice_bill_data").DataTable();
-                    },500)
+                    },2000)
 
 
             }, function errorCallback(response){
@@ -1127,7 +1152,7 @@ angular.module("App")
                         $scope.sum_of_price = response.data.sum_of_price
                         $timeout(function(){
                                 $("#example1_modify_stock").DataTable();
-                        },500)
+                        },2000)
 
             }, function errorCallback(response){
                     console.log(response);

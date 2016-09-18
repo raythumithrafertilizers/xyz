@@ -324,6 +324,10 @@ angular.module("App")
             $scope.user.farmer_total_payment = $scope.user.quantity * $scope.user.farmer_rate_per_ton
         }
 
+         $scope.quantity_changed2 = function(){
+            $scope.user.harvester_total_payment = $scope.user.quantity * $scope.user.harvester_rate_per_ton
+        }
+
          $timeout(function(){
             $('#datepicker_sale_products_reports_1') .datepicker({
                 format: 'dd/mm/yyyy',
@@ -405,6 +409,12 @@ angular.module("App")
                 toastr.error('you must select atleast single farmer or harvester')
                 return;
             }
+
+            if(harvester_count == 1 && farmer_count == 0){
+                toastr.error('you can not select single harvester')
+                return;
+            }
+
 
 
 

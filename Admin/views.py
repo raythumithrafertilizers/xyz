@@ -9,6 +9,8 @@ from django.core.files import File
 from BaseModule.settings import BASE_DIR
 item_types = ["Seeds", "Pesticides", "Fertilizers", "Bio_Pesticides", "Bio_Fertilizers"]
 
+
+
 class ExpenditureReports(APIView):
     """docstring for ClassName"""
 
@@ -69,10 +71,9 @@ class ExpenditureReports(APIView):
 
                 ])
 
-            return Response({"data": temp_data},status=200)
+            return Response({"data": temp_data, "total": sum_of_amount},status=200)
         except Exception as e:
-            print e
-            return Response({"stockslist": e}, status=200)
+            return Response({"stockslist": e.message}, status=403)
 
 
 class GetCompleteInfo(APIView):
@@ -277,7 +278,7 @@ class StockAppendReports(APIView):
 
 
             #-----------------calculating customer sold products------------------------
-
+            print body['stock_id'], '00000000000000'
             stock_names_object_customer_sold = StockNames.objects.get(id=int(body['stock_id']))
             stock_details_object_customer_sold = StockDetails.objects.get(item_name=stock_names_object_customer_sold)
             filter_args3 = {
@@ -314,9 +315,12 @@ class StockAppendReports(APIView):
             sum_of_manufacture_stock = 0.0
             sum_of_purchase_stock_farmers = 0.0
             available_stock = []
+
             if 'stock_id' in body:
                 if body['stock_id']:
+                    print body['stock_id'], '==================='
                     stock_name = StockNames.objects.get(id=body['stock_id'])
+
                     sold_stock_object = StockDetails.objects.get(item_name = stock_name)
                     stock_name = stock_name.name
                     remain_stock = sold_stock_object.available_stock
@@ -1147,7 +1151,10 @@ class HarvestersReport(APIView):
                             count += 1
                         obj = {}
                         obj['date'] = temp.created_date
-                        obj['particulars_remarks'] = temp.stock_object.name
+                        if temp.stock_object:
+                            obj['particulars_remarks'] = temp.stock_object.name
+                        else:
+                            obj['particulars_remarks'] = ""
                         obj['quantity'] = temp.quantity
                         obj['value'] = temp.harvester_payment
                         specific_farmer_debits.append(obj)
@@ -1260,7 +1267,7 @@ class HarvestersReport(APIView):
 
                         if key in farmer_details:
                             sum_of_due += farmer_details[key]
-                            temp_dict['due'] -= farmer_details[key]
+                            temp_dict['due'] += farmer_details[key]
 
                         if key in all_farmers_stock_values:
                             sum_of_due += all_farmers_stock_values[key]
@@ -1383,7 +1390,7 @@ class FarmersReport(APIView):
             if 'farmer_id' in body:
                 if body['farmer_id']:
                     specific_farmer_id = body['farmer_id']
-                    print 'farmer id is', specific_farmer_id
+                    #print 'farmer id is', specific_farmer_id
 
 
 
@@ -1396,6 +1403,7 @@ class FarmersReport(APIView):
             with open(file_path, 'w') as csvfile:
                 spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 count = 0
+                print len(stocklist), "**** length of stock list***"
                 for temp in stocklist:
                     if temp.farmer:
                         if temp.farmer.name in all_farmers_stock_values:
@@ -1412,7 +1420,10 @@ class FarmersReport(APIView):
                             count += 1
                         obj = {}
                         obj['date'] = temp.created_date
-                        obj['particulars_remarks'] = temp.stock_object.name
+                        if temp.stock_object:
+                            obj['particulars_remarks'] = temp.stock_object.name
+                        else:
+                            obj['particulars_remarks'] = ""
                         obj['quantity'] = temp.quantity
                         obj['value'] = temp.farmer_payment
                         specific_farmer_debits1.append(obj)
@@ -1425,6 +1436,8 @@ class FarmersReport(APIView):
                         sum_of_quantity += obj['quantity']
                         sum_of_debits_value += obj['value']
                         count += 1
+
+            print specific_farmer_debits1
 
             if specific_farmer_id:
                 person = Person.objects.get(id = specific_farmer_id)
@@ -1458,7 +1471,7 @@ class FarmersReport(APIView):
                                 ])
                                 sum_of_credits_value += obj['value']
                             elif temp.amount < 0 :
-                                print 'write debits.................', temp.amount
+                                #print 'write debits.................', temp.amount
                                 obj = {}
                                 obj['date'] = temp.paid_date
                                 obj['particulars_remarks'] = temp.remarks
@@ -1527,20 +1540,20 @@ class FarmersReport(APIView):
                 spamwriter.writerow(["farmer Name", "due"])
 
                 for key in list(set(all_keys)):
-                    print key
+                    #print key
                     temp_dict = {}
                     temp_dict['name'] = key
                     temp_dict['due'] = 0.0
 
                     if key in farmer_details:
-                        print 'sum of due is', farmer_details[key]
+                        #print 'sum of due is', farmer_details[key]
                         sum_of_due += farmer_details[key]
                         temp_dict['due'] += farmer_details[key]
 
                     if key in all_farmers_stock_values:
-                        print 'sum of due is', all_farmers_stock_values[key]
+                        #print 'sum of due is', all_farmers_stock_values[key]
                         sum_of_due += all_farmers_stock_values[key]
-                        temp_dict['due'] += all_farmers_stock_values[key]
+                        temp_dict['due'] -= all_farmers_stock_values[key]
 
                     all_borrowers.append(temp_dict)
                     spamwriter.writerow([
@@ -1921,6 +1934,9 @@ class StockNamesOperation(APIView):
                     sn = StockNames(name = body['name'])
                     sn.isActive = True
                     sn.save()
+                    stock_details = StockDetails(item_name=sn)
+                    stock_details.save()
+
 
                 return json_response({"status": "successfully done..."}, status=200)
             except Exception as e:
@@ -2367,6 +2383,8 @@ class DeleteSoldStock(APIView):
 
             userdata = SoldStockDetails.objects.get(id = body['purchase_id'])
 
+            print body
+
             # deleting advance objects based on sold stock id
             advance_details = AdvanceDetails.objects.filter(purchase_id = userdata.id)
             for temp in advance_details:
@@ -2378,6 +2396,7 @@ class DeleteSoldStock(APIView):
                 temp.delete()
 
             # decreasing available count
+            print userdata.stock_object.id
             stock_names_object = userdata.stock_object
             stock_details_object = StockDetails.objects.get(item_name=stock_names_object)
             stock_details_object.available_stock -= userdata.quantity_in_numbers
@@ -2439,7 +2458,7 @@ class AddPurchase(View):
             if 'quality' in body:
                 purchase_item.quality = body['quality']
 
-            if 'quantity_in_numbers':
+            if 'quantity_in_numbers' in body:
                 purchase_item.quantity_in_numbers = body['quantity_in_numbers']
 
             if 'miscellaneous_detections' in body:
@@ -2452,7 +2471,8 @@ class AddPurchase(View):
                 purchase_item.remarks = body['remarks']
             if 'purchase_date' in body:
                 if body['purchase_date']:
-                    purchase_item.created_date =  datetime.datetime.strptime(body['purchase_date'], '%d/%m/%Y')
+                    purchase_item.created_date = datetime.datetime.strptime(body['purchase_date'], '%d/%m/%Y')
+                    print datetime.datetime.strptime(body['purchase_date'], '%d/%m/%Y')
 
             if 'farmer_total_payment' in body:
                 purchase_item.farmer_payment = body['farmer_total_payment']
@@ -2460,7 +2480,6 @@ class AddPurchase(View):
             if 'harvester_total_payment' in body:
                 if body['harvester_total_payment']:
                     purchase_item.harvester_payment = body['harvester_total_payment']
-
             purchase_item.save()
             # advance adding
 
@@ -2485,8 +2504,9 @@ class AddPurchase(View):
             if 'need_to_append' in body:
                 if body['need_to_append']:
                     if 'stock_name' in body:
+                        stock = StockNames.objects.get(id=int(body['stock_name']))
                         if 'quantity_in_numbers' in body:
-                            stock = StockNames.objects.get(id = int(body['stock_name']))
+
                             purchase_item.stock_object = stock
                             purchase_item.save()
                             stock_details = StockDetails.objects.filter(item_name = stock)
@@ -2512,6 +2532,18 @@ class AddPurchase(View):
                                 append_stock_object.remarks = body['remarks']
                             append_stock_object.sold_stock_id = purchase_item.id
                             append_stock_object.save()
+
+                        else:
+                            stock_details = StockDetails.objects.filter(item_name=stock)
+                            if not len(stock_details):
+                                stock_details_object = StockDetails(item_name=stock)
+                                stock_details_object.available_stock = 0.0
+                                dd = datetime.datetime.strptime(body['purchase_date'], '%d/%m/%Y')
+                                stock_details_object.create_date = dd
+                                stock_details_object.month = calendar.month_name[int(dd.month)]
+                                if 'remarks' in body:
+                                    stock_details_object.remarks = body['remarks']
+                                stock_details_object.save()
 
             return json_response({"response" : "successfully added"}, status=200)
         except Exception as e:
