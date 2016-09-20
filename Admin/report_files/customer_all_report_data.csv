@@ -1,50 +1,24 @@
 Title,Customer Reports
+,
+Customer name,customer1
+,
+Credit Reports,
+Date,Bill Number,Quantity,Remarks,Value
+2016-09-08,1,42.0,,6000.0
+2016-08-31,2,7.0,,702.0
  , ,,
-Total , ,0.0, ,0.0
+Total , ,49.0, ,6702.0
 ,
 Debit Reports,
 date,remarks,value
-2016-09-08,,-200.0
-2016-11-11,customer paid to kranthi,-300.0
+2016-09-08,,-5000.0
+2016-08-31,,-400.0
  , ,
-Total, ,-500.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
- , ,
-Total, ,0.0
+Total, ,-5400.0
 ,
 Customer Dues Report
-c2,1257.0
-c1,144.0
+customer1,1302.0
+customer3,0.0
+customer2,35.0
 ,
-Total,1401.0
+Total,1337.0

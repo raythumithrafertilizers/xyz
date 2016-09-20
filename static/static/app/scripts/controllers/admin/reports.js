@@ -586,10 +586,12 @@ angular.module("App")
 				});
 
     $scope.selected_farmer = function(){
+
         var farmer_id = false
+
         if($scope.selected_farmer_object){
-            farmer_id = $scope.selected_farmer_object.user_id
-            $scope.farmer_name = $scope.selected_farmer_object.username
+            farmer_id = $scope.selected_farmer_object[0].user_id
+            $scope.farmer_name = $scope.selected_farmer_object[0].username
 
         }
 
@@ -728,8 +730,8 @@ angular.module("App")
     $scope.selected_farmer = function(){
         var farmer_id = false
         if($scope.selected_farmer_object){
-            farmer_id = $scope.selected_farmer_object.user_id
-            $scope.farmer_name = $scope.selected_farmer_object.username
+            farmer_id = $scope.selected_farmer_object[0].user_id
+            $scope.farmer_name = $scope.selected_farmer_object[0].username
 
         }
 

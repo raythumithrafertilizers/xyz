@@ -1,35 +1,28 @@
 Title,Harvester Reports
+,,
+Harvester name,h1
+,,
+Debits Report,,
+date,particulars_or_remarks,quantity,value
+2016-09-07,Sugar Cane,2.555,1277.5
+2016-09-07,Sugar Cane,2.1,1050.0
+2016-09-21,Sugar Cane,3.255,1627.5
+2016-09-16,Sugar Cane,1.245,622.5
 , ,,
-Total, ,0.0,0.0
+Total, ,9.155000000000001,4577.5
+,
+Credit Reports,
+date,particulars,value
+2016-09-07,,200.0
+2016-09-07,,500.0
+2016-09-21,,100.0
  , ,,
-Total , ,0.0
- , ,,
-Total , ,0.0
- , ,,
-Total , ,0.0
- , ,,
-Total , ,0.0
- , ,,
-Total , ,0.0
- , ,,
-Total , ,0.0
- , ,,
-Total , ,0.0
- , ,,
-Total , ,0.0
- , ,,
-Total , ,0.0
- , ,,
-Total , ,0.0
- , ,,
-Total , ,0.0
- , ,,
-Total , ,0.0
+Total , ,800.0
 ,
 Dues Report,
 Harvester Name,due
-h2,-400.0
-h3,0.0
-h1,-2840.0
+h2,-2288.0
+h3,-672.5
+h1,-3777.5
 ,
-total,1240.0
+total,9938.0

@@ -1,19 +1,28 @@
 Title,Stock Reports
-stock_name,Sugar cane
-Remaining Stock Count,523.0
+stock_name,Sugar Cane
+Remaining Stock Count,4.876
 ,
 ,
 Debit Reports,
 date,quantity,remarks
-2016-09-13,100.0,adding 100 to sugar cane
-2016-09-15,100.0,appending 100 to sugar cane
-2016-09-13,345.0,
-2016-09-08,11.0,
-2016-09-08,10.0,sold to c1
-2016-09-17,23.0,sold to c2
+2016-09-12,2.1,
+2016-09-08,2.22,
+2016-09-07,2.555,
+2016-09-07,2.0,
+2016-09-09,2.3,
+2016-09-15,2.8,
+2016-09-21,3.255,
+2016-09-14,1.345,
+2016-09-21,1.856,
+2016-09-16,1.245,
+2016-09-23,1.2,
+2016-09-08,11.0,sold to customer1
+2016-08-31,2.0,sold to customer1
+2016-09-20,5.0,sold to customer2
 ,
 Remain Stock Reports,
 stock_name,remaining_stock
-Sugar cane,523.0
-Bhajra 10kg,24.0
-Total,547.0
+Sugar Cane,4.876
+Bhajra 10kg,472.0
+Bhajra 13kg,-21.0
+Total,455.876

@@ -300,7 +300,6 @@ class StockAppendReports(APIView):
                 product_info = temp.products_list.filter(product=stock_details_object_customer_sold)
                 if len(product_info):
                     obj = {}
-                    print product_info[0].quantity, '*****'
                     obj['create_date'] = temp.bill_date
                     obj['remarks'] = 'sold to ' + str(temp.customer.name)
                     obj['append_count'] = product_info[0].quantity
@@ -314,7 +313,7 @@ class StockAppendReports(APIView):
             remain_stock = ""
             sum_of_manufacture_stock = 0.0
             sum_of_purchase_stock_farmers = 0.0
-            available_stock = []
+
 
             if 'stock_id' in body:
                 if body['stock_id']:
@@ -369,8 +368,7 @@ class StockAppendReports(APIView):
                                 tmp['remarks']
                             ])
 
-
-
+            available_stock = []
             file_path = BASE_DIR + "/Admin/report_files/append_all_stock_reports.csv"
             sum_of_remaining = 0.0
             with open(file_path, 'w') as csvfile:
@@ -383,7 +381,7 @@ class StockAppendReports(APIView):
                     'remaining_stock'
                 ])
 
-                stocklist = StockDetails.objects.filter(**filter_args2)
+                stocklist = StockDetails.objects.all()
                 for temp in stocklist:
                     obj = {}
                     obj['stock_name'] = temp.item_name.name
@@ -1078,6 +1076,7 @@ class HarvestersReport(APIView):
             body = request.body.decode("utf-8")
             body = json.loads(body)
             specific_farmer_id = False
+            print body
 
             divided_start_date = body['start_date'].split("/")
             divided_end_date = body['end_date'].split("/")
@@ -1110,8 +1109,6 @@ class HarvestersReport(APIView):
                 for advance in advances:
                     farmer_details[harvester.name] += float(advance.amount)
 
-            all_borrowers = []
-            sum_of_due = 0.0
             sum_of_quantity = 0.0
             sum_of_debits_value = 0.0
             sum_of_credits_value = 0.0
@@ -1211,6 +1208,8 @@ class HarvestersReport(APIView):
                                     obj['value']
                                 ])
                                 sum_of_debits_value += obj['value']
+
+            print specific_farmer_debits, specific_harvester_credits, '****'
 
             # writing sum of all cols into files
             with open(credits_file, 'a') as csvfile:

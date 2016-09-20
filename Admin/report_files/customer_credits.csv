@@ -1,2 +1,10 @@
- , ,,
-Total , ,0.0, ,0.0
+Title,Sale Report
+Product Name,Sugar Cane
+,
+,
+,
+Customer Name,Weight,Value
+customer1,13.0,1234.0
+customer2,5.0,345.0
+,,
+Total,18.0,1579.0
